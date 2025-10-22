@@ -1,4 +1,4 @@
-package com.ncpbails.modestmining.integration;
+package com.ncpbails.modestmining.integration.jei;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.ncpbails.modestmining.ModestMining;
 import com.ncpbails.modestmining.block.ModBlocks;
 import com.ncpbails.modestmining.recipe.ForgeRecipe;
-import com.ncpbails.modestmining.recipe.ForgeShapedRecipe;
 import mezz.jei.api.constants.ModIds;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

@@ -2,6 +2,7 @@ package com.ncpbails.modestmining.block.entity.custom;
 
 import com.ncpbails.modestmining.block.custom.ForgeBlock;
 import com.ncpbails.modestmining.block.entity.ModBlockEntities;
+import com.ncpbails.modestmining.recipe.AbstractForgeRecipe;
 import com.ncpbails.modestmining.recipe.ForgeRecipe;
 import com.ncpbails.modestmining.recipe.ForgeShapedRecipe;
 import com.ncpbails.modestmining.screen.ForgeMenu;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -47,6 +49,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     private int fuelAmount = 0;
     static int countOutput = 1;
     private ContainerOpenersCounter openersCounter;
+    private AbstractForgeRecipe currentRecipe = null;
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(11) {
         @Override
@@ -188,6 +191,10 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
             return false;
         }
 
+        if (entity.currentRecipe != null) {
+            return startCraftIfFueled(entity, pos, level, entity.currentRecipe.getCookTime());
+        }
+
         // Check for ForgeShapedRecipe
         Optional<ForgeShapedRecipe> shapedMatch = level.getRecipeManager()
                 .getRecipeFor(ForgeShapedRecipe.Type.INSTANCE, inventory, level);
@@ -197,9 +204,13 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
                 .getRecipeFor(ForgeRecipe.Type.INSTANCE, inventory, level);
 
         if (shapedMatch.isPresent()) {
+            entity.currentRecipe = shapedMatch.get();
             return startCraftIfFueled(entity, pos, level, shapedMatch.get().getCookTime());
         } else if (recipeMatch.isPresent()) {
+            entity.currentRecipe = recipeMatch.get();
             return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
+        } else {
+            entity.currentRecipe = null;
         }
 
         return false;
@@ -230,8 +241,8 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (!this.level.isClientSide) {
             var fuel = this.itemHandler.getStackInSlot(9).copy();
             if (AbstractFurnaceBlockEntity.isFuel(fuel) && this.litTime == 0) {
-                this.fuelAmount = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING)+1;
-                this.litTime = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING)+1;
+                this.fuelAmount = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING)+2;
+                this.litTime = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING)+2;
                 if (fuel.getCount() > 1) {
                     fuel.setCount(fuel.getCount()-1);
                     this.itemHandler.setStackInSlot(9, fuel);
@@ -245,63 +256,35 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private static void craftItem(ForgeBlockEntity entity) {
-        Level level = entity.level;
+
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        // Check for ForgeShapedRecipe
-        Optional<ForgeShapedRecipe> shapedMatch = level.getRecipeManager()
-                .getRecipeFor(ForgeShapedRecipe.Type.INSTANCE, inventory, level);
-
-        // Check for ForgeRecipe
-        Optional<ForgeRecipe> recipeMatch = level.getRecipeManager()
-                .getRecipeFor(ForgeRecipe.Type.INSTANCE, inventory, level);
-
-        if (shapedMatch.isPresent()) {
+        var currentRecipe = entity.currentRecipe;
+        if (currentRecipe != null) {
             for(int i = 0; i < 9; ++i) {
                 ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
                 if (slotStack.hasCraftingRemainingItem()) {
-                    Direction direction = ((Direction)entity.getBlockState().getValue(ForgeBlock.FACING)).getCounterClockWise();
+                    Direction direction = entity.getBlockState().getValue(ForgeBlock.FACING).getCounterClockWise();
                     double x = (double)entity.worldPosition.getX() + 0.5 + (double)direction.getStepX() * 0.25;
                     double y = (double)entity.worldPosition.getY() + 0.7;
                     double z = (double)entity.worldPosition.getZ() + 0.5 + (double)direction.getStepZ() * 0.25;
-                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (double)((float)direction.getStepX() * 0.08F), 0.25, (double)((float)direction.getStepZ() * 0.08F));
+                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (float)direction.getStepX() * 0.08F, 0.25, (float)direction.getStepZ() * 0.08F);
                 }
             }
 
             for (int i = 0; i < 9; ++i) {
                 entity.itemHandler.extractItem(i, 1, false);
             }
-            inventory.getItem(10).is(shapedMatch.get().getResultItem().getItem());
+            inventory.getItem(10).is(currentRecipe.getResultItem().getItem());
 
-            entity.itemHandler.setStackInSlot(10, new ItemStack(shapedMatch.get().getResultItem().getItem(),
-                    entity.itemHandler.getStackInSlot(10).getCount() + entity.getTheCount(shapedMatch.get().getResultItem())));
-
-            entity.resetProgress();
-
-        } else if (recipeMatch.isPresent()) {
-            for(int i = 0; i < 9; ++i) {
-                ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-                if (slotStack.hasCraftingRemainingItem()) {
-                    Direction direction = ((Direction)entity.getBlockState().getValue(ForgeBlock.FACING)).getCounterClockWise();
-                    double x = (double)entity.worldPosition.getX() + 0.5 + (double)direction.getStepX() * 0.25;
-                    double y = (double)entity.worldPosition.getY() + 0.7;
-                    double z = (double)entity.worldPosition.getZ() + 0.5 + (double)direction.getStepZ() * 0.25;
-                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (double)((float)direction.getStepX() * 0.08F), 0.25, (double)((float)direction.getStepZ() * 0.08F));
-                }
-            }
-
-            for (int i = 0; i < 9; ++i) {
-                entity.itemHandler.extractItem(i, 1, false);
-            }
-            inventory.getItem(10).is(recipeMatch.get().getResultItem().getItem());
-
-            entity.itemHandler.setStackInSlot(10, new ItemStack(recipeMatch.get().getResultItem().getItem(),
-                    entity.itemHandler.getStackInSlot(10).getCount() + entity.getTheCount(recipeMatch.get().getResultItem())));
+            entity.itemHandler.setStackInSlot(10, new ItemStack(currentRecipe.getResultItem().getItem(),
+                    entity.itemHandler.getStackInSlot(10).getCount() + entity.getTheCount(currentRecipe.getResultItem())));
 
             entity.resetProgress();
+
         }
     }
     public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
@@ -317,5 +300,6 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     private void resetProgress() {
         this.progress = 0;
         this.maxProgress = 72;
+        this.currentRecipe = null;
     }
 }

@@ -1,4 +1,4 @@
-package com.ncpbails.modestmining.integration;
+package com.ncpbails.modestmining.integration.jei;
 
 import com.ncpbails.modestmining.ModestMining;
 import com.ncpbails.modestmining.block.ModBlocks;
