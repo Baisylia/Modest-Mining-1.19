@@ -197,6 +197,7 @@ dependencies {
     compileOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2:api")
     runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2")
 
+    compileOnly fg.deobf("curse.maven:every-compat-628539:6583846")
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
