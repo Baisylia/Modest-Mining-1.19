@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 import java.util.Map;
 import java.util.Set;
 
-public class ForgeShapedRecipe implements Recipe<SimpleContainer> {
+public class ForgeShapedRecipe extends AbstractForgeRecipe {
     static int MAX_WIDTH = 3;
     static int MAX_HEIGHT = 3;
     public static void setCraftingSize(int width, int height) {
@@ -36,24 +36,19 @@ public class ForgeShapedRecipe implements Recipe<SimpleContainer> {
 
     final int width;
     final int height;
-    private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
     private final int cookTime;
     private final boolean isSimple;
+
     public ForgeShapedRecipe(int width, int height, ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime) {
+        super(id, output, recipeItems, cookTime);
         this.width = width;
         this.height = height;
-        this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
         this.cookTime = cookTime;
         this.isSimple = recipeItems.stream().allMatch(Ingredient::isSimple);
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
     }
 
     @Override
@@ -62,19 +57,6 @@ public class ForgeShapedRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public ItemStack getResultItem() {
-        return output.copy();
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return recipeItems;
-    }
-
-    public int getCookTime() {
-        return this.cookTime;
-    }
-
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
         ItemStack outputSlot = pContainer.getItem(10);
         if (!outputSlot.isEmpty() && !ItemStack.isSame(this.getResultItem(), outputSlot)) {
