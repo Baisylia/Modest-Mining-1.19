@@ -7,12 +7,14 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import java.util.List;
 
 public class ForgingShapedEmiRecipe extends AbstractForgingRecipe {
 
+    private final List<Ingredient> ingredients;
     private final int height;
     private final int width;
 
@@ -20,6 +22,7 @@ public class ForgingShapedEmiRecipe extends AbstractForgingRecipe {
         super(recipe.getId(), padIngredients(recipe), recipe.getResultItem(), recipe.getCookTime());
         this.height = recipe.getHeight();
         this.width = recipe.getWidth();
+        this.ingredients = recipe.getIngredients();
     }
 
     @Override
@@ -36,7 +39,7 @@ public class ForgingShapedEmiRecipe extends AbstractForgingRecipe {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                builder.addSlot(getInputs().get(index), startX + x * 18, startY + y * 18).drawBack(false);
+                builder.addSlot(EmiIngredient.of(ingredients.get(index)), startX + x * 18, startY + y * 18).drawBack(false);
                 index++;
             }
         }
