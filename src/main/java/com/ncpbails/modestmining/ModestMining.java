@@ -6,6 +6,7 @@ import com.ncpbails.modestmining.block.entity.ModBlockEntities;
 import com.ncpbails.modestmining.effect.ModEffects;
 import com.ncpbails.modestmining.entity.ModEntityTypes;
 import com.ncpbails.modestmining.entity.client.ClamRenderer;
+import com.ncpbails.modestmining.integration.everycompat.EveryCompatIntegration;
 import com.ncpbails.modestmining.item.ModItems;
 import com.ncpbails.modestmining.recipe.ModRecipes;
 import com.ncpbails.modestmining.screen.ForgeScreen;
@@ -70,6 +71,8 @@ public class ModestMining
         ModSounds.SOUND_EVENTS.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        EveryCompatIntegration.register();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

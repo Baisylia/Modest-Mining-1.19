@@ -309,7 +309,16 @@
   "block.modestmining.mangrove_board_wall": "Mangrove Panel Wall",
   "block.modestmining.mangrove_tile_wall": "Mangrove Tile Wall",
   "block.modestmining.mangrove_carved_plank_wall": "Carved Mangrove Plank Wall",
-  
+
+  "block_type.modestmining.boards": "%s Panels",
+  "block_type.modestmining.board_slab": "%s Panel Slab",
+  "block_type.modestmining.board_stairs": "%s Panel Stairs",
+  "block_type.modestmining.board_wall": "%s Panel Wall",
+  "block_type.modestmining.tiles": "%s Tiles",
+  "block_type.modestmining.tile_slab": "%s Tile Slab",
+  "block_type.modestmining.tile_stairs": "%s Tile Stairs",
+  "block_type.modestmining.tile_wall": "%s Tile Wall",
+  "block_type.modestmining.pillar": "%s Pillar",
 
   "block.minecraft.amethyst_block": "Amethyst Block",
 
