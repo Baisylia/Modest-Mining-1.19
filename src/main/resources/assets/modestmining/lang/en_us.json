@@ -319,6 +319,11 @@
   "block_type.modestmining.tile_stairs": "%s Tile Stairs",
   "block_type.modestmining.tile_wall": "%s Tile Wall",
   "block_type.modestmining.pillar": "%s Pillar",
+  "block_type.modestmining.chiseled_planks": "Chiseled %s Planks",
+  "block_type.modestmining.carved_planks": "Carved %s Planks",
+  "block_type.modestmining.carved_plank_stairs": "Carved %s Plank Stairs",
+  "block_type.modestmining.carved_plank_slab": "Carved %s Plank Slab",
+  "block_type.modestmining.carved_plank_wall": "Carved %s Plank Wall",
 
   "block.minecraft.amethyst_block": "Amethyst Block",
 
