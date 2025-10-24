@@ -72,7 +72,8 @@ public class ModestMining
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        EveryCompatIntegration.register();
+        if (ModList.get().isLoaded("everycomp"))
+            EveryCompatIntegration.register();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
