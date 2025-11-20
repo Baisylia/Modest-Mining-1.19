@@ -24,8 +24,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "org.spongepowered.mixin"
 
-version = '0.2.13'
-group = 'com.ncpbails.modestmining' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = '0.2.14'
+group = 'com.baisylia.modestmining' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'modestmining'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -221,11 +221,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "modestmining",
-                "Specification-Vendor"    : "ncpbails",
-                "Specification-Version"   : "0.2.13", // We are version 1 of ourselves
+                "Specification-Vendor"    : "baisylia",
+                "Specification-Version"   : "0.2.14", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "ncpbails",
+                "Implementation-Vendor"   : "baisylia",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
