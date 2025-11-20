@@ -165,6 +165,18 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        forRepositories(fg.repository) // Only add this if you're using ForgeGradle, otherwise remove this line
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -189,15 +201,13 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:blueprint-382216:4442628")
     runtimeOnly fg.deobf("curse.maven:upgradeaquatic-326895:4415517")
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
-    runtimeOnly fg.deobf("curse.maven:moonlightlib-499980:4460381")
-    runtimeOnly fg.deobf("curse.maven:everycompat-628539:4510943")
+    implementation fg.deobf("curse.maven:moonlightlib-499980:4460381")
+    implementation fg.deobf("maven.modrinth:every-compat:xUCsILcc")
     runtimeOnly fg.deobf("curse.maven:savageandravage-381736:4776245")
     runtimeOnly fg.deobf("curse.maven:oreganized-769203:4377982")
 
     compileOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2:api")
     runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2")
-
-    compileOnly fg.deobf("curse.maven:every-compat-628539:6583846")
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
