@@ -18,9 +18,7 @@ public class ForgingRecipeHandler implements StandardRecipeHandler<ForgeMenu> {
     @Override
     public List<Slot> getInputSources(ForgeMenu handler) {
         List<Slot> list = Lists.newArrayList();
-        list.add(handler.getSlot(0));
-        int invStart = 3;
-        for (int i = invStart; i < invStart + 36; i++) {
+        for (int i = 0; i < 45; i++) {
             list.add(handler.getSlot(i));
         }
         return list;
