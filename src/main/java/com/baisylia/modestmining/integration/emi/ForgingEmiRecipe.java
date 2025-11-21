@@ -30,7 +30,7 @@ public class ForgingEmiRecipe extends AbstractForgingRecipe {
 
     @Override
     public void addWidgets(WidgetHolder builder) {
-        builder.addTexture(AbstractForgingRecipe.TEXTURE, 0, 0, 116, 60, 0, 0);
+        builder.addTexture(AbstractForgingRecipe.TEXTURE, 0, 0, 120, 60, 0, 0);
 
         builder.addSlot(getInputs().get(0), 2, 4);
         if (getInputs().size() > 1) {
