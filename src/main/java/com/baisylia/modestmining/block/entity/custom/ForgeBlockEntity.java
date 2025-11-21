@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +32,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,13 +41,14 @@ import java.util.Optional;
 
 import static com.baisylia.modestmining.block.custom.ForgeBlock.LIT;
 
-public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
+public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
 
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 72;
     private int litTime = 0;
     private int fuelAmount = 0;
+    private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
     static int countOutput = 1;
     private ContainerOpenersCounter openersCounter;
     private AbstractForgeRecipe currentRecipe = null;
@@ -100,11 +103,22 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         return new ForgeMenu(pContainerId, pInventory, this, this.data);
     }
 
+   LazyOptional<? extends IItemHandler>[] handlers =
+            SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+        if (side == null && cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
+        }
+        if (!this.remove && side != null && cap == ForgeCapabilities.ITEM_HANDLER) {
+            if (side == Direction.UP)
+                return handlers[0].cast();
+            else if (side == Direction.DOWN)
+                return handlers[1].cast();
+            else
+                return handlers[2].cast();
         }
 
         return super.getCapability(cap, side);
@@ -164,7 +178,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (hasRecipe(pBlockEntity)) {
             pBlockEntity.progress++;
             pBlockEntity.setChanged(pLevel, pPos, pState, true);
-            if (pBlockEntity.progress > pBlockEntity.maxProgress) {
+            if (pBlockEntity.progress == pBlockEntity.maxProgress) {
                 craftItem(pBlockEntity);
             }
         } else {
@@ -240,8 +254,8 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (!this.level.isClientSide) {
             var fuel = this.itemHandler.getStackInSlot(9).copy();
             if (AbstractFurnaceBlockEntity.isFuel(fuel) && this.litTime == 0) {
-                this.fuelAmount = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING)+2;
-                this.litTime = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING)+2;
+                this.fuelAmount = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING);
+                this.litTime = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING);
                 if (fuel.getCount() > 1) {
                     fuel.setCount(fuel.getCount()-1);
                     this.itemHandler.setStackInSlot(9, fuel);
@@ -300,5 +314,86 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
         this.progress = 0;
         this.maxProgress = 72;
         this.currentRecipe = null;
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction direction) {
+        if (direction == Direction.UP) {
+            return INGREDIENT_SLOTS;
+        } else {
+            return new int[]{direction == Direction.DOWN ? 10 : 9};
+        }
+    }
+
+    public boolean canPlaceItem(int slot, ItemStack itemStack) {
+        if (slot == 10) {
+            return false;
+        } else if (slot == 9) {
+            return ForgeHooks.getBurnTime(itemStack, RecipeType.BLASTING) > 0;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction) {
+        return canPlaceItem(slot, itemStack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
+        return true;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return this.itemHandler.getSlots();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for(int i = 0; i < this.itemHandler.getSlots(); ++i) {
+            ItemStack itemStack = this.itemHandler.getStackInSlot(i);
+            if (!itemStack.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        return this.itemHandler.getStackInSlot(slot);
+    }
+
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        return this.itemHandler.extractItem(slot, amount, false);
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        return this.itemHandler.extractItem(slot, 1, false);
+    }
+
+    @Override
+    public void setItem(int slot, ItemStack itemStack) {
+        this.itemHandler.setStackInSlot(slot, itemStack);
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        if (this.level.getBlockEntity(this.worldPosition) != this) {
+            return false;
+        } else {
+            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
+        }
+    }
+
+    @Override
+    public void clearContent() {
+        for(int i = 0; i < 11; ++i) {
+            this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
     }
 }
