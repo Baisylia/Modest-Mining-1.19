@@ -31,7 +31,7 @@ public class ForgingShapedEmiRecipe extends AbstractForgingRecipe {
 
     @Override
     public void addWidgets(WidgetHolder builder) {
-        builder.addTexture(AbstractForgingRecipe.TEXTURE, 0, 0, 116, 60, 0, 0);
+        builder.addTexture(AbstractForgingRecipe.TEXTURE, 0, 0, 120, 60, 0, 0);
         int startX = 2;
         int startY = 4;
         int index = 0;

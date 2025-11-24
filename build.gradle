@@ -24,7 +24,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "org.spongepowered.mixin"
 
-version = '0.2.14'
+version = '0.2.15'
 group = 'com.baisylia.modestmining' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'modestmining'
 
