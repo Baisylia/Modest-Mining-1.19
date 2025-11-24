@@ -24,7 +24,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "org.spongepowered.mixin"
 
-version = '0.2.15'
+version = '0.2.16'
 group = 'com.baisylia.modestmining' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'modestmining'
 
@@ -222,7 +222,7 @@ jar {
         attributes([
                 "Specification-Title"     : "modestmining",
                 "Specification-Vendor"    : "baisylia",
-                "Specification-Version"   : "0.2.14", // We are version 1 of ourselves
+                "Specification-Version"   : "0.2.16", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "baisylia",
