@@ -3,23 +3,22 @@ package com.baisylia.modestmining.block.entity.custom;
 import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
-import com.baisylia.modestmining.recipe.ForgeRecipe;
-import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
+import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -41,7 +40,7 @@ import java.util.Optional;
 
 import static com.baisylia.modestmining.block.custom.ForgeBlock.LIT;
 
-public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
     protected final ContainerData data;
     private int progress = 0;
@@ -64,6 +63,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final RecipeManager.CachedCheck<Container, AbstractForgeRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.FORGING_TYPE.get());
 
     public ForgeBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.FORGE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -208,24 +208,13 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             return startCraftIfFueled(entity, pos, level, entity.currentRecipe.getCookTime());
         }
 
-        // Check for ForgeShapedRecipe
-        Optional<ForgeShapedRecipe> shapedMatch = level.getRecipeManager()
-                .getRecipeFor(ForgeShapedRecipe.Type.INSTANCE, inventory, level);
-
         // Check for ForgeRecipe
-        Optional<ForgeRecipe> recipeMatch = level.getRecipeManager()
-                .getRecipeFor(ForgeRecipe.Type.INSTANCE, inventory, level);
-
-        if (shapedMatch.isPresent()) {
-            entity.currentRecipe = shapedMatch.get();
-            return startCraftIfFueled(entity, pos, level, shapedMatch.get().getCookTime());
-        } else if (recipeMatch.isPresent()) {
+        Optional<AbstractForgeRecipe> recipeMatch = entity.quickCheck.getRecipeFor(inventory, level);
+        if (recipeMatch.isPresent()) {
             entity.currentRecipe = recipeMatch.get();
             return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
-        } else {
-            entity.currentRecipe = null;
         }
-
+        entity.currentRecipe = null;
         return false;
     }
 
@@ -392,8 +381,17 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
 
     @Override
     public void clearContent() {
-        for(int i = 0; i < 11; ++i) {
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
+
+    @Override
+    public void fillStackedContents(StackedContents pHelper) {
+        for (int i = 0; i < this.getContainerSize(); i++) {
+            ItemStack stack = this.getItem(i);
+            pHelper.accountStack(stack);
+        }
+    }
+
 }
