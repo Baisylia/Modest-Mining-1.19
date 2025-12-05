@@ -1,14 +1,19 @@
 package com.baisylia.modestmining.screen;
 
+import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
 import com.baisylia.modestmining.screen.slot.ModFuelSlot;
 import com.baisylia.modestmining.screen.slot.ModResultSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,39 +21,46 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ForgeMenu extends AbstractContainerMenu {
+public class ForgeMenu extends RecipeBookMenu<Container> {
 
     private final ForgeBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
     public ForgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainer(11), new SimpleContainerData(4));
     }
 
-    public ForgeMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
+    public ForgeMenu(int pContainerId, Inventory inv, BlockEntity entity, Container container, ContainerData data) {
         super(ModMenuTypes.FORGE_MENU.get(), pContainerId);
         checkContainerSize(inv, 11);
         blockEntity = ((ForgeBlockEntity) entity);
         this.level = inv.player.level;
         this.data = data;
 
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
-
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 30, 17));
-            this.addSlot(new SlotItemHandler(handler, 1, 48, 17));
-            this.addSlot(new SlotItemHandler(handler, 2, 66, 17));
-            this.addSlot(new SlotItemHandler(handler, 3, 30, 35));
-            this.addSlot(new SlotItemHandler(handler, 4, 48, 35));
-            this.addSlot(new SlotItemHandler(handler, 5, 66, 35));
-            this.addSlot(new SlotItemHandler(handler, 6, 30, 53));
-            this.addSlot(new SlotItemHandler(handler, 7, 48, 53));
-            this.addSlot(new SlotItemHandler(handler, 8, 66, 53));
-            this.addSlot(new ModFuelSlot(handler, 9, 93, 53));
-            this.addSlot(new ModResultSlot(handler, 10, 124, 19));
+            int index = 0;
+            for (int y = 0; y < 3; y++) {
+                for (int x = 0; x < 3; x++) {
+                    this.addSlot(new SlotItemHandler(handler, index, 30 + x * 18, 17 + y * 18));
+                    index++;
+                }
+            }
+            this.addSlot(new ModFuelSlot(handler, index, 93, 53));
+            index++;
+            this.addSlot(new ModResultSlot(handler, index, 124, 19));
         });
+
+        int index = 0;
+        for (int x = 0; x < 3; ++x) {
+            for (int y = 0; y < 9; ++y) {
+                this.addSlot(new Slot(inv, index++, 8 + y * 18, 84 + x * 18));
+            }
+        }
+
+        for (int x = 0; x < 9; ++x) {
+            this.addSlot(new Slot(inv, ++index, 8 + x * 18, 142));
+        }
 
         addDataSlots(data);
     }
@@ -138,17 +150,51 @@ public class ForgeMenu extends AbstractContainerMenu {
                 pPlayer, ModBlocks.FORGE.get());
     }
 
-    private void addPlayerInventory(Inventory playerInventory) {
-        for (int i = 0; i < 3; ++i) {
-            for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18));
-            }
+    @Override
+    public void fillCraftSlotsStackedContents(StackedContents helper) {
+        if (this.blockEntity instanceof StackedContentsCompatible entity) {
+            entity.fillStackedContents(helper);
         }
     }
 
-    private void addPlayerHotbar(Inventory playerInventory) {
-        for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
-        }
+    @Override
+    public void clearCraftingContent() {
+        for (int i = 0; i < 9; ++i) this.getSlot(i).set(ItemStack.EMPTY);
     }
+
+    @Override
+    public boolean recipeMatches(Recipe<? super Container> recipe) {
+        return recipe.matches(this.blockEntity, this.level);
+    }
+
+    @Override
+    public int getResultSlotIndex() {
+        return 10;
+    }
+
+    @Override
+    public int getGridWidth() {
+        return 3;
+    }
+
+    @Override
+    public int getGridHeight() {
+        return 3;
+    }
+
+    @Override
+    public int getSize() {
+        return 11;
+    }
+
+    @Override
+    public RecipeBookType getRecipeBookType() {
+        return ModestMining.FORGING_RECIPE_BOOK_TYPE;
+    }
+
+    @Override
+    public boolean shouldMoveToInventory(int index) {
+        return index < (getGridWidth() * getGridHeight());
+    }
+
 }

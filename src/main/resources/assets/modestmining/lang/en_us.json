@@ -338,5 +338,6 @@
   "emi.category.modestmining.shaped_forging": "Shaped Forging",
   "emi.category.modestmining.shapeless_forging": "Shapeless Forging",
 
-  "modestmining.subtitles.forge.crackle": "Forge crackles"
+  "modestmining.subtitles.forge.crackle": "Forge crackles",
+  "gui.recipe_book.toggle_recipes.forgeable": "Toggle Forgeable"
 }

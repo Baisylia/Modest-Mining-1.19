@@ -1,7 +1,9 @@
 package com.baisylia.modestmining.integration.emi;
 
 import com.baisylia.modestmining.ModestMining;
+import com.baisylia.modestmining.recipe.ForgingBookCategory;
 import dev.emi.emi.api.recipe.EmiRecipe;
+import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
@@ -14,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractForgingRecipe implements EmiRecipe {
+
     public final static ResourceLocation TEXTURE = new ResourceLocation(ModestMining.MOD_ID, "textures/gui/forge_gui_jei.png");
     final List<EmiIngredient> ingredients;
     final int cookTime;

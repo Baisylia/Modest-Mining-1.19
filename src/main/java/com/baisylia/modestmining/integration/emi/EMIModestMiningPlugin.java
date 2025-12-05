@@ -1,5 +1,7 @@
 package com.baisylia.modestmining.integration.emi;
 
+import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ModRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
@@ -37,11 +39,11 @@ public class EMIModestMiningPlugin implements EmiPlugin {
         registry.addWorkstation(SHAPELESS_FORGING, forge);
         registry.addCategory(SHAPED_FORGING);
         registry.addWorkstation(SHAPED_FORGING, forge);
-        for (ForgeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ForgeRecipe.Type.INSTANCE)) {
-            registry.addRecipe(new ForgingEmiRecipe(recipe));
+        for (AbstractForgeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipes.FORGING_TYPE.get())) {
+            registry.addRecipe(new ForgingEmiRecipe((ForgeRecipe)recipe));
         }
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(ForgeShapedRecipe.Type.INSTANCE)) {
-            registry.addRecipe(new ForgingShapedEmiRecipe(recipe));
+        for (AbstractForgeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(ModRecipes.FORGING_TYPE.get())) {
+            registry.addRecipe(new ForgingShapedEmiRecipe((ForgeShapedRecipe)recipe));
         }
         registry.addRecipeHandler(ModMenuTypes.FORGE_MENU.get(), new ForgingRecipeHandler());
     }
