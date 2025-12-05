@@ -13,8 +13,10 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -38,7 +40,7 @@ import java.util.Optional;
 
 import static com.baisylia.modestmining.block.custom.ForgeBlock.LIT;
 
-public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
     protected final ContainerData data;
     private int progress = 0;
@@ -98,7 +100,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new ForgeMenu(pContainerId, pInventory, this, this, this.data);
+        return new ForgeMenu(pContainerId, pInventory, this, this.data);
     }
 
    LazyOptional<? extends IItemHandler>[] handlers =
@@ -379,8 +381,17 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
 
     @Override
     public void clearContent() {
-        for(int i = 0; i < 11; ++i) {
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
+
+    @Override
+    public void fillStackedContents(StackedContents pHelper) {
+        for (int i = 0; i < this.getContainerSize(); i++) {
+            ItemStack stack = this.getItem(i);
+            pHelper.accountStack(stack);
+        }
+    }
+
 }

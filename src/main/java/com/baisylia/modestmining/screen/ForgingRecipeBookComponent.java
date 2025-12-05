@@ -11,7 +11,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ForgingRecipeBookComponent extends RecipeBookComponent {
@@ -30,12 +29,6 @@ public class ForgingRecipeBookComponent extends RecipeBookComponent {
 	@Override
 	protected void initFilterButtonTextures() {
 		this.filterButton.initTextureValues(176, 31, 28, 18, RECIPE_BOOK_BUTTON_TEXTURE);
-	}
-
-	@Override
-	public void slotClicked(@Nullable Slot slot) {
-		super.slotClicked(slot);
-		if (slot != null && slot.index < this.menu.getSize()) this.ghostRecipe.clear();
 	}
 
 	@Override
