@@ -200,14 +200,6 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        if (!inventory.getItem(10).isEmpty() && !inventory.getItem(10).isStackable()) {
-            return false;
-        }
-
-        if (entity.currentRecipe != null) {
-            return startCraftIfFueled(entity, pos, level, entity.currentRecipe.getCookTime());
-        }
-
         // Check for ForgeShapedRecipe
         Optional<ForgeShapedRecipe> shapedMatch = level.getRecipeManager()
                 .getRecipeFor(ForgeShapedRecipe.Type.INSTANCE, inventory, level);
@@ -217,11 +209,17 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
                 .getRecipeFor(ForgeRecipe.Type.INSTANCE, inventory, level);
 
         if (shapedMatch.isPresent()) {
-            entity.currentRecipe = shapedMatch.get();
-            return startCraftIfFueled(entity, pos, level, shapedMatch.get().getCookTime());
+            ItemStack result = shapedMatch.get().getResultItem();
+            if (canInsertAmountIntoOutputSlot(inventory, result)) {
+                entity.currentRecipe = shapedMatch.get();
+                return startCraftIfFueled(entity, pos, level, shapedMatch.get().getCookTime());
+            }
         } else if (recipeMatch.isPresent()) {
-            entity.currentRecipe = recipeMatch.get();
-            return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
+            ItemStack result = recipeMatch.get().getResultItem();
+            if (canInsertAmountIntoOutputSlot(inventory, result)) {
+                entity.currentRecipe = recipeMatch.get();
+                return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
+            }
         } else {
             entity.currentRecipe = null;
         }
@@ -266,6 +264,20 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             }
         }
         return false;
+    }
+
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
+        ItemStack currentOutput = inventory.getItem(10);
+
+        if (currentOutput.isEmpty()) {
+            return true;
+        }
+
+        if (!currentOutput.is(output.getItem())) {
+            return false;
+        }
+
+        return currentOutput.getCount() + output.getCount() <= currentOutput.getMaxStackSize();
     }
 
     private static void craftItem(ForgeBlockEntity entity) {
