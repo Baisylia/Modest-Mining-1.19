@@ -2,8 +2,10 @@ package com.baisylia.modestmining.integration.jei;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
+import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
 import com.baisylia.modestmining.recipe.ForgeRecipe;
 import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
+import com.baisylia.modestmining.recipe.ModRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
@@ -19,11 +21,8 @@ import java.util.Objects;
 
 @JeiPlugin
 public class JEIModestMiningPlugin implements IModPlugin {
-    public static RecipeType<ForgeRecipe> FORGING_TYPE =
-            new RecipeType<>(ForgingRecipeCategory.UID, ForgeRecipe.class);
-
-    public static RecipeType<ForgeShapedRecipe> FORGING_SHAPED_TYPE =
-            new RecipeType<>(ForgingShapedRecipeCategory.UID, ForgeShapedRecipe.class);
+    public static RecipeType<AbstractForgeRecipe> FORGING_TYPE =
+            new RecipeType<>(ForgingRecipeCategory.UID, AbstractForgeRecipe.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -33,8 +32,7 @@ public class JEIModestMiningPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
-                new ForgingRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new ForgingShapedRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new ForgingRecipeCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -42,18 +40,14 @@ public class JEIModestMiningPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        List<ForgeRecipe> recipes = rm.getAllRecipesFor(ForgeRecipe.Type.INSTANCE);
+        List<AbstractForgeRecipe> recipes = rm.getAllRecipesFor(ModRecipes.FORGING_TYPE.get());
         registration.addRecipes(FORGING_TYPE, recipes);
-
-        List<ForgeShapedRecipe> recipesShaped = rm.getAllRecipesFor(ForgeShapedRecipe.Type.INSTANCE);
-        registration.addRecipes(FORGING_SHAPED_TYPE, recipesShaped);
     }
 
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         var stack = ModBlocks.FORGE.get().asItem().getDefaultInstance();
-        registration.addRecipeCatalyst(stack, FORGING_SHAPED_TYPE);
         registration.addRecipeCatalyst(stack, FORGING_TYPE);
     }
 }

@@ -1,5 +1,6 @@
 {
   "type": "modestmining:forging_shaped",
+  "category": "building",
   "cooktime": 144,
   "key": {
     "X": {
