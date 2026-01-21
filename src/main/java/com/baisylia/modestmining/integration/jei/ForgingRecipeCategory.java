@@ -1,5 +1,6 @@
 package com.baisylia.modestmining.integration.jei;
 
+import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -25,7 +26,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class ForgingRecipeCategory implements IRecipeCategory<ForgeRecipe> {
+public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(ModestMining.MOD_ID, "forging");
     public final static ResourceLocation TEXTURE =
             new ResourceLocation(ModestMining.MOD_ID, "textures/gui/forge_gui_jei.png");
@@ -54,14 +55,14 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     }
 
     @Override
-    public void draw(ForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(AbstractForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
         animatedFlame.draw(poseStack, 66, 23);
         IDrawableAnimated arrow = getArrow(recipe);
         arrow.draw(poseStack, 63, 4);
         drawCookTime(recipe, poseStack, 50);
     }
 
-    protected void drawCookTime(ForgeRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(AbstractForgeRecipe recipe, PoseStack poseStack, int y) {
         int cookTime = recipe.getCookTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -73,7 +74,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgeRecipe> {
         }
     }
 
-    protected IDrawableAnimated getArrow(ForgeRecipe recipe) {
+    protected IDrawableAnimated getArrow(AbstractForgeRecipe recipe) {
         int cookTime = recipe.getCookTime();
         if (cookTime <= 0) {
             cookTime = regularCookTime;
@@ -82,7 +83,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     }
 
     @Override
-    public RecipeType<ForgeRecipe> getRecipeType() {
+    public RecipeType<AbstractForgeRecipe> getRecipeType() {
         return JEIModestMiningPlugin.FORGING_TYPE;
     }
 
@@ -102,7 +103,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<ForgeRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ForgeRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, AbstractForgeRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 3, 5).addIngredients(recipe.getIngredients().get(0));
         if (recipe.getIngredients().size() > 1) {
             builder.addSlot(RecipeIngredientRole.INPUT, 21, 5).addIngredients(recipe.getIngredients().get(1));

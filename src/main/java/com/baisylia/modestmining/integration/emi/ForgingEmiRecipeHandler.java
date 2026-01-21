@@ -8,17 +8,17 @@ import net.minecraft.world.inventory.Slot;
 
 import java.util.List;
 
-public class ForgingRecipeHandler implements StandardRecipeHandler<ForgeMenu> {
+public class ForgingEmiRecipeHandler implements StandardRecipeHandler<ForgeMenu> {
 
     @Override
     public boolean supportsRecipe(EmiRecipe recipe) {
-        return recipe instanceof ForgingEmiRecipe || recipe instanceof ForgingShapedEmiRecipe;
+        return recipe instanceof ForgingEmiRecipe;
     }
 
     @Override
     public List<Slot> getInputSources(ForgeMenu handler) {
         List<Slot> list = Lists.newArrayList();
-        for (int i = 0; i < 45; i++) {
+        for (int i = 11; i < 47; i++) {
             list.add(handler.getSlot(i));
         }
         return list;
@@ -27,8 +27,8 @@ public class ForgingRecipeHandler implements StandardRecipeHandler<ForgeMenu> {
     @Override
     public List<Slot> getCraftingSlots(ForgeMenu handler) {
         List<Slot> list = Lists.newArrayList();
-        for (int i = 1; i < 10; i++) {
-            list.add(handler.getSlot(35+i));
+        for (int i = 0; i < 9; i++) {
+            list.add(handler.getSlot(i));
         }
         return list;
     }
