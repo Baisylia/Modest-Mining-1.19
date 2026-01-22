@@ -12,7 +12,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -20,11 +20,12 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import java.util.Map;
 import java.util.Set;
 
-public class ForgeShapedRecipe extends AbstractForgeRecipe {
+public class ForgeShapedRecipe extends AbstractForgeRecipe implements IShapedRecipe<Container> {
     static int MAX_WIDTH = 3;
     static int MAX_HEIGHT = 3;
     public static void setCraftingSize(int width, int height) {
@@ -39,8 +40,8 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
     private final int cookTime;
     private final boolean isSimple;
 
-    public ForgeShapedRecipe(int width, int height, ResourceLocation id, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime) {
-        super(id, output, recipeItems, cookTime);
+    public ForgeShapedRecipe(int width, int height, ResourceLocation id, String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime) {
+        super(id, group, category, output, recipeItems, cookTime);
         this.width = width;
         this.height = height;
         this.output = output;
@@ -55,81 +56,37 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        ItemStack outputSlot = pContainer.getItem(10);
-        if (!outputSlot.isEmpty() && !ItemStack.isSame(this.getResultItem(), outputSlot)) {
-            return false;
-        }
-
-        if (!outputSlot.isEmpty() && outputSlot.getCount() >= outputSlot.getMaxStackSize()) {
-            return false;
-        }
-
-        boolean[][] slotUsed = new boolean[3][3]; // Track which slots are used
-
-        // Iterate over the crafting grid
-        for (int offsetX = 0; offsetX <= 3 - this.getWidth(); ++offsetX) {
-            for (int offsetY = 0; offsetY <= 3 - this.getHeight(); ++offsetY) {
-                if (checkIngredients(pContainer, offsetX, offsetY, slotUsed)) {
-                    if (areOtherSlotsEmpty(pContainer, offsetX, offsetY)) {
-                        return true; // Match found, return true
-                    }
-                }
+    public boolean matches(Container pContainer, Level pLevel) {
+        for (int width = 0; width <= 3 - this.width; ++width) {
+            for (int height = 0; height <= 3 - this.height; ++height) {
+                if (this.matches(pContainer, width, height, true)) return true;
+                if (this.matches(pContainer, width, height, false)) return true;
             }
         }
 
-        return false; // No match found
+        return false;
     }
 
-    private boolean areOtherSlotsEmpty(SimpleContainer pContainer, int offsetX, int offsetY) {
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (i < offsetX || i >= offsetX + this.getWidth() || j < offsetY || j >= offsetY + this.getHeight()) {
-                    ItemStack itemStack = pContainer.getItem(i + j * 3); // Use a fixed grid size of 3x3
-                    if (!itemStack.isEmpty()) {
-                        return false; // Slot is not empty
-                    }
-                }
-            }
-        }
-        return true; // All other slots are empty
-    }
-
-    private boolean checkIngredients(SimpleContainer pContainer, int offsetX, int offsetY, boolean[][] slotUsed) {
-        // Iterate over the recipe's dimensions
-        for (int i = 0; i < this.getWidth(); ++i) {
-            for (int j = 0; j < this.getHeight(); ++j) {
-                int gridX = i + offsetX;
-                int gridY = j + offsetY;
-
-                // Check if the current position is within the crafting grid
-                if (gridX >= 3 || gridY >= 3) {
-                    continue;
+    private boolean matches(Container pContainer, int width, int height, boolean mirrored) {
+        for (int xn = 0; xn < 3; ++xn) {
+            for (int yn = 0; yn < 3; ++yn) {
+                int x = xn - width;
+                int y = yn - height;
+                Ingredient ingredient = Ingredient.EMPTY;
+                if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
+                    if (mirrored) ingredient = this.recipeItems.get(this.width - x - 1 + y * this.width);
+                    else ingredient = this.recipeItems.get(x + y * this.width);
                 }
 
-                // Check if the slot is already used by another recipe
-                if (slotUsed[gridX][gridY]) {
-                    return false;
-                }
-
-                Ingredient recipeIngredient = this.recipeItems.get(i + j * this.getWidth());
-                ItemStack gridStack = pContainer.getItem(gridX + gridY * 3); // Use a fixed grid size of 3x3
-
-                // Check if the ingredient matches the item in the crafting grid
-                if (!recipeIngredient.test(gridStack)) {
-                    return false;
-                }
-
-                // Mark the slot as used
-                slotUsed[gridX][gridY] = true;
+                if (!ingredient.test(pContainer.getItem(xn + yn * 3))) return false;
             }
         }
 
-        return true; // All ingredients matched
+        return true;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer p_44001_) {
+    public ItemStack assemble(Container p_44001_) {
         return output;
     }
 
@@ -156,14 +113,9 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return Type.INSTANCE;
+        return ModRecipes.FORGING_TYPE.get();
     }
 
-    public static class Type implements RecipeType<ForgeShapedRecipe> {
-        private Type() { }
-        public static final Type INSTANCE = new Type();
-        public static final String ID = "forging_shaped";
-    }
 
     static NonNullList<Ingredient> dissolvePattern(String[] p_44203_, Map<String, Ingredient> p_44204_, int p_44205_, int p_44206_) {
         NonNullList<Ingredient> nonnulllist = NonNullList.withSize(p_44205_ * p_44206_, Ingredient.EMPTY);
@@ -314,6 +266,9 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
         public static final Serializer INSTANCE = new Serializer();
         private static final ResourceLocation NAME = new ResourceLocation("modestmining", "forging_shaped");
         public ForgeShapedRecipe fromJson(ResourceLocation id, JsonObject json) {
+            String group = GsonHelper.getAsString(json, "group", "");
+            ForgingBookCategory category = ForgingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null));
+            if (category == null) category = ForgingBookCategory.MISC;
             Map<String, Ingredient> map = ForgeShapedRecipe.keyFromJson(GsonHelper.getAsJsonObject(json, "key"));
             String[] astring = ForgeShapedRecipe.shrink(ForgeShapedRecipe.patternFromJson(GsonHelper.getAsJsonArray(json, "pattern")));
             int width = astring[0].length();
@@ -321,13 +276,16 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
             NonNullList<Ingredient> nonnulllist = ForgeShapedRecipe.dissolvePattern(astring, map, width, height);
             ItemStack itemstack = ForgeShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
             int cookTimeIn = GsonHelper.getAsInt(json, "cooktime", 200);
-            return new ForgeShapedRecipe(width, height, id, itemstack, nonnulllist, cookTimeIn);
+            return new ForgeShapedRecipe(width, height, id, group, category, itemstack, nonnulllist, cookTimeIn);
         }
 
         @Override
         public ForgeShapedRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             int width = buf.readVarInt();
             int height = buf.readVarInt();
+            String group = buf.readUtf();
+            ForgingBookCategory category = buf.readEnum(ForgingBookCategory.class);
+
             NonNullList<Ingredient> nonnulllist = NonNullList.withSize(width * height, Ingredient.EMPTY);
 
             for(int k = 0; k < nonnulllist.size(); ++k) {
@@ -336,13 +294,16 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
 
             ItemStack itemstack = buf.readItem();
             int cookTimeIn = buf.readVarInt();
-            return new ForgeShapedRecipe(width, height, id, itemstack, nonnulllist, cookTimeIn);
+            return new ForgeShapedRecipe(width, height, id, group, category, itemstack, nonnulllist, cookTimeIn);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, ForgeShapedRecipe recipe) {
             buf.writeVarInt(recipe.width);
             buf.writeVarInt(recipe.height);
+            buf.writeUtf(recipe.group);
+            buf.writeEnum(recipe.category);
+
             for(Ingredient ingredient : recipe.recipeItems) {
                 ingredient.toNetwork(buf);
             }

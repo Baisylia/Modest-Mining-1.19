@@ -3,23 +3,22 @@ package com.baisylia.modestmining.block.entity.custom;
 import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
-import com.baisylia.modestmining.recipe.ForgeRecipe;
-import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
+import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -41,7 +40,7 @@ import java.util.Optional;
 
 import static com.baisylia.modestmining.block.custom.ForgeBlock.LIT;
 
-public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
+public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
     protected final ContainerData data;
     private int progress = 0;
@@ -64,6 +63,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final RecipeManager.CachedCheck<Container, AbstractForgeRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.FORGING_TYPE.get());
 
     public ForgeBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.FORGE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -103,7 +103,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         return new ForgeMenu(pContainerId, pInventory, this, this.data);
     }
 
-   LazyOptional<? extends IItemHandler>[] handlers =
+    LazyOptional<? extends IItemHandler>[] handlers =
             SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
     @Nonnull
@@ -200,31 +200,31 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        // Check for ForgeShapedRecipe
-        Optional<ForgeShapedRecipe> shapedMatch = level.getRecipeManager()
-                .getRecipeFor(ForgeShapedRecipe.Type.INSTANCE, inventory, level);
+        Optional<AbstractForgeRecipe> recipeMatch = entity.quickCheck.getRecipeFor(inventory, level);
 
-        // Check for ForgeRecipe
-        Optional<ForgeRecipe> recipeMatch = level.getRecipeManager()
-                .getRecipeFor(ForgeRecipe.Type.INSTANCE, inventory, level);
-
-        if (shapedMatch.isPresent()) {
-            ItemStack result = shapedMatch.get().getResultItem();
-            if (canInsertAmountIntoOutputSlot(inventory, result)) {
-                entity.currentRecipe = shapedMatch.get();
-                return startCraftIfFueled(entity, pos, level, shapedMatch.get().getCookTime());
-            }
-        } else if (recipeMatch.isPresent()) {
+        if (recipeMatch.isPresent()) {
             ItemStack result = recipeMatch.get().getResultItem();
             if (canInsertAmountIntoOutputSlot(inventory, result)) {
                 entity.currentRecipe = recipeMatch.get();
                 return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
             }
-        } else {
-            entity.currentRecipe = null;
         }
 
         return false;
+    }
+
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
+        ItemStack currentOutput = inventory.getItem(10);
+
+        if (currentOutput.isEmpty()) {
+            return true;
+        }
+
+        if (!currentOutput.is(output.getItem())) {
+            return false;
+        }
+
+        return currentOutput.getCount() + output.getCount() <= currentOutput.getMaxStackSize();
     }
 
     static boolean startCraftIfFueled(ForgeBlockEntity entity, BlockPos pos, Level level, int progress) {
@@ -264,20 +264,6 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             }
         }
         return false;
-    }
-
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        ItemStack currentOutput = inventory.getItem(10);
-
-        if (currentOutput.isEmpty()) {
-            return true;
-        }
-
-        if (!currentOutput.is(output.getItem())) {
-            return false;
-        }
-
-        return currentOutput.getCount() + output.getCount() <= currentOutput.getMaxStackSize();
     }
 
     private static void craftItem(ForgeBlockEntity entity) {
@@ -404,8 +390,16 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
 
     @Override
     public void clearContent() {
-        for(int i = 0; i < 11; ++i) {
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+        }
+    }
+
+    @Override
+    public void fillStackedContents(StackedContents pHelper) {
+        for (int i = 0; i < this.getContainerSize(); i++) {
+            ItemStack stack = this.getItem(i);
+            pHelper.accountStack(stack);
         }
     }
 }
