@@ -103,7 +103,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         return new ForgeMenu(pContainerId, pInventory, this, this.data);
     }
 
-   LazyOptional<? extends IItemHandler>[] handlers =
+    LazyOptional<? extends IItemHandler>[] handlers =
             SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
     @Nonnull
@@ -200,22 +200,31 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        if (!inventory.getItem(10).isEmpty() && !inventory.getItem(10).isStackable()) {
+        Optional<AbstractForgeRecipe> recipeMatch = entity.quickCheck.getRecipeFor(inventory, level);
+
+        if (recipeMatch.isPresent()) {
+            ItemStack result = recipeMatch.get().getResultItem();
+            if (canInsertAmountIntoOutputSlot(inventory, result)) {
+                entity.currentRecipe = recipeMatch.get();
+                return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
+        ItemStack currentOutput = inventory.getItem(10);
+
+        if (currentOutput.isEmpty()) {
+            return true;
+        }
+
+        if (!currentOutput.is(output.getItem())) {
             return false;
         }
 
-        if (entity.currentRecipe != null) {
-            return startCraftIfFueled(entity, pos, level, entity.currentRecipe.getCookTime());
-        }
-
-        // Check for ForgeRecipe
-        Optional<AbstractForgeRecipe> recipeMatch = entity.quickCheck.getRecipeFor(inventory, level);
-        if (recipeMatch.isPresent()) {
-            entity.currentRecipe = recipeMatch.get();
-            return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
-        }
-        entity.currentRecipe = null;
-        return false;
+        return currentOutput.getCount() + output.getCount() <= currentOutput.getMaxStackSize();
     }
 
     static boolean startCraftIfFueled(ForgeBlockEntity entity, BlockPos pos, Level level, int progress) {
@@ -393,5 +402,4 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             pHelper.accountStack(stack);
         }
     }
-
 }
