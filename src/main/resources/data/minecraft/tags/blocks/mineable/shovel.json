@@ -1,10 +1,7 @@
 {
   "replace": false,
   "values": [
-    "modestmining:coal_powder_block",
     "modestmining:suspicious_dirt",
-    "modestmining:suspicious_sand",
-    "modestmining:suspicious_gravel",
     "modestmining:cement_powder"
   ]
 }
