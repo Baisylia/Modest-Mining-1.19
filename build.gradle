@@ -199,10 +199,7 @@ dependencies {
 //    runtimeOnly(fg.deobf("mezz.jei:jei-1.19.2-forge:11.5.0.297"))
 
     runtimeOnly fg.deobf("curse.maven:blueprint-382216:4442628")
-    runtimeOnly fg.deobf("curse.maven:upgradeaquatic-326895:4415517")
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
-    implementation fg.deobf("curse.maven:moonlightlib-499980:4460381")
-    implementation fg.deobf("maven.modrinth:every-compat:xUCsILcc")
     runtimeOnly fg.deobf("curse.maven:savageandravage-381736:4776245")
     runtimeOnly fg.deobf("curse.maven:oreganized-769203:4377982")
 
