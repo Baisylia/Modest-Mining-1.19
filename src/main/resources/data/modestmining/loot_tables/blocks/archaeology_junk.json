@@ -148,11 +148,6 @@
         {
           "type": "minecraft:item",
           "weight": 2,
-          "name": "modestmining:plank"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
           "name": "minecraft:bowl"
         },
         {

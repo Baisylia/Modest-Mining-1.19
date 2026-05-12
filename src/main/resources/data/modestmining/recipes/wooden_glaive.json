@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "XX#",
-    "X#@",
+    "X#X",
     "#  "
   ],
   "key": {
@@ -11,9 +11,6 @@
     },
     "X": {
       "tag": "minecraft:planks"
-    },
-    "@": {
-      "item": "modestmining:plank"
     }
   },
   "result": {
