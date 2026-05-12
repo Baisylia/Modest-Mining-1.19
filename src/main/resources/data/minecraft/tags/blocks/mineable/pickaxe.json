@@ -7,16 +7,6 @@
     "modestmining:diamond_shard_block",
     "modestmining:forge",
     "modestmining:suspicious_stone",
-    "modestmining:shell",
-    "modestmining:cement",
-    "modestmining:adobe_bricks",
-    "modestmining:adobe_brick_slab",
-    "modestmining:adobe_brick_stairs",
-    "modestmining:adobe_brick_wall",
-    "modestmining:cracked_adobe_bricks",
-    "modestmining:mossy_adobe_bricks",
-    "modestmining:mossy_adobe_brick_slab",
-    "modestmining:mossy_adobe_brick_stairs",
-    "modestmining:mossy_adobe_brick_wall"
+    "modestmining:shell"
   ]
 }
