@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "modestmining:block/crimson_tiles",
-    "side": "modestmining:block/crimson_tiles",
-    "top": "modestmining:block/crimson_tiles"
-  }
-}

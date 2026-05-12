@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "modestmining:block/jungle_boards",
-    "side": "modestmining:block/jungle_boards",
-    "top": "modestmining:block/jungle_boards"
-  }
-}

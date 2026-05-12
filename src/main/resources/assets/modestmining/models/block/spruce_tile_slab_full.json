@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "bottom": "modestmining:block/spruce_tiles",
-    "side": "modestmining:block/spruce_tiles",
-    "top": "modestmining:block/spruce_tiles"
-  }
-}

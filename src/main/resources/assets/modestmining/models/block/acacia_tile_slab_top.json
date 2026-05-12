@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "modestmining:block/acacia_tiles",
-    "side": "modestmining:block/acacia_tiles",
-    "top": "modestmining:block/acacia_tiles"
-  }
-}

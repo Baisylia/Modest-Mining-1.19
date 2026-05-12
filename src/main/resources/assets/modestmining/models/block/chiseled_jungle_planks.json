@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "modestmining:block/chiseled_jungle_planks"
-  }
-}

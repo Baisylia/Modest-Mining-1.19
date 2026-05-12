@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "bottom": "modestmining:block/crimson_tiles",
-    "side": "modestmining:block/crimson_tiles",
-    "top": "modestmining:block/crimson_tiles"
-  }
-}

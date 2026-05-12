@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "modestmining:block/mangrove_tiles",
-    "side": "modestmining:block/mangrove_tiles",
-    "top": "modestmining:block/mangrove_tiles"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "modestmining:block/dark_oak_boards",
-    "side": "modestmining:block/dark_oak_boards",
-    "top": "modestmining:block/dark_oak_boards"
-  }
-}

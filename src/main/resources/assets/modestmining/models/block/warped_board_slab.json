@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "modestmining:block/warped_boards",
-    "side": "modestmining:block/warped_boards",
-    "top": "modestmining:block/warped_boards"
-  }
-}

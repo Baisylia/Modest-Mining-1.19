@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "modestmining:block/warped_pillar_top",
-    "side": "modestmining:block/warped_pillar_side"
-  }
-}

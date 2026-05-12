@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "modestmining:block/cimson_tiles",
-    "side": "modestmining:block/cimson_tiles",
-    "top": "modestmining:block/cimson_tiles"
-  }
-}

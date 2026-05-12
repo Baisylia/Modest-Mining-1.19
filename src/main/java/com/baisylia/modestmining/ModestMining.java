@@ -7,7 +7,6 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.effect.ModEffects;
 import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.client.ClamRenderer;
-import com.baisylia.modestmining.integration.everycompat.EveryCompatIntegration;
 import com.baisylia.modestmining.item.ModItems;
 import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeScreen;
@@ -76,9 +75,6 @@ public class ModestMining
         ModSounds.SOUND_EVENTS.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
-
-        if (ModList.get().isLoaded("everycomp"))
-            EveryCompatIntegration.register();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

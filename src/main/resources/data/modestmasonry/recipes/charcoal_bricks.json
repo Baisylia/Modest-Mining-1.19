@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:forging",
+  "cooktime": 144,
+  "ingredients": [
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "minecraft:charcoal"
+    },
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "fuel": {
+    "item": "minecraft:coal"
+  },
+  "result": {
+    "item": "modestmasonry:charcoal_bricks",
+    "count": 1
+  }
+}

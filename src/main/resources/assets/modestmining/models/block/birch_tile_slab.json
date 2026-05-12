@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "modestmining:block/birch_tiles",
-    "side": "modestmining:block/birch_tiles",
-    "top": "modestmining:block/birch_tiles"
-  }
-}

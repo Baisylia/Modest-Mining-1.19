@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab_top",
-  "textures": {
-    "bottom": "modestmining:block/varied_planks_10",
-    "top": "modestmining:block/varied_planks_10",
-    "side": "modestmining:block/varied_planks_10"
-  }
-}

@@ -24,18 +24,6 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModestMining.MOD_ID);
 
     //Materials
-    public static final RegistryObject<Item> PLANK = ITEMS.register("plank", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)){
-        @Override public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {return 50;}});
-
-    //public static final RegistryObject<Item> ROCKS = ITEMS.register("rocks", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
-    //public static final RegistryObject<Item> FIBER = ITEMS.register("fiber", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)){
-    //    @Override public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {return 50;}});
-
-    //public static final RegistryObject<Item> CHAINMAIL = ITEMS.register("chainmail", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
-    //public static final RegistryObject<Item> COAL_POWDER = ITEMS.register("coal_powder", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)){
-    //    @Override public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {return 2400;}});
 
     public static final RegistryObject<Item> COKE = ITEMS.register("coke", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)){
                 @Override public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {return 6400;}});

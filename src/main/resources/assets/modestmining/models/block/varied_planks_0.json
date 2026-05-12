@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "modestmining:block/varied_planks_0"
-  }
-}
