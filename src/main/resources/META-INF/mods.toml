@@ -70,3 +70,9 @@ mandatory=true
 versionRange="[3.1.19,)"
 ordering="AFTER"
 side="BOTH"
+[[dependencies.modestmining]]
+modId="modestmasonry"
+mandatory=false
+versionRange="[0.1.0,)"
+ordering="AFTER"
+side="BOTH"
