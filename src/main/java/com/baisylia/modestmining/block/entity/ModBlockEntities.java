@@ -26,13 +26,11 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("forge_block_entity", () ->
                     BlockEntityType.Builder.of(ForgeBlockEntity::new,
                             ModBlocks.FORGE.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<MillstoneBlockEntity>> MILLSTONE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("millstone_block_entity", () ->
                     BlockEntityType.Builder.of(MillstoneBlockEntity::new,
-                            ModBlocks.FORGE.get()).build(null));
-
-
-
+                            ModBlocks.MILLSTONE.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
