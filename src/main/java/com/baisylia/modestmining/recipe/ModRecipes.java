@@ -27,6 +27,14 @@ public class ModRecipes {
             SERIALIZERS.register("forging_shaped", () -> ForgeShapedRecipe.Serializer.INSTANCE);
 
 
+    public static final RegistryObject<RecipeType<AbstractMillstoneRecipe>> MILLING_TYPE =
+            TYPES.register("milling", () -> new RecipeType<>() {});
+
+    public static final RegistryObject<RecipeSerializer<MillstoneRecipe>> MILLING_SERIALIZER =
+            SERIALIZERS.register("milling", () -> MillstoneRecipe.Serializer.INSTANCE);
+
+
+
     public static void register(IEventBus eventBus) {
         TYPES.register(eventBus);
         SERIALIZERS.register(eventBus);

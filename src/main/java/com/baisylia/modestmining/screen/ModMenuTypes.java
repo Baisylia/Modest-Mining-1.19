@@ -17,6 +17,9 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<ForgeMenu>> FORGE_MENU =
             registerMenuType(ForgeMenu::new, "forge_menu");
 
+    public static final RegistryObject<MenuType<MillstoneMenu>> MILLSTONE_MENU =
+            registerMenuType(MillstoneMenu::new, "millstone_menu");
+
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));

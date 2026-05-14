@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "modestmining:block/millstone"
+    },
+    "lit=true": {
+      "model": "modestmining:block/millstone_base"
+    }
+  }
+}

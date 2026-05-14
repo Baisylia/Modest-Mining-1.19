@@ -165,6 +165,7 @@
   "block.modestmining.diamond_shard_block": "Diamond Block",
   "block.modestmining.oceanic_remains": "Oceanic Remains",
   "block.modestmining.forge": "Forge",
+  "block.modestmining.millstone": "Millstone",
   "block.modestmining.shell": "Shell",
   "block.modestmining.rocks": "Rocks",
   "block.modestmining.varied_planks": "Varied Planks",
@@ -334,7 +335,10 @@
 
   "recipe.modestmining.forging": "Forging",
   "emi.category.modestmining.forging": "Forging",
+  "recipe.modestmining.milling": "Milling",
+  "emi.category.modestmining.milling": "Milling",
 
   "modestmining.subtitles.forge.crackle": "Forge crackles",
-  "gui.recipe_book.toggle_recipes.forgeable": "Toggle Forgeable"
+  "gui.recipe_book.toggle_recipes.forgeable": "Toggle Forgeable",
+  "gui.recipe_book.toggle_recipes.millable": "Toggle Millable"
 }

@@ -4,6 +4,7 @@ import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.custom.BrushingBlockEntity;
 import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
+import com.baisylia.modestmining.block.entity.custom.MillstoneBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,6 +25,10 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ForgeBlockEntity>> FORGE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("forge_block_entity", () ->
                     BlockEntityType.Builder.of(ForgeBlockEntity::new,
+                            ModBlocks.FORGE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<MillstoneBlockEntity>> MILLSTONE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("millstone_block_entity", () ->
+                    BlockEntityType.Builder.of(MillstoneBlockEntity::new,
                             ModBlocks.FORGE.get()).build(null));
 
 

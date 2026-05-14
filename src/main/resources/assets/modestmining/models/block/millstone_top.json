@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "modestmining:block/millstone_bottom",
+    "side": "modestmining:block/millstone",
+    "top": "modestmining:block/millstone_top"
+  }
+}

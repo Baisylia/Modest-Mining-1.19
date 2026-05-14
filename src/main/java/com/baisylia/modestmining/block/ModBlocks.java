@@ -3,6 +3,7 @@ package com.baisylia.modestmining.block;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.custom.BrushingBlock;
 import com.baisylia.modestmining.block.custom.ForgeBlock;
+import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.custom.ShellBlock;
 import com.baisylia.modestmining.item.ModItems;
 import net.minecraft.core.BlockPos;
@@ -54,6 +55,11 @@ public class ModBlocks {
                 return 0;
             })
             .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_DECORATIONS, false, 0);
+
+
+    public static final RegistryObject<Block> MILLSTONE = registerBlock("millstone",
+            () -> new MillstoneBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY)
+                    .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_DECORATIONS, false, 0);
 
     public static final RegistryObject<Block> COMPACT_AMETHYST_BLOCK = registerBlock("compact_amethyst_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);

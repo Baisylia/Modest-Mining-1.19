@@ -1,0 +1,12 @@
+{
+	"parent": "minecraft:block/cube",
+	"textures": {
+		"down": "modestmining:block/millstone_bottom",
+		"east": "modestmining:block/millstone",
+		"north": "modestmining:block/millstone",
+		"particle": "modestmining:block/millstone",
+		"south": "modestmining:block/millstone",
+		"up": "modestmining:block/millstone_top",
+		"west": "modestmining:block/millstone"
+	}
+}

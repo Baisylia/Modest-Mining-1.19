@@ -18,6 +18,9 @@ public class EMIModestMiningPlugin implements EmiPlugin {
     public static final EmiRecipeCategory FORGING =
         new EmiRecipeCategory(new ResourceLocation(ModestMining.MOD_ID, "forging"), EmiStack.of(ModBlocks.FORGE.get()));
 
+    public static final EmiRecipeCategory MILLING =
+            new EmiRecipeCategory(new ResourceLocation(ModestMining.MOD_ID, "milling"), EmiStack.of(ModBlocks.MILLSTONE.get()));
+
     @Override
     public void register(EmiRegistry registry) {
         registry.addCategory(FORGING);

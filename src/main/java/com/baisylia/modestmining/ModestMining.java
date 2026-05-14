@@ -1,6 +1,7 @@
 package com.baisylia.modestmining;
 
 import com.baisylia.modestmining.recipe.ModRecipeCategories;
+import com.baisylia.modestmining.screen.MillstoneScreen;
 import com.mojang.logging.LogUtils;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
@@ -55,6 +56,7 @@ public class ModestMining
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final RecipeBookType FORGING_RECIPE_BOOK_TYPE = RecipeBookType.create("FORGING");
+    public static final RecipeBookType MILLING_RECIPE_BOOK_TYPE = RecipeBookType.create("MILLING");
 
     public ModestMining()
     {
@@ -136,6 +138,7 @@ public class ModestMining
         {
             EntityRenderers.register(ModEntityTypes.CLAM.get(), ClamRenderer::new);
             MenuScreens.register(ModMenuTypes.FORGE_MENU.get(), ForgeScreen::new);
+            MenuScreens.register(ModMenuTypes.MILLSTONE_MENU.get(), MillstoneScreen::new);
         }
     }
 }
