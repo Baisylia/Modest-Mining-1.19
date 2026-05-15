@@ -1,8 +1,84 @@
 {
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "modestmining:block/millstone_bottom",
-    "side": "modestmining:block/millstone",
-    "top": "modestmining:block/millstone_top"
-  }
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "modestmining:block/millstone",
+		"3": "modestmining:block/millstone_top",
+		"4": "entity/banner_base",
+		"particle": "modestmining:block/millstone"
+	},
+	"elements": [
+		{
+			"name": "top",
+			"from": [2, 6, 2],
+			"to": [14, 12, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 9, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 12, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 12, 6], "texture": "#0"},
+				"south": {"uv": [0, 0, 12, 6], "texture": "#0"},
+				"west": {"uv": [0, 0, 12, 6], "texture": "#0"},
+				"up": {"uv": [0, 0, 12, 12], "rotation": 270, "texture": "#3"},
+				"down": {"uv": [0, 0, 12, 12], "rotation": 90, "texture": "#3"}
+			}
+		},
+		{
+			"name": "stick",
+			"from": [7, 12, 7],
+			"to": [9, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
+			"faces": {
+				"north": {"uv": [11.5, 3.5, 12, 4.5], "texture": "#4"},
+				"east": {"uv": [11.5, 2.25, 12, 3.5], "texture": "#4"},
+				"south": {"uv": [11.5, 3.75, 12, 5], "texture": "#4"},
+				"west": {"uv": [11.5, 1.75, 12, 2.75], "texture": "#4"},
+				"up": {"uv": [5.5, 11, 6, 11.5], "texture": "#4"},
+				"down": {"uv": [0, 1, 2, 3], "texture": "#missing"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -135, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, -135, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 2.25, 0],
+			"scale": [1.1, 1.1, 1.1]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
+	"groups": [
+		{
+			"name": "spin",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
 }

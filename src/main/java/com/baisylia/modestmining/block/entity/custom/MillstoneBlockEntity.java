@@ -19,13 +19,10 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -38,24 +35,24 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-import static com.baisylia.modestmining.block.custom.MillstoneBlock.LIT;
-
 public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
     protected final ContainerData data;
+
     private int progress = 0;
     private int maxProgress = 72;
-    private int litTime = 0;
-    private int fuelAmount = 0;
-    private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
-    static int countOutput = 1;
-    private ContainerOpenersCounter openersCounter;
+
+    private static final int[] INGREDIENT_SLOTS =
+            new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+
     private AbstractMillstoneRecipe currentRecipe = null;
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(11) {
+
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+
             if (slot < 9) {
                 resetProgress();
             }
@@ -63,31 +60,36 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    private final RecipeManager.CachedCheck<Container, AbstractMillstoneRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
+
+    private final RecipeManager.CachedCheck<Container, AbstractMillstoneRecipe>
+            quickCheck = RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
 
     public MillstoneBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(ModBlockEntities.MILLSTONE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(ModBlockEntities.MILLSTONE_BLOCK_ENTITY.get(),
+                pWorldPosition, pBlockState);
+
         this.data = new ContainerData() {
+
+            @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> MillstoneBlockEntity.this.progress;
-                    case 1 -> MillstoneBlockEntity.this.maxProgress;
-                    case 2 -> MillstoneBlockEntity.this.litTime;
-                    case 3 -> MillstoneBlockEntity.this.fuelAmount;
+                    case 0 -> progress;
+                    case 1 -> maxProgress;
                     default -> 0;
                 };
             }
 
+            @Override
             public void set(int index, int value) {
-                switch(index) {
-                    case 0: MillstoneBlockEntity.this.progress = value; break;
-                    case 1: MillstoneBlockEntity.this.maxProgress = value; break;
-                    case 2: MillstoneBlockEntity.this.litTime = value; break;
+                switch (index) {
+                    case 0 -> progress = value;
+                    case 1 -> maxProgress = value;
                 }
             }
 
+            @Override
             public int getCount() {
-                return 4;
+                return 2;
             }
         };
     }
@@ -99,26 +101,31 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new MillstoneMenu(pContainerId, pInventory, this, this.data);
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new MillstoneMenu(id, inventory, this, this.data);
     }
 
-    LazyOptional<? extends IItemHandler>[] handlers =
-            SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+    LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
     @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (side == null && cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
         }
-        if (!this.remove && side != null && cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP)
+
+        if (!this.remove && side != null
+                && cap == ForgeCapabilities.ITEM_HANDLER) {
+
+            if (side == Direction.UP) {
                 return handlers[0].cast();
-            else if (side == Direction.DOWN)
+            }
+            else if (side == Direction.DOWN) {
                 return handlers[1].cast();
-            else
+            }
+            else {
                 return handlers[2].cast();
+            }
         }
 
         return super.getCapability(cap, side);
@@ -131,7 +138,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     @Override
-    public void invalidateCaps()  {
+    public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
     }
@@ -140,24 +147,24 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     protected void saveAdditional(@NotNull CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.putInt("millstone.progress", progress);
-        tag.putInt("millstone.lit_time", litTime);
         tag.putInt("millstone.max_progress", maxProgress);
-        tag.putInt("millstone.fuel_amount", fuelAmount);
+
         super.saveAdditional(tag);
     }
 
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
+
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+
         progress = nbt.getInt("millstone.progress");
-        litTime = nbt.getInt("millstone.lit_time");
         maxProgress = nbt.getInt("millstone.max_progress");
-        fuelAmount = nbt.getInt("millstone.fuel_amount");
     }
 
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
@@ -165,55 +172,70 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    public static void tick(Level level, BlockPos pos, BlockState state, MillstoneBlockEntity entity) {
+        if (level.isClientSide()) return;
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, MillstoneBlockEntity pBlockEntity) {
-
-
-        if (isFueled(pBlockEntity, pPos, pLevel)) {
-            pBlockEntity.litTime--;
-        } else {
-            pBlockEntity.litTime = 0;
+        if (!state.getValue(MillstoneBlock.LIT)) {
+            entity.resetProgress();
+            return;
         }
 
-        if (hasRecipe(pBlockEntity)) {
-            pBlockEntity.progress++;
-            pBlockEntity.setChanged(pLevel, pPos, pState, true);
-            if (pBlockEntity.progress == pBlockEntity.maxProgress) {
-                craftItem(pBlockEntity);
+        if (hasRecipe(entity)) {
+
+            entity.progress++;
+
+            setChanged(level, pos, state);
+
+            if (entity.progress >= entity.maxProgress) {
+                craftItem(entity);
             }
+
         } else {
-            pBlockEntity.resetProgress();
+            entity.resetProgress();
         }
     }
 
-    private void setChanged(Level pLevel, BlockPos pPos, BlockState pState, boolean b) {
-        pLevel.setBlock(pPos, pState.setValue(LIT, b), 3);
-        super.setChanged();
+    public static void setChanged(Level level, BlockPos pos, BlockState state) {
+        level.sendBlockUpdated(pos, state, state, 3);
     }
 
     private static boolean hasRecipe(MillstoneBlockEntity entity) {
-        Level level = entity.level;
-        BlockPos pos = entity.getBlockPos();
 
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
+        Level level = entity.level;
+
+        SimpleContainer inventory =
+                new SimpleContainer(entity.itemHandler.getSlots());
+
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+            inventory.setItem(i,
+                    entity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<AbstractMillstoneRecipe> recipeMatch = entity.quickCheck.getRecipeFor(inventory, level);
+        Optional<AbstractMillstoneRecipe> recipeMatch =
+                entity.quickCheck.getRecipeFor(inventory, level);
 
         if (recipeMatch.isPresent()) {
-            ItemStack result = recipeMatch.get().getResultItem();
+
+            ItemStack result =
+                    recipeMatch.get().getResultItem();
+
             if (canInsertAmountIntoOutputSlot(inventory, result)) {
+
                 entity.currentRecipe = recipeMatch.get();
-                return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
+                entity.maxProgress =
+                        recipeMatch.get().getCookTime();
+
+                return true;
             }
         }
 
         return false;
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
+    private static boolean canInsertAmountIntoOutputSlot(
+            SimpleContainer inventory,
+            ItemStack output) {
+
         ItemStack currentOutput = inventory.getItem(10);
 
         if (currentOutput.isEmpty()) {
@@ -224,88 +246,92 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
             return false;
         }
 
-        return currentOutput.getCount() + output.getCount() <= currentOutput.getMaxStackSize();
-    }
-
-    static boolean startCraftIfFueled(MillstoneBlockEntity entity, BlockPos pos, Level level, int progress) {
-        if (!isFueled(entity, pos, level)) {
-            if (!entity.burnFuel())
-                return false;
-        }
-        entity.maxProgress = progress;
-        return true;
-    }
-
-    static boolean isFueled(MillstoneBlockEntity entity, BlockPos pos, Level level) {
-        if (level.isClientSide) return false;
-        if (entity.litTime > 0) {
-            entity.setChanged(level, pos, entity.getBlockState(), true);
-            return true;
-        }
-        else {
-            entity.setChanged(level, pos, entity.getBlockState(), false);
-            return false;
-        }
-    }
-
-    private boolean burnFuel() {
-        if (!this.level.isClientSide) {
-            var fuel = this.itemHandler.getStackInSlot(9).copy();
-            if (AbstractFurnaceBlockEntity.isFuel(fuel) && this.litTime == 0) {
-                this.fuelAmount = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING);
-                this.litTime = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING);
-                if (fuel.getCount() > 1) {
-                    fuel.setCount(fuel.getCount()-1);
-                    this.itemHandler.setStackInSlot(9, fuel);
-                } else {
-                    this.itemHandler.setStackInSlot(9, fuel.getCraftingRemainingItem());
-                }
-                return true;
-            }
-        }
-        return false;
+        return currentOutput.getCount() + output.getCount()
+                <= currentOutput.getMaxStackSize();
     }
 
     private static void craftItem(MillstoneBlockEntity entity) {
 
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+        AbstractMillstoneRecipe currentRecipe =
+                entity.currentRecipe;
+
+        if (currentRecipe == null) return;
+
+        for (int i = 0; i < 9; ++i) {
+
+            ItemStack slotStack =
+                    entity.itemHandler.getStackInSlot(i);
+
+            if (slotStack.hasCraftingRemainingItem()) {
+
+                Direction direction =
+                        entity.getBlockState()
+                                .getValue(MillstoneBlock.FACING)
+                                .getCounterClockWise();
+
+                double x =
+                        entity.worldPosition.getX()
+                                + 0.5
+                                + direction.getStepX() * 0.25;
+
+                double y =
+                        entity.worldPosition.getY() + 0.7;
+
+                double z =
+                        entity.worldPosition.getZ()
+                                + 0.5
+                                + direction.getStepZ() * 0.25;
+
+                spawnItemEntity(
+                        entity.level,
+                        slotStack.getCraftingRemainingItem(),
+                        x, y, z,
+                        direction.getStepX() * 0.08F,
+                        0.25,
+                        direction.getStepZ() * 0.08F
+                );
+            }
         }
 
-        var currentRecipe = entity.currentRecipe;
-        if (currentRecipe != null) {
-            for(int i = 0; i < 9; ++i) {
-                ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-                if (slotStack.hasCraftingRemainingItem()) {
-                    Direction direction = entity.getBlockState().getValue(MillstoneBlock.FACING).getCounterClockWise();
-                    double x = (double)entity.worldPosition.getX() + 0.5 + (double)direction.getStepX() * 0.25;
-                    double y = (double)entity.worldPosition.getY() + 0.7;
-                    double z = (double)entity.worldPosition.getZ() + 0.5 + (double)direction.getStepZ() * 0.25;
-                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (float)direction.getStepX() * 0.08F, 0.25, (float)direction.getStepZ() * 0.08F);
-                }
-            }
-
-            for (int i = 0; i < 9; ++i) {
-                entity.itemHandler.extractItem(i, 1, false);
-            }
-            inventory.getItem(10).is(currentRecipe.getResultItem().getItem());
-
-            entity.itemHandler.setStackInSlot(10, new ItemStack(currentRecipe.getResultItem().getItem(),
-                    entity.itemHandler.getStackInSlot(10).getCount() + entity.getTheCount(currentRecipe.getResultItem())));
-
-            entity.resetProgress();
-
+        for (int i = 0; i < 9; ++i) {
+            entity.itemHandler.extractItem(i, 1, false);
         }
+
+        ItemStack output =
+                entity.itemHandler.getStackInSlot(10);
+
+        output.grow(currentRecipe.getResultItem().getCount());
+
+        if (output.isEmpty()) {
+
+            entity.itemHandler.setStackInSlot(
+                    10,
+                    currentRecipe.getResultItem().copy()
+            );
+        }
+
+        entity.resetProgress();
     }
-    public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
-        ItemEntity entity = new ItemEntity(level, x, y, z, stack);
-        entity.setDeltaMovement(xMotion, yMotion, zMotion);
+
+    public static void spawnItemEntity(Level level,
+                                       ItemStack stack,
+                                       double x,
+                                       double y,
+                                       double z,
+                                       double xMotion,
+                                       double yMotion,
+                                       double zMotion) {
+
+        ItemEntity entity =
+                new ItemEntity(level, x, y, z, stack);
+
+        entity.setDeltaMovement(
+                xMotion,
+                yMotion,
+                zMotion
+        );
+
         level.addFreshEntity(entity);
-    }
-
-    private int getTheCount (ItemStack itemIn) {
-        return itemIn.getCount();
     }
 
     private void resetProgress() {
@@ -316,90 +342,100 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Override
     public int[] getSlotsForFace(Direction direction) {
+
         if (direction == Direction.UP) {
             return INGREDIENT_SLOTS;
-        } else {
-            return new int[]{direction == Direction.DOWN ? 10 : 9};
         }
-    }
 
-    public boolean canPlaceItem(int slot, ItemStack itemStack) {
-        if (slot == 10) {
-            return false;
-        } else if (slot == 9) {
-            return ForgeHooks.getBurnTime(itemStack, RecipeType.BLASTING) > 0;
-        } else {
-            return true;
-        }
+        return new int[]{10};
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int slot, ItemStack itemStack, @Nullable Direction direction) {
-        return canPlaceItem(slot, itemStack);
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return slot != 10;
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
+    public boolean canPlaceItemThroughFace(int slot,
+                                           ItemStack stack,
+                                           @Nullable Direction direction) {
+
+        return canPlaceItem(slot, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot,
+                                          ItemStack stack,
+                                          Direction direction) {
+
         return true;
     }
 
     @Override
     public int getContainerSize() {
-        return this.itemHandler.getSlots();
+        return itemHandler.getSlots();
     }
 
     @Override
     public boolean isEmpty() {
-        for(int i = 0; i < this.itemHandler.getSlots(); ++i) {
-            ItemStack itemStack = this.itemHandler.getStackInSlot(i);
-            if (!itemStack.isEmpty()) {
+
+        for (int i = 0; i < itemHandler.getSlots(); ++i) {
+
+            if (!itemHandler.getStackInSlot(i).isEmpty()) {
                 return false;
             }
         }
+
         return true;
     }
 
     @Override
     public ItemStack getItem(int slot) {
-        return this.itemHandler.getStackInSlot(slot);
+        return itemHandler.getStackInSlot(slot);
     }
 
     @Override
     public ItemStack removeItem(int slot, int amount) {
-        return this.itemHandler.extractItem(slot, amount, false);
+        return itemHandler.extractItem(slot, amount, false);
     }
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
-        return this.itemHandler.extractItem(slot, 1, false);
+        return itemHandler.extractItem(slot, 1, false);
     }
 
     @Override
-    public void setItem(int slot, ItemStack itemStack) {
-        this.itemHandler.setStackInSlot(slot, itemStack);
+    public void setItem(int slot, ItemStack stack) {
+        itemHandler.setStackInSlot(slot, stack);
     }
 
     @Override
     public boolean stillValid(Player player) {
+
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
-        } else {
-            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
         }
+
+        return player.distanceToSqr(
+                this.worldPosition.getX() + 0.5D,
+                this.worldPosition.getY() + 0.5D,
+                this.worldPosition.getZ() + 0.5D
+        ) <= 64.0D;
     }
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
-            this.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
     }
 
     @Override
-    public void fillStackedContents(StackedContents pHelper) {
+    public void fillStackedContents(StackedContents helper) {
+
         for (int i = 0; i < this.getContainerSize(); i++) {
-            ItemStack stack = this.getItem(i);
-            pHelper.accountStack(stack);
+            helper.accountStack(this.getItem(i));
         }
     }
 }

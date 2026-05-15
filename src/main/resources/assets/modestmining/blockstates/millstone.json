@@ -1,10 +1,49 @@
 {
   "variants": {
-    "lit=false": {
+    "facing=east,base=false": {
+      "model": "modestmining:block/millstone_top",
+      "y": 90
+    },
+    "facing=north,base=false": {
+      "model": "modestmining:block/millstone_top"
+    },
+    "facing=south,base=false": {
+      "model": "modestmining:block/millstone_top",
+      "y": 180
+    },
+    "facing=west,base=false": {
+      "model": "modestmining:block/millstone_top",
+      "y": 270
+    },
+    "facing=east,lit=false,base=true": {
+      "model": "modestmining:block/millstone",
+      "y": 90
+    },
+    "facing=east,lit=true,base=true": {
+      "model": "modestmining:block/millstone_base",
+      "y": 90
+    },
+    "facing=north,lit=false,base=true": {
       "model": "modestmining:block/millstone"
     },
-    "lit=true": {
+    "facing=north,lit=true,base=true": {
       "model": "modestmining:block/millstone_base"
+    },
+    "facing=south,lit=false,base=true": {
+      "model": "modestmining:block/millstone",
+      "y": 180
+    },
+    "facing=south,lit=true,base=true": {
+      "model": "modestmining:block/millstone_base",
+      "y": 180
+    },
+    "facing=west,lit=false,base=true": {
+      "model": "modestmining:block/millstone",
+      "y": 270
+    },
+    "facing=west,lit=true,base=true": {
+      "model": "modestmining:block/millstone_base",
+      "y": 270
     }
   }
 }
