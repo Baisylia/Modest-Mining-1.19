@@ -5,6 +5,8 @@ import com.baisylia.modestmining.block.entity.custom.MillstoneBlockEntity;
 import com.baisylia.modestmining.sounds.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,6 +15,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -101,14 +104,24 @@ public class MillstoneBlock extends BaseEntityBlock {
             if (randomSource.nextInt(10) == 0) {
                 level.playLocalSound((double)pos.getX() + (double)0.5F, (double)pos.getY() + (double)0.5F, (double)pos.getZ() + (double)0.5F, ModSounds.FORGE_CRACKLE.get(), SoundSource.BLOCKS, 0.5F + randomSource.nextFloat(), randomSource.nextFloat() * 0.7F + 0.6F, false);
             }
-            Direction direction = state.getValue(FACING);
-            Direction.Axis axis = direction.getAxis();
-            double r1 = randomSource.nextDouble() * 0.6 - 0.3;
-            double r2 = axis == Direction.Axis.X ? (double)direction.getStepX() * 0.52 : r1;
-            double r3 = randomSource.nextDouble() * (double)6.0F / (double)16.0F;
-            double r4 = axis == Direction.Axis.Z ? (double)direction.getStepZ() * 0.52 : r1;
-            level.addParticle(ParticleTypes.SMOKE, x + r2, y + r3, z + r4, 0.0F, 0.0F, 0.0F);
-            level.addParticle(ParticleTypes.FLAME, x + r2, y + r3, z + r4, 0.0, 0.0F, 0.0F);
+            double angle = randomSource.nextDouble() * Math.PI * 2D;
+            double radius = 0.45D + randomSource.nextDouble() * 0.18D;
+            double px = x + Math.cos(angle) * radius;
+            double py = y + 0.72D + randomSource.nextDouble() * 0.22D;
+            double pz = z + Math.sin(angle) * radius;
+            double motionX = Math.cos(angle) * 0.04D;
+            double motionY = 0.02D + randomSource.nextDouble() * 0.025D;
+            double motionZ = Math.sin(angle) * 0.04D;
+
+            level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()),
+                    px, py, pz, motionX, motionY, motionZ
+            );
+            if (level.getBlockEntity(pos) instanceof MillstoneBlockEntity millstone) {
+                if (!millstone.getItem(0).isEmpty()) {
+                    level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, millstone.getItem(0)),
+                            px, py, pz, motionX, motionY + 0.015D, motionZ);
+                }
+            }
         }
     }
 
