@@ -42,36 +42,13 @@ public class MillstoneRecipe extends AbstractMillstoneRecipe {
 
     @Override
     public boolean matches(Container pContainer, Level pLevel) {
-        // Check if output slot is already occupied with a different item
-        ItemStack outputSlot = pContainer.getItem(10);
-        if (!outputSlot.isEmpty() && !ItemStack.isSame(this.getResultItem(), outputSlot)) {
+        ItemStack input = pContainer.getItem(0);
+
+        if (input.isEmpty()) {
             return false;
         }
 
-        // Check if output slot is full
-        if (!outputSlot.isEmpty() && outputSlot.getCount() >= outputSlot.getMaxStackSize()) {
-            return false;
-        }
-        StackedContents stackedcontents = new StackedContents();
-        List<ItemStack> inputs = new java.util.ArrayList<>();
-        int i = 0;
-
-        for(int j = 0; j < 9; ++j) {
-            ItemStack itemstack = pContainer.getItem(j);
-            if (!itemstack.isEmpty()) {
-                ++i;
-                if (isSimple)
-                    stackedcontents.accountStack(itemstack, 1);
-                else inputs.add(itemstack);
-            }
-            //stackedcontents.accountStack(itemstack, 1);
-        }
-        //return i >= this.recipeItems.size() && (isSimple ? stackedcontents.canCraft(this, null) :
-        //RecipeMatcher.findMatches(inputs, this.recipeItems) != null);
-
-        //return i >= this.recipeItems.size() && RecipeMatcher.findMatches(inputs, this.recipeItems) != null;
-        return i == this.recipeItems.size()
-                && (isSimple ? stackedcontents.canCraft(this, (IntList)null) : RecipeMatcher.findMatches(inputs,  this.recipeItems) != null);
+        return this.recipeItems.get(0).test(input);
     }
 
     @Override

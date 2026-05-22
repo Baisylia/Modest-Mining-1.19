@@ -14,6 +14,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> implements RecipeUpdateListener {
 
     private static final ResourceLocation TEXTURE =
@@ -55,13 +58,13 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
         if(menu.isCrafting()) {
-            blit(pPoseStack, x + 89, y + 17, 176, 14,  menu.getScaledProgress(), 17);
+            blit(pPoseStack, x + 61, y + 35, 176, 14,  menu.getScaledProgress(), 17);
         }
-        if(menu.isFueled()) {
-            float currentHeight = menu.getLitTime();
-            int offset = (int) (15- currentHeight);
-            blit(pPoseStack, x + 94, y + 36+offset, 176, offset, 14, (int) currentHeight);
-        }
+		if(menu.isFueled()) {
+			float currentHeight = menu.getLitTime();
+			int offset = (int) (15 - currentHeight);
+			blit(pPoseStack, x + 61, y + 55 + offset, 176, offset, 14, (int) currentHeight);
+		}
     }
 
 	@Override
@@ -70,8 +73,8 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
 		this.recipeBookComponent.tick();
 	}
 
-    @Override
-    public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
+	@Override
+	public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
 		this.renderBackground(pPoseStack);
 
 		if (this.recipeBookComponent.isVisible() && this.widthTooNarrow) {
@@ -85,7 +88,20 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
 
 		this.recipeBookComponent.renderTooltip(pPoseStack, this.leftPos, this.topPos, mouseX, mouseY);
 		renderTooltip(pPoseStack, mouseX, mouseY);
-    }
+
+		// Power Tooltip
+		if (isHovering(61, 55, 14, 17, mouseX, mouseY)) {
+			List<Component> tooltip = new ArrayList<>();
+
+			if (menu.isFueled()) {
+				tooltip.add(Component.translatable("tooltip.modestmining.millstone.powered"));
+			} else {
+				tooltip.add(Component.translatable("tooltip.modestmining.millstone.not_powered"));
+			}
+
+			renderComponentTooltip(pPoseStack, tooltip, mouseX, mouseY);
+		}
+	}
 
 	@Override
 	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {

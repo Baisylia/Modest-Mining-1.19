@@ -65,25 +65,20 @@ public class MillstoneBlock extends BaseEntityBlock {
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
         if (!level.isClientSide) {
 
-            boolean lit = state.getValue(LIT);
             boolean powered = level.hasNeighborSignal(pos);
 
-            if (lit != powered) {
-
-                if (lit) {
-                    level.scheduleTick(pos, this, 4);
-                } else {
-                    level.setBlock(pos, state.setValue(LIT, true), 3);
-                }
+            if (state.getValue(LIT) != powered) {
+                level.setBlock(pos, state.setValue(LIT, powered), 3);
             }
         }
     }
-    @Override
+
+    /*@Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(LIT) && !level.hasNeighborSignal(pos)) {
             level.setBlock(pos, state.setValue(LIT, false), 3);
         }
-    }
+    }*/
 
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {

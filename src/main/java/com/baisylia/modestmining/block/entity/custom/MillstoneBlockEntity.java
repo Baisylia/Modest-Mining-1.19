@@ -43,7 +43,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     private int maxProgress = 72;
 
     private static final int[] INGREDIENT_SLOTS =
-            new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+            new int[]{0};
 
     private AbstractMillstoneRecipe currentRecipe = null;
 
@@ -53,7 +53,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         protected void onContentsChanged(int slot) {
             setChanged();
 
-            if (slot < 9) {
+            if (slot == 0) {
                 resetProgress();
             }
         }
@@ -200,7 +200,6 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     private static boolean hasRecipe(MillstoneBlockEntity entity) {
-
         Level level = entity.level;
 
         SimpleContainer inventory =
@@ -216,15 +215,29 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
         if (recipeMatch.isPresent()) {
 
-            ItemStack result =
-                    recipeMatch.get().getResultItem();
+            entity.currentRecipe = recipeMatch.get();
+            entity.maxProgress =
+                    recipeMatch.get().getCookTime();
 
-            if (canInsertAmountIntoOutputSlot(inventory, result)) {
+            return canInsertAmountIntoOutputSlot(entity, recipeMatch.get());
+        }
 
-                entity.currentRecipe = recipeMatch.get();
-                entity.maxProgress =
-                        recipeMatch.get().getCookTime();
+        return false;
+    }
 
+    private static boolean canInsertAmountIntoOutputSlot(MillstoneBlockEntity entity, AbstractMillstoneRecipe recipe) {
+        ItemStack result = recipe.getResultItem();
+
+        for (int i = 1; i <= 9; i++) {
+
+            ItemStack slot = entity.itemHandler.getStackInSlot(i);
+
+            if (slot.isEmpty()) {
+                return true;
+            }
+
+            if (ItemStack.isSameItemSameTags(slot, result)
+                    && slot.getCount() + result.getCount() <= slot.getMaxStackSize()) {
                 return true;
             }
         }
@@ -232,95 +245,73 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         return false;
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(
-            SimpleContainer inventory,
-            ItemStack output) {
-
-        ItemStack currentOutput = inventory.getItem(9);
-
-        if (currentOutput.isEmpty()) {
-            return true;
-        }
-
-        if (!currentOutput.is(output.getItem())) {
-            return false;
-        }
-
-        return currentOutput.getCount() + output.getCount()
-                <= currentOutput.getMaxStackSize();
-    }
-
     private static void craftItem(MillstoneBlockEntity entity) {
-
         AbstractMillstoneRecipe currentRecipe =
                 entity.currentRecipe;
 
         if (currentRecipe == null) return;
 
-        for (int i = 0; i < 9; ++i) {
+        ItemStack input =
+                entity.itemHandler.getStackInSlot(0);
 
-            ItemStack slotStack =
-                    entity.itemHandler.getStackInSlot(i);
+        if (input.hasCraftingRemainingItem()) {
 
-            if (slotStack.hasCraftingRemainingItem()) {
+            Direction direction =
+                    entity.getBlockState()
+                            .getValue(MillstoneBlock.FACING)
+                            .getCounterClockWise();
 
-                Direction direction =
-                        entity.getBlockState()
-                                .getValue(MillstoneBlock.FACING)
-                                .getCounterClockWise();
+            double x =
+                    entity.worldPosition.getX()
+                            + 0.5
+                            + direction.getStepX() * 0.25;
 
-                double x =
-                        entity.worldPosition.getX()
-                                + 0.5
-                                + direction.getStepX() * 0.25;
+            double y =
+                    entity.worldPosition.getY() + 0.7;
 
-                double y =
-                        entity.worldPosition.getY() + 0.7;
+            double z =
+                    entity.worldPosition.getZ()
+                            + 0.5
+                            + direction.getStepZ() * 0.25;
 
-                double z =
-                        entity.worldPosition.getZ()
-                                + 0.5
-                                + direction.getStepZ() * 0.25;
-
-                spawnItemEntity(
-                        entity.level,
-                        slotStack.getCraftingRemainingItem(),
-                        x, y, z,
-                        direction.getStepX() * 0.08F,
-                        0.25,
-                        direction.getStepZ() * 0.08F
-                );
-            }
-        }
-
-        for (int i = 0; i < 9; ++i) {
-            entity.itemHandler.extractItem(i, 1, false);
-        }
-
-        ItemStack output =
-                entity.itemHandler.getStackInSlot(9);
-
-        output.grow(currentRecipe.getResultItem().getCount());
-
-        if (output.isEmpty()) {
-
-            entity.itemHandler.setStackInSlot(
-                    9,
-                    currentRecipe.getResultItem().copy()
+            spawnItemEntity(
+                    entity.level,
+                    input.getCraftingRemainingItem(),
+                    x, y, z,
+                    direction.getStepX() * 0.08F,
+                    0.25,
+                    direction.getStepZ() * 0.08F
             );
         }
 
-        entity.resetProgress();
+        entity.itemHandler.extractItem(0, 1, false);
+
+        ItemStack result =
+                currentRecipe.getResultItem().copy();
+
+        for (int i = 1; i <= 9; i++) {
+
+            ItemStack slot =
+                    entity.itemHandler.getStackInSlot(i);
+
+            if (slot.isEmpty()) {
+
+                entity.itemHandler.setStackInSlot(i, result);
+                entity.resetProgress();
+                return;
+            }
+
+            if (ItemStack.isSameItemSameTags(slot, result)
+                    && slot.getCount() + result.getCount() <= slot.getMaxStackSize()) {
+
+                slot.grow(result.getCount());
+                entity.resetProgress();
+                return;
+            }
+        }
     }
 
-    public static void spawnItemEntity(Level level,
-                                       ItemStack stack,
-                                       double x,
-                                       double y,
-                                       double z,
-                                       double xMotion,
-                                       double yMotion,
-                                       double zMotion) {
+    public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
 
         ItemEntity entity =
                 new ItemEntity(level, x, y, z, stack);
@@ -344,15 +335,15 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     public int[] getSlotsForFace(Direction direction) {
 
         if (direction == Direction.UP) {
-            return INGREDIENT_SLOTS;
+            return new int[]{0};
         }
 
-        return new int[]{9};
+        return new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
     }
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        return slot != 9;
+        return slot == 0;
     }
 
     @Override

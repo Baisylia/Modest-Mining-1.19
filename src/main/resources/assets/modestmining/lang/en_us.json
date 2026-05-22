@@ -338,6 +338,9 @@
   "recipe.modestmining.milling": "Milling",
   "emi.category.modestmining.milling": "Milling",
 
+  "tooltip.modestmining.millstone.powered": "Powered",
+  "tooltip.modestmining.millstone.not_powered": "Not Powered",
+
   "modestmining.subtitles.forge.crackle": "Forge crackles",
   "gui.recipe_book.toggle_recipes.forgeable": "Toggle Forgeable",
   "gui.recipe_book.toggle_recipes.millable": "Toggle Millable"

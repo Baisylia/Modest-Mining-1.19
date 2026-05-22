@@ -27,24 +27,35 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
     private final ContainerData data;
 
     public MillstoneMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
     public MillstoneMenu(int pContainerId, Inventory pPlayerInventory, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.MILLSTONE_MENU.get(), pContainerId);
-        checkContainerSize(pPlayerInventory, 10);
+        //checkContainerSize(pPlayerInventory, 10);
         blockEntity = ((MillstoneBlockEntity) entity);
         this.level = pPlayerInventory.player.level;
         this.data = data;
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            int index = 0;
+
+            // Input
+            this.addSlot(new SlotItemHandler(handler, 0, 33, 35));
+
+            // Outputs
+            int index = 1;
+
             for (int x = 0; x < 3; x++) {
                 for (int y = 0; y < 3; y++) {
-                    this.addSlot(new SlotItemHandler(handler, index++, 30 + y * 18, 17 + x * 18));
+
+                    this.addSlot(new ModResultSlot(
+                            handler,
+                            index++,
+                            95 + y * 18,
+                            17 + x * 18
+                    ));
                 }
             }
-            this.addSlot(new ModResultSlot(handler, index, 124, 19));
         });
 
         for (int x = 0; x < 3; ++x) {
@@ -77,11 +88,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
     }
 
     public int getLitTime() {
-        int litTime = this.data.get(2);
-        int fuel = this.data.get(3);
-        float percentage = (float) litTime / fuel;
-        percentage = percentage * 17;
-        return (int) percentage;
+        return isFueled() ? 17 : 0;
     }
 
     @Override
@@ -95,7 +102,8 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copy = sourceStack.copy();
 
-        if (index == 9) {
+        // Outputs
+        if (index >= 1 && index <= 9) {
 
             if (!moveItemStackTo(sourceStack, 10, 46, true)) {
                 return ItemStack.EMPTY;
@@ -104,16 +112,18 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
             sourceSlot.onQuickCraft(sourceStack, copy);
         }
 
-        else if (index < 9) {
+        // Input
+        else if (index == 0) {
 
             if (!moveItemStackTo(sourceStack, 10, 46, false)) {
                 return ItemStack.EMPTY;
             }
         }
 
+        // Inventory
         else {
 
-            if (!moveItemStackTo(sourceStack, 0, 9, false)) {
+            if (!moveItemStackTo(sourceStack, 0, 1, false)) {
                 return ItemStack.EMPTY;
             }
         }
@@ -142,8 +152,11 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
 
     @Override
     public void clearCraftingContent() {
-        for (int i = 0; i < 9; ++i) this.getSlot(i).set(ItemStack.EMPTY);
-        this.getSlot(9).set(ItemStack.EMPTY);
+        this.getSlot(0).set(ItemStack.EMPTY);
+
+        for (int i = 1; i <= 9; ++i) {
+            this.getSlot(i).set(ItemStack.EMPTY);
+        }
     }
 
     @Override
@@ -154,17 +167,17 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
 
     @Override
     public int getResultSlotIndex() {
-        return 9;
+        return 1;
     }
 
     @Override
     public int getGridWidth() {
-        return 3;
+        return 1;
     }
 
     @Override
     public int getGridHeight() {
-        return 3;
+        return 1;
     }
 
     @Override
@@ -179,7 +192,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
 
     @Override
     public boolean shouldMoveToInventory(int index) {
-        return index == 10 || index < (getGridWidth() * getGridHeight());
+        return index >= 1 && index <= 9;
     }
 
 }

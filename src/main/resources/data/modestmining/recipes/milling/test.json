@@ -1,22 +1,13 @@
 {
   "type": "modestmining:milling",
-  "category": "ores",
-  "cooktime": 144,
   "ingredients": [
-    {
-      "item": "minecraft:gold_ingot"
-    },
-    {
-      "item": "minecraft:gold_ingot"
-    },
-    {
-      "item": "minecraft:gold_ingot"
-    },
     {
       "item": "minecraft:gold_ingot"
     }
   ],
   "result": {
-    "item": "minecraft:blaze_powder"
-  }
+    "item": "minecraft:blaze_powder",
+    "count": 1
+  },
+  "cooktime": 72
 }
