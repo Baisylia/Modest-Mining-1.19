@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:crossbow" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:stick",
+      "count": 3,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:string",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 1,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

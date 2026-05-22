@@ -1,0 +1,35 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    { "item": "minecraft:pumpkin" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:pumpkin_seeds",
+      "count": 4,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:pumpkin_seeds",
+      "count": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:pumpkin_seeds",
+      "count": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:pumpkin_seeds",
+      "count": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:pumpkin_seeds",
+      "count": 1,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}

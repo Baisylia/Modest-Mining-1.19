@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    { "tag": "modestmining:concrete_powders" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:shell",
+      "count": 1,
+      "chance": 0.2
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "count": 1,
+      "chance": 0.2
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 1,
+      "chance": 0.4
+    }
+  ],
+  "cooktime": 200
+}

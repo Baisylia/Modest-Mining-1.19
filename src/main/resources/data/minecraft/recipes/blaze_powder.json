@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:blaze_rod" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:blaze_powder",
+      "count": 2,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

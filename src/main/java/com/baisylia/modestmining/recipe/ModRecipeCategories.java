@@ -34,6 +34,8 @@ public class ModRecipeCategories {
 			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_PLANTS", new ItemStack(Items.SUGAR)));
 	public static final Supplier<RecipeBookCategories> MILLING_BLOCKS =
 			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_BLOCKS", new ItemStack(Blocks.GRAVEL)));
+	public static final Supplier<RecipeBookCategories> MILLING_TOOLS =
+			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_TOOLS", new ItemStack(Items.DIAMOND_SWORD)));
 	public static final Supplier<RecipeBookCategories> MILLING_MISC =
 			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_MISC", new ItemStack(Items.BLAZE_POWDER)));
 
@@ -46,6 +48,7 @@ public class ModRecipeCategories {
 			MillingBookCategory.ORES, MILLING_ORES,
 			MillingBookCategory.PLANTS, MILLING_PLANTS,
 			MillingBookCategory.BLOCKS, MILLING_BLOCKS,
+			MillingBookCategory.TOOLS, MILLING_TOOLS,
 			MillingBookCategory.MISC, FORGING_MISC
 	);
 
@@ -57,10 +60,10 @@ public class ModRecipeCategories {
 			List.of(FORGING_EQUIPMENT.get(), FORGING_BUILDING.get(), FORGING_MISC.get())
 		);
 		event.registerBookCategories(ModestMining.MILLING_RECIPE_BOOK_TYPE,
-				List.of(MILLING_SEARCH.get(), MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_BLOCKS.get(), MILLING_MISC.get())
+				List.of(MILLING_SEARCH.get(), MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_BLOCKS.get(), MILLING_TOOLS.get(), MILLING_MISC.get())
 		);
 		event.registerAggregateCategory(MILLING_SEARCH.get(),
-				List.of(MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_BLOCKS.get(), MILLING_MISC.get())
+				List.of(MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_BLOCKS.get(), MILLING_TOOLS.get(), MILLING_MISC.get())
 		);
 		event.registerRecipeCategoryFinder(ModRecipes.FORGING_TYPE.get(), ModRecipeCategories::findForgingCategory);
 		event.registerRecipeCategoryFinder(ModRecipes.MILLING_TYPE.get(), ModRecipeCategories::findMillingCategory);

@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:lead" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:string",
+      "count": 2,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}

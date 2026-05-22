@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:brush" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:copper_nugget",
+      "count": 4,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

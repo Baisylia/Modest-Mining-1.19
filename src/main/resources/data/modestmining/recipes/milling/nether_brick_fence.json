@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    { "item": "minecraft:nether_brick_fence" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:nether_brick",
+      "count": 3,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

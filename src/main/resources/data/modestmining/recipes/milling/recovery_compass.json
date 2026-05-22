@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:recovery_compass" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 2,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:redstone",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:echo_shard",
+      "count": 4,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

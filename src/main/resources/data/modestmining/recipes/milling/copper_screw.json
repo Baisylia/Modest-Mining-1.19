@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    { "item": "modestmining:copper_screw" }
+  ],
+  "results": [
+    {
+      "item": "modestmining:copper_nugget",
+      "count": 4,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

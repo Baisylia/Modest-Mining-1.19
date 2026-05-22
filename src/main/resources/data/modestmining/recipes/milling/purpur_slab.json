@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    { "item": "minecraft:purpur_slab" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:popped_chorus_fruit",
+      "count": 2,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

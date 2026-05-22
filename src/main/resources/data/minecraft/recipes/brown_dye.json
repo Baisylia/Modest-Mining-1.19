@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    { "item": "minecraft:cocoa_beans" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:brown_dye",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:brown_dye",
+      "count": 1,
+      "chance": 0.25
+    }
+  ],
+  "cooktime": 200
+}

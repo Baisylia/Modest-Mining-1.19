@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    { "item": "minecraft:mangrove_roots" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:stick",
+      "count": 5,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

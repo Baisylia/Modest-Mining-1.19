@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    { "item": "minecraft:raw_copper" }
+  ],
+  "results": [
+    {
+      "item": "modestmining:copper_dust",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "modestmining:copper_dust",
+      "count": 1,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}

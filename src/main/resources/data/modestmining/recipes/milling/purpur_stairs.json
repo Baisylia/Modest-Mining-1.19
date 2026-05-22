@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    { "item": "minecraft:purpur_stairs" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:popped_chorus_fruit",
+      "count": 3,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

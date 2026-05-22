@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:spectral_arrow" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:stick",
+      "count": 1,
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 1,
+      "chance": 0.1
+    },
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 1,
+      "chance": 0.1
+    }
+  ],
+  "cooktime": 200
+}

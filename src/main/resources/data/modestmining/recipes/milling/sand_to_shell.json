@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:sand" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:shell",
+      "count": 1,
+      "chance": 0.25
+    },
+    {
+      "item": "minecraft:clay_ball",
+      "count": 1,
+      "chance": 0.25
+    },
+    {
+      "item": "minecraft:flint",
+      "count": 1,
+      "chance": 0.25
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    { "item": "minecraft:prismarine_stairs" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:prismarine_shard",
+      "count": 3,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

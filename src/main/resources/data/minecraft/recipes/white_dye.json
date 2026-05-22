@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    { "item": "minecraft:bone_meal" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:white_dye",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:white_dye",
+      "count": 1,
+      "chance": 0.1
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    { "item": "minecraft:sunflower" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:yellow_dye",
+      "count": 4,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:yellow_dye",
+      "count": 2,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}

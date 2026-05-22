@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    { "item": "minecraft:raw_gold" }
+  ],
+  "results": [
+    {
+      "item": "modestmining:gold_dust",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "modestmining:gold_dust",
+      "count": 1,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}

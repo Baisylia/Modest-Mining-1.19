@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    { "item": "minecraft:oxeye_daisy" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:white_dye",
+      "count": 2,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:white_dye",
+      "count": 1,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}
