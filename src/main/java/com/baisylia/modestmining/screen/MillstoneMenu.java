@@ -32,7 +32,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
 
     public MillstoneMenu(int pContainerId, Inventory pPlayerInventory, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.MILLSTONE_MENU.get(), pContainerId);
-        checkContainerSize(pPlayerInventory, 11);
+        checkContainerSize(pPlayerInventory, 10);
         blockEntity = ((MillstoneBlockEntity) entity);
         this.level = pPlayerInventory.player.level;
         this.data = data;
@@ -44,7 +44,6 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
                     this.addSlot(new SlotItemHandler(handler, index++, 30 + y * 18, 17 + x * 18));
                 }
             }
-            this.addSlot(new ModFuelSlot(handler, index++, 93, 53));
             this.addSlot(new ModResultSlot(handler, index, 124, 19));
         });
 
@@ -86,39 +85,48 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
     }
 
     @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
-        Slot sourceSlot = slots.get(pIndex);
-        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
+    public ItemStack quickMoveStack(Player player, int index) {
+        Slot sourceSlot = slots.get(index);
+
+        if (!sourceSlot.hasItem()) {
+            return ItemStack.EMPTY;
+        }
 
         ItemStack sourceStack = sourceSlot.getItem();
-        ItemStack sourceStackCopy = sourceStack.copy();
+        ItemStack copy = sourceStack.copy();
 
-        if (pIndex == 10) {
-            if (!this.moveItemStackTo(sourceStack, 11, 47, true)) {
+        if (index == 9) {
+
+            if (!moveItemStackTo(sourceStack, 10, 46, true)) {
                 return ItemStack.EMPTY;
             }
-            sourceSlot.onQuickCraft(sourceStack, sourceStackCopy);
-        } else if (pIndex < 10) {
-            if (!moveItemStackTo(sourceStack, 11, 47, false)) {
+
+            sourceSlot.onQuickCraft(sourceStack, copy);
+        }
+
+        else if (index < 9) {
+
+            if (!moveItemStackTo(sourceStack, 10, 46, false)) {
                 return ItemStack.EMPTY;
             }
-        } else {
-            boolean isFuel = AbstractFurnaceBlockEntity.isFuel(sourceStack);
-            if (isFuel && !moveItemStackTo(sourceStack, 9, 10, false)) {
-                if (!moveItemStackTo(sourceStack, 0, 9, false)) {
-                    return ItemStack.EMPTY;
-                }
-            }
+        }
+
+        else {
+
             if (!moveItemStackTo(sourceStack, 0, 9, false)) {
                 return ItemStack.EMPTY;
             }
         }
 
-        if (sourceStack.getCount() == 0) sourceSlot.set(ItemStack.EMPTY);
-        else sourceSlot.setChanged();
+        if (sourceStack.isEmpty()) {
+            sourceSlot.set(ItemStack.EMPTY);
+        } else {
+            sourceSlot.setChanged();
+        }
 
-        sourceSlot.onTake(pPlayer, sourceStack);
-        return sourceStackCopy;
+        sourceSlot.onTake(player, sourceStack);
+
+        return copy;
     }
 
     @Override
@@ -135,7 +143,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
     @Override
     public void clearCraftingContent() {
         for (int i = 0; i < 9; ++i) this.getSlot(i).set(ItemStack.EMPTY);
-        this.getSlot(10).set(ItemStack.EMPTY);
+        this.getSlot(9).set(ItemStack.EMPTY);
     }
 
     @Override
@@ -146,7 +154,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
 
     @Override
     public int getResultSlotIndex() {
-        return 10;
+        return 9;
     }
 
     @Override
@@ -161,7 +169,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
 
     @Override
     public int getSize() {
-        return 11;
+        return 10;
     }
 
     @Override

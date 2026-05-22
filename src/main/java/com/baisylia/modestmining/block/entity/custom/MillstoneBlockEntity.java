@@ -47,7 +47,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     private AbstractMillstoneRecipe currentRecipe = null;
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(11) {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
 
         @Override
         protected void onContentsChanged(int slot) {
@@ -236,7 +236,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
             SimpleContainer inventory,
             ItemStack output) {
 
-        ItemStack currentOutput = inventory.getItem(10);
+        ItemStack currentOutput = inventory.getItem(9);
 
         if (currentOutput.isEmpty()) {
             return true;
@@ -298,14 +298,14 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         }
 
         ItemStack output =
-                entity.itemHandler.getStackInSlot(10);
+                entity.itemHandler.getStackInSlot(9);
 
         output.grow(currentRecipe.getResultItem().getCount());
 
         if (output.isEmpty()) {
 
             entity.itemHandler.setStackInSlot(
-                    10,
+                    9,
                     currentRecipe.getResultItem().copy()
             );
         }
@@ -347,12 +347,12 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
             return INGREDIENT_SLOTS;
         }
 
-        return new int[]{10};
+        return new int[]{9};
     }
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        return slot != 10;
+        return slot != 9;
     }
 
     @Override
