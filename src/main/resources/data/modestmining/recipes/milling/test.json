@@ -1,13 +1,25 @@
 {
   "type": "modestmining:milling",
+  "category": "blocks",
   "ingredients": [
+    { "item": "minecraft:gold_ingot" }
+  ],
+  "results": [
     {
-      "item": "minecraft:gold_ingot"
+      "item": "minecraft:blaze_powder",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:iron_nugget",
+      "count": 2,
+      "chance": 0.5
+    },
+    {
+      "item": "minecraft:diamond",
+      "count": 3,
+      "chance": 0.25
     }
   ],
-  "result": {
-    "item": "minecraft:blaze_powder",
-    "count": 1
-  },
   "cooktime": 72
 }

@@ -7,6 +7,7 @@ public enum MillingBookCategory implements StringRepresentable {
 
     ORES("ores"),
     PLANTS("plants"),
+    BLOCKS("blocks"),
     MISC("misc");
 
     public static final EnumCodec<MillingBookCategory> CODEC = StringRepresentable.fromEnum(MillingBookCategory::values);

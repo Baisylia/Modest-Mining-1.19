@@ -3,6 +3,7 @@ package com.baisylia.modestmining.block.entity.custom;
 import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
+import com.baisylia.modestmining.recipe.MillstoneRecipe;
 import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.MillstoneMenu;
 import net.minecraft.core.BlockPos;
@@ -246,69 +247,42 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     private static void craftItem(MillstoneBlockEntity entity) {
-        AbstractMillstoneRecipe currentRecipe =
-                entity.currentRecipe;
+        MillstoneRecipe recipe =
+                (MillstoneRecipe) entity.currentRecipe;
 
-        if (currentRecipe == null) return;
-
-        ItemStack input =
-                entity.itemHandler.getStackInSlot(0);
-
-        if (input.hasCraftingRemainingItem()) {
-
-            Direction direction =
-                    entity.getBlockState()
-                            .getValue(MillstoneBlock.FACING)
-                            .getCounterClockWise();
-
-            double x =
-                    entity.worldPosition.getX()
-                            + 0.5
-                            + direction.getStepX() * 0.25;
-
-            double y =
-                    entity.worldPosition.getY() + 0.7;
-
-            double z =
-                    entity.worldPosition.getZ()
-                            + 0.5
-                            + direction.getStepZ() * 0.25;
-
-            spawnItemEntity(
-                    entity.level,
-                    input.getCraftingRemainingItem(),
-                    x, y, z,
-                    direction.getStepX() * 0.08F,
-                    0.25,
-                    direction.getStepZ() * 0.08F
-            );
-        }
+        if (recipe == null) return;
 
         entity.itemHandler.extractItem(0, 1, false);
 
-        ItemStack result =
-                currentRecipe.getResultItem().copy();
+        for (int i = 0; i < recipe.results.size(); i++) {
 
-        for (int i = 1; i <= 9; i++) {
+            ItemStack result = recipe.results.get(i);
+            float chance = recipe.chances.get(i);
 
-            ItemStack slot =
-                    entity.itemHandler.getStackInSlot(i);
+            if (entity.level.random.nextFloat() <= chance) {
 
-            if (slot.isEmpty()) {
+                ItemStack output = result.copy();
 
-                entity.itemHandler.setStackInSlot(i, result);
-                entity.resetProgress();
-                return;
-            }
+                for (int slot = 1; slot <= 9; slot++) {
 
-            if (ItemStack.isSameItemSameTags(slot, result)
-                    && slot.getCount() + result.getCount() <= slot.getMaxStackSize()) {
+                    ItemStack existing = entity.itemHandler.getStackInSlot(slot);
 
-                slot.grow(result.getCount());
-                entity.resetProgress();
-                return;
+                    if (existing.isEmpty()) {
+                        entity.itemHandler.setStackInSlot(slot, output);
+                        break;
+                    }
+
+                    if (ItemStack.isSameItemSameTags(existing, output)
+                            && existing.getCount() + output.getCount() <= existing.getMaxStackSize()) {
+
+                        existing.grow(output.getCount());
+                        break;
+                    }
+                }
             }
         }
+
+        entity.resetProgress();
     }
 
     public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {

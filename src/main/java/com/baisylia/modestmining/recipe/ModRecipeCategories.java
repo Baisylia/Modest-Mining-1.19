@@ -7,6 +7,7 @@ import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.event.RegisterRecipeBookCategoriesEvent;
 
 import java.util.List;
@@ -31,6 +32,8 @@ public class ModRecipeCategories {
 			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_ORES", new ItemStack(ModItems.IRON_DUST.get()), new ItemStack(Items.GOLDEN_SWORD)));
 	public static final Supplier<RecipeBookCategories> MILLING_PLANTS =
 			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_PLANTS", new ItemStack(Items.SUGAR)));
+	public static final Supplier<RecipeBookCategories> MILLING_BLOCKS =
+			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_BLOCKS", new ItemStack(Blocks.GRAVEL)));
 	public static final Supplier<RecipeBookCategories> MILLING_MISC =
 			Suppliers.memoize(() -> RecipeBookCategories.create("MILLING_MISC", new ItemStack(Items.BLAZE_POWDER)));
 
@@ -42,6 +45,7 @@ public class ModRecipeCategories {
 	public static final Map<MillingBookCategory, Supplier<RecipeBookCategories>> RECIPE_BOOK_TAB_SUPPLIERS_MILL = Map.of(
 			MillingBookCategory.ORES, MILLING_ORES,
 			MillingBookCategory.PLANTS, MILLING_PLANTS,
+			MillingBookCategory.BLOCKS, MILLING_BLOCKS,
 			MillingBookCategory.MISC, FORGING_MISC
 	);
 
@@ -53,10 +57,10 @@ public class ModRecipeCategories {
 			List.of(FORGING_EQUIPMENT.get(), FORGING_BUILDING.get(), FORGING_MISC.get())
 		);
 		event.registerBookCategories(ModestMining.MILLING_RECIPE_BOOK_TYPE,
-				List.of(MILLING_SEARCH.get(), MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_MISC.get())
+				List.of(MILLING_SEARCH.get(), MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_BLOCKS.get(), MILLING_MISC.get())
 		);
 		event.registerAggregateCategory(MILLING_SEARCH.get(),
-				List.of(MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_MISC.get())
+				List.of(MILLING_ORES.get(), MILLING_PLANTS.get(), MILLING_BLOCKS.get(), MILLING_MISC.get())
 		);
 		event.registerRecipeCategoryFinder(ModRecipes.FORGING_TYPE.get(), ModRecipeCategories::findForgingCategory);
 		event.registerRecipeCategoryFinder(ModRecipes.MILLING_TYPE.get(), ModRecipeCategories::findMillingCategory);

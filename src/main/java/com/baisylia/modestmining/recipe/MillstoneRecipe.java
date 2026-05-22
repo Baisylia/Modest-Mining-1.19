@@ -21,16 +21,19 @@ import net.minecraftforge.common.util.RecipeMatcher;
 import java.util.List;
 
 public class MillstoneRecipe extends AbstractMillstoneRecipe {
-
-    private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
     private final int cookTime;
     private final boolean isSimple;
+    public final NonNullList<ItemStack> results;
+    public final NonNullList<Float> chances;
 
-    public MillstoneRecipe(ResourceLocation id, String group, MillingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime) {
-        super(id, group, category, output, recipeItems, cookTime);
-        this.output = output;
+    public MillstoneRecipe(ResourceLocation id, String group, MillingBookCategory category, NonNullList<Ingredient> recipeItems,
+                           NonNullList<ItemStack> results, NonNullList<Float> chances, int cookTime) {
+        super(id, group, category, results.isEmpty() ? ItemStack.EMPTY : results.get(0), recipeItems, cookTime);
+
         this.recipeItems = recipeItems;
+        this.results = results;
+        this.chances = chances;
         this.cookTime = cookTime;
         this.isSimple = recipeItems.stream().allMatch(Ingredient::isSimple);
     }
@@ -52,8 +55,8 @@ public class MillstoneRecipe extends AbstractMillstoneRecipe {
     }
 
     @Override
-    public ItemStack assemble(Container p_44001_) {
-        return output;
+    public ItemStack assemble(Container container) {
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -70,20 +73,43 @@ public class MillstoneRecipe extends AbstractMillstoneRecipe {
     public static class Serializer implements RecipeSerializer<MillstoneRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         private static final ResourceLocation NAME = new ResourceLocation("modestmining", "milling");
-        public MillstoneRecipe fromJson(ResourceLocation resourceLocation, JsonObject json) {
+        public MillstoneRecipe fromJson(ResourceLocation id, JsonObject json) {
             String group = GsonHelper.getAsString(json, "group", "");
-            MillingBookCategory category = MillingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null));
+            MillingBookCategory category =
+                    MillingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", "misc"));
+
             if (category == null) category = MillingBookCategory.MISC;
-            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
+
+            NonNullList<Ingredient> inputs =
+                    itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
+
             if (inputs.isEmpty()) {
                 throw new JsonParseException("No ingredients for milling recipe");
-            } else if (inputs.size() > 9) {
-                throw new JsonParseException("Too many ingredients for milling recipe. The maximum is 9");
-            } else {
-                ItemStack itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-                int cookTimeIn = GsonHelper.getAsInt(json, "cooktime", 200);
-                return new MillstoneRecipe(resourceLocation, group, category, itemstack, inputs,  cookTimeIn);
             }
+
+            // Results
+            JsonArray resultsJson = GsonHelper.getAsJsonArray(json, "results");
+
+            NonNullList<ItemStack> results = NonNullList.create();
+            NonNullList<Float> chances = NonNullList.create();
+
+            for (int i = 0; i < resultsJson.size(); i++) {
+                JsonObject obj = resultsJson.get(i).getAsJsonObject();
+
+                ItemStack stack = ShapedRecipe.itemStackFromJson(obj);
+
+                float chance = 1.0f;
+                if (obj.has("chance")) {
+                    chance = GsonHelper.getAsFloat(obj, "chance");
+                }
+
+                results.add(stack);
+                chances.add(chance);
+            }
+
+            int cookTime = GsonHelper.getAsInt(json, "cooktime", 200);
+
+            return new MillstoneRecipe(id, group, category, inputs, results, chances, cookTime);
         }
 
 
@@ -102,31 +128,45 @@ public class MillstoneRecipe extends AbstractMillstoneRecipe {
         public MillstoneRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             String group = buf.readUtf();
             MillingBookCategory category = buf.readEnum(MillingBookCategory.class);
-            int i = buf.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(i, Ingredient.EMPTY);
 
-            for(int j = 0; j < inputs.size(); ++j) {
-                inputs.set(j, Ingredient.fromNetwork(buf));
+            int inputSize = buf.readVarInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(inputSize, Ingredient.EMPTY);
+
+            for (int i = 0; i < inputSize; i++) {
+                inputs.set(i, Ingredient.fromNetwork(buf));
             }
 
-            ItemStack itemstack = buf.readItem();
-            int cookTimeIn = buf.readVarInt();
-            return new MillstoneRecipe(id, group, category, itemstack, inputs, cookTimeIn);
+            int resultSize = buf.readVarInt();
+            NonNullList<ItemStack> results = NonNullList.withSize(resultSize, ItemStack.EMPTY);
+            NonNullList<Float> chances = NonNullList.withSize(resultSize, 0f);
+
+            for (int i = 0; i < resultSize; i++) {
+                results.set(i, buf.readItem());
+                chances.set(i, buf.readFloat());
+            }
+
+            int cookTime = buf.readVarInt();
+
+            return new MillstoneRecipe(id, group, category, inputs, results, chances, cookTime);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, MillstoneRecipe recipe) {
             buf.writeUtf(recipe.group);
             buf.writeEnum(recipe.category);
-            buf.writeVarInt(recipe.recipeItems.size());
 
-            for(Ingredient ingredient : recipe.getIngredients()) {
+            buf.writeVarInt(recipe.recipeItems.size());
+            for (Ingredient ingredient : recipe.recipeItems) {
                 ingredient.toNetwork(buf);
             }
 
-            buf.writeItem(recipe.getResultItem());
-            buf.writeVarInt(recipe.cookTime);
+            buf.writeVarInt(recipe.results.size());
+            for (int i = 0; i < recipe.results.size(); i++) {
+                buf.writeItem(recipe.results.get(i));
+                buf.writeFloat(recipe.chances.get(i));
+            }
 
+            buf.writeVarInt(recipe.cookTime);
         }
     }
 }
