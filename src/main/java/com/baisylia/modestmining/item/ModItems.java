@@ -270,7 +270,7 @@ public class ModItems {
     public static final RegistryObject<Item> PRISMARITE_HAMMER = ITEMS.register("prismarite_hammer", () -> new HammerItem(ModTiers.PRISMARITE, 7, -3.2f,
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
-
+/*
     //public static final RegistryObject<Item> FLINT_POLEAXE = ITEMS.register("flint_poleaxe", () -> new GlaiveItem(ModTiers.FLINT, 1, -3.6f, 3.0f,
     //        new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
@@ -363,7 +363,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> PRISMARITE_MACE = ITEMS.register("prismarite_mace", () -> new MaceItem(ModTiers.PRISMARITE, 1, -3.2f, 2.0f, 2.0f,
             new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
-
+*/
 
     public static final RegistryObject<Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 3.0F,
             new Item.Properties().durability(Tiers.WOOD.getUses()).tab(CreativeModeTab.TAB_COMBAT)));

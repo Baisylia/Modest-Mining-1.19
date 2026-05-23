@@ -63,28 +63,17 @@ public class JavelinItem extends TridentItem {
                         if (j == 0) {
 
                             // Edited Part
-                            ThrownJavelinEntity javelin =
-                                    new ThrownJavelinEntity(pLevel, player, pStack);
-
-                            javelin.shootFromRotation(
-                                    player,
-                                    player.getXRot(),
-                                    player.getYRot(),
-                                    0.0F,
-                                    2.5F,
-                                    1.0F
-                            );
-
+                            ThrownJavelinEntity javelin = new ThrownJavelinEntity(pLevel, player, pStack);
+                            javelin.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F + (float)j * 0.5F, 1.0F);
+                            if (player.getAbilities().instabuild) {
+                                javelin.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                            }
                             pLevel.addFreshEntity(javelin);
-
-                            pLevel.playSound(
-                                    null,
-                                    javelin,
-                                    SoundEvents.TRIDENT_THROW,
-                                    SoundSource.PLAYERS,
-                                    1.0F,
-                                    1.0F
+                            pLevel.playSound(null, javelin, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F
                             );
+                            if (!player.getAbilities().instabuild) {
+                                player.getInventory().removeItem(pStack);
+                            }
                             //
                         }
                     }
