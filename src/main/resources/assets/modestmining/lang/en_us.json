@@ -144,6 +144,15 @@
   "item.modestmining.prismarite_mace": "Prismarite Mace",
 
 
+  "item.modestmining.wooden_javelin": "Wooden Javelin",
+  "item.modestmining.stone_javelin": "Stone Javelin",
+  "item.modestmining.golden_javelin": "Golden Javelin",
+  "item.modestmining.iron_javelin": "Iron Javelin",
+  "item.modestmining.diamond_javelin": "Diamond Javelin",
+  "item.modestmining.netherite_javelin": "Netherite Javelin",
+  "item.modestmining.prismarite_javelin": "Prismarite Javelin",
+
+
 
   "block.modestmining.coke_block": "Block of Coke",
   "block.modestmining.coal_powder_block": "Block of Coal Powder",

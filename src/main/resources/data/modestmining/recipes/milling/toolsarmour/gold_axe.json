@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:gold_axe" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gold_ingot",
+      "count": 2,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:gold_nugget",
+      "count": 4,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

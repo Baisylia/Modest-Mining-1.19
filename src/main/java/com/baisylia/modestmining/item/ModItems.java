@@ -5,10 +5,7 @@ import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.item.custom.tools.BrushItem;
 import com.baisylia.modestmining.item.custom.tools.ChiselItem;
 import com.baisylia.modestmining.item.custom.tools.ModArmorItem;
-import com.baisylia.modestmining.item.custom.weapons.GlaiveItem;
-import com.baisylia.modestmining.item.custom.weapons.HammerItem;
-import com.baisylia.modestmining.item.custom.weapons.KatanaItem;
-import com.baisylia.modestmining.item.custom.weapons.MaceItem;
+import com.baisylia.modestmining.item.custom.weapons.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -366,6 +363,27 @@ public class ModItems {
 
     public static final RegistryObject<Item> PRISMARITE_MACE = ITEMS.register("prismarite_mace", () -> new MaceItem(ModTiers.PRISMARITE, 1, -3.2f, 2.0f, 2.0f,
             new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+
+    public static final RegistryObject<Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 3.0F,
+            new Item.Properties().durability(Tiers.WOOD.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> STONE_JAVELIN = ITEMS.register("stone_javelin", () -> new JavelinItem(Tiers.STONE, 2.0F, -2.9F, 3.0F,
+            new Item.Properties().durability(Tiers.STONE.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> GOLDEN_JAVELIN = ITEMS.register("golden_javelin", () -> new JavelinItem(Tiers.GOLD, 2.0F, -2.9F, 3.0F,
+            new Item.Properties().durability(Tiers.GOLD.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> IRON_JAVELIN = ITEMS.register("iron_javelin", () -> new JavelinItem(Tiers.IRON, 2.0F, -2.8F, 3.0F,
+            new Item.Properties().durability(Tiers.IRON.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> DIAMOND_JAVELIN = ITEMS.register("diamond_javelin", () -> new JavelinItem(Tiers.DIAMOND, 2.0F, -2.7F, 3.0F,
+            new Item.Properties().durability(Tiers.DIAMOND.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> NETHERITE_JAVELIN = ITEMS.register("netherite_javelin", () -> new JavelinItem(Tiers.NETHERITE, 2.0F, -2.7F, 3.0F,
+            new Item.Properties().durability(Tiers.NETHERITE.getUses()).fireResistant().tab(CreativeModeTab.TAB_COMBAT)));
+    public static final RegistryObject<Item> PRISMARITE_JAVELIN = ITEMS.register("prismarite_javelin", () -> new JavelinItem(ModTiers.PRISMARITE, 2.0F, -2.7F, 3.0F,
+            new Item.Properties().durability(ModTiers.PRISMARITE.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

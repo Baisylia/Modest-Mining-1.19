@@ -1,0 +1,15 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:leather_helmet" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:leather",
+      "count": 2,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

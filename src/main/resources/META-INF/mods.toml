@@ -76,3 +76,10 @@ mandatory=false
 versionRange="[0.1.0,)"
 ordering="AFTER"
 side="BOTH"
+[[dependencies.modestmining]]
+modId="modestmagic"
+mandatory=false
+versionRange="[0.3.0,)"
+ordering="AFTER"
+side="BOTH"
+

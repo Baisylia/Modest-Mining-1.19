@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "modestmining:diamond_javelin"
+  },
+  "addition": {
+    "item": "modestmining:prismarite_ingot"
+  },
+  "result": {
+    "item": "modestmining:prismarite_javelin"
+  }
+}

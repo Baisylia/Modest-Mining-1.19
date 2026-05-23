@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    { "item": "minecraft:iron_boots" }
+  ],
+  "results": [
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 2,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:iron_nugget",
+      "count": 4,
+      "chance": 1.0
+    }
+  ],
+  "cooktime": 200
+}

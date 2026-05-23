@@ -5,6 +5,8 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.block.renderer.MillstoneRenderer;
 import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.custom.ClamEntity;
+import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,6 +34,11 @@ public class ModEvents {
         event.registerBlockEntityRenderer(
                 ModBlockEntities.MILLSTONE_BLOCK_ENTITY.get(),
                 MillstoneRenderer::new
+        );
+
+        EntityRenderers.register(
+                ModEntityTypes.THROWN_JAVELIN.get(),
+                ThrownJavelinRenderer::new
         );
     }
 }

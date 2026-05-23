@@ -202,6 +202,8 @@ dependencies {
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
     runtimeOnly fg.deobf("curse.maven:savageandravage-381736:4776245")
     runtimeOnly fg.deobf("curse.maven:oreganized-769203:4377982")
+    runtimeOnly fg.deobf("curse.maven:modest-magic-534359:8072617")
+    runtimeOnly fg.deobf("curse.maven:modest-masonry-1541822:8081828")
 
     compileOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2:api")
     runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2")
