@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "misc",
   "ingredients": [
-    { "item": "minecraft:raw_chicken" }
+    { "item": "minecraft:chicken" }
   ],
   "results": [
     {

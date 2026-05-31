@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:gold_helmet" }
+    { "item": "modestmining:golden_hammer" }
   ],
   "results": [
     {

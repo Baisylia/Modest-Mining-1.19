@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "modestmining:adobe_bricks"
-  },
-  "result": "modestmining:adobe_brick_stairs"
-}

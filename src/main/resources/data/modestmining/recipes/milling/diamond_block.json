@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "ores",
   "ingredients": [
-    { "item": "modestmining:diamond_block" }
+    { "item": "minecraft:diamond_block" }
   ],
   "results": [
     {

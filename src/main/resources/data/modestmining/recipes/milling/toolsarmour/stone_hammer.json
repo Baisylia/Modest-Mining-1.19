@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:stone_helmet" }
+    { "item": "modestmining:stone_hammer" }
   ],
   "results": [
     {

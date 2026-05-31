@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:gold_pickaxe" }
+    { "item": "minecraft:golden_pickaxe" }
   ],
   "results": [
     {

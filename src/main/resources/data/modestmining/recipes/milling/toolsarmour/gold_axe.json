@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:gold_axe" }
+    { "item": "minecraft:golden_axe" }
   ],
   "results": [
     {

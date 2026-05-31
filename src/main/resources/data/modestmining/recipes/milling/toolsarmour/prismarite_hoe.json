@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:prismarite_hoe" }
+    { "item": "modestmining:prismarite_hoe" }
   ],
   "results": [
     {

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "modestmining:mossy_adobe_bricks"
-  },
-  "result": "modestmining:mossy_adobe_brick_slab"
-}

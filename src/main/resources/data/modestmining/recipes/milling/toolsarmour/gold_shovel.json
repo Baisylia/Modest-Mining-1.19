@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:gold_shovel" }
+    { "item": "minecraft:golden_shovel" }
   ],
   "results": [
     {

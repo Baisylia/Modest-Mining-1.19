@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:brush" }
+    { "item": "modestmining:brush" }
   ],
   "results": [
     {
