@@ -25,6 +25,8 @@ public class ModTiers {
 
     public static final ForgeTier PRISMARITE = new ForgeTier(4, 2031, 9.0f, 4.0f, 13,
             BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.of(ModItems.PRISMARITE_INGOT.get()));
+    public static final ForgeTier VALKYRIUM = new ForgeTier(4, 2031, 10.0f, 4.0f, 11,
+            BlockTags.NEEDS_DIAMOND_TOOL, () -> Ingredient.of(ModItems.VALKYRIUM_INGOT.get()));
 
 
     /*public static final ForgeTier MOUNTAIN_FLINT = new ForgeTier(0, 45, 0.25f, 1.5f, 2,

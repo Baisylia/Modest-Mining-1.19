@@ -43,15 +43,37 @@ public class ModItems {
     //public static final RegistryObject<Item> WEATHERED_COPPER_INGOT = ITEMS.register("weathered_copper_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     //public static final RegistryObject<Item> OXIDIZED_COPPER_INGOT = ITEMS.register("oxidized_copper_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    //public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-    //public static final RegistryObject<Item> STEEL_NUGGET = ITEMS.register("steel_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    //public static final RegistryObject<Item> ROSEGOLD_INGOT = ITEMS.register("rosegold_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ALUMINIUM_INGOT = ITEMS.register("aluminium_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ALUMINIUM_NUGGET = ITEMS.register("aluminium_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> RAW_ALUMINIUM = ITEMS.register("raw_aluminium", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ALUMINIUM_DUST = ITEMS.register("aluminium_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> LEAD_NUGGET = ITEMS.register("lead_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> LEAD_DUST = ITEMS.register("lead_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> SILVER_INGOT = ITEMS.register("silver_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> SILVER_NUGGET = ITEMS.register("silver_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> RAW_SILVER = ITEMS.register("raw_silver", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> SILVER_DUST = ITEMS.register("silver_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-    //public static final RegistryObject<Item> ROSEGOLD_NUGGET = ITEMS.register("rosegold_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> STEEL_NUGGET = ITEMS.register("steel_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ROSEGOLD_INGOT = ITEMS.register("rosegold_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ROSEGOLD_NUGGET = ITEMS.register("rosegold_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> BRONZE_INGOT = ITEMS.register("bronze_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> BRONZE_NUGGET = ITEMS.register("bronze_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ELECTRUM_INGOT = ITEMS.register("electrum_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> ELECTRUM_NUGGET = ITEMS.register("electrum_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
+
     public static final RegistryObject<Item> PRISMARITE_INGOT = ITEMS.register("prismarite_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     public static final RegistryObject<Item> PRISMARITE_NUGGET = ITEMS.register("prismarite_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
+    public static final RegistryObject<Item> VALKYRIUM_INGOT = ITEMS.register("valkyrium_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
+    public static final RegistryObject<Item> VALKYRIUM_NUGGET = ITEMS.register("valkyrium_nugget", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     //public static final RegistryObject<Item> PRISMARITE_SCRAP = ITEMS.register("prismarite_scrap", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
@@ -79,7 +101,7 @@ public class ModItems {
 
     //public static final RegistryObject<Item> PRISMARITE_PLATING = ITEMS.register("prismarite_plating", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-    //public static final RegistryObject<Item> DIAMOND_PLATING = ITEMS.register("diamond_plating", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> DIAMOND_PLATING = ITEMS.register("diamond_plating", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     //public static final RegistryObject<Item> IRON_PIECE = ITEMS.register("iron_piece", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
@@ -93,7 +115,9 @@ public class ModItems {
 
     //public static final RegistryObject<Item> PRISMARITE_PIECE = ITEMS.register("prismarite_piece", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-    //public static final RegistryObject<Item> DIAMOND_PIECE = ITEMS.register("diamond_piece", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> DIAMOND_PIECE = ITEMS.register("diamond_piece", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
+
 
     public static final RegistryObject<Item> COPPER_DUST = ITEMS.register("copper_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
@@ -240,6 +264,35 @@ public class ModItems {
             new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
 
+    public static final RegistryObject<Item> VALKYRIUM_SWORD = ITEMS.register("valkyrium_sword", () -> new SwordItem(ModTiers.VALKYRIUM, 3, -2.4f,
+            new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> VALKYRIUM_AXE = ITEMS.register("valkyrium_axe", () -> new AxeItem(ModTiers.VALKYRIUM, 5f, -3f,
+            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+
+    public static final RegistryObject<Item> VALKYRIUM_PICKAXE = ITEMS.register("valkyrium_pickaxe", () -> new PickaxeItem(ModTiers.VALKYRIUM, 1, -2.8f,
+            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+
+    public static final RegistryObject<Item> VALKYRIUM_SHOVEL = ITEMS.register("valkyrium_shovel", () -> new ShovelItem(ModTiers.VALKYRIUM, 1.5f, -3f,
+            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+
+    public static final RegistryObject<Item> VALKYRIUM_HOE = ITEMS.register("valkyrium_hoe", () -> new HoeItem(ModTiers.VALKYRIUM, -4, 0f,
+            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+
+    public static final RegistryObject<Item> VALKYRIUM_HELMET = ITEMS.register("valkyrium_helmet", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, EquipmentSlot.HEAD,
+            new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> VALKYRIUM_CHESTPLATE = ITEMS.register("valkyrium_chestplate", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, EquipmentSlot.CHEST,
+            new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> VALKYRIUM_LEGGINGS = ITEMS.register("valkyrium_leggings", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, EquipmentSlot.LEGS,
+            new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> VALKYRIUM_BOOTS = ITEMS.register("valkyrium_boots", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, EquipmentSlot.FEET,
+            new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+
+
     //public static final RegistryObject<Item> FLINT_MALLET = ITEMS.register("flint_mallet", () -> new HammerItem(ModTiers.FLINT, 2, -3.5f,
     //        new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
@@ -268,6 +321,8 @@ public class ModItems {
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     public static final RegistryObject<Item> PRISMARITE_HAMMER = ITEMS.register("prismarite_hammer", () -> new HammerItem(ModTiers.PRISMARITE, 7, -3.2f,
+            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
+    public static final RegistryObject<Item> VALKYRIUM_HAMMER = ITEMS.register("valkyrium_hammer", () -> new HammerItem(ModTiers.VALKYRIUM, 7, -3.2f,
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
 /*
@@ -384,6 +439,8 @@ public class ModItems {
             new Item.Properties().durability(Tiers.NETHERITE.getUses()).fireResistant().tab(CreativeModeTab.TAB_COMBAT)));
     public static final RegistryObject<Item> PRISMARITE_JAVELIN = ITEMS.register("prismarite_javelin", () -> new JavelinItem(ModTiers.PRISMARITE, 2.0F, -2.7F, 3.0F,
             new Item.Properties().durability(ModTiers.PRISMARITE.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
+    public static final RegistryObject<Item> VALKYRIUM_JAVELIN = ITEMS.register("valkyrium_javelin", () -> new JavelinItem(ModTiers.VALKYRIUM, 2.0F, -2.7F, 3.0F,
+            new Item.Properties().durability(ModTiers.VALKYRIUM.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

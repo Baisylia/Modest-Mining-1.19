@@ -22,7 +22,9 @@ public enum ModArmourMaterials implements ArmorMaterial {
         return Ingredient.of(ModItems.ROSEGOLD_INGOT.get()); }),*/
 
     PRISMARITE("prismarite", 30, new int[]{3, 6, 8, 3}, 25, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> {
-        return Ingredient.of(ModItems.PRISMARITE_INGOT.get()); });
+        return Ingredient.of(ModItems.PRISMARITE_INGOT.get()); }),
+    VALKYRIUM("valkyrium", 30, new int[]{3, 6, 8, 3}, 25, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> {
+        return Ingredient.of(ModItems.VALKYRIUM_INGOT.get()); });
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
