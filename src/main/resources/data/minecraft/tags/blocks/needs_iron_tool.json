@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "modestmining:compact_amethyst_block",
-    "modestmining:diamond_shard_block"
+    "modestmining:diamond_shard_block",
+    "modestmining:steel_block",
+    "modestmining:rosegold_block",
+    "modestmining:electrum_block",
+    "modestmining:silver_ore",
+    "modestmining:deepslate_silver_ore"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "modestmining:item/valkyrium_javelin_javelin_handheld"
+    "layer0": "modestmining:item/valkyrium_javelin_handheld"
   },
   "display": {
     "thirdperson_righthand": {

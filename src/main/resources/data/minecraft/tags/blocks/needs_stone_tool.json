@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:bronze_block",
+    "modestmining:lead_ore",
+    "modestmining:deepslate_lead_ore",
+    "modestmining:nether_lead_ore"
+  ]
+}

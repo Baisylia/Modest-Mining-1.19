@@ -7,6 +7,25 @@
     "modestmining:diamond_shard_block",
     "modestmining:forge",
     "modestmining:suspicious_stone",
-    "modestmining:shell"
+    "modestmining:shell",
+    "modestmining:aluminium_block",
+    "modestmining:raw_aluminium_block",
+    "modestmining:aluminium_ore",
+    "modestmining:deepslate_aluminium_ore",
+    "modestmining:lead_block",
+    "modestmining:raw_lead_block",
+    "modestmining:lead_ore",
+    "modestmining:deepslate_lead_ore",
+    "modestmining:nether_lead_ore",
+    "modestmining:silver_block",
+    "modestmining:raw_silver_block",
+    "modestmining:silver_ore",
+    "modestmining:deepslate_silver_ore",
+    "modestmining:bronze_block",
+    "modestmining:steel_block",
+    "modestmining:rosegold_block",
+    "modestmining:electrum_block",
+    "modestmining:valkyrium_block",
+    "modestmining:millstone"
   ]
 }
