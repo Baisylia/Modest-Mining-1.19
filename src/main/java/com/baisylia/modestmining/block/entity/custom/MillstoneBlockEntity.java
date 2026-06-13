@@ -182,15 +182,12 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         }
 
         if (hasRecipe(entity)) {
-
             entity.progress++;
-
             setChanged(level, pos, state);
 
             if (entity.progress >= entity.maxProgress) {
                 craftItem(entity);
             }
-
         } else {
             entity.resetProgress();
         }
@@ -201,48 +198,39 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     private static boolean hasRecipe(MillstoneBlockEntity entity) {
-        Level level = entity.level;
-
         SimpleContainer inventory =
                 new SimpleContainer(entity.itemHandler.getSlots());
 
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i,
-                    entity.itemHandler.getStackInSlot(i));
+            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
         Optional<AbstractMillstoneRecipe> recipeMatch =
-                entity.quickCheck.getRecipeFor(inventory, level);
+                entity.quickCheck.getRecipeFor(inventory, entity.level);
 
         if (recipeMatch.isPresent()) {
-
             entity.currentRecipe = recipeMatch.get();
-            entity.maxProgress =
-                    recipeMatch.get().getCookTime();
-
-            return canInsertAmountIntoOutputSlot(entity, recipeMatch.get());
+            entity.maxProgress = recipeMatch.get().getCookTime();
+            return canInsertAllOutputs(entity, recipeMatch.get());
         }
 
         return false;
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(MillstoneBlockEntity entity, AbstractMillstoneRecipe recipe) {
-        ItemStack result = recipe.getResultItem();
-
-        for (int i = 1; i <= 9; i++) {
-
-            ItemStack slot = entity.itemHandler.getStackInSlot(i);
-
-            if (slot.isEmpty()) {
-                return true;
-            }
-
-            if (ItemStack.isSameItemSameTags(slot, result)
-                    && slot.getCount() + result.getCount() <= slot.getMaxStackSize()) {
-                return true;
-            }
+    private static boolean canInsertAllOutputs(MillstoneBlockEntity entity, AbstractMillstoneRecipe recipe) {
+        if (!(recipe instanceof MillstoneRecipe millstoneRecipe)) {
+            return canInsertStack(entity, recipe.getResultItem());
         }
+        for (ItemStack result : millstoneRecipe.results) {
+            if (!result.isEmpty() && !canInsertStack(entity, result)) return false;
+        }
+        return true;
+    }
 
+    private static boolean canInsertStack(MillstoneBlockEntity entity, ItemStack stack) {
+        for (int slot = 1; slot <= 9; slot++) {
+            if (entity.itemHandler.insertItem(slot, stack, true).isEmpty()) return true;
+        }
         return false;
     }
 

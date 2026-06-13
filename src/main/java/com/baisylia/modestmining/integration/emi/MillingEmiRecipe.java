@@ -1,6 +1,8 @@
 package com.baisylia.modestmining.integration.emi;
 
+import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
+import com.baisylia.modestmining.recipe.MillstoneRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
@@ -9,8 +11,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.crafting.IShapedRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -19,22 +19,35 @@ import java.util.List;
 
 public class MillingEmiRecipe implements EmiRecipe {
 
+    private static final ResourceLocation MILLSTONE_GUI =
+            new ResourceLocation(ModestMining.MOD_ID, "textures/gui/millstone_gui.png");
+    private static final EmiTexture LIT_POWER =
+            new EmiTexture(MILLSTONE_GUI, 201, 14, 24, 17, 24, 17, 256, 256);
+
     protected final ResourceLocation id;
-    protected final List<EmiIngredient> input;
-    protected final EmiStack output;
+    protected final EmiIngredient input;
+    protected final List<EmiStack> outputs;
     protected final int cookTime;
-    protected final boolean shapeless;
 
     public MillingEmiRecipe(AbstractMillstoneRecipe recipe) {
         this.id = recipe.getId();
-        this.input = padIngredients(recipe);
-        this.output = EmiStack.of(recipe.getResultItem());
+        this.input = EmiIngredient.of(recipe.getIngredients().get(0));
         this.cookTime = recipe.getCookTime();
-        this.shapeless = !(recipe instanceof IShapedRecipe);
-    }
 
-    private static List<EmiIngredient> padIngredients(AbstractMillstoneRecipe recipe) {
-        return recipe.getIngredients().stream().map(EmiIngredient::of).toList();
+        List<EmiStack> outs = new ArrayList<>();
+        if (recipe instanceof MillstoneRecipe millstoneRecipe) {
+            for (int i = 0; i < millstoneRecipe.results.size(); i++) {
+                float chance = i < millstoneRecipe.chances.size() ? millstoneRecipe.chances.get(i) : 1.0f;
+                EmiStack stack = EmiStack.of(millstoneRecipe.results.get(i));
+                if (chance < 1.0f) {
+                    stack = stack.setChance(chance);
+                }
+                outs.add(stack);
+            }
+        } else {
+            outs.add(EmiStack.of(recipe.getResultItem()));
+        }
+        this.outputs = outs;
     }
 
     @Override
@@ -49,12 +62,12 @@ public class MillingEmiRecipe implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return this.input;
+        return List.of(this.input);
     }
 
     @Override
     public List<EmiStack> getOutputs() {
-        return List.of(this.output);
+        return this.outputs;
     }
 
     @Override
@@ -69,50 +82,23 @@ public class MillingEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 60, 18);
-        if (this.shapeless) widgets.addTexture(EmiTexture.SHAPELESS, 97, 0);
+        Component timeString = Component.translatable("emi.cooking.time", this.cookTime / 20);
 
-        int offset = 0;
-        if (!this.shapeless) {
-            if (canFit(1, 3)) {
-                offset -= 1;
-            }
-            if (canFit(3, 1)) {
-                offset -= 3;
-            }
-        }
+        widgets.addTexture(LIT_POWER, 0, 0);
+
+        widgets.addSlot(this.input, 0, 20);
+
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 22, 20);
+        widgets.addFillingArrow(22, 20, this.cookTime * 100).tooltipText(Collections.singletonList(timeString));
 
         for (int i = 0; i < 9; i++) {
-            int x = i % 3 * 18;
-            int y = i / 3 * 18;
-
-            int index = i + offset;
-            if (index >= 0 && index < this.input.size()) {
-                widgets.addSlot(this.input.get(index), x, y);
+            int x = 50 + (i % 3) * 18;
+            int y = (i / 3) * 18;
+            if (i < this.outputs.size()) {
+                widgets.addSlot(this.outputs.get(i), x, y).recipeContext(this);
             } else {
-                widgets.addSlot(EmiStack.of(ItemStack.EMPTY), x, y);
+                widgets.addSlot(EmiStack.EMPTY, x, y);
             }
         }
-
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 60, 18);
-        Component timeString = Component.translatable("emi.cooking.time", this.cookTime / 20);
-        widgets.addFillingArrow(60, 18, this.cookTime * 100).tooltipText(Collections.singletonList(timeString));
-
-        widgets.addTexture(EmiTexture.EMPTY_FLAME, 64, 39);
-        widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 64, 39, 6000, false, true, true);
-
-        widgets.addSlot(this.output, 92, 14).large(true).recipeContext(this);
     }
-
-    public boolean canFit(int width, int height) {
-        if (this.input.size() > 9) return false;
-
-        for (int i = 0; i < this.input.size(); i++) {
-            int x = i % 3;
-            int y = i / 3;
-            if (!this.input.get(i).isEmpty() && (x >= width || y >= height)) return false;
-        }
-        return true;
-    }
-
 }

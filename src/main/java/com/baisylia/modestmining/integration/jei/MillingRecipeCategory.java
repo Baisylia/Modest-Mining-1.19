@@ -3,17 +3,15 @@ package com.baisylia.modestmining.integration.jei;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
-import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
+import com.baisylia.modestmining.recipe.MillstoneRecipe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.ModIds;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -26,6 +24,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(ModestMining.MOD_ID, "milling");
     public final static ResourceLocation TEXTURE =
@@ -35,34 +36,29 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
     private final IDrawable icon;
     private final int regularCookTime = 400;
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
-    protected final IDrawableStatic staticFlame;
-    protected final IDrawableAnimated animatedFlame;
 
     public MillingRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 120, 60);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.FORGE.get()));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MILLSTONE.get()));
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
                     public IDrawableAnimated load(Integer cookTime) {
-                        return helper.drawableBuilder(TEXTURE, 123, 0, 23, 18)
+                        return helper.drawableBuilder(TEXTURE, 122, 0, 23, 19)
                                 .buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
-        staticFlame = helper.createDrawable(new ResourceLocation(ModIds.JEI_ID, "textures/gui/gui_vanilla.png"), 82, 114, 14, 14);
-        animatedFlame = helper.createAnimatedDrawable(staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
     }
 
     @Override
     public void draw(AbstractMillstoneRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        animatedFlame.draw(poseStack, 66, 23);
         IDrawableAnimated arrow = getArrow(recipe);
-        arrow.draw(poseStack, 63, 4);
-        drawCookTime(recipe, poseStack, 50);
+        arrow.draw(poseStack, 25, 21);
+        drawCookTime(recipe, poseStack);
     }
 
-    protected void drawCookTime(AbstractMillstoneRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(AbstractMillstoneRecipe recipe, PoseStack poseStack) {
         int cookTime = recipe.getCookTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -70,7 +66,7 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, getWidth() - stringWidth, y, 0xFF808080);
+            fontRenderer.draw(poseStack, timeString, getWidth() - stringWidth, 48, 0xFF808080);
         }
     }
 
@@ -104,24 +100,22 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AbstractMillstoneRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 3, 5).addIngredients(recipe.getIngredients().get(0));
-        if (recipe.getIngredients().size() > 1) {
-            builder.addSlot(RecipeIngredientRole.INPUT, 21, 5).addIngredients(recipe.getIngredients().get(1));
-            if (recipe.getIngredients().size() > 2) {
-                builder.addSlot(RecipeIngredientRole.INPUT, 39, 5).addIngredients(recipe.getIngredients().get(2));
-                if (recipe.getIngredients().size() > 3) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, 3, 23).addIngredients(recipe.getIngredients().get(3));
-                    if (recipe.getIngredients().size() > 4) {
-                        builder.addSlot(RecipeIngredientRole.INPUT, 21, 23).addIngredients(recipe.getIngredients().get(4));
-                        if (recipe.getIngredients().size() > 5) {
-                            builder.addSlot(RecipeIngredientRole.INPUT, 39, 23).addIngredients(recipe.getIngredients().get(5));
-                            if (recipe.getIngredients().size() > 6) {
-                                builder.addSlot(RecipeIngredientRole.INPUT, 3, 41).addIngredients(recipe.getIngredients().get(6));
-                                if (recipe.getIngredients().size() > 7) {
-                                    builder.addSlot(RecipeIngredientRole.INPUT, 21, 41).addIngredients(recipe.getIngredients().get(7));
-                                    if (recipe.getIngredients().size() > 8) {
-                                        builder.addSlot(RecipeIngredientRole.INPUT, 39, 41).addIngredients(recipe.getIngredients().get(8));
-        }}}}}}}}
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 6).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.INPUT, 3, 21).addIngredients(recipe.getIngredients().get(0));
+
+        List<ItemStack> results = new ArrayList<>();
+        if (recipe instanceof MillstoneRecipe millstoneRecipe) {
+            results.addAll(millstoneRecipe.results);
+        } else {
+            results.add(recipe.getResultItem());
+        }
+
+        for (int i = 0; i < 9; i++) {
+            int col = i % 3;
+            int row = i / 3;
+            var slot = builder.addSlot(RecipeIngredientRole.OUTPUT, 50 + col * 18, 3 + row * 18);
+            if (i < results.size()) {
+                slot.addItemStack(results.get(i));
+            }
+        }
     }
 }

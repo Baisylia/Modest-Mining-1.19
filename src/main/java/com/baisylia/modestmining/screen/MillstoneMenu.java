@@ -88,7 +88,7 @@ public class MillstoneMenu extends RecipeBookMenu<Container> {
     }
 
     public int getLitTime() {
-        return isFueled() ? 17 : 0;
+        return isFueled() ? 15 : 0;
     }
 
     @Override

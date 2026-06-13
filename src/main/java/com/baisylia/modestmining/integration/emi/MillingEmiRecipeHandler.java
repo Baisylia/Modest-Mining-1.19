@@ -26,10 +26,6 @@ public class MillingEmiRecipeHandler implements StandardRecipeHandler<MillstoneM
 
     @Override
     public List<Slot> getCraftingSlots(MillstoneMenu handler) {
-        List<Slot> list = Lists.newArrayList();
-        for (int i = 0; i < 9; i++) {
-            list.add(handler.getSlot(i));
-        }
-        return list;
+        return List.of(handler.getSlot(0));
     }
 }

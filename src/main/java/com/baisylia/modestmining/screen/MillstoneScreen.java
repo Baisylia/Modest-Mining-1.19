@@ -61,9 +61,7 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
             blit(pPoseStack, x + 61, y + 36, 176, 14,  menu.getScaledProgress(), 17);
         }
 		if(menu.isFueled()) {
-			float currentHeight = menu.getLitTime();
-			int offset = (int) (15 - currentHeight);
-			blit(pPoseStack, x + 61, y + 55 + offset, 176, offset, 20, (int) currentHeight);
+			blit(pPoseStack, x + 61, y + 55, 201, 14, 24, 17);
 		}
     }
 
@@ -90,7 +88,7 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
 		renderTooltip(pPoseStack, mouseX, mouseY);
 
 		// Power Tooltip
-		if (isHovering(61, 55, 20, 17, mouseX, mouseY)) {
+		if (isHovering(61, 55, 24, 17, mouseX, mouseY)) {
 			List<Component> tooltip = new ArrayList<>();
 
 			if (menu.isFueled()) {
