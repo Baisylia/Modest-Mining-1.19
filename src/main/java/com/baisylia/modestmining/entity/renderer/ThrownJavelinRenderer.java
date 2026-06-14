@@ -31,7 +31,7 @@ public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
         poseStack.pushPose();
 
         poseStack.mulPose(
-                Vector3f.YP.rotationDegrees(entity.getYRot() - 90.0F)
+                Vector3f.YP.rotationDegrees(entity.getYRot() + 90.0F)
         );
 
         poseStack.mulPose(
