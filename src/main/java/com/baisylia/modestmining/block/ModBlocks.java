@@ -6,17 +6,15 @@ import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.custom.ShellBlock;
 import com.baisylia.modestmining.item.ModItems;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,12 +28,9 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ModestMining.MOD_ID);
 
-    //BLOCKS
+    // BLOCKS
     public static final RegistryObject<Block> COKE_BLOCK = registerBlock("coke_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, true, 64000);
-
-    //public static final RegistryObject<Block> COAL_POWDER_BLOCK = registerBlock("coal_powder_block",
-    //        () -> new FallingBlock(BlockBehaviour.Properties.copy(Blocks.SAND)), CreativeModeTab.TAB_BUILDING_BLOCKS, true, 24000);
 
     public static final RegistryObject<Block> ALUMINIUM_BLOCK = registerBlock("aluminium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
@@ -78,15 +73,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> VALKYRIUM_BLOCK = registerBlock("valkyrium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
 
-
     public static final RegistryObject<Block> FORGE = registerBlock("forge",
-            () -> new ForgeBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).lightLevel((blockState)->{
-                if (blockState.getValue(ForgeBlock.LIT)) {
-                    return 15;
-                }
-                return 0;
-            })
-            .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_DECORATIONS, false, 0);
+            () -> new ForgeBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).lightLevel((blockState) -> {
+                        if (blockState.getValue(ForgeBlock.LIT)) {
+                            return 15;
+                        }
+                        return 0;
+                    })
+                    .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_DECORATIONS, false, 0);
 
 
     public static final RegistryObject<Block> MILLSTONE = registerBlock("millstone",
@@ -96,12 +90,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> COMPACT_AMETHYST_BLOCK = registerBlock("compact_amethyst_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
 
-    //public static final RegistryObject<Block> OCEANIC_REMAINS = registerBlock("oceanic_remains",
-    //        () -> new Block(BlockBehaviour.Properties.copy(Blocks.ANCIENT_DEBRIS)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-
     public static final RegistryObject<Block> DIAMOND_SHARD_BLOCK = registerBlock("diamond_shard_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).sound(SoundType.METAL)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-
 
     public static final RegistryObject<Block> SUSPICIOUS_DIRT = registerBlock("suspicious_dirt",
             () -> new BrushingBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
@@ -118,8 +108,6 @@ public class ModBlocks {
             () -> new ShellBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
                     .strength(0.5f, 0.5f)), CreativeModeTab.TAB_MISC, false, 0);
 
-
-
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab, Boolean isFuel, Integer fuelAmount) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn, tab, isFuel, fuelAmount);
@@ -132,13 +120,17 @@ public class ModBlocks {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block, CreativeModeTab tab, Boolean isFuel, Integer fuelAmount) {
-        if(isFuel == false) {
+        if (isFuel == false) {
             return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
                     new Item.Properties().tab(tab)));
         } else {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().tab(tab)){
-            @Override public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {return fuelAmount;}});
+            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+                    new Item.Properties().tab(tab)) {
+                @Override
+                public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+                    return fuelAmount;
+                }
+            });
         }
     }
 

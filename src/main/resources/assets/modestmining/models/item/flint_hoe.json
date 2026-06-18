@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "modestmining:item/flint_hoe"
+    "layer0": "modestmining:item/overrides/flint_hoe"
   }
 }

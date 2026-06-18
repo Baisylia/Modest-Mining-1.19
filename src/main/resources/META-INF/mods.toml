@@ -29,7 +29,7 @@ displayName="Modest Mining" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="icon.png" #optional
 # A text field displayed in the mod UI
-credits="Owner: Baisylia, Contributors: Xaidee, cassiancc, mintynoura" #optional
+credits="Owner: Baisylia, Contributors: Xaidee, cassiancc, evanbones, mintynoura"
 # A text field displayed in the mod UI
 authors="Baisylia" #optional
 # Display Test controls the display for your mod in the server connection screen
@@ -80,6 +80,12 @@ side="BOTH"
 modId="modestmagic"
 mandatory=false
 versionRange="[0.3.0,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.modestmining]]
+modId="item_obliterator"
+mandatory=false
+versionRange="[1.0,)"
 ordering="AFTER"
 side="BOTH"
 

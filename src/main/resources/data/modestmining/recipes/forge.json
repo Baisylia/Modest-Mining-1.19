@@ -1,4 +1,5 @@
 {
+  "conditions": [{ "type": "modestmining:config_enabled", "feature": "forge_uses_iron" }],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "III",
@@ -19,4 +20,4 @@
   "result": {
     "item": "modestmining:forge"
   }
-}
+}

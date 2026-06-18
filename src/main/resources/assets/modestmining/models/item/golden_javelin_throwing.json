@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "modestmining:item/golden_javelin_handheld"
+  },
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "modestmining:item/golden_javelin_handheld_throwing"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "modestmining:item/golden_javelin_gui"
+    },
+    "fixed": {
+      "parent": "modestmining:item/golden_javelin_gui"
+    }
+  }
+}

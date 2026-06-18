@@ -143,11 +143,6 @@
         {
           "type": "minecraft:item",
           "weight": 2,
-          "name": "modestmining:rocks"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
           "name": "minecraft:bowl"
         },
         {

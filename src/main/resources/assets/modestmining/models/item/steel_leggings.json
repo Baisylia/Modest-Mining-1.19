@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "modestmining:item/steel_leggings"
+    "layer0": "modestmining:item/overrides/steel_leggings"
   }
 }

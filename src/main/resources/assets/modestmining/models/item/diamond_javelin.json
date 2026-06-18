@@ -14,5 +14,13 @@
     "fixed": {
       "parent": "modestmining:item/diamond_javelin_gui"
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "throwing": 1
+      },
+      "model": "modestmining:item/diamond_javelin_throwing"
+    }
+  ]
 }

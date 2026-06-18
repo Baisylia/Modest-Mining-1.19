@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "modestmining:item/iron_javelin_handheld"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 0, -90, -135 ],
+      "translation": [ 0, -16, 0 ],
+      "scale": [ 2, 2, 0.85 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 0, 90, 135 ],
+      "translation": [ 0, -16, 0 ],
+      "scale": [ 2, 2, 0.85 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ -135, -90, -25 ],
+      "translation": [ 8.5, 15, 0 ],
+      "scale": [ 1.5, 1.5, 0.68 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ -135, 90, 25 ],
+      "translation": [ 8.5, 15, 0 ],
+      "scale": [ 1.5, 1.5, 0.68 ]
+    }
+  }
+}

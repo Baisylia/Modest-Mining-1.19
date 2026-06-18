@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "forge_uses_aluminium"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IXI",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:aluminium_ingot"
+    },
+    "X": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "item": "minecraft:cobbled_deepslate"
+    }
+  },
+  "result": {
+    "item": "modestmining:forge"
+  }
+}

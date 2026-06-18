@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "modestmining:item/steel_shovel"
+    "layer0": "modestmining:item/overrides/steel_shovel"
   }
 }

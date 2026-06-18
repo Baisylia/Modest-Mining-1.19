@@ -14,5 +14,13 @@
     "fixed": {
       "parent": "modestmining:item/golden_javelin_gui"
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "throwing": 1
+      },
+      "model": "modestmining:item/golden_javelin_throwing"
+    }
+  ]
 }

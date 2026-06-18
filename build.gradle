@@ -66,7 +66,7 @@ minecraft {
             // Recommended logging level for the console
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-            property 'forge.logging.console.level', 'debug'
+            property 'forge.logging.console.level', 'info'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'modestmining'
@@ -204,6 +204,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:oreganized-769203:4377982")
     runtimeOnly fg.deobf("curse.maven:modest-magic-534359:8072617")
     runtimeOnly fg.deobf("curse.maven:modest-masonry-1541822:8081828")
+    implementation fg.deobf("maven.modrinth:item-obliterator:7wB98NiB")
+    implementation fg.deobf("maven.modrinth:necronomicon:txeRRjSH")
 
     compileOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2:api")
     runtimeOnly fg.deobf("dev.emi:emi-forge:1.1.22+1.19.2")
@@ -221,7 +223,7 @@ jar {
         attributes([
                 "Specification-Title"     : "modestmining",
                 "Specification-Vendor"    : "baisylia",
-                "Specification-Version"   : "0.2.19", // We are version 1 of ourselves
+                "Specification-Version"   : "0.2.19",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "baisylia",

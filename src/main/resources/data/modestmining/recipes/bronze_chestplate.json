@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "modestmining:bronze_ingot"
+    }
+  },
+  "result": {
+    "item": "modestmining:bronze_chestplate"
+  }
+}

@@ -12,19 +12,20 @@ import java.util.function.Supplier;
 
 public enum ModArmourMaterials implements ArmorMaterial {
 
-    /*FIBER("fiber", 3, new int[]{1, 1, 2, 1}, 3, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
-        return Ingredient.of(ModItems.FIBER.get()); }),
+    BRONZE("bronze", 15, new int[]{2, 4, 5, 2}, 10, SoundEvents.ARMOR_EQUIP_CHAIN, 0.0F, 0.0F, () -> {
+        return Ingredient.of(ModItems.BRONZE_INGOT.get());
+    }),
 
     STEEL("steel", 25, new int[]{2, 5, 7, 2}, 9, SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0F, 0.1F, () -> {
-        return Ingredient.of(ModItems.STEEL_INGOT.get()); }),
-
-    ROSEGOLD("rosegold", 25, new int[]{1, 3, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0F, 0.1F, () -> {
-        return Ingredient.of(ModItems.ROSEGOLD_INGOT.get()); }),*/
+        return Ingredient.of(ModItems.STEEL_INGOT.get());
+    }),
 
     PRISMARITE("prismarite", 30, new int[]{3, 6, 8, 3}, 25, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> {
-        return Ingredient.of(ModItems.PRISMARITE_INGOT.get()); }),
+        return Ingredient.of(ModItems.PRISMARITE_INGOT.get());
+    }),
     VALKYRIUM("valkyrium", 30, new int[]{3, 6, 8, 3}, 25, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F, () -> {
-        return Ingredient.of(ModItems.VALKYRIUM_INGOT.get()); });
+        return Ingredient.of(ModItems.VALKYRIUM_INGOT.get());
+    });
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
