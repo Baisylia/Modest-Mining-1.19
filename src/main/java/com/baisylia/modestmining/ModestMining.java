@@ -111,6 +111,33 @@ public class ModestMining {
         });
     }
 
+    private static void registerConditionalResourcePack(AddPackFindersEvent event, MutableComponent name, String folder, java.util.function.Supplier<Boolean> condition) {
+        event.addRepositorySource((consumer, constructor) -> {
+            if (condition.get()) {
+                ResourceLocation res = new ResourceLocation(ModestMining.MOD_ID, folder);
+                IModFile file = ModList.get().getModFileById(ModestMining.MOD_ID).getFile();
+                try (PathPackResources pack = new PathPackResources(
+                        res.toString(),
+                        file.findResource("resourcepacks/" + folder))) {
+
+                    consumer.accept(constructor.create(
+                            res.toString(),
+                            name,
+                            true,
+                            () -> pack,
+                            pack.getMetadataSection(PackMetadataSection.SERIALIZER),
+                            Pack.Position.TOP,
+                            PackSource.BUILT_IN,
+                            true));
+
+                } catch (IOException e) {
+                    if (!DatagenModLoader.isRunningDataGen())
+                        e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         SpawnPlacements.register(ModEntityTypes.CLAM.get(),
                 SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR,
@@ -125,6 +152,18 @@ public class ModestMining {
     public void addPackFinders(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
             registerBuiltinResourcePack(event, Component.literal("Modest Mining Materials"), "modestmining_materials");
+
+            registerConditionalResourcePack(event,
+                    Component.literal("Modest Mining: Aluminium Forge Override"),
+                    "aluminium_forge_textures",
+                    () -> ModConfig.isFeatureEnabled("forge_uses_aluminium", false)
+            );
+
+            // registerConditionalResourcePack(event,
+            //         Component.literal("Modest Mining: Steel Rails Override"),
+            //         "steel_rails_textures",
+            //         () -> ModConfig.isFeatureEnabledEarly("rails_use_steel", false)
+            // );
         }
     }
 

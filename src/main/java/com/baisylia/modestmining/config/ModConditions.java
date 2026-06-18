@@ -34,14 +34,7 @@ public class ModConditions {
 
         @Override
         public boolean test(IContext context) {
-            return switch (feature) {
-                case "forge_uses_aluminium" -> ModConfig.FORGE_USES_ALUMINIUM.get();
-                case "forge_uses_iron" -> !ModConfig.FORGE_USES_ALUMINIUM.get();
-                default -> {
-                    ModestMining.LOGGER.warn("Unknown config feature in recipe condition: '{}'", feature);
-                    yield false;
-                }
-            };
+            return ModConfig.evaluateCondition(feature);
         }
     }
 
