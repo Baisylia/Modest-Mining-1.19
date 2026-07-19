@@ -1,10 +1,10 @@
 package com.baisylia.modestmining;
 
+import com.baisylia.modestmining.attribute.ModAttributes;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.config.ModConditions;
 import com.baisylia.modestmining.config.ModConfig;
-import com.baisylia.modestmining.effect.ModEffects;
 import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.client.ClamRenderer;
 import com.baisylia.modestmining.item.ModItems;
@@ -71,7 +71,7 @@ public class ModestMining {
         ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, ModConfig.SPEC, "modestmining-common.toml");
         ModConditions.register(eventBus);
 
-        ModEffects.register(eventBus);
+        ModAttributes.register(eventBus);
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);

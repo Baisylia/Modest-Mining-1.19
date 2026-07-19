@@ -1,6 +1,7 @@
 package com.baisylia.modestmining.event;
 
 import com.baisylia.modestmining.ModestMining;
+import com.baisylia.modestmining.attribute.ModAttributes;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.block.renderer.MillstoneRenderer;
 import com.baisylia.modestmining.entity.ModEntityTypes;
@@ -8,8 +9,10 @@ import com.baisylia.modestmining.entity.custom.ClamEntity;
 import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
 import com.baisylia.modestmining.integration.ItemObliteratorCompat;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -40,6 +43,11 @@ public class ModEvents {
         @SubscribeEvent
         public static void onCommonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(ItemObliteratorCompat::applyBlacklist);
+        }
+
+        @SubscribeEvent
+        public static void entityAttributeModificationEvent(EntityAttributeModificationEvent event) {
+            event.add(EntityType.PLAYER, ModAttributes.MAGIC_RESISTANCE.get());
         }
     }
 }

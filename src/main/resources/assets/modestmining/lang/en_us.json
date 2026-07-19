@@ -393,8 +393,7 @@
 
   "block.minecraft.amethyst_block": "Amethyst Block",
 
-  "effect.modestmining.prismarite_strength": "Prismarite Strength",
-  "effect.modestmining.prismarite_speed": "Prismarite Speed",
+  "attribute.name.modestmining.magic_resistance": "Magic Resistance",
 
   "entity.modestmining.clam": "Clam",
 
