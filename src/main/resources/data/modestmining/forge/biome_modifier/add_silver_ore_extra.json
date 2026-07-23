@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_mountain",
+  "features": "modestmining:silver_ore_extra_placed",
+  "step": "underground_ores"
+}

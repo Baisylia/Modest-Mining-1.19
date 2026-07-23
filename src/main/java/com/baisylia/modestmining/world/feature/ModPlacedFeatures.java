@@ -3,6 +3,7 @@ package com.baisylia.modestmining.world.feature;
 import com.baisylia.modestmining.ModestMining;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,6 +28,30 @@ public class ModPlacedFeatures {
     //        () -> new PlacedFeature(ModConfiguredFeatures.ROCKS.getHolder().get(), List.of(RarityFilter.onAverageOnceEvery(25),
     //                InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome())));
 
+    public static final RegistryObject<PlacedFeature> ALUMINIUM_ORE_PLACED = PLACED_FEATURES.register("aluminium_ore_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.ALUMINIUM_ORE.getHolder().get(),
+                    commonOrePlacement(8,
+                            HeightRangePlacement.triangle(VerticalAnchor.absolute(-16), VerticalAnchor.absolute(112)))));
+
+    public static final RegistryObject<PlacedFeature> LEAD_ORE_PLACED = PLACED_FEATURES.register("lead_ore_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.LEAD_ORE.getHolder().get(),
+                    commonOrePlacement(6,
+                            HeightRangePlacement.triangle(VerticalAnchor.absolute(-48), VerticalAnchor.absolute(48)))));
+
+    public static final RegistryObject<PlacedFeature> NETHER_LEAD_ORE_PLACED = PLACED_FEATURES.register("nether_lead_ore_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.NETHER_LEAD_ORE.getHolder().get(),
+                    commonOrePlacement(10,
+                            HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(10), VerticalAnchor.belowTop(10)))));
+
+    public static final RegistryObject<PlacedFeature> SILVER_ORE_PLACED = PLACED_FEATURES.register("silver_ore_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.SILVER_ORE.getHolder().get(),
+                    commonOrePlacement(3,
+                            HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(32)))));
+
+    public static final RegistryObject<PlacedFeature> SILVER_ORE_EXTRA_PLACED = PLACED_FEATURES.register("silver_ore_extra_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.SILVER_ORE_EXTRA.getHolder().get(),
+                    commonOrePlacement(20,
+                            HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(192)))));
 
     public static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {
         return List.of(p_195347_, InSquarePlacement.spread(), p_195348_, BiomeFilter.biome());
