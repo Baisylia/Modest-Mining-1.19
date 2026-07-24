@@ -156,12 +156,6 @@ repositories {
         url = "https://maven.teamabnormals.com/"
     }
     maven {
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-    }
-    maven {
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-    }
-    maven {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
@@ -198,7 +192,6 @@ dependencies {
     //    runtimeOnly(fg.deobf("mezz.jei:jei-1.19.2-forge:11.5.0.297"))
 
     runtimeOnly fg.deobf("curse.maven:blueprint-382216:4442628")
-    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
     runtimeOnly fg.deobf("curse.maven:savageandravage-381736:4776245")
     runtimeOnly fg.deobf("curse.maven:modest-magic-534359:8072617")
     runtimeOnly fg.deobf("curse.maven:modest-masonry-1541822:8081828")

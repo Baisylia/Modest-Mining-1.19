@@ -82,9 +82,6 @@ public class ModItems {
     public static final RegistryObject<Item> GOLD_DUST = ITEMS.register("gold_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> IRON_DUST = ITEMS.register("iron_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> DEBRIS_DUST = ITEMS.register("debris_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-    public static final RegistryObject<Item> CLAM_SPAWN_EGG = ITEMS.register("clam_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntityTypes.CLAM, 0xdeac87, 0x9e5543,
-                    new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     // TOOLS
     public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, 0f, ModTiers.COPPER,

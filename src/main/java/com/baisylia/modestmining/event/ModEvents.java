@@ -5,7 +5,6 @@ import com.baisylia.modestmining.attribute.ModAttributes;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.block.renderer.MillstoneRenderer;
 import com.baisylia.modestmining.entity.ModEntityTypes;
-import com.baisylia.modestmining.entity.custom.ClamEntity;
 import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
 import com.baisylia.modestmining.integration.ItemObliteratorCompat;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -35,10 +34,6 @@ public class ModEvents {
 
     @Mod.EventBusSubscriber(modid = ModestMining.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEventBusEvents {
-        @SubscribeEvent
-        public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
-            event.put(ModEntityTypes.CLAM.get(), ClamEntity.setAttributes());
-        }
 
         @SubscribeEvent
         public static void onCommonSetup(FMLCommonSetupEvent event) {

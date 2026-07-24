@@ -8,6 +8,7 @@ import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
@@ -27,6 +28,9 @@ public class ModConfiguredFeatures {
             () -> new ConfiguredFeature<>(Feature.FLOWER,
                     new RandomPatchConfiguration(32, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                             new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHELL.get()))))));
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> CLAM = CONFIGURED_FEATURES.register("clam",
+            () -> new ConfiguredFeature<>(ModFeatures.CLAM_FEATURE.get(), FeatureConfiguration.NONE));
 
     public static final Supplier<List<OreConfiguration.TargetBlockState>> ALUMINIUM_ORES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.ALUMINIUM_ORE.get().defaultBlockState()),

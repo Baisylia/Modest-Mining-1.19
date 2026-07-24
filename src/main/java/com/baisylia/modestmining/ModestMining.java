@@ -6,7 +6,6 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.config.ModConditions;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.ModEntityTypes;
-import com.baisylia.modestmining.entity.client.ClamRenderer;
 import com.baisylia.modestmining.item.ModItems;
 import com.baisylia.modestmining.recipe.ModRecipeCategories;
 import com.baisylia.modestmining.recipe.ModRecipes;
@@ -51,7 +50,6 @@ import net.minecraftforge.forgespi.locating.IModFile;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.resource.PathPackResources;
 import org.slf4j.Logger;
-import software.bernie.geckolib3.GeckoLib;
 
 import java.io.IOException;
 import java.util.List;
@@ -79,10 +77,10 @@ public class ModestMining {
         ModConfiguredFeatures.register(eventBus);
         ModPlacedFeatures.register(eventBus);
         ModPlacementModifiers.register(eventBus);
+        com.baisylia.modestmining.world.feature.ModFeatures.register(eventBus);
         ModMenuTypes.register(eventBus);
         ModRecipes.register(eventBus);
         ModEntityTypes.register(eventBus);
-        GeckoLib.initialize();
         ModSounds.SOUND_EVENTS.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -141,9 +139,6 @@ public class ModestMining {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        SpawnPlacements.register(ModEntityTypes.CLAM.get(),
-                SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR,
-                WaterAnimal::checkMobSpawnRules);
     }
 
     @SubscribeEvent
@@ -164,7 +159,7 @@ public class ModestMining {
             // registerConditionalResourcePack(event,
             //         Component.literal("Modest Mining: Steel Rails Override"),
             //         "steel_rails_textures",
-            //         () -> ModConfig.isFeatureEnabledEarly("rails_use_steel", false)
+            //         () -> ModConfig.isFeatureEnabled("rails_use_steel", false)
             // );
         }
     }
@@ -178,7 +173,6 @@ public class ModestMining {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ModEntityTypes.CLAM.get(), ClamRenderer::new);
             MenuScreens.register(ModMenuTypes.FORGE_MENU.get(), ForgeScreen::new);
             MenuScreens.register(ModMenuTypes.MILLSTONE_MENU.get(), MillstoneScreen::new);
             event.enqueueWork(() -> {

@@ -19,6 +19,14 @@ public class ModPlacedFeatures {
             () -> new PlacedFeature(ModConfiguredFeatures.SHELL.getHolder().get(), List.of(RarityFilter.onAverageOnceEvery(25),
                     InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome())));
 
+    public static final RegistryObject<PlacedFeature> CLAM_PLACED = PLACED_FEATURES.register("clam_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.CLAM.getHolder().get(), List.of(
+                    ConfigPlacementFilter.of("generate_clams"),
+                    RarityFilter.onAverageOnceEvery(5),
+                    InSquarePlacement.spread(),
+                    PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+                    BiomeFilter.biome())));
+
     public static final RegistryObject<PlacedFeature> ALUMINIUM_ORE_PLACED = PLACED_FEATURES.register("aluminium_ore_placed",
             () -> new PlacedFeature(ModConfiguredFeatures.ALUMINIUM_ORE.getHolder().get(),
                     commonOrePlacement(8,

@@ -65,7 +65,6 @@
   "item.modestmining.debris_dust": "Ancient Dust",
   "item.modestmining.remaining_dust": "Oceanic Dust",
 
-  "item.modestmining.clam_spawn_egg": "Clam Spawn Egg",
 
   "item.modestmining.rosegold_apple": "Rosegold Apple",
   "item.modestmining.rosegold_carrot": "Rosegold Carrot",
@@ -389,7 +388,7 @@
 
   "attribute.name.modestmining.magic_resistance": "Magic Resistance",
 
-  "entity.modestmining.clam": "Clam",
+  "block.modestmining.clam": "Clam",
 
   "recipe.modestmining.forging": "Forging",
   "emi.category.modestmining.forging": "Forging",

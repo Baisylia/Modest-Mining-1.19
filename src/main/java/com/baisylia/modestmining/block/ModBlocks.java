@@ -1,6 +1,7 @@
 package com.baisylia.modestmining.block;
 
 import com.baisylia.modestmining.ModestMining;
+import com.baisylia.modestmining.block.custom.ClamBlock;
 import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.custom.ShellBlock;
@@ -95,6 +96,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHELL = registerBlock("shell",
             () -> new ShellBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
                     .strength(0.5f, 0.5f)), CreativeModeTab.TAB_MISC, false, 0);
+
+    public static final RegistryObject<Block> CLAM = registerBlock("clam",
+            () -> new ClamBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
+                    .strength(0.8f, 0.8f).sound(SoundType.CORAL_BLOCK).noOcclusion()), CreativeModeTab.TAB_MISC, false, 0);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab, Boolean isFuel, Integer fuelAmount) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
