@@ -14,11 +14,11 @@ import com.baisylia.modestmining.screen.MillstoneScreen;
 import com.baisylia.modestmining.screen.ModMenuTypes;
 import com.baisylia.modestmining.sounds.ModSounds;
 import com.baisylia.modestmining.world.feature.ModConfiguredFeatures;
+import com.baisylia.modestmining.world.feature.ModFeatures;
 import com.baisylia.modestmining.world.feature.ModPlacedFeatures;
 import com.baisylia.modestmining.world.feature.ModPlacementModifiers;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -27,11 +27,8 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterRecipeBookCategoriesEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -53,6 +50,7 @@ import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Mod(ModestMining.MOD_ID)
 public class ModestMining {
@@ -77,7 +75,7 @@ public class ModestMining {
         ModConfiguredFeatures.register(eventBus);
         ModPlacedFeatures.register(eventBus);
         ModPlacementModifiers.register(eventBus);
-        com.baisylia.modestmining.world.feature.ModFeatures.register(eventBus);
+        ModFeatures.register(eventBus);
         ModMenuTypes.register(eventBus);
         ModRecipes.register(eventBus);
         ModEntityTypes.register(eventBus);
@@ -111,7 +109,7 @@ public class ModestMining {
         });
     }
 
-    private static void registerConditionalResourcePack(AddPackFindersEvent event, MutableComponent name, String folder, java.util.function.Supplier<Boolean> condition) {
+    private static void registerConditionalResourcePack(AddPackFindersEvent event, MutableComponent name, String folder, Supplier<Boolean> condition) {
         event.addRepositorySource((consumer, constructor) -> {
             if (condition.get()) {
                 ResourceLocation res = new ResourceLocation(ModestMining.MOD_ID, folder);
@@ -138,6 +136,10 @@ public class ModestMining {
         });
     }
 
+    private static void registerFeaturePack(AddPackFindersEvent event, String displayName, String folder, String featureKey) {
+        registerConditionalResourcePack(event, Component.literal(displayName), folder, () -> ModConfig.isFeatureEnabled(featureKey, false));
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
     }
 
@@ -150,17 +152,8 @@ public class ModestMining {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
             registerBuiltinResourcePack(event, Component.literal("Modest Mining Materials"), "modestmining_materials");
 
-            registerConditionalResourcePack(event,
-                    Component.literal("Modest Mining: Aluminium Forge Override"),
-                    "aluminium_forge_textures",
-                    () -> ModConfig.isFeatureEnabled("forge_uses_aluminium", false)
-            );
-
-            // registerConditionalResourcePack(event,
-            //         Component.literal("Modest Mining: Steel Rails Override"),
-            //         "steel_rails_textures",
-            //         () -> ModConfig.isFeatureEnabled("rails_use_steel", false)
-            // );
+            registerFeaturePack(event, "Modest Mining: Aluminium Forge Override", "aluminium_forge_textures", "forge_uses_aluminium");
+            // registerFeaturePack(event, "Modest Mining: Steel Rails Override", "steel_rails_textures", "rails_use_steel");
         }
     }
 

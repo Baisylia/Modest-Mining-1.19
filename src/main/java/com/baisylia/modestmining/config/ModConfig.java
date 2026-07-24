@@ -53,6 +53,9 @@ public class ModConfig {
         SPEC = BUILDER.build();
 
         registerCondition("forge_uses_aluminium", FORGE_USES_ALUMINIUM);
+        registerCondition("flint_replaces_wood", FLINT_REPLACES_WOOD);
+        registerCondition("bronze_replaces_stone", BRONZE_REPLACES_STONE);
+        registerCondition("steel_replaces_iron", STEEL_REPLACES_IRON);
         registerCondition("generate_aluminium_ore", GENERATE_ALUMINIUM_ORE);
         registerCondition("generate_lead_ore", GENERATE_LEAD_ORE);
         registerCondition("generate_nether_lead_ore", GENERATE_NETHER_LEAD_ORE);
