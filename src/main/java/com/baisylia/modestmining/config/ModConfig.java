@@ -21,10 +21,23 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue STEEL_REPLACES_IRON;
     public static final ForgeConfigSpec.BooleanValue FORGE_USES_ALUMINIUM;
 
+    public static final ForgeConfigSpec.BooleanValue GENERATE_ALUMINIUM_ORE;
+    public static final ForgeConfigSpec.BooleanValue GENERATE_LEAD_ORE;
+    public static final ForgeConfigSpec.BooleanValue GENERATE_NETHER_LEAD_ORE;
+    public static final ForgeConfigSpec.BooleanValue GENERATE_SILVER_ORE;
+
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
     static {
         BUILDER.comment("Modest Mining Configuration");
+
+        BUILDER.push("ore_generation");
+        GENERATE_ALUMINIUM_ORE = BUILDER.comment("Generate Aluminium Ore in the Overworld.").define("generate_aluminium_ore", true);
+        GENERATE_LEAD_ORE = BUILDER.comment("Generate Lead Ore in the Overworld.").define("generate_lead_ore", true);
+        GENERATE_NETHER_LEAD_ORE = BUILDER.comment("Generate Lead Ore in the Nether.").define("generate_nether_lead_ore", true);
+        GENERATE_SILVER_ORE = BUILDER.comment("Generate Silver Ore in the Overworld.").define("generate_silver_ore", true);
+        BUILDER.pop();
+
         BUILDER.push("replacements");
 
         FLINT_REPLACES_WOOD = BUILDER.comment("Vanilla wooden tools replaced by flint.").define("flint_replaces_wood", false);
@@ -38,20 +51,17 @@ public class ModConfig {
         SPEC = BUILDER.build();
 
         registerCondition("forge_uses_aluminium", FORGE_USES_ALUMINIUM);
+        registerCondition("generate_aluminium_ore", GENERATE_ALUMINIUM_ORE);
+        registerCondition("generate_lead_ore", GENERATE_LEAD_ORE);
+        registerCondition("generate_nether_lead_ore", GENERATE_NETHER_LEAD_ORE);
+        registerCondition("generate_silver_ore", GENERATE_SILVER_ORE);
     }
 
-    /**
-     * Registers a condition string to a boolean supplier.
-     * Automatically creates a "not_" prefixed inverse condition.
-     */
     private static void registerCondition(String featureName, ForgeConfigSpec.BooleanValue configValue) {
         CONDITION_MAP.put(featureName, configValue);
         CONDITION_MAP.put("not_" + featureName, () -> !configValue.get());
     }
 
-    /**
-     * Evaluates a condition string from a recipe JSON.
-     */
     public static boolean evaluateCondition(String featureName) {
         return CONDITION_MAP.getOrDefault(featureName, () -> {
             ModestMining.LOGGER.warn("Unknown config feature in recipe condition: '{}'", featureName);
@@ -59,10 +69,6 @@ public class ModConfig {
         }).get();
     }
 
-    /**
-     * Safely reads a config value during early startup events
-     * before Forge has loaded the configuration system.
-     */
     public static boolean isFeatureEnabled(String featureName, boolean defaultValue) {
         try {
             if (SPEC.isLoaded()) {

@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "modestmining:flint_hatchet",
-    "modestmining:copper_hatchet"
+    { "id": "modestmining:copper_hatchet", "required": false }
   ]
 }

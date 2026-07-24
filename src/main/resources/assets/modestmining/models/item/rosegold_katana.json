@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "modestmining:item/rosegold_katana_gui"
+    "layer0": "modestmining:item/rosegold_katana"
   },
   "base": {
     "parent": "modestmining:item/rosegold_katana_handheld"

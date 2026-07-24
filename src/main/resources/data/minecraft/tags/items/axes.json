@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:flint_hatchet",
+    "modestmining:bronze_axe",
+    "modestmining:steel_axe",
+    "modestmining:prismarite_axe",
+    "modestmining:valkyrium_axe"
+  ]
+}

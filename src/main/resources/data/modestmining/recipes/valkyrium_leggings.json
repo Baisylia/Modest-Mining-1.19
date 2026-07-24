@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "# #",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:valkyrium_ingot"
+    }
+  },
+  "result": {
+    "item": "modestmining:valkyrium_leggings",
+    "count": 1
+  }
+}

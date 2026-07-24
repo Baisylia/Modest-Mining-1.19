@@ -1,7 +1,6 @@
 package com.baisylia.modestmining.block;
 
 import com.baisylia.modestmining.ModestMining;
-import com.baisylia.modestmining.block.custom.BrushingBlock;
 import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.custom.ShellBlock;
@@ -92,17 +91,6 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> DIAMOND_SHARD_BLOCK = registerBlock("diamond_shard_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).sound(SoundType.METAL)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-
-    public static final RegistryObject<Block> SUSPICIOUS_DIRT = registerBlock("suspicious_dirt",
-            () -> new BrushingBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-
-    public static final RegistryObject<Block> SUSPICIOUS_SAND = registerBlock("suspicious_sand",
-            () -> new BrushingBlock(BlockBehaviour.Properties.copy(Blocks.SAND).noOcclusion()), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-
-    public static final RegistryObject<Block> SUSPICIOUS_GRAVEL = registerBlock("suspicious_gravel",
-            () -> new BrushingBlock(BlockBehaviour.Properties.copy(Blocks.GRAVEL).noOcclusion()), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> SUSPICIOUS_STONE = registerBlock("suspicious_stone",
-            () -> new BrushingBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
 
     public static final RegistryObject<Block> SHELL = registerBlock("shell",
             () -> new ShellBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)

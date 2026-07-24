@@ -16,6 +16,7 @@ import com.baisylia.modestmining.screen.ModMenuTypes;
 import com.baisylia.modestmining.sounds.ModSounds;
 import com.baisylia.modestmining.world.feature.ModConfiguredFeatures;
 import com.baisylia.modestmining.world.feature.ModPlacedFeatures;
+import com.baisylia.modestmining.world.feature.ModPlacementModifiers;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -77,6 +78,7 @@ public class ModestMining {
         ModBlockEntities.register(eventBus);
         ModConfiguredFeatures.register(eventBus);
         ModPlacedFeatures.register(eventBus);
+        ModPlacementModifiers.register(eventBus);
         ModMenuTypes.register(eventBus);
         ModRecipes.register(eventBus);
         ModEntityTypes.register(eventBus);

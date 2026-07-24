@@ -68,7 +68,7 @@ public class ItemObliteratorCompatImpl {
 
         if (modified) {
             ItemObliterator.reloadConfigHashsets();
-            ModestMining.LOGGER.info("Item Obliterator Integration: successfully reloaded config hashsets.");
+            ModestMining.LOGGER.info("Item Obliterator Integration: successfully reloaded config.");
         }
     }
 

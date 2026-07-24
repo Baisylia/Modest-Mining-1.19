@@ -1,0 +1,19 @@
+{
+  "type": "modestmining:forging",
+  "cooktime": 144,
+  "ingredients": [
+    {
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "item": "modestmining:coke"
+    }
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "item": "modestmining:steel_ingot",
+    "count": 1
+  }
+}

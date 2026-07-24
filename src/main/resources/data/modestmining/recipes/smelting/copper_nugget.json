@@ -2,9 +2,6 @@
   "type": "minecraft:smelting",
   "ingredient": [
     {
-      "item": "modestmining:brush"
-    },
-    {
       "item": "modestmining:chisel"
     },
     {

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:aluminium_ingot"
+    }
+  },
+  "result": {
+    "item": "modestmining:aluminium_block",
+    "count": 1
+  }
+}

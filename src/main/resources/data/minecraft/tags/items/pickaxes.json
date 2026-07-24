@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:flint_mattock",
+    "modestmining:bronze_pickaxe",
+    "modestmining:steel_pickaxe",
+    "modestmining:prismarite_pickaxe",
+    "modestmining:valkyrium_pickaxe"
+  ]
+}

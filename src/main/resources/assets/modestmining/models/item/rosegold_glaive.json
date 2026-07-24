@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "modestmining:item/rosegold_glaive_gui"
+    "layer0": "modestmining:item/rosegold_glaive"
   },
   "base": {
     "parent": "modestmining:item/rosegold_glaive_handheld"

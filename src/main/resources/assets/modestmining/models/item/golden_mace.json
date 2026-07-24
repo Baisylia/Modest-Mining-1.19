@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "modestmining:item/golden_mace_gui"
+    "layer0": "modestmining:item/golden_mace"
   },
   "base": {
     "parent": "modestmining:item/golden_mace_handheld"

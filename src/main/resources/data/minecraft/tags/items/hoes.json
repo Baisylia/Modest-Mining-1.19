@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:flint_hoe",
+    "modestmining:bronze_hoe",
+    "modestmining:steel_hoe",
+    "modestmining:prismarite_hoe",
+    "modestmining:valkyrium_hoe"
+  ]
+}

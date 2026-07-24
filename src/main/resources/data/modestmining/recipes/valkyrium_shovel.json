@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "S",
+    "S"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:valkyrium_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "modestmining:valkyrium_shovel",
+    "count": 1
+  }
+}

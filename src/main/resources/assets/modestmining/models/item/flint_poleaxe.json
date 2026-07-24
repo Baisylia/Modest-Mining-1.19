@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "modestmining:item/flint_poleaxe_gui"
+    "layer0": "modestmining:item/flint_poleaxe"
   },
   "base": {
     "parent": "modestmining:item/flint_poleaxe_handheld"

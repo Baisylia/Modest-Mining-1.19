@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "modestmining:item/iron_glaive_gui"
+    "layer0": "modestmining:item/iron_glaive"
   },
   "base": {
     "parent": "modestmining:item/iron_glaive_handheld"

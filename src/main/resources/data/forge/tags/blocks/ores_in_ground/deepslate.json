@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:deepslate_aluminium_ore",
+    "modestmining:deepslate_lead_ore",
+    "modestmining:deepslate_silver_ore"
+  ]
+}

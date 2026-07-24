@@ -2,7 +2,7 @@
   "type": "modestmining:milling",
   "category": "ores",
   "ingredients": [
-    { "item": "minecraft:snow_layer" }
+    { "item": "minecraft:snow" }
   ],
   "results": [
     {

@@ -23,7 +23,6 @@ public class ModTags {
     }
 
     public static class Items {
-        public static final TagKey<Item> BRUSHES = forgeTag("brushes");
         public static final TagKey<Item> FIBER_PLANTS = forgeTag("fiber_plants");
 
         private static TagKey<Item> tag(String name) {

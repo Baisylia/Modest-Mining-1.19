@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:flint_spade",
+    "modestmining:bronze_shovel",
+    "modestmining:steel_shovel",
+    "modestmining:prismarite_shovel",
+    "modestmining:valkyrium_shovel"
+  ]
+}

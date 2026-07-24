@@ -2,7 +2,6 @@ package com.baisylia.modestmining.item;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.entity.ModEntityTypes;
-import com.baisylia.modestmining.item.custom.tools.BrushItem;
 import com.baisylia.modestmining.item.custom.tools.ChiselItem;
 import com.baisylia.modestmining.item.custom.tools.ModArmorItem;
 import com.baisylia.modestmining.item.custom.weapons.HammerItem;
@@ -88,9 +87,6 @@ public class ModItems {
                     new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     // TOOLS
-    public static final RegistryObject<Item> BRUSH = ITEMS.register("brush", () -> new BrushItem(0f, 0f, ModTiers.COPPER,
-            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS).durability(450)));
-
     public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, 0f, ModTiers.COPPER,
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS).durability(450)));
 

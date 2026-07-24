@@ -2,7 +2,7 @@
   "parent": "minecraft:item/handheld",
   "loader": "forge:separate_transforms",
   "textures": {
-    "layer0": "modestmining:item/prismarite_javelin_gui"
+    "layer0": "modestmining:item/prismarite_javelin"
   },
   "base": {
     "parent": "modestmining:item/prismarite_javelin_handheld"

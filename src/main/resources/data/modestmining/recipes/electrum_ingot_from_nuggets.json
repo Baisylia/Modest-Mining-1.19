@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:electrum_nugget"
+    }
+  },
+  "result": {
+    "item": "modestmining:electrum_ingot",
+    "count": 1
+  }
+}

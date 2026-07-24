@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "modestmining:adobe_bricks"
-  },
-  "result": "modestmining:cracked_adobe_bricks",
-  "experience": 2.0,
-  "cookingtime": 200
-}
