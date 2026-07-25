@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#modestmining:planks",
-    "X": "minecraft:diamond",
-    "E": "modestmining:electrum_ingot"
+    "#": {
+      "tag": "modestmining:planks"
+    },
+    "X": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "modestmining:electrum_ingot"
+    }
   },
   "pattern": [
     "#E#",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:jukebox"
+    "item": "minecraft:jukebox"
   }
 }

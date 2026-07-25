@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:smooth_stone",
-    "I": "modestmining:steel_ingot",
-    "X": "minecraft:furnace"
+    "#": {
+      "item": "minecraft:smooth_stone"
+    },
+    "I": {
+      "item": "modestmining:steel_ingot"
+    },
+    "X": {
+      "item": "minecraft:furnace"
+    }
   },
   "pattern": [
     "III",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:blast_furnace"
+    "item": "minecraft:blast_furnace"
   }
 }

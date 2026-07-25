@@ -8,7 +8,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "i": "modestmining:steel_ingot"
+    "i": {
+      "item": "modestmining:steel_ingot"
+    }
   },
   "pattern": [
     "iii",
@@ -17,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:anvil"
+    "item": "minecraft:anvil"
   }
 }

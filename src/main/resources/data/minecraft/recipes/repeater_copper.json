@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:redstone_torch",
-    "I": "minecraft:copper_ingot",
-    "X": "minecraft:redstone"
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
   },
   "pattern": [
     "#X#",
@@ -18,6 +24,6 @@
   ],
   "result": {
     "count": 3,
-    "id": "minecraft:repeater"
+    "item": "minecraft:repeater"
   }
 }

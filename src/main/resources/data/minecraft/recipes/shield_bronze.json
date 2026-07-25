@@ -8,8 +8,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "W": "#minecraft:wooden_tool_materials",
-    "o": "modestmining:bronze_ingot"
+    "W": {
+      "tag": "minecraft:wooden_tool_materials"
+    },
+    "o": {
+      "item": "modestmining:bronze_ingot"
+    }
   },
   "pattern": [
     "WoW",
@@ -18,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:shield"
+    "item": "minecraft:shield"
   }
 }

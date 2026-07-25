@@ -2,15 +2,21 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_steel_blast_furnace"
+      "feature": "not_blast_furnace_uses_steel"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:smooth_stone",
-    "I": "minecraft:iron_ingot",
-    "X": "minecraft:furnace"
+    "#": {
+      "item": "minecraft:smooth_stone"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X": {
+      "item": "minecraft:furnace"
+    }
   },
   "pattern": [
     "III",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:blast_furnace"
+    "item": "minecraft:blast_furnace"
   }
 }

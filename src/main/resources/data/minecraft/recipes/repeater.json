@@ -2,15 +2,21 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_copper_repeater"
+      "feature": "not_repeater_uses_copper"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:redstone_torch",
-    "I": "minecraft:stone",
-    "X": "minecraft:redstone"
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "item": "minecraft:stone"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
   },
   "pattern": [
     "#X#",
@@ -18,6 +24,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:repeater"
+    "item": "minecraft:repeater"
   }
 }

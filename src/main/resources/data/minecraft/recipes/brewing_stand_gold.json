@@ -8,8 +8,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:gold_ingot",
-    "B": "minecraft:blaze_rod"
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    }
   },
   "pattern": [
     " B ",
@@ -17,6 +21,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:brewing_stand"
+    "item": "minecraft:brewing_stand"
   }
 }

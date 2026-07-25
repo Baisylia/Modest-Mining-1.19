@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_steel_stonecutter"
+      "feature": "not_stonecutter_uses_steel"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:stone",
-    "I": "minecraft:iron_ingot"
+    "#": {
+      "item": "minecraft:stone"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
   },
   "pattern": [
     " I ",
@@ -17,6 +21,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:stonecutter"
+    "item": "minecraft:stonecutter"
   }
 }

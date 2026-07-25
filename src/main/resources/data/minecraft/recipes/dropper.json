@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_silver_dropper"
+      "feature": "not_dropper_uses_silver"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:cobblestone",
-    "R": "minecraft:redstone"
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
   },
   "pattern": [
     "###",
@@ -18,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:dropper"
+    "item": "minecraft:dropper"
   }
 }

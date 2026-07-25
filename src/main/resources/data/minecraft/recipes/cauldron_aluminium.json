@@ -8,7 +8,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "modestmining:aluminium_ingot"
+    "#": {
+      "item": "modestmining:aluminium_ingot"
+    }
   },
   "pattern": [
     "# #",
@@ -17,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:cauldron"
+    "item": "minecraft:cauldron"
   }
 }

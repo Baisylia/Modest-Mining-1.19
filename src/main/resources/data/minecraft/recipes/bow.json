@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_copper_bow"
+      "feature": "not_bow_uses_copper"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "minecraft:stick",
-    "X": "minecraft:string"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:string"
+    }
   },
   "pattern": [
     " #X",
@@ -18,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:bow"
+    "item": "minecraft:bow"
   }
 }

@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_silver_note_block"
+      "feature": "not_note_block_uses_silver"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "#minecraft:planks",
-    "X": "minecraft:redstone"
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
   },
   "pattern": [
     "###",
@@ -18,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:note_block"
+    "item": "minecraft:note_block"
   }
 }

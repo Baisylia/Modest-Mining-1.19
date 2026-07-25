@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "G": "minecraft:glass",
-    "Q": "minecraft:quartz",
-    "W": "modestmining:rose_gold_ingot"
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "W": {
+      "item": "modestmining:rose_gold_ingot"
+    }
   },
   "pattern": [
     "GGG",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 3,
-    "id": "minecraft:daylight_detector"
+    "item": "minecraft:daylight_detector"
   }
 }

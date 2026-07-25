@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bronze_smoker"
+      "feature": "not_smoker_uses_bronze"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#minecraft:logs",
-    "X": "minecraft:furnace"
+    "#": {
+      "tag": "minecraft:logs"
+    },
+    "X": {
+      "item": "minecraft:furnace"
+    }
   },
   "pattern": [
     " # ",
@@ -18,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:smoker"
+    "item": "minecraft:smoker"
   }
 }

@@ -2,15 +2,21 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_rose_gold_observer"
+      "feature": "not_observer_uses_rose_gold"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:cobblestone",
-    "Q": "minecraft:quartz",
-    "R": "minecraft:redstone"
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
   },
   "pattern": [
     "###",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:observer"
+    "item": "minecraft:observer"
   }
 }

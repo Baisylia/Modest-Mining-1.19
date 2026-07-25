@@ -2,15 +2,21 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_rose_gold_daylight_detector"
+      "feature": "not_daylight_detector_uses_rose_gold"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "G": "minecraft:glass",
-    "Q": "minecraft:quartz",
-    "W": "#minecraft:wooden_slabs"
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "W": {
+      "tag": "minecraft:wooden_slabs"
+    }
   },
   "pattern": [
     "GGG",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:daylight_detector"
+    "item": "minecraft:daylight_detector"
   }
 }

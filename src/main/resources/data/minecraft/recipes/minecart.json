@@ -2,13 +2,15 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_lead_minecart"
+      "feature": "not_minecart_uses_lead"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:iron_ingot"
+    "#": {
+      "item": "minecraft:iron_ingot"
+    }
   },
   "pattern": [
     "# #",
@@ -16,6 +18,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:minecart"
+    "item": "minecraft:minecart"
   }
 }

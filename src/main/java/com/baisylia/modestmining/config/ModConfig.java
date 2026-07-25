@@ -101,8 +101,8 @@ public class ModConfig {
         STONECUTTER_USES_STEEL = BUILDER.comment("Stonecutter uses steel instead of iron.").define("stonecutter_uses_steel", false);
         BLAST_FURNACE_USES_STEEL = BUILDER.comment("Blast Furnace uses steel instead of iron.").define("blast_furnace_uses_steel", false);
         FLINT_AND_STEEL_USES_STEEL = BUILDER.comment("Flint and Steel uses steel instead of iron.").define("flint_and_steel_uses_steel", false);
-        DAYLIGHT_DETECTOR_USES_ROSE_GOLD = BUILDER.comment("Daylight Detector uses rose gold instead of wood.").define("daylight_detector_uses_steel", false);
-        OBSERVER_USES_ROSE_GOLD = BUILDER.comment("Observer uses rose gold as well as stone.").define("observer_uses_steel", false);
+        DAYLIGHT_DETECTOR_USES_ROSE_GOLD = BUILDER.comment("Daylight Detector uses rose gold instead of wood.").define("daylight_detector_uses_rose_gold", false);
+        OBSERVER_USES_ROSE_GOLD = BUILDER.comment("Observer uses rose gold as well as stone.").define("observer_uses_rose_gold", false);
         POWERED_RAIL_USES_ELECTRUM = BUILDER.comment("Powered Rail uses steel instead of electrum.").define("powered_rail_uses_electrum", false);
         DISPENSER_USES_ELECTRUM = BUILDER.comment("Dispenser uses steel instead of electrum.").define("dispenser_uses_electrum", false);
         LAMP_USES_ELECTRUM = BUILDER.comment("Lamp uses steel instead of electrum.").define("lamp_uses_electrum", false);
@@ -141,8 +141,8 @@ public class ModConfig {
         registerCondition("stonecutter_uses_steel", STONECUTTER_USES_STEEL);
         registerCondition("blast_furnace_uses_steel", BLAST_FURNACE_USES_STEEL);
         registerCondition("flint_and_steel_uses_steel", FLINT_AND_STEEL_USES_STEEL);
-        registerCondition("daylight_detector_uses_steel", DAYLIGHT_DETECTOR_USES_ROSE_GOLD);
-        registerCondition("observer_uses_steel", OBSERVER_USES_ROSE_GOLD);
+        registerCondition("daylight_detector_uses_rose_gold", DAYLIGHT_DETECTOR_USES_ROSE_GOLD);
+        registerCondition("observer_uses_rose_gold", OBSERVER_USES_ROSE_GOLD);
         registerCondition("powered_rail_uses_electrum", POWERED_RAIL_USES_ELECTRUM);
         registerCondition("dispenser_uses_electrum", DISPENSER_USES_ELECTRUM);
         registerCondition("lamp_uses_electrum", LAMP_USES_ELECTRUM);

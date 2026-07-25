@@ -2,15 +2,21 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_electrum_dispenser"
+      "feature": "not_dispenser_uses_electrum"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:cobblestone",
-    "R": "minecraft:redstone",
-    "X": "minecraft:bow"
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:bow"
+    }
   },
   "pattern": [
     "###",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:dispenser"
+    "item": "minecraft:dispenser"
   }
 }

@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_electrum_jukebox"
+      "feature": "not_jukebox_uses_electrum"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#minecraft:planks",
-    "X": "minecraft:diamond"
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "X": {
+      "item": "minecraft:diamond"
+    }
   },
   "pattern": [
     "###",
@@ -18,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:jukebox"
+    "item": "minecraft:jukebox"
   }
 }

@@ -2,14 +2,18 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_gold_brewing_stand"
+      "feature": "not_brewing_stand_uses_gold"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "#minecraft:stone_crafting_materials",
-    "B": "minecraft:blaze_rod"
+    "#": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    }
   },
   "pattern": [
     " B ",
@@ -17,6 +21,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:brewing_stand"
+    "item": "minecraft:brewing_stand"
   }
 }

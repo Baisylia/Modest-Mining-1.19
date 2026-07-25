@@ -8,10 +8,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:cobblestone",
-    "R": "minecraft:redstone",
-    "T": "#minecraft:planks",
-    "X": "modestmining:bronze_ingot"
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "T": {
+      "tag": "minecraft:planks"
+    },
+    "X": {
+      "item": "modestmining:bronze_ingot"
+    }
   },
   "pattern": [
     "TTT",
@@ -20,6 +28,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:piston"
+    "item": "minecraft:piston"
   }
 }

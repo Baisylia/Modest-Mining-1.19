@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:stick",
-    "R": "minecraft:redstone",
-    "X": "modestmining:electrum_nugget"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "modestmining:electrum_nugget"
+    }
   },
   "pattern": [
     "X X",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 6,
-    "id": "minecraft:powered_rail"
+    "item": "minecraft:powered_rail"
   }
 }

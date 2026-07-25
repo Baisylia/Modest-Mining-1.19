@@ -8,10 +8,18 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "minecraft:stick",
-    "$": "minecraft:tripwire_hook",
-    "&": "modestmining:bronze_ingot",
-    "~": "minecraft:string"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "$": {
+      "item": "minecraft:tripwire_hook"
+    },
+    "&": {
+      "item": "modestmining:bronze_ingot"
+    },
+    "~": {
+      "item": "minecraft:string"
+    }
   },
   "pattern": [
     "#&#",
@@ -20,6 +28,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:crossbow"
+    "item": "minecraft:crossbow"
   }
 }

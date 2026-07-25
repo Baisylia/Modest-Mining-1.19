@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "#minecraft:planks",
-    "I": "minecraft:copper_ingot",
-    "S": "minecraft:stick"
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
   },
   "pattern": [
     "I",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 2,
-    "id": "minecraft:tripwire_hook"
+    "item": "minecraft:tripwire_hook"
   }
 }

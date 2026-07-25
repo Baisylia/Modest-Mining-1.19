@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "#": "minecraft:redstone_torch",
-    "I": "minecraft:gold_ingot",
-    "X": "minecraft:quartz"
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "X": {
+      "item": "minecraft:quartz"
+    }
   },
   "pattern": [
     " # ",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 3,
-    "id": "minecraft:comparator"
+    "item": "minecraft:comparator"
   }
 }

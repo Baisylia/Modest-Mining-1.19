@@ -2,15 +2,21 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_electrum_powered_rail"
+      "feature": "not_powered_rail_uses_electrum"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "minecraft:stick",
-    "R": "minecraft:redstone",
-    "X": "minecraft:gold_ingot"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:gold_ingot"
+    }
   },
   "pattern": [
     "X X",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 6,
-    "id": "minecraft:powered_rail"
+    "item": "minecraft:powered_rail"
   }
 }

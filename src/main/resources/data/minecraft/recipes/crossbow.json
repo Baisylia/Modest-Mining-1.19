@@ -2,16 +2,24 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bronze_crossbow"
+      "feature": "not_crossbow_uses_bronze"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "minecraft:stick",
-    "$": "minecraft:tripwire_hook",
-    "&": "minecraft:iron_ingot",
-    "~": "minecraft:string"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "$": {
+      "item": "minecraft:tripwire_hook"
+    },
+    "&": {
+      "item": "minecraft:iron_ingot"
+    },
+    "~": {
+      "item": "minecraft:string"
+    }
   },
   "pattern": [
     "#&#",
@@ -20,6 +28,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:crossbow"
+    "item": "minecraft:crossbow"
   }
 }

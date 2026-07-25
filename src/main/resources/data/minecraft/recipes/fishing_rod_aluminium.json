@@ -8,9 +8,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "minecraft:stick",
-    "X": "minecraft:string",
-    "A": "modestmining:aluminium_ingot"
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:string"
+    },
+    "A": {
+      "item": "modestmining:aluminium_ingot"
+    }
   },
   "pattern": [
     "  #",
@@ -19,6 +25,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "minecraft:fishing_rod"
+    "item": "minecraft:fishing_rod"
   }
 }

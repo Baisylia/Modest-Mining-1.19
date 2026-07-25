@@ -152,9 +152,9 @@ public class ModestMining {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
             registerBuiltinResourcePack(event, Component.literal("Modest Mining Materials"), "modestmining_materials");
 
-            registerFeaturePack(event, "Modest Mining: Copper Bow Override","copper_bow_textures","bow_uses_aluminium");
-            registerFeaturePack(event, "Modest Mining: Copper Repeater Override","copper_repeater_textures","repeater_uses_aluminium");
-            registerFeaturePack(event, "Modest Mining: Copper Tripwire Hook ","copper_tripwire_hook_textures","tripwire_hook_uses_aluminium");
+            registerFeaturePack(event, "Modest Mining: Copper Bow Override","copper_bow_textures","bow_uses_copper");
+            registerFeaturePack(event, "Modest Mining: Copper Repeater Override","copper_repeater_textures","repeater_uses_copper");
+            registerFeaturePack(event, "Modest Mining: Copper Tripwire Hook ","copper_tripwire_hook_textures","tripwire_hook_uses_copper");
             registerFeaturePack(event, "Modest Mining: Aluminium Forge Override", "aluminium_forge_textures", "forge_uses_aluminium");
             registerFeaturePack(event, "Modest Mining: Aluminium Bucket Override","aluminium_bucket_textures","bucket_uses_aluminium");
             registerFeaturePack(event, "Modest Mining: Aluminium Fishing Rod Override","aluminium_fishing_rod_textures","fishing_rod_uses_aluminium");
@@ -165,7 +165,7 @@ public class ModestMining {
             registerFeaturePack(event, "Modest Mining: Gold Comparator Override","gold_comparator_textures","comparator_uses_gold");
             registerFeaturePack(event, "Modest Mining: Gold Detector Rail Override","gold_detector_rail_textures","detector_rail_uses_gold");
             registerFeaturePack(event, "Modest Mining: Silver Activator Rail Override","silver_activator_rail_textures","activator_rail_uses_silver");
-            registerFeaturePack(event, "Modest Mining: Silver Dropper Override","silver_droppr_rail_textures","dropper_uses_silver");
+            registerFeaturePack(event, "Modest Mining: Silver Dropper Override","silver_dropper_textures","dropper_uses_silver");
             registerFeaturePack(event, "Modest Mining: Silver Note Block Override","silver_note_block_textures","note_block_uses_silver");
             registerFeaturePack(event, "Modest Mining: Bronze Piston Override","bronze_piston_textures","piston_uses_bronze");
             registerFeaturePack(event, "Modest Mining: Bronze Smoker Override","bronze_smoker_textures","smoker_uses_bronze");
@@ -178,7 +178,7 @@ public class ModestMining {
             registerFeaturePack(event, "Modest Mining: Rose Gold Daylight Detector Override","rose_gold_daylight_detector_textures","daylight_detector_uses_rose_gold");
             registerFeaturePack(event, "Modest Mining: Rose Gold Observer Override","rose_gold_observer_textures","observer_uses_rose_gold");
             registerFeaturePack(event, "Modest Mining: Electrum Lamp Override","electrum_lamp_textures","lamp_uses_electrum");
-            registerFeaturePack(event, "Modest Mining: Electrum Powered Rail Override","electrum_powered_rail_textures","powererd_rail_uses_electrum");
+            registerFeaturePack(event, "Modest Mining: Electrum Powered Rail Override","electrum_powered_rail_textures","powered_rail_uses_electrum");
             registerFeaturePack(event, "Modest Mining: Electrum Dispenser Override","electrum_dispenser_textures","dispenser_uses_electrum");
             registerFeaturePack(event, "Modest Mining: Electrum Jukebox Override","electrum_jukebox_textures","jukebox_uses_electrum");
         }
