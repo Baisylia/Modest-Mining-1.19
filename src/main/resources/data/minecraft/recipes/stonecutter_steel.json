@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "stonecutter_uses_steel"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:stone",
+    "I": "modestmining:steel_ingot"
+  },
+  "pattern": [
+    " I ",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:stonecutter"
+  }
+}

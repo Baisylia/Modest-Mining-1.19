@@ -1,0 +1,18 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "flint_and_steel_uses_steel"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "modestmining:steel_ingot",
+    "minecraft:flint"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:flint_and_steel"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "spyglass_uses_gold"
+    }
+  ],
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
+  "key": {
+    "X": {
+      "item": "minecraft:gold_ingot"
+    },
+    "#": {
+      "item": "modestmining:amethyst"
+    }
+  },
+  "pattern": [
+    "#",
+    "X",
+    "X"
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "item": "minecraft:spyglass"
+  }
+}

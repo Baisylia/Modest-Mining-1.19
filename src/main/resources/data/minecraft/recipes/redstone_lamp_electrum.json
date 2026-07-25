@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "lamp_uses_electrum"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": "minecraft:glowstone",
+    "R": "minecraft:redstone",
+    "E": "modestmining:electrum_nugget"
+  },
+  "pattern": [
+    "ERE",
+    "RGR",
+    "ERE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:redstone_lamp"
+  }
+}

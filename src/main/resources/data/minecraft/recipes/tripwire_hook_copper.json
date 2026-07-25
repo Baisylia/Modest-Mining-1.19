@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "tripwire_hook_uses_copper"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "#minecraft:planks",
+    "I": "minecraft:copper_ingot",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "I",
+    "S",
+    "#"
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:tripwire_hook"
+  }
+}

@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_gold_spyglass"
+    }
+  ],
   "type": "modestmining:forging_shaped",
   "category": "equipment",
   "cooktime": 144,

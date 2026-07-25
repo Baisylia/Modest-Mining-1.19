@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_gold_comparator"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "minecraft:redstone_torch",
+    "I": "minecraft:stone",
+    "X": "minecraft:quartz"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:comparator"
+  }
+}

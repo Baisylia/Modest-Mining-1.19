@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "brewing_stand_uses_gold"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:gold_ingot",
+    "B": "minecraft:blaze_rod"
+  },
+  "pattern": [
+    " B ",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:brewing_stand"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "daylight_detector_uses_rose_gold"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": "minecraft:glass",
+    "Q": "minecraft:quartz",
+    "W": "modestmining:rose_gold_ingot"
+  },
+  "pattern": [
+    "GGG",
+    "QQQ",
+    "WWW"
+  ],
+  "result": {
+    "count": 3,
+    "id": "minecraft:daylight_detector"
+  }
+}

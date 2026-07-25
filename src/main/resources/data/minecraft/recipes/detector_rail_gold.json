@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "detector_rail_uses_gold"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:stone_pressure_plate",
+    "R": "minecraft:redstone",
+    "X": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "X X",
+    "X#X",
+    "XRX"
+  ],
+  "result": {
+    "count": 6,
+    "id": "minecraft:detector_rail"
+  }
+}

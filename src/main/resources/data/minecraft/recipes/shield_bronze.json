@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "shield_uses_bronze"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "W": "#minecraft:wooden_tool_materials",
+    "o": "modestmining:bronze_ingot"
+  },
+  "pattern": [
+    "WoW",
+    "WWW",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:shield"
+  }
+}

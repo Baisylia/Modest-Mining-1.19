@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "bow_uses_copper"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "minecraft:string",
+    "C": "minecraft:copper_ingot"
+  },
+  "pattern": [
+    " #X",
+    "#CX",
+    " #X"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:bow"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "jukebox_uses_electrum"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "#modestmining:planks",
+    "X": "minecraft:diamond",
+    "E": "modestmining:electrum_ingot"
+  },
+  "pattern": [
+    "#E#",
+    "#X#",
+    "#E#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:jukebox"
+  }
+}
