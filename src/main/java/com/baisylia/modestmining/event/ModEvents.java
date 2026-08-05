@@ -6,7 +6,6 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.block.renderer.MillstoneRenderer;
 import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
-import com.baisylia.modestmining.integration.ReliableRecipesCompat;
 import com.baisylia.modestmining.integration.ReliableRemoverCompat;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,10 +32,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            ReliableRemoverCompat.applyBlacklist();
-            ReliableRecipesCompat.apply();
-        });
+        event.enqueueWork(ReliableRemoverCompat::applyBlacklist);
     }
 
     @SubscribeEvent
