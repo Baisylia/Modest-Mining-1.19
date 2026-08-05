@@ -1,13 +1,12 @@
 package com.baisylia.modestmining.screen;
 
 import com.baisylia.modestmining.ModestMining;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,9 +19,12 @@ import java.util.List;
 public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> implements RecipeUpdateListener {
 
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(ModestMining.MOD_ID, "textures/gui/millstone_gui.png");
+            ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "textures/gui/millstone_gui.png");
 
-    private static final ResourceLocation RECIPE_BUTTON_TEXTURE = new ResourceLocation("textures/gui/recipe_button.png");
+    private static final WidgetSprites RECIPE_BUTTON_SPRITES = new WidgetSprites(
+            ResourceLocation.withDefaultNamespace("recipe_book/button"),
+            ResourceLocation.withDefaultNamespace("recipe_book/button_highlighted")
+    );
 
     public final RecipeBookComponent recipeBookComponent = new MillingRecipeBookComponent();
     private boolean widthTooNarrow;
@@ -38,30 +40,27 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
         this.titleLabelX = 28;
         this.recipeBookComponent.init(this.width, this.height, this.minecraft, this.widthTooNarrow, this.menu);
         this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
-        this.addRenderableWidget(new ImageButton(this.leftPos + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
+        this.addRenderableWidget(new ImageButton(this.leftPos + 5, this.height / 2 - 49, 20, 18, RECIPE_BUTTON_SPRITES, (button) -> {
             this.recipeBookComponent.toggleVisibility();
             this.leftPos = this.recipeBookComponent.updateScreenPosition(this.width, this.imageWidth);
-            ((ImageButton) button).setPosition(this.leftPos + 5, this.height / 2 - 49);
+            button.setPosition(this.leftPos + 5, this.height / 2 - 49);
         }));
         this.addWidget(this.recipeBookComponent);
         this.setInitialFocus(this.recipeBookComponent);
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float pPartialTick, int pMouseX, int pMouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+    protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         int x = this.leftPos;
         int y = this.topPos;
 
-        this.blit(poseStack, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         if (menu.isCrafting()) {
-            blit(poseStack, x + 61, y + 36, 176, 14, menu.getScaledProgress(), 17);
+            guiGraphics.blit(TEXTURE, x + 61, y + 36, 176, 14, menu.getScaledProgress(), 17);
         }
         if (menu.isFueled()) {
-            blit(poseStack, x + 61, y + 55, 201, 14, 24, 17);
+            guiGraphics.blit(TEXTURE, x + 61, y + 55, 201, 14, 24, 17);
         }
     }
 
@@ -72,39 +71,37 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float delta) {
-        this.renderBackground(poseStack);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+        super.render(guiGraphics, mouseX, mouseY, delta);
 
         if (this.recipeBookComponent.isVisible() && this.widthTooNarrow) {
-            this.renderBg(poseStack, delta, mouseX, mouseY);
-            this.recipeBookComponent.render(poseStack, mouseX, mouseY, delta);
+            this.renderBg(guiGraphics, delta, mouseX, mouseY);
+            this.recipeBookComponent.render(guiGraphics, mouseX, mouseY, delta);
         } else {
-            this.recipeBookComponent.render(poseStack, mouseX, mouseY, delta);
-            super.render(poseStack, mouseX, mouseY, delta);
-            this.recipeBookComponent.renderGhostRecipe(poseStack, this.leftPos, this.topPos, true, delta);
+            this.recipeBookComponent.render(guiGraphics, mouseX, mouseY, delta);
+            super.render(guiGraphics, mouseX, mouseY, delta);
+            this.recipeBookComponent.renderGhostRecipe(guiGraphics, this.leftPos, this.topPos, true, delta);
         }
 
-        this.recipeBookComponent.renderTooltip(poseStack, this.leftPos, this.topPos, mouseX, mouseY);
-        renderTooltip(poseStack, mouseX, mouseY);
+        this.recipeBookComponent.renderTooltip(guiGraphics, this.leftPos, this.topPos, mouseX, mouseY);
+        this.renderTooltip(guiGraphics, mouseX, mouseY);
 
         // Power Tooltip
         if (isHovering(61, 55, 24, 17, mouseX, mouseY)) {
             List<Component> tooltip = new ArrayList<>();
-
             if (menu.isFueled()) {
                 tooltip.add(Component.translatable("tooltip.modestmining.millstone.powered"));
             } else {
                 tooltip.add(Component.translatable("tooltip.modestmining.millstone.not_powered"));
             }
-
-            renderComponentTooltip(poseStack, tooltip, mouseX, mouseY);
+            guiGraphics.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-        super.renderLabels(poseStack, mouseX, mouseY);
-        this.font.draw(poseStack, this.playerInventoryTitle, 8, (this.imageHeight - 96 + 2), 4210752);
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderLabels(guiGraphics, mouseX, mouseY);
+        guiGraphics.drawString(this.font, this.playerInventoryTitle, 8, (this.imageHeight - 96 + 2), 4210752, false);
     }
 
     @Override
@@ -142,5 +139,4 @@ public class MillstoneScreen extends AbstractContainerScreen<MillstoneMenu> impl
     public RecipeBookComponent getRecipeBookComponent() {
         return this.recipeBookComponent;
     }
-
 }

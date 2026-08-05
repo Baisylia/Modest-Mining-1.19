@@ -2,6 +2,7 @@ package com.baisylia.modestmining.world.feature;
 
 import com.baisylia.modestmining.config.ModConfig;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -10,7 +11,7 @@ import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 
 public class ConfigPlacementFilter extends PlacementFilter {
-    public static final Codec<ConfigPlacementFilter> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<ConfigPlacementFilter> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Codec.STRING.fieldOf("config_key").forGetter(filter -> filter.configKey)
             ).apply(instance, ConfigPlacementFilter::new)

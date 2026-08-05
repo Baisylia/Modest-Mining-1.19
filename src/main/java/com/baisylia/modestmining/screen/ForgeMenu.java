@@ -3,50 +3,48 @@ package com.baisylia.modestmining.screen;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
+import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
 import com.baisylia.modestmining.screen.slot.ModFuelSlot;
 import com.baisylia.modestmining.screen.slot.ModResultSlot;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class ForgeMenu extends RecipeBookMenu<Container> {
+public class ForgeMenu extends RecipeBookMenu<ForgeBlockEntity.SingleRecipeInputContainer, com.baisylia.modestmining.recipe.AbstractForgeRecipe> {
 
     private final ForgeBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
-    public ForgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+    public ForgeMenu(int pContainerId, Inventory inv, RegistryFriendlyByteBuf extraData) {
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
     public ForgeMenu(int pContainerId, Inventory pPlayerInventory, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.FORGE_MENU.get(), pContainerId);
         checkContainerSize(pPlayerInventory, 11);
         blockEntity = ((ForgeBlockEntity) entity);
-        this.level = pPlayerInventory.player.level;
+        this.level = pPlayerInventory.player.level();
         this.data = data;
 
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            int index = 0;
-            for (int x = 0; x < 3; x++) {
-                for (int y = 0; y < 3; y++) {
-                    this.addSlot(new SlotItemHandler(handler, index++, 30 + y * 18, 17 + x * 18));
-                }
+        IItemHandler handler = this.blockEntity.getItemHandler();
+        int index = 0;
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                this.addSlot(new SlotItemHandler(handler, index++, 30 + y * 18, 17 + x * 18));
             }
-            this.addSlot(new ModFuelSlot(handler, index++, 93, 53));
-            this.addSlot(new ModResultSlot(handler, index, 124, 19));
-        });
+        }
+        this.addSlot(new ModFuelSlot(handler, index++, 93, 53));
+        this.addSlot(new ModResultSlot(handler, index, 124, 19));
 
         for (int x = 0; x < 3; ++x) {
             for (int y = 0; y < 9; ++y) {
@@ -71,8 +69,8 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
 
     public int getScaledProgress() {
         int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
+        int maxProgress = this.data.get(1);
+        int progressArrowSize = 26;
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
@@ -128,8 +126,8 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
     }
 
     @Override
-    public void fillCraftSlotsStackedContents(StackedContents helper) {
-        this.blockEntity.fillStackedContents(helper);
+    public void fillCraftSlotsStackedContents(net.minecraft.world.entity.player.StackedContents helper) {
+
     }
 
     @Override
@@ -139,9 +137,8 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
     }
 
     @Override
-    public boolean recipeMatches(Recipe<? super Container> recipe) {
-//        return false;
-        return recipe.matches(this.blockEntity, this.level);
+    public boolean recipeMatches(RecipeHolder<AbstractForgeRecipe> recipe) {
+        return recipe.value().matches(new ForgeBlockEntity.SingleRecipeInputContainer(blockEntity.getItemHandler()), this.level);
     }
 
     @Override
@@ -173,5 +170,4 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
     public boolean shouldMoveToInventory(int index) {
         return index == 10 || index < (getGridWidth() * getGridHeight());
     }
-
 }

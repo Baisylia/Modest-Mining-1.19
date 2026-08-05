@@ -1,0 +1,24 @@
+{
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
+  "key": {
+    "X": {
+      "item": "minecraft:copper_ingot"
+    },
+    "#": {
+      "item": "modestmining:amethyst"
+    }
+  },
+  "pattern": [
+    "#",
+    "X",
+    "X"
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "id": "minecraft:spyglass"
+  }
+}

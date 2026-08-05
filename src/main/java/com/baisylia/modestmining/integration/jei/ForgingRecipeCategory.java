@@ -1,13 +1,11 @@
 package com.baisylia.modestmining.integration.jei;
 
+import com.baisylia.modestmining.ModestMining;
+import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.baisylia.modestmining.ModestMining;
-import com.baisylia.modestmining.block.ModBlocks;
-import com.baisylia.modestmining.recipe.ForgeRecipe;
 import mezz.jei.api.constants.ModIds;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -22,21 +20,21 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecipe> {
-    public final static ResourceLocation UID = new ResourceLocation(ModestMining.MOD_ID, "forging");
+    public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "forging");
     public final static ResourceLocation TEXTURE =
-            new ResourceLocation(ModestMining.MOD_ID, "textures/gui/forge_gui_jei.png");
-
+            ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "textures/gui/forge_gui_jei.png");
+    protected final IDrawableStatic staticFlame;
+    protected final IDrawableAnimated animatedFlame;
     private final IDrawable background;
     private final IDrawable icon;
     private final int regularCookTime = 400;
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
-    protected final IDrawableStatic staticFlame;
-    protected final IDrawableAnimated animatedFlame;
 
     public ForgingRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 120, 60);
@@ -50,19 +48,21 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
                                 .buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
-        staticFlame = helper.createDrawable(new ResourceLocation(ModIds.JEI_ID, "textures/gui/gui_vanilla.png"), 82, 114, 14, 14);
+        staticFlame = helper.createDrawable(ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "textures/gui/gui_vanilla.png"), 82, 114, 14, 14);
         animatedFlame = helper.createAnimatedDrawable(staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
     }
 
     @Override
-    public void draw(AbstractForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        animatedFlame.draw(poseStack, 66, 23);
+    public void draw(AbstractForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        if (recipe.getFuel().isEmpty()) {
+            animatedFlame.draw(guiGraphics, 66, 23);
+        }
         IDrawableAnimated arrow = getArrow(recipe);
-        arrow.draw(poseStack, 63, 4);
-        drawCookTime(recipe, poseStack, 50);
+        arrow.draw(guiGraphics, 63, 4);
+        drawCookTime(recipe, guiGraphics, 50);
     }
 
-    protected void drawCookTime(AbstractForgeRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(AbstractForgeRecipe recipe, GuiGraphics guiGraphics, int y) {
         int cookTime = recipe.getCookTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -70,7 +70,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, getWidth() - stringWidth, y, 0xFF808080);
+            guiGraphics.drawString(fontRenderer, timeString, getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 
@@ -121,7 +121,17 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
                                     builder.addSlot(RecipeIngredientRole.INPUT, 21, 41).addIngredients(recipe.getIngredients().get(7));
                                     if (recipe.getIngredients().size() > 8) {
                                         builder.addSlot(RecipeIngredientRole.INPUT, 39, 41).addIngredients(recipe.getIngredients().get(8));
-        }}}}}}}}
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 6).addItemStack(recipe.getResultItem());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        recipe.getFuel().ifPresent(fuel -> builder.addSlot(RecipeIngredientRole.CATALYST, 65, 23)
+                .setStandardSlotBackground()
+                .addIngredients(fuel));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 6).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 }

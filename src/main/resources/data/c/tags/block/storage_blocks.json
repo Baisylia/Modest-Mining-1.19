@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "#c:storage_blocks/coke",
+    "#c:storage_blocks/aluminium",
+    "#c:storage_blocks/raw_aluminium",
+    "#c:storage_blocks/lead",
+    "#c:storage_blocks/raw_lead",
+    "#c:storage_blocks/silver",
+    "#c:storage_blocks/raw_silver",
+    "#c:storage_blocks/steel",
+    "#c:storage_blocks/rosegold",
+    "#c:storage_blocks/bronze",
+    "#c:storage_blocks/electrum",
+    "#c:storage_blocks/prismarite",
+    "#c:storage_blocks/valkyrium",
+    "#c:storage_blocks/compact_amethyst",
+    "#c:storage_blocks/diamond_shard"
+  ]
+}

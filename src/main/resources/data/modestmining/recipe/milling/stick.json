@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "tag": "minecraft:logs"
+    }
+  ],
+  "results": [
+    {
+      "count": 10,
+      "chance": 1.0,
+      "id": "minecraft:stick"
+    }
+  ],
+  "cooktime": 200
+}

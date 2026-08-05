@@ -6,7 +6,7 @@
 		"1": "modestmining:block/millstone_bottom",
 		"2": "modestmining:block/millstone_front",
 		"3": "modestmining:block/millstone_top",
-		"4": "entity/banner_base",
+		"4": "modestmining:block/millstone",
 		"particle": "modestmining:block/millstone"
 	},
 	"elements": [

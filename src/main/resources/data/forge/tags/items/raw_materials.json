@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#forge:raw_materials/aluminium",
-    "#forge:raw_materials/lead",
-    "#forge:raw_materials/silver"
-  ]
-}

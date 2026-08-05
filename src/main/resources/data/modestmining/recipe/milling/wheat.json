@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:wheat_seeds"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:wheat_seeds"
+    }
+  ],
+  "cooktime": 200
+}

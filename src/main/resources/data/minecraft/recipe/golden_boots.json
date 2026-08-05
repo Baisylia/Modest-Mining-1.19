@@ -1,0 +1,20 @@
+{
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "# #",
+    "# #"
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "id": "minecraft:golden_boots"
+  }
+}

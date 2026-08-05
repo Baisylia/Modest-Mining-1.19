@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:cobblestone"
+    }
+  ],
+  "cooktime": 200
+}

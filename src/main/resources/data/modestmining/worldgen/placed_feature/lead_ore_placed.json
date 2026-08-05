@@ -1,0 +1,27 @@
+{
+  "feature": "modestmining:lead_ore",
+  "placement": [
+    {
+      "type": "modestmining:config_filter",
+      "config_key": "generate_lead_ore"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 6
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "min_inclusive": {"absolute": -48},
+        "max_inclusive": {"absolute": 48}
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

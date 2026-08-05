@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:golden_apple"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:gold_ingot"
+    }
+  ],
+  "cooktime": 200
+}

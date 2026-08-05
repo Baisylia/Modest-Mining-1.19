@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:lead_nugget"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "modestmining:lead_ingot"
+  }
+}

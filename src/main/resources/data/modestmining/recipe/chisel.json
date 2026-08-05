@@ -1,0 +1,27 @@
+{
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
+  "key": {
+    "X": {
+      "item": "minecraft:copper_ingot"
+    },
+    "#": {
+      "item": "modestmining:amethyst"
+    },
+    "B": {
+      "item": "modestmining:copper_screw"
+    }
+  },
+  "pattern": [
+    "#",
+    "X",
+    "B"
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "id": "modestmining:chisel"
+  }
+}

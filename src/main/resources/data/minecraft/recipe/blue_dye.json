@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    {
+      "item": "minecraft:lapis_lazuli"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:blue_dye"
+    },
+    {
+      "count": 2,
+      "chance": 0.25,
+      "id": "minecraft:blue_dye"
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,5 +1,6 @@
 package com.baisylia.modestmining.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -31,6 +32,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class ClamBlock extends Block implements SimpleWaterloggedBlock {
+    public static final MapCodec<ClamBlock> CODEC = simpleCodec(ClamBlock::new);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final EnumProperty<ClamPart> PART = EnumProperty.create("part", ClamPart.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -59,34 +61,27 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
                 .setValue(WATERLOGGED, false));
     }
 
+    @Override
+    protected MapCodec<? extends Block> codec() {
+        return CODEC;
+    }
+
     public static BlockPos getMainPos(BlockPos pos, ClamPart part, Direction facing) {
-        switch (part) {
-            case TOP_LEFT:
-                return pos;
-            case TOP_RIGHT:
-                return pos.relative(facing.getCounterClockWise());
-            case BOTTOM_LEFT:
-                return pos.relative(facing);
-            case BOTTOM_RIGHT:
-                return pos.relative(facing.getCounterClockWise()).relative(facing);
-            default:
-                return pos;
-        }
+        return switch (part) {
+            case TOP_LEFT -> pos;
+            case TOP_RIGHT -> pos.relative(facing.getCounterClockWise());
+            case BOTTOM_LEFT -> pos.relative(facing);
+            case BOTTOM_RIGHT -> pos.relative(facing.getCounterClockWise()).relative(facing);
+        };
     }
 
     public static BlockPos getPosForPart(BlockPos mainPos, ClamPart targetPart, Direction facing) {
-        switch (targetPart) {
-            case TOP_LEFT:
-                return mainPos;
-            case TOP_RIGHT:
-                return mainPos.relative(facing.getClockWise());
-            case BOTTOM_LEFT:
-                return mainPos.relative(facing.getOpposite());
-            case BOTTOM_RIGHT:
-                return mainPos.relative(facing.getClockWise()).relative(facing.getOpposite());
-            default:
-                return mainPos;
-        }
+        return switch (targetPart) {
+            case TOP_LEFT -> mainPos;
+            case TOP_RIGHT -> mainPos.relative(facing.getClockWise());
+            case BOTTOM_LEFT -> mainPos.relative(facing.getOpposite());
+            case BOTTOM_RIGHT -> mainPos.relative(facing.getClockWise()).relative(facing.getOpposite());
+        };
     }
 
     @Nullable
@@ -135,7 +130,7 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             ClamPart part = state.getValue(PART);
             Direction facing = state.getValue(FACING);
@@ -164,7 +159,7 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
                 }
             }
         }
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override
@@ -199,34 +194,29 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
         Direction facing = state.getValue(FACING);
         ClamPart part = state.getValue(PART);
 
-        switch (facing) {
-            case NORTH:
-                return switch (part) {
-                    case TOP_LEFT, TOP_RIGHT -> SHAPE_NORTH_FRONT;
-                    case BOTTOM_LEFT -> SHAPE_NORTH_BACK_L;
-                    case BOTTOM_RIGHT -> SHAPE_NORTH_BACK_R;
-                };
-            case SOUTH:
-                return switch (part) {
-                    case TOP_LEFT, TOP_RIGHT -> SHAPE_SOUTH_FRONT;
-                    case BOTTOM_LEFT -> SHAPE_SOUTH_BACK_L;
-                    case BOTTOM_RIGHT -> SHAPE_SOUTH_BACK_R;
-                };
-            case EAST:
-                return switch (part) {
-                    case TOP_LEFT, TOP_RIGHT -> SHAPE_EAST_FRONT;
-                    case BOTTOM_LEFT -> SHAPE_EAST_BACK_L;
-                    case BOTTOM_RIGHT -> SHAPE_EAST_BACK_R;
-                };
-            case WEST:
-                return switch (part) {
-                    case TOP_LEFT, TOP_RIGHT -> SHAPE_WEST_FRONT;
-                    case BOTTOM_LEFT -> SHAPE_WEST_BACK_L;
-                    case BOTTOM_RIGHT -> SHAPE_WEST_BACK_R;
-                };
-            default:
-                return SHAPE_NORTH_FRONT;
-        }
+        return switch (facing) {
+            case NORTH -> switch (part) {
+                case TOP_LEFT, TOP_RIGHT -> SHAPE_NORTH_FRONT;
+                case BOTTOM_LEFT -> SHAPE_NORTH_BACK_L;
+                case BOTTOM_RIGHT -> SHAPE_NORTH_BACK_R;
+            };
+            case SOUTH -> switch (part) {
+                case TOP_LEFT, TOP_RIGHT -> SHAPE_SOUTH_FRONT;
+                case BOTTOM_LEFT -> SHAPE_SOUTH_BACK_L;
+                case BOTTOM_RIGHT -> SHAPE_SOUTH_BACK_R;
+            };
+            case EAST -> switch (part) {
+                case TOP_LEFT, TOP_RIGHT -> SHAPE_EAST_FRONT;
+                case BOTTOM_LEFT -> SHAPE_EAST_BACK_L;
+                case BOTTOM_RIGHT -> SHAPE_EAST_BACK_R;
+            };
+            case WEST -> switch (part) {
+                case TOP_LEFT, TOP_RIGHT -> SHAPE_WEST_FRONT;
+                case BOTTOM_LEFT -> SHAPE_WEST_BACK_L;
+                case BOTTOM_RIGHT -> SHAPE_WEST_BACK_R;
+            };
+            default -> SHAPE_NORTH_FRONT;
+        };
     }
 
     @Override

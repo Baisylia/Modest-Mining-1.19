@@ -1,8 +1,8 @@
 package com.baisylia.modestmining.config;
 
 import com.baisylia.modestmining.ModestMining;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,50 +13,49 @@ import java.util.function.Supplier;
 
 public class ModConfig {
 
-    public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec SPEC;
 
-    public static final ForgeConfigSpec.BooleanValue FLINT_REPLACES_WOOD;
-    public static final ForgeConfigSpec.BooleanValue BRONZE_REPLACES_STONE;
-    public static final ForgeConfigSpec.BooleanValue STEEL_REPLACES_IRON;
+    public static final ModConfigSpec.BooleanValue FLINT_REPLACES_WOOD;
+    public static final ModConfigSpec.BooleanValue BRONZE_REPLACES_STONE;
+    public static final ModConfigSpec.BooleanValue STEEL_REPLACES_IRON;
 
-    public static final ForgeConfigSpec.BooleanValue REPEATER_USES_COPPER;
-    public static final ForgeConfigSpec.BooleanValue BOW_USES_COPPER;
-    public static final ForgeConfigSpec.BooleanValue TRIPWIRE_HOOK_USES_COPPER;
-    public static final ForgeConfigSpec.BooleanValue FORGE_USES_ALUMINIUM;
-    public static final ForgeConfigSpec.BooleanValue BUCKET_USES_ALUMINIUM;
-    public static final ForgeConfigSpec.BooleanValue FISHING_ROD_USES_ALUMINIUM;
-    public static final ForgeConfigSpec.BooleanValue CAULDRON_USES_ALUMINIUM;
-    public static final ForgeConfigSpec.BooleanValue HOPPER_USES_LEAD;
-    public static final ForgeConfigSpec.BooleanValue MINECART_USES_LEAD;
-    public static final ForgeConfigSpec.BooleanValue COMPARATOR_USES_GOLD;
-    public static final ForgeConfigSpec.BooleanValue DETECTOR_RAIL_USES_GOLD;
-    public static final ForgeConfigSpec.BooleanValue SPYGLASS_USES_GOLD;
-    public static final ForgeConfigSpec.BooleanValue BREWING_STAND_USES_GOLD;
-    public static final ForgeConfigSpec.BooleanValue ACTIVATOR_RAIL_USES_SILVER;
-    public static final ForgeConfigSpec.BooleanValue NOTE_BLOCK_RAIL_USES_SILVER;
-    public static final ForgeConfigSpec.BooleanValue DROPPER_USES_SILVER;
-    public static final ForgeConfigSpec.BooleanValue PISTON_USES_BRONZE;
-    public static final ForgeConfigSpec.BooleanValue SMOKER_USES_BRONZE;
-    public static final ForgeConfigSpec.BooleanValue CROSSBOW_USES_BRONZE;
-    public static final ForgeConfigSpec.BooleanValue SHIELD_USES_BRONZE;
-    public static final ForgeConfigSpec.BooleanValue ANVIL_USES_STEEL;
-    public static final ForgeConfigSpec.BooleanValue STONECUTTER_USES_STEEL;
-    public static final ForgeConfigSpec.BooleanValue BLAST_FURNACE_USES_STEEL;
-    public static final ForgeConfigSpec.BooleanValue FLINT_AND_STEEL_USES_STEEL;
-    public static final ForgeConfigSpec.BooleanValue DAYLIGHT_DETECTOR_USES_ROSE_GOLD;
-    public static final ForgeConfigSpec.BooleanValue OBSERVER_USES_ROSE_GOLD;
-    public static final ForgeConfigSpec.BooleanValue POWERED_RAIL_USES_ELECTRUM;
-    public static final ForgeConfigSpec.BooleanValue DISPENSER_USES_ELECTRUM;
-    public static final ForgeConfigSpec.BooleanValue LAMP_USES_ELECTRUM;
-    public static final ForgeConfigSpec.BooleanValue JUKEBOX_USES_ELECTRUM;
+    public static final ModConfigSpec.BooleanValue REPEATER_USES_COPPER;
+    public static final ModConfigSpec.BooleanValue BOW_USES_COPPER;
+    public static final ModConfigSpec.BooleanValue TRIPWIRE_HOOK_USES_COPPER;
+    public static final ModConfigSpec.BooleanValue FORGE_USES_ALUMINIUM;
+    public static final ModConfigSpec.BooleanValue BUCKET_USES_ALUMINIUM;
+    public static final ModConfigSpec.BooleanValue FISHING_ROD_USES_ALUMINIUM;
+    public static final ModConfigSpec.BooleanValue CAULDRON_USES_ALUMINIUM;
+    public static final ModConfigSpec.BooleanValue HOPPER_USES_LEAD;
+    public static final ModConfigSpec.BooleanValue MINECART_USES_LEAD;
+    public static final ModConfigSpec.BooleanValue COMPARATOR_USES_GOLD;
+    public static final ModConfigSpec.BooleanValue DETECTOR_RAIL_USES_GOLD;
+    public static final ModConfigSpec.BooleanValue SPYGLASS_USES_GOLD;
+    public static final ModConfigSpec.BooleanValue BREWING_STAND_USES_GOLD;
+    public static final ModConfigSpec.BooleanValue ACTIVATOR_RAIL_USES_SILVER;
+    public static final ModConfigSpec.BooleanValue NOTE_BLOCK_RAIL_USES_SILVER;
+    public static final ModConfigSpec.BooleanValue DROPPER_USES_SILVER;
+    public static final ModConfigSpec.BooleanValue PISTON_USES_BRONZE;
+    public static final ModConfigSpec.BooleanValue SMOKER_USES_BRONZE;
+    public static final ModConfigSpec.BooleanValue CROSSBOW_USES_BRONZE;
+    public static final ModConfigSpec.BooleanValue SHIELD_USES_BRONZE;
+    public static final ModConfigSpec.BooleanValue ANVIL_USES_STEEL;
+    public static final ModConfigSpec.BooleanValue STONECUTTER_USES_STEEL;
+    public static final ModConfigSpec.BooleanValue BLAST_FURNACE_USES_STEEL;
+    public static final ModConfigSpec.BooleanValue FLINT_AND_STEEL_USES_STEEL;
+    public static final ModConfigSpec.BooleanValue DAYLIGHT_DETECTOR_USES_ROSE_GOLD;
+    public static final ModConfigSpec.BooleanValue OBSERVER_USES_ROSE_GOLD;
+    public static final ModConfigSpec.BooleanValue POWERED_RAIL_USES_ELECTRUM;
+    public static final ModConfigSpec.BooleanValue DISPENSER_USES_ELECTRUM;
+    public static final ModConfigSpec.BooleanValue LAMP_USES_ELECTRUM;
+    public static final ModConfigSpec.BooleanValue JUKEBOX_USES_ELECTRUM;
 
-    public static final ForgeConfigSpec.BooleanValue GENERATE_ALUMINIUM_ORE;
-    public static final ForgeConfigSpec.BooleanValue GENERATE_LEAD_ORE;
-    public static final ForgeConfigSpec.BooleanValue GENERATE_NETHER_LEAD_ORE;
-    public static final ForgeConfigSpec.BooleanValue GENERATE_SILVER_ORE;
-    public static final ForgeConfigSpec.BooleanValue GENERATE_CLAMS;
-
+    public static final ModConfigSpec.BooleanValue GENERATE_ALUMINIUM_ORE;
+    public static final ModConfigSpec.BooleanValue GENERATE_LEAD_ORE;
+    public static final ModConfigSpec.BooleanValue GENERATE_NETHER_LEAD_ORE;
+    public static final ModConfigSpec.BooleanValue GENERATE_SILVER_ORE;
+    public static final ModConfigSpec.BooleanValue GENERATE_CLAMS;
 
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
@@ -108,7 +107,6 @@ public class ModConfig {
         LAMP_USES_ELECTRUM = BUILDER.comment("Lamp uses steel instead of electrum.").define("lamp_uses_electrum", false);
         JUKEBOX_USES_ELECTRUM = BUILDER.comment("Jukebox uses steel instead of electrum.").define("jukebox_uses_electrum", false);
 
-
         BUILDER.pop();
 
         SPEC = BUILDER.build();
@@ -155,7 +153,7 @@ public class ModConfig {
         registerCondition("generate_clams", GENERATE_CLAMS);
     }
 
-    private static void registerCondition(String featureName, ForgeConfigSpec.BooleanValue configValue) {
+    private static void registerCondition(String featureName, ModConfigSpec.BooleanValue configValue) {
         CONDITION_MAP.put(featureName, configValue);
         CONDITION_MAP.put("not_" + featureName, () -> !configValue.get());
     }

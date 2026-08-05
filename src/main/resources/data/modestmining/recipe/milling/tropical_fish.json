@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:tropical_fish"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:bone_meal"
+    }
+  ],
+  "cooktime": 200
+}

@@ -15,7 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -39,16 +38,19 @@ public class ThrownJavelinEntity extends AbstractArrow {
     }
 
     public ThrownJavelinEntity(Level level, LivingEntity shooter, ItemStack stack) {
-        super(ModEntityTypes.THROWN_JAVELIN.get(), shooter, level);
+        super(ModEntityTypes.THROWN_JAVELIN.get(), shooter, level, stack, null);
         this.javelinStack = stack.copy();
         this.entityData.set(DATA_JAVELIN_STACK, stack.copy());
-        this.entityData.set(DATA_LOYALTY, (byte) EnchantmentHelper.getLoyalty(stack));
         this.entityData.set(DATA_FOIL, stack.hasFoil());
     }
 
     @Override
-    public ItemStack getPickupItem() {
+    public ItemStack getDefaultPickupItem() {
         return this.entityData.get(DATA_JAVELIN_STACK);
+    }
+
+    public ItemStack getPickupItem() {
+        return this.getDefaultPickupItem();
     }
 
     public boolean isFoil() {
@@ -56,11 +58,11 @@ public class ThrownJavelinEntity extends AbstractArrow {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_JAVELIN_STACK, ItemStack.EMPTY);
-        this.entityData.define(DATA_LOYALTY, (byte) 0);
-        this.entityData.define(DATA_FOIL, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_JAVELIN_STACK, ItemStack.EMPTY);
+        builder.define(DATA_LOYALTY, (byte) 0);
+        builder.define(DATA_FOIL, false);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
         int loyaltyLevel = this.entityData.get(DATA_LOYALTY);
         if (loyaltyLevel > 0 && (this.dealtDamage || this.isNoPhysics()) && owner != null) {
             if (!this.isAcceptableReturnOwner()) {
-                if (!this.level.isClientSide && this.pickup == AbstractArrow.Pickup.ALLOWED) {
+                if (!this.level().isClientSide && this.pickup == AbstractArrow.Pickup.ALLOWED) {
                     this.spawnAtLocation(this.getPickupItem(), 0.1F);
                 }
                 this.discard();
@@ -81,7 +83,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
                 this.setNoPhysics(true);
                 Vec3 vec3 = owner.getEyePosition().subtract(this.position());
                 this.setPosRaw(this.getX(), this.getY() + vec3.y * 0.015D * (double) loyaltyLevel, this.getZ());
-                if (this.level.isClientSide) {
+                if (this.level().isClientSide) {
                     this.yOld = this.getY();
                 }
 
@@ -117,12 +119,8 @@ public class ThrownJavelinEntity extends AbstractArrow {
     protected void onHitEntity(EntityHitResult pResult) {
         Entity entity = pResult.getEntity();
         float f = (float) this.getBaseDamage();
-        if (entity instanceof LivingEntity livingentity) {
-            f += EnchantmentHelper.getDamageBonus(this.getPickupItem(), livingentity.getMobType());
-        }
-
         Entity owner = this.getOwner();
-        DamageSource damagesource = DamageSource.trident(this, owner == null ? this : owner);
+        DamageSource damagesource = this.damageSources().trident(this, owner == null ? this : owner);
         this.dealtDamage = true;
         SoundEvent soundevent = SoundEvents.TRIDENT_HIT;
         if (entity.hurt(damagesource, f)) {
@@ -131,11 +129,6 @@ public class ThrownJavelinEntity extends AbstractArrow {
             }
 
             if (entity instanceof LivingEntity livingentity1) {
-                if (owner instanceof LivingEntity livingOwner) {
-                    EnchantmentHelper.doPostHurtEffects(livingentity1, livingOwner);
-                    EnchantmentHelper.doPostDamageEffects(livingOwner, livingentity1);
-                }
-
                 this.doPostHurtEffects(livingentity1);
             }
         }
@@ -172,7 +165,9 @@ public class ThrownJavelinEntity extends AbstractArrow {
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.put("Javelin", this.javelinStack.save(new CompoundTag()));
+        if (!this.javelinStack.isEmpty()) {
+            tag.put("Javelin", this.javelinStack.save(this.registryAccess()));
+        }
         tag.putBoolean("DealtDamage", this.dealtDamage);
     }
 
@@ -180,9 +175,8 @@ public class ThrownJavelinEntity extends AbstractArrow {
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("Javelin")) {
-            this.javelinStack = ItemStack.of(tag.getCompound("Javelin"));
+            this.javelinStack = ItemStack.parseOptional(this.registryAccess(), tag.getCompound("Javelin"));
             this.entityData.set(DATA_JAVELIN_STACK, this.javelinStack.copy());
-            this.entityData.set(DATA_LOYALTY, (byte) EnchantmentHelper.getLoyalty(this.javelinStack));
             this.entityData.set(DATA_FOIL, this.javelinStack.hasFoil());
         }
         this.dealtDamage = tag.getBoolean("DealtDamage");

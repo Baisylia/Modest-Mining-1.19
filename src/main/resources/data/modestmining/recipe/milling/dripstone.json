@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:dripstone_block"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:pointed_dripstone"
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:red_nether_brick_stairs"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "chance": 1.0,
+      "id": "minecraft:nether_brick"
+    }
+  ],
+  "cooktime": 200
+}

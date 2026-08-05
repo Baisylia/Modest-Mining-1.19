@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:dandelion"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:yellow_dye"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:yellow_dye"
+    }
+  ],
+  "cooktime": 200
+}

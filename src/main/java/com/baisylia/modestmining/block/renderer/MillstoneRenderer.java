@@ -1,16 +1,16 @@
 package com.baisylia.modestmining.block.renderer;
 
-import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.custom.MillstoneBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.data.ModelData;
 
 public class MillstoneRenderer implements BlockEntityRenderer<MillstoneBlockEntity> {
 
@@ -28,7 +28,7 @@ public class MillstoneRenderer implements BlockEntityRenderer<MillstoneBlockEnti
 
         float rotation = (millstone.getLevel().getGameTime() + partialTick) * 4f;
 
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation));
+        poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
         poseStack.translate(-0.5D, 0.0D, -0.5D);
 
         BlockRenderDispatcher renderer = Minecraft.getInstance().getBlockRenderer();
@@ -39,7 +39,9 @@ public class MillstoneRenderer implements BlockEntityRenderer<MillstoneBlockEnti
                 poseStack,
                 buffer,
                 light,
-                overlay
+                overlay,
+                ModelData.EMPTY,
+                null
         );
 
         poseStack.popPose();

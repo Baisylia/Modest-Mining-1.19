@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:valkyrium_nugget"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "modestmining:valkyrium_ingot"
+  }
+}

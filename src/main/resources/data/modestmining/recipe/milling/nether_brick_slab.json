@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_brick_slab"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:nether_brick"
+    }
+  ],
+  "cooktime": 200
+}

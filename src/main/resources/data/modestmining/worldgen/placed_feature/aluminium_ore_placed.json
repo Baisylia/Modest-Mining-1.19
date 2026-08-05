@@ -1,0 +1,27 @@
+{
+  "feature": "modestmining:aluminium_ore",
+  "placement": [
+    {
+      "type": "modestmining:config_filter",
+      "config_key": "generate_aluminium_ore"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 8
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "min_inclusive": {"absolute": -16},
+        "max_inclusive": {"absolute": 112}
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

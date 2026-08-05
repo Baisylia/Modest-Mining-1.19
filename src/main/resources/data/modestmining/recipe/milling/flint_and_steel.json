@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:flint_and_steel"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:iron_nugget"
+    }
+  ],
+  "cooktime": 200
+}

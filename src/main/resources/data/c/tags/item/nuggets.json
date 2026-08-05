@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#c:nuggets/copper",
+    "#c:nuggets/aluminium",
+    "#c:nuggets/lead",
+    "#c:nuggets/silver",
+    "#c:nuggets/steel",
+    "#c:nuggets/rosegold",
+    "#c:nuggets/bronze",
+    "#c:nuggets/electrum",
+    "#c:nuggets/prismarite",
+    "#c:nuggets/valkyrium"
+  ]
+}

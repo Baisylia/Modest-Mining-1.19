@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:shears"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:iron_ingot"
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,0 +1,23 @@
+{
+  "feature": "modestmining:clam",
+  "placement": [
+    {
+      "type": "modestmining:config_filter",
+      "config_key": "generate_clams"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 5
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

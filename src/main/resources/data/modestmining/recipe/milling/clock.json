@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:clock"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:gold_ingot"
+    },
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:redstone"
+    }
+  ],
+  "cooktime": 200
+}

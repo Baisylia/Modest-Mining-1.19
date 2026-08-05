@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#c:dusts/copper",
+    "#c:dusts/gold",
+    "#c:dusts/iron",
+    "#c:dusts/aluminium",
+    "#c:dusts/lead",
+    "#c:dusts/silver",
+    "#c:dusts/netherite"
+  ]
+}

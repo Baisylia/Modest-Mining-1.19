@@ -1,0 +1,32 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:beetroot"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:red_dye"
+    },
+    {
+      "count": 1,
+      "chance": 0.25,
+      "id": "minecraft:red_dye"
+    },
+    {
+      "count": 1,
+      "chance": 0.25,
+      "id": "minecraft:beetroot_seeds"
+    },
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:sugar"
+    }
+  ],
+  "cooktime": 200
+}

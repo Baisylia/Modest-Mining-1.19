@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FXF",
+    " # ",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "tag": "minecraft:logs"
+    },
+    "F": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "id": "modestmining:wooden_hammer"
+  }
+}

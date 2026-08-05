@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:chorus_fruit"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:purple_dye"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:yellow_dye"
+    }
+  ],
+  "cooktime": 200
+}

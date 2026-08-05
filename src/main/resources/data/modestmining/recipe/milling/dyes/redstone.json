@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:red_dye"
+    },
+    {
+      "count": 2,
+      "chance": 0.25,
+      "id": "minecraft:red_dye"
+    }
+  ],
+  "cooktime": 200
+}

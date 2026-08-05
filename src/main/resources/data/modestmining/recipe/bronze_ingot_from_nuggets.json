@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:bronze_nugget"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "modestmining:bronze_ingot"
+  }
+}

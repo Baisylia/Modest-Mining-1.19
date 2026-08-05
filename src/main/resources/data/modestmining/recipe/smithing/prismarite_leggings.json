@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": [],
+  "base": {
+    "item": "minecraft:diamond_leggings"
+  },
+  "addition": {
+    "item": "modestmining:prismarite_ingot"
+  },
+  "result": {
+    "id": "modestmining:prismarite_leggings"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "chance": 1.0,
+      "id": "minecraft:bone_meal"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:bone_meal"
+    }
+  ],
+  "cooktime": 200
+}

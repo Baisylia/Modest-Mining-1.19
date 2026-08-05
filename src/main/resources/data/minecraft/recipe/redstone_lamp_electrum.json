@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "lamp_uses_electrum"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "modestmining:electrum_nugget"
+    }
+  },
+  "pattern": [
+    "ERE",
+    "RGR",
+    "ERE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:redstone_lamp"
+  }
+}

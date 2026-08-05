@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:dark_prismarine_stairs"
+    }
+  ],
+  "results": [
+    {
+      "count": 6,
+      "chance": 1.0,
+      "id": "minecraft:prismarine_shard"
+    }
+  ],
+  "cooktime": 200
+}

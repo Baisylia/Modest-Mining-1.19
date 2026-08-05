@@ -1,0 +1,25 @@
+{
+  "type": "modestmining:forging_shaped",
+  "category": "building",
+  "cooktime": 144,
+  "key": {
+    "X": {
+      "item": "minecraft:iron_nugget"
+    },
+    "#": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "X",
+    "#",
+    "X"
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "count": 9,
+    "id": "minecraft:chain"
+  }
+}

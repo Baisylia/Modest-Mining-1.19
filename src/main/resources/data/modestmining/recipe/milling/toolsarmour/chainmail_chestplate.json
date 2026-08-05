@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:chainmail_chestplate"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:chain"
+    }
+  ],
+  "cooktime": 200
+}

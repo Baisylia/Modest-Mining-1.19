@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:bucket"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:iron_ingot"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:iron_nugget"
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,35 +1,32 @@
 package com.baisylia.modestmining.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import it.unimi.dsi.fastutil.ints.IntList;
+import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.RecipeMatcher;
 
-import java.util.List;
+import java.util.Optional;
 
 public class ForgeRecipe extends AbstractForgeRecipe {
 
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
     private final int cookTime;
-    private final boolean isSimple;
 
-    public ForgeRecipe(ResourceLocation id, String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime) {
-        super(id, group, category, output, recipeItems, cookTime);
+    public ForgeRecipe(String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, Optional<Ingredient> fuel, int cookTime) {
+        super(group, category, output, recipeItems, fuel, cookTime);
         this.output = output;
         this.recipeItems = recipeItems;
         this.cookTime = cookTime;
-        this.isSimple = recipeItems.stream().allMatch(Ingredient::isSimple);
     }
 
     @Override
@@ -38,46 +35,38 @@ public class ForgeRecipe extends AbstractForgeRecipe {
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
-        // Check if output slot is already occupied with a different item
-        ItemStack outputSlot = pContainer.getItem(10);
-        if (!outputSlot.isEmpty() && !ItemStack.isSame(this.getResultItem(), outputSlot)) {
-            return false;
-        }
-
-        // Check if output slot is full
-        if (!outputSlot.isEmpty() && outputSlot.getCount() >= outputSlot.getMaxStackSize()) {
-            return false;
-        }
-        StackedContents stackedcontents = new StackedContents();
-        List<ItemStack> inputs = new java.util.ArrayList<>();
-        int i = 0;
-
-        for(int j = 0; j < 9; ++j) {
-            ItemStack itemstack = pContainer.getItem(j);
-            if (!itemstack.isEmpty()) {
-                ++i;
-                if (isSimple)
-                    stackedcontents.accountStack(itemstack, 1);
-                else inputs.add(itemstack);
+    public boolean matches(ForgeBlockEntity.SingleRecipeInputContainer input, Level level) {
+        int ingredientCount = 0;
+        for (int j = 0; j < 9; ++j) {
+            ItemStack stack = input.getItem(j);
+            if (!stack.isEmpty()) {
+                ingredientCount++;
             }
-            //stackedcontents.accountStack(itemstack, 1);
         }
-        //return i >= this.recipeItems.size() && (isSimple ? stackedcontents.canCraft(this, null) :
-        //RecipeMatcher.findMatches(inputs, this.recipeItems) != null);
+        if (ingredientCount != this.recipeItems.size()) {
+            return false;
+        }
 
-        //return i >= this.recipeItems.size() && RecipeMatcher.findMatches(inputs, this.recipeItems) != null;
-        return i == this.recipeItems.size()
-                && (isSimple ? stackedcontents.canCraft(this, (IntList)null) : RecipeMatcher.findMatches(inputs,  this.recipeItems) != null);
+        for (Ingredient ingredient : recipeItems) {
+            boolean matched = false;
+            for (int j = 0; j < 9; ++j) {
+                if (ingredient.test(input.getItem(j))) {
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) return false;
+        }
+        return true;
     }
 
     @Override
-    public ItemStack assemble(Container p_44001_) {
-        return output;
+    public ItemStack assemble(ForgeBlockEntity.SingleRecipeInputContainer input, HolderLookup.Provider registries) {
+        return output.copy();
     }
 
     @Override
-    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
@@ -86,67 +75,54 @@ public class ForgeRecipe extends AbstractForgeRecipe {
         return ModRecipes.FORGING_TYPE.get();
     }
 
-
     public static class Serializer implements RecipeSerializer<ForgeRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        private static final ResourceLocation NAME = new ResourceLocation("modestmining", "forging");
-        public ForgeRecipe fromJson(ResourceLocation resourceLocation, JsonObject json) {
-            String group = GsonHelper.getAsString(json, "group", "");
-            ForgingBookCategory category = ForgingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null));
-            if (category == null) category = ForgingBookCategory.MISC;
-            NonNullList<Ingredient> inputs = itemsFromJson(GsonHelper.getAsJsonArray(json, "ingredients"));
-            if (inputs.isEmpty()) {
-                throw new JsonParseException("No ingredients for forging recipe");
-            } else if (inputs.size() > 9) {
-                throw new JsonParseException("Too many ingredients for forging recipe. The maximum is 9");
-            } else {
-                ItemStack itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-                int cookTimeIn = GsonHelper.getAsInt(json, "cooktime", 200);
-                return new ForgeRecipe(resourceLocation, group, category, itemstack, inputs,  cookTimeIn);
-            }
-        }
 
+        private static final MapCodec<ForgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "").forGetter(ForgeRecipe::getGroup),
+                ForgingBookCategory.CODEC.optionalFieldOf("category", ForgingBookCategory.MISC).forGetter(ForgeRecipe::getCategory),
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
+                Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.recipeItems),
+                Ingredient.CODEC_NONEMPTY.optionalFieldOf("fuel").forGetter(ForgeRecipe::getFuel),
+                Codec.INT.optionalFieldOf("cooktime", 200).forGetter(ForgeRecipe::getCookTime)
+        ).apply(instance, (group, category, result, ingredients, fuel, cookTime) ->
+                new ForgeRecipe(group, category, result, NonNullList.copyOf(ingredients), fuel, cookTime)));
 
-        private static NonNullList<Ingredient> itemsFromJson(JsonArray ingredientArray) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-
-            for(int i = 0; i < ingredientArray.size(); ++i) {
-                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-                if (true || !ingredient.isEmpty()) {
-                    nonnulllist.add(ingredient);
+        private static final StreamCodec<RegistryFriendlyByteBuf, ForgeRecipe> STREAM_CODEC = StreamCodec.of(
+                (buf, recipe) -> {
+                    buf.writeUtf(recipe.group);
+                    buf.writeEnum(recipe.category);
+                    ItemStack.STREAM_CODEC.encode(buf, recipe.output);
+                    buf.writeVarInt(recipe.recipeItems.size());
+                    for (Ingredient ing : recipe.recipeItems) {
+                        Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ing);
+                    }
+                    FUEL_STREAM_CODEC.encode(buf, recipe.getFuel());
+                    buf.writeVarInt(recipe.cookTime);
+                },
+                buf -> {
+                    String group = buf.readUtf();
+                    ForgingBookCategory category = buf.readEnum(ForgingBookCategory.class);
+                    ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+                    int size = buf.readVarInt();
+                    NonNullList<Ingredient> ingredients = NonNullList.withSize(size, Ingredient.EMPTY);
+                    for (int i = 0; i < size; i++) {
+                        ingredients.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+                    }
+                    Optional<Ingredient> fuel = FUEL_STREAM_CODEC.decode(buf);
+                    int cookTime = buf.readVarInt();
+                    return new ForgeRecipe(group, category, output, ingredients, fuel, cookTime);
                 }
-            }
-            return nonnulllist;
-        }
+        );
+
         @Override
-        public ForgeRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
-            String group = buf.readUtf();
-            ForgingBookCategory category = buf.readEnum(ForgingBookCategory.class);
-            int i = buf.readVarInt();
-            NonNullList<Ingredient> inputs = NonNullList.withSize(i, Ingredient.EMPTY);
-
-            for(int j = 0; j < inputs.size(); ++j) {
-                inputs.set(j, Ingredient.fromNetwork(buf));
-            }
-
-            ItemStack itemstack = buf.readItem();
-            int cookTimeIn = buf.readVarInt();
-            return new ForgeRecipe(id, group, category, itemstack, inputs, cookTimeIn);
+        public MapCodec<ForgeRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buf, ForgeRecipe recipe) {
-            buf.writeUtf(recipe.group);
-            buf.writeEnum(recipe.category);
-            buf.writeVarInt(recipe.recipeItems.size());
-
-            for(Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.toNetwork(buf);
-            }
-
-            buf.writeItem(recipe.getResultItem());
-            buf.writeVarInt(recipe.cookTime);
-
+        public StreamCodec<RegistryFriendlyByteBuf, ForgeRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

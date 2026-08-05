@@ -3,7 +3,7 @@
   "textures": {
     "layer0": "modestmining:item/netherite_javelin_handheld"
   },
-  "loader": "forge:separate_transforms",
+  "loader": "neoforge:separate_transforms",
   "base": {
     "parent": "modestmining:item/netherite_javelin_handheld_throwing"
   },

@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:turtle_helmet"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "chance": 1.0,
+      "id": "minecraft:turtle_scute"
+    }
+  ],
+  "cooktime": 200
+}

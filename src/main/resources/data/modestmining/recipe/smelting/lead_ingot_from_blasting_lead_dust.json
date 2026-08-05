@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "modestmining:lead_dust"
+  },
+  "result": {
+    "id": "modestmining:lead_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 100
+}

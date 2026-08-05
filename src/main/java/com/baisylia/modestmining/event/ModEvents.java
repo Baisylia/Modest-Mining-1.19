@@ -6,17 +6,16 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.block.renderer.MillstoneRenderer;
 import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
-import com.baisylia.modestmining.integration.ItemObliteratorCompat;
-import net.minecraft.client.renderer.entity.EntityRenderers;
+import com.baisylia.modestmining.integration.ReliableRecipesCompat;
+import com.baisylia.modestmining.integration.ReliableRemoverCompat;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 
-@Mod.EventBusSubscriber(modid = ModestMining.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ModestMining.MOD_ID)
 public class ModEvents {
 
     @SubscribeEvent
@@ -26,23 +25,22 @@ public class ModEvents {
                 MillstoneRenderer::new
         );
 
-        EntityRenderers.register(
+        event.registerEntityRenderer(
                 ModEntityTypes.THROWN_JAVELIN.get(),
                 ThrownJavelinRenderer::new
         );
     }
 
-    @Mod.EventBusSubscriber(modid = ModestMining.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ModEventBusEvents {
+    @SubscribeEvent
+    public static void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            ReliableRemoverCompat.applyBlacklist();
+            ReliableRecipesCompat.apply();
+        });
+    }
 
-        @SubscribeEvent
-        public static void onCommonSetup(FMLCommonSetupEvent event) {
-            event.enqueueWork(ItemObliteratorCompat::applyBlacklist);
-        }
-
-        @SubscribeEvent
-        public static void entityAttributeModificationEvent(EntityAttributeModificationEvent event) {
-            event.add(EntityType.PLAYER, ModAttributes.MAGIC_RESISTANCE.get());
-        }
+    @SubscribeEvent
+    public static void entityAttributeModificationEvent(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, ModAttributes.MAGIC_RESISTANCE);
     }
 }

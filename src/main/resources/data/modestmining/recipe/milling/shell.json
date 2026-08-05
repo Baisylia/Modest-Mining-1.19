@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "modestmining:shell"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:bone_meal"
+    },
+    {
+      "count": 1,
+      "chance": 0.1,
+      "id": "minecraft:bone_meal"
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:steel_ingot"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "modestmining:steel_block"
+  }
+}

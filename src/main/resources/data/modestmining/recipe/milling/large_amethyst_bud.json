@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    {
+      "item": "minecraft:large_amethyst_bud"
+    }
+  ],
+  "results": [
+    {
+      "count": 3,
+      "chance": 1.0,
+      "id": "minecraft:amethyst_shard"
+    }
+  ],
+  "cooktime": 200
+}

@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:prismarite_sword"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "minecraft:diamond"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "modestmining:diamond_shard"
+    }
+  ],
+  "cooktime": 200
+}

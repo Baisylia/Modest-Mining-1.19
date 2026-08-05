@@ -1,0 +1,19 @@
+{
+  "type": "modestmining:forging",
+  "cooktime": 144,
+  "ingredients": [
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/silver"
+    }
+  ],
+  "fuel": {
+    "item": "minecraft:coal"
+  },
+  "result": {
+    "count": 2,
+    "id": "modestmining:electrum_ingot"
+  }
+}

@@ -2,15 +2,15 @@ package com.baisylia.modestmining.entity.renderer;
 
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 
 public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
 
@@ -27,24 +27,24 @@ public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
             MultiBufferSource buffer,
             int packedLight
     ) {
-
         poseStack.pushPose();
 
         poseStack.mulPose(
-                Vector3f.YP.rotationDegrees(entity.getYRot() + 90.0F)
+                Axis.YP.rotationDegrees(entity.getYRot() + 90.0F)
         );
 
         poseStack.mulPose(
-                Vector3f.ZP.rotationDegrees(entity.getXRot() + 135.0F)
+                Axis.ZP.rotationDegrees(entity.getXRot() + 135.0F)
         );
 
         Minecraft.getInstance().getItemRenderer().renderStatic(
                 entity.getPickupItem(),
-                ItemTransforms.TransformType.FIXED,
+                ItemDisplayContext.FIXED,
                 packedLight,
                 OverlayTexture.NO_OVERLAY,
                 poseStack,
                 buffer,
+                entity.level(),
                 entity.getId()
         );
 

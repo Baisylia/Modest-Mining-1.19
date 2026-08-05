@@ -6,8 +6,8 @@ import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.custom.MillstoneBlock;
 import com.baisylia.modestmining.block.entity.custom.ShellBlock;
 import com.baisylia.modestmining.item.ModItems;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -15,110 +15,99 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.material.MapColor;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ModestMining.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, ModestMining.MOD_ID);
 
-    // BLOCKS
-    public static final RegistryObject<Block> COKE_BLOCK = registerBlock("coke_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COAL_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, true, 64000);
+    public static final DeferredHolder<Block, Block> COKE_BLOCK = registerBlock("coke_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK)), true, 64000);
 
-    public static final RegistryObject<Block> ALUMINIUM_BLOCK = registerBlock("aluminium_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> RAW_ALUMINIUM_BLOCK = registerBlock("raw_aluminium_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> ALUMINIUM_ORE = registerBlock("aluminium_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> DEEPSLATE_ALUMINIUM_ORE = registerBlock("deepslate_aluminium_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_COPPER_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> LEAD_BLOCK = registerBlock("lead_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> RAW_LEAD_BLOCK = registerBlock("raw_lead_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> LEAD_ORE = registerBlock("lead_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> DEEPSLATE_LEAD_ORE = registerBlock("deepslate_lead_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_COPPER_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> NETHER_LEAD_ORE = registerBlock("nether_lead_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHER_QUARTZ_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> SILVER_BLOCK = registerBlock("silver_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> RAW_SILVER_BLOCK = registerBlock("raw_silver_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> SILVER_ORE = registerBlock("silver_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_GOLD_ORE)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
+    public static final DeferredHolder<Block, Block> ALUMINIUM_BLOCK = registerBlock("aluminium_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> RAW_ALUMINIUM_BLOCK = registerBlock("raw_aluminium_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> ALUMINIUM_ORE = registerBlock("aluminium_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)), false, 0);
+    public static final DeferredHolder<Block, Block> DEEPSLATE_ALUMINIUM_ORE = registerBlock("deepslate_aluminium_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_COPPER_ORE)), false, 0);
+    public static final DeferredHolder<Block, Block> LEAD_BLOCK = registerBlock("lead_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> RAW_LEAD_BLOCK = registerBlock("raw_lead_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> LEAD_ORE = registerBlock("lead_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_ORE)), false, 0);
+    public static final DeferredHolder<Block, Block> DEEPSLATE_LEAD_ORE = registerBlock("deepslate_lead_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_COPPER_ORE)), false, 0);
+    public static final DeferredHolder<Block, Block> NETHER_LEAD_ORE = registerBlock("nether_lead_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_QUARTZ_ORE)), false, 0);
+    public static final DeferredHolder<Block, Block> SILVER_BLOCK = registerBlock("silver_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> RAW_SILVER_BLOCK = registerBlock("raw_silver_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> SILVER_ORE = registerBlock("silver_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_ORE)), false, 0);
+    public static final DeferredHolder<Block, Block> DEEPSLATE_SILVER_ORE = registerBlock("deepslate_silver_ore",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_GOLD_ORE)), false, 0);
 
-    public static final RegistryObject<Block> STEEL_BLOCK = registerBlock("steel_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> ROSEGOLD_BLOCK = registerBlock("rosegold_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> BRONZE_BLOCK = registerBlock("bronze_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> ELECTRUM_BLOCK = registerBlock("electrum_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
+    public static final DeferredHolder<Block, Block> STEEL_BLOCK = registerBlock("steel_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> ROSEGOLD_BLOCK = registerBlock("rosegold_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> BRONZE_BLOCK = registerBlock("bronze_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> ELECTRUM_BLOCK = registerBlock("electrum_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_BLOCK)), false, 0);
 
-    public static final RegistryObject<Block> PRISMARITE_BLOCK = registerBlock("prismarite_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
-    public static final RegistryObject<Block> VALKYRIUM_BLOCK = registerBlock("valkyrium_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.NETHERITE_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
+    public static final DeferredHolder<Block, Block> PRISMARITE_BLOCK = registerBlock("prismarite_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> VALKYRIUM_BLOCK = registerBlock("valkyrium_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK)), false, 0);
 
-    public static final RegistryObject<Block> FORGE = registerBlock("forge",
-            () -> new ForgeBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_GRAY).lightLevel((blockState) -> {
+    public static final DeferredHolder<Block, Block> FORGE = registerBlock("forge",
+            () -> new ForgeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).lightLevel((blockState) -> {
                         if (blockState.getValue(ForgeBlock.LIT)) {
                             return 15;
                         }
                         return 0;
                     })
-                    .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_DECORATIONS, false, 0);
+                    .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), false, 0);
 
+    public static final DeferredHolder<Block, Block> MILLSTONE = registerBlock("millstone",
+            () -> new MillstoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
+                    .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), false, 0);
 
-    public static final RegistryObject<Block> MILLSTONE = registerBlock("millstone",
-            () -> new MillstoneBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY)
-                    .strength(5.0f, 6.0f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_DECORATIONS, false, 0);
+    public static final DeferredHolder<Block, Block> COMPACT_AMETHYST_BLOCK = registerBlock("compact_amethyst_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIAMOND_BLOCK)), false, 0);
 
-    public static final RegistryObject<Block> COMPACT_AMETHYST_BLOCK = registerBlock("compact_amethyst_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_BLOCK)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
+    public static final DeferredHolder<Block, Block> DIAMOND_SHARD_BLOCK = registerBlock("diamond_shard_block",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.AMETHYST_BLOCK).sound(SoundType.METAL)), false, 0);
 
-    public static final RegistryObject<Block> DIAMOND_SHARD_BLOCK = registerBlock("diamond_shard_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).sound(SoundType.METAL)), CreativeModeTab.TAB_BUILDING_BLOCKS, false, 0);
+    public static final DeferredHolder<Block, Block> SHELL = registerBlock("shell",
+            () -> new ShellBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY)
+                    .strength(0.5f, 0.5f)), false, 0);
 
-    public static final RegistryObject<Block> SHELL = registerBlock("shell",
-            () -> new ShellBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
-                    .strength(0.5f, 0.5f)), CreativeModeTab.TAB_MISC, false, 0);
+    public static final DeferredHolder<Block, Block> CLAM = registerBlock("clam",
+            () -> new ClamBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY)
+                    .strength(0.8f, 0.8f).sound(SoundType.CORAL_BLOCK).noOcclusion()), false, 0);
 
-    public static final RegistryObject<Block> CLAM = registerBlock("clam",
-            () -> new ClamBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
-                    .strength(0.8f, 0.8f).sound(SoundType.CORAL_BLOCK).noOcclusion()), CreativeModeTab.TAB_MISC, false, 0);
-
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab, Boolean isFuel, Integer fuelAmount) {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn, tab, isFuel, fuelAmount);
+    private static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> block, Boolean isFuel, Integer fuelAmount) {
+        DeferredHolder<Block, T> toReturn = BLOCKS.register(name, block);
+        registerBlockItem(name, toReturn, isFuel, fuelAmount);
         return toReturn;
     }
 
-    private static <T extends Block> RegistryObject<T> registerBlockNoItem(String name, Supplier<T> block) {
-        RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        return toReturn;
-    }
-
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block, CreativeModeTab tab, Boolean isFuel, Integer fuelAmount) {
-        if (isFuel == false) {
-            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                    new Item.Properties().tab(tab)));
+    private static <T extends Block> DeferredHolder<Item, Item> registerBlockItem(String name, DeferredHolder<Block, T> block, Boolean isFuel, Integer fuelAmount) {
+        if (!isFuel) {
+            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         } else {
-            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                    new Item.Properties().tab(tab)) {
+            return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()) {
                 @Override
                 public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
                     return fuelAmount;

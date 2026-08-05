@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    {
+      "item": "minecraft:snow"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:snowball"
+    }
+  ],
+  "cooktime": 200
+}

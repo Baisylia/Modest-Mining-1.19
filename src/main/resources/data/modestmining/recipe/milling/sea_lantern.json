@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:sea_lantern"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:prismarine_shard"
+    },
+    {
+      "count": 5,
+      "chance": 1.0,
+      "id": "minecraft:prismarine_crystals"
+    }
+  ],
+  "cooktime": 200
+}

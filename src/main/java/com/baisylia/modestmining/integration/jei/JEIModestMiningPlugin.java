@@ -2,7 +2,9 @@ package com.baisylia.modestmining.integration.jei;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
-import com.baisylia.modestmining.recipe.*;
+import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
+import com.baisylia.modestmining.recipe.ModRecipes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
@@ -11,6 +13,7 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class JEIModestMiningPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(ModestMining.MOD_ID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "jei_plugin");
     }
 
     @Override
@@ -40,13 +43,14 @@ public class JEIModestMiningPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        List<AbstractForgeRecipe> recipes = rm.getAllRecipesFor(ModRecipes.FORGING_TYPE.get());
+        List<AbstractForgeRecipe> recipes = rm.getAllRecipesFor(ModRecipes.FORGING_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(FORGING_TYPE, recipes);
 
-        List<AbstractMillstoneRecipe> recipes_M = rm.getAllRecipesFor(ModRecipes.MILLING_TYPE.get());
+        List<AbstractMillstoneRecipe> recipes_M = rm.getAllRecipesFor(ModRecipes.MILLING_TYPE.get())
+                .stream().map(RecipeHolder::value).toList();
         registration.addRecipes(MILLING_TYPE, recipes_M);
     }
-
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {

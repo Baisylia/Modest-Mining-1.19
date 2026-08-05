@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:nautilus_shell"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:bone_meal"
+    },
+    {
+      "count": 2,
+      "chance": 0.5,
+      "id": "minecraft:bone_meal"
+    }
+  ],
+  "cooktime": 200
+}

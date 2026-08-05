@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "#c:ingots/aluminium",
+    "#c:ingots/lead",
+    "#c:ingots/silver",
+    "#c:ingots/steel",
+    "#c:ingots/rosegold",
+    "#c:ingots/bronze",
+    "#c:ingots/electrum",
+    "#c:ingots/prismarite",
+    "#c:ingots/valkyrium"
+  ]
+}

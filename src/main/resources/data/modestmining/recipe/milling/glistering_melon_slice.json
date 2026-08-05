@@ -1,0 +1,27 @@
+{
+  "type": "modestmining:milling",
+  "category": "plants",
+  "ingredients": [
+    {
+      "item": "minecraft:glistering_melon_slice"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:melon_seeds"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:gold_nugget"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:melon_seeds"
+    }
+  ],
+  "cooktime": 200
+}

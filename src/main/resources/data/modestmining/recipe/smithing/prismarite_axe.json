@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": [],
+  "base": {
+    "item": "minecraft:diamond_axe"
+  },
+  "addition": {
+    "item": "modestmining:prismarite_ingot"
+  },
+  "result": {
+    "id": "modestmining:prismarite_axe"
+  }
+}

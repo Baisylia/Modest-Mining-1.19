@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "modestmining:silver_ore"
+  },
+  "result": {
+    "id": "modestmining:silver_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 200
+}

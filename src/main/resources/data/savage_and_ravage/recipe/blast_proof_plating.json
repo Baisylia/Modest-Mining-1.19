@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "savage_and_ravage"
+    }
+  ],
+  "type": "modestmining:forging",
+  "cooktime": 144,
+  "ingredients": [
+    {
+      "item": "savage_and_ravage:creeper_spores"
+    },
+    {
+      "item": "savage_and_ravage:creeper_spores"
+    },
+    {
+      "item": "savage_and_ravage:creeper_spores"
+    },
+    {
+      "item": "savage_and_ravage:creeper_spores"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "fuel": {
+    "item": "minecraft:blaze_powder"
+  },
+  "result": {
+    "id": "savage_and_ravage:blast_proof_plating"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:silver_ingot"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "modestmining:silver_block"
+  }
+}

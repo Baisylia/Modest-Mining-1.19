@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "tag": "modestmining:hammers"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "modestmining:copper_dust"
+  }
+}

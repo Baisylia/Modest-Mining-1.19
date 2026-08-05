@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:brick_wall"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:brick"
+    }
+  ],
+  "cooktime": 200
+}

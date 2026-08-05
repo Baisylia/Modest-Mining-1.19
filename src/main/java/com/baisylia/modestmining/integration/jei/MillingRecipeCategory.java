@@ -7,7 +7,6 @@ import com.baisylia.modestmining.recipe.MillstoneRecipe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,6 +19,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneRecipe> {
-    public final static ResourceLocation UID = new ResourceLocation(ModestMining.MOD_ID, "milling");
+    public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "milling");
     public final static ResourceLocation TEXTURE =
-            new ResourceLocation(ModestMining.MOD_ID, "textures/gui/millstone_gui_jei.png");
+            ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "textures/gui/millstone_gui_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -52,13 +52,13 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
     }
 
     @Override
-    public void draw(AbstractMillstoneRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(AbstractMillstoneRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IDrawableAnimated arrow = getArrow(recipe);
-        arrow.draw(poseStack, 25, 21);
-        drawCookTime(recipe, poseStack);
+        arrow.draw(guiGraphics, 25, 21);
+        drawCookTime(recipe, guiGraphics);
     }
 
-    protected void drawCookTime(AbstractMillstoneRecipe recipe, PoseStack poseStack) {
+    protected void drawCookTime(AbstractMillstoneRecipe recipe, GuiGraphics guiGraphics) {
         int cookTime = recipe.getCookTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -66,7 +66,7 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, getWidth() - stringWidth, 48, 0xFF808080);
+            guiGraphics.drawString(fontRenderer, timeString, getWidth() - stringWidth, 48, 0xFF808080, false);
         }
     }
 
@@ -106,7 +106,7 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
         if (recipe instanceof MillstoneRecipe millstoneRecipe) {
             results.addAll(millstoneRecipe.results);
         } else {
-            results.add(recipe.getResultItem());
+            results.add(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
         }
 
         for (int i = 0; i < 9; i++) {

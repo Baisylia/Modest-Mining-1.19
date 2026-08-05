@@ -8,10 +8,13 @@ import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.MillstoneMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
@@ -19,58 +22,38 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
     protected final ContainerData data;
-
+    private final RecipeManager.CachedCheck<ForgeBlockEntity.SingleRecipeInputContainer, AbstractMillstoneRecipe> quickCheck =
+            RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
     private int progress = 0;
     private int maxProgress = 72;
-
-    private static final int[] INGREDIENT_SLOTS =
-            new int[]{0};
-
     private AbstractMillstoneRecipe currentRecipe = null;
-
     private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
-
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-
             if (slot == 0) {
                 resetProgress();
             }
         }
     };
 
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-
-    private final RecipeManager.CachedCheck<Container, AbstractMillstoneRecipe>
-            quickCheck = RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
-
     public MillstoneBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(ModBlockEntities.MILLSTONE_BLOCK_ENTITY.get(),
-                pWorldPosition, pBlockState);
-
+        super(ModBlockEntities.MILLSTONE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         this.data = new ContainerData() {
-
             @Override
             public int get(int index) {
                 return switch (index) {
@@ -93,84 +76,6 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
                 return 2;
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.modestmining.millstone");
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new MillstoneMenu(id, inventory, this, this.data);
-    }
-
-    LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (side == null && cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast();
-        }
-
-        if (!this.remove && side != null
-                && cap == ForgeCapabilities.ITEM_HANDLER) {
-
-            if (side == Direction.UP) {
-                return handlers[0].cast();
-            }
-            else if (side == Direction.DOWN) {
-                return handlers[1].cast();
-            }
-            else {
-                return handlers[2].cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag tag) {
-        tag.put("inventory", itemHandler.serializeNBT());
-        tag.putInt("millstone.progress", progress);
-        tag.putInt("millstone.max_progress", maxProgress);
-
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-
-        progress = nbt.getInt("millstone.progress");
-        maxProgress = nbt.getInt("millstone.max_progress");
-    }
-
-    public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-
-        Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, MillstoneBlockEntity entity) {
@@ -198,20 +103,13 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     private static boolean hasRecipe(MillstoneBlockEntity entity) {
-        SimpleContainer inventory =
-                new SimpleContainer(entity.itemHandler.getSlots());
-
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-
-        Optional<AbstractMillstoneRecipe> recipeMatch =
-                entity.quickCheck.getRecipeFor(inventory, entity.level);
+        ForgeBlockEntity.SingleRecipeInputContainer input = new ForgeBlockEntity.SingleRecipeInputContainer(entity.itemHandler);
+        Optional<RecipeHolder<AbstractMillstoneRecipe>> recipeMatch = entity.quickCheck.getRecipeFor(input, entity.level);
 
         if (recipeMatch.isPresent()) {
-            entity.currentRecipe = recipeMatch.get();
-            entity.maxProgress = recipeMatch.get().getCookTime();
-            return canInsertAllOutputs(entity, recipeMatch.get());
+            entity.currentRecipe = recipeMatch.get().value();
+            entity.maxProgress = recipeMatch.get().value().getCookTime();
+            return canInsertAllOutputs(entity, recipeMatch.get().value());
         }
 
         return false;
@@ -219,7 +117,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     private static boolean canInsertAllOutputs(MillstoneBlockEntity entity, AbstractMillstoneRecipe recipe) {
         if (!(recipe instanceof MillstoneRecipe millstoneRecipe)) {
-            return canInsertStack(entity, recipe.getResultItem());
+            return canInsertStack(entity, recipe.getResultItem(entity.level.registryAccess()));
         }
         for (ItemStack result : millstoneRecipe.results) {
             if (!result.isEmpty() && !canInsertStack(entity, result)) return false;
@@ -235,34 +133,25 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     private static void craftItem(MillstoneBlockEntity entity) {
-        MillstoneRecipe recipe =
-                (MillstoneRecipe) entity.currentRecipe;
-
+        MillstoneRecipe recipe = (MillstoneRecipe) entity.currentRecipe;
         if (recipe == null) return;
 
         entity.itemHandler.extractItem(0, 1, false);
 
         for (int i = 0; i < recipe.results.size(); i++) {
-
             ItemStack result = recipe.results.get(i);
             float chance = recipe.chances.get(i);
 
             if (entity.level.random.nextFloat() <= chance) {
-
                 ItemStack output = result.copy();
-
                 for (int slot = 1; slot <= 9; slot++) {
-
                     ItemStack existing = entity.itemHandler.getStackInSlot(slot);
-
                     if (existing.isEmpty()) {
                         entity.itemHandler.setStackInSlot(slot, output);
                         break;
                     }
-
-                    if (ItemStack.isSameItemSameTags(existing, output)
+                    if (ItemStack.isSameItemSameComponents(existing, output)
                             && existing.getCount() + output.getCount() <= existing.getMaxStackSize()) {
-
                         existing.grow(output.getCount());
                         break;
                     }
@@ -273,18 +162,45 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         entity.resetProgress();
     }
 
-    public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
+    }
 
-        ItemEntity entity =
-                new ItemEntity(level, x, y, z, stack);
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.modestmining.millstone");
+    }
 
-        entity.setDeltaMovement(
-                xMotion,
-                yMotion,
-                zMotion
-        );
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new MillstoneMenu(id, inventory, this, this.data);
+    }
 
-        level.addFreshEntity(entity);
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+        tag.put("inventory", itemHandler.serializeNBT(registries));
+        tag.putInt("millstone.progress", progress);
+        tag.putInt("millstone.max_progress", maxProgress);
+        super.saveAdditional(tag, registries);
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
+        if (nbt.contains("inventory")) {
+            itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
+        }
+        progress = nbt.getInt("millstone.progress");
+        maxProgress = nbt.getInt("millstone.max_progress");
+    }
+
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+        Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
     private void resetProgress() {
@@ -295,11 +211,9 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Override
     public int[] getSlotsForFace(Direction direction) {
-
         if (direction == Direction.UP) {
             return new int[]{0};
         }
-
         return new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
     }
 
@@ -309,18 +223,12 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int slot,
-                                           ItemStack stack,
-                                           @Nullable Direction direction) {
-
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
         return canPlaceItem(slot, stack);
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int slot,
-                                          ItemStack stack,
-                                          Direction direction) {
-
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
         return true;
     }
 
@@ -331,14 +239,11 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Override
     public boolean isEmpty() {
-
         for (int i = 0; i < itemHandler.getSlots(); ++i) {
-
             if (!itemHandler.getStackInSlot(i).isEmpty()) {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -364,21 +269,14 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Override
     public boolean stillValid(Player player) {
-
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         }
-
-        return player.distanceToSqr(
-                this.worldPosition.getX() + 0.5D,
-                this.worldPosition.getY() + 0.5D,
-                this.worldPosition.getZ() + 0.5D
-        ) <= 64.0D;
+        return player.distanceToSqr(this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 0.5D, this.worldPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
     public void clearContent() {
-
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             itemHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
@@ -386,7 +284,6 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Override
     public void fillStackedContents(StackedContents helper) {
-
         for (int i = 0; i < this.getContainerSize(); i++) {
             helper.accountStack(this.getItem(i));
         }

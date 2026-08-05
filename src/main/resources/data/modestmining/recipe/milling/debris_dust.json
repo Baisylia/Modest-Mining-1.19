@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    {
+      "item": "minecraft:ancient_debris"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "modestmining:debris_dust"
+    },
+    {
+      "count": 1,
+      "chance": 0.2,
+      "id": "modestmining:debris_dust"
+    }
+  ],
+  "cooktime": 400
+}

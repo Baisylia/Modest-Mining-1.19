@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "modestmining:prismarite_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "modestmining:prismarite_nugget"
+  }
+}

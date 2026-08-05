@@ -7,9 +7,13 @@ import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.*;
+import net.minecraft.world.Containers;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,40 +22,33 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 
 import static com.baisylia.modestmining.block.custom.ForgeBlock.LIT;
 
 public class ForgeBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
+    private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
     protected final ContainerData data;
+    private final RecipeManager.CachedCheck<SingleRecipeInputContainer, AbstractForgeRecipe> quickCheck =
+            RecipeManager.createCheck(ModRecipes.FORGING_TYPE.get());
     private int progress = 0;
     private int maxProgress = 72;
     private int litTime = 0;
     private int fuelAmount = 0;
-    private static final int[] INGREDIENT_SLOTS = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
-    static int countOutput = 1;
-    private ContainerOpenersCounter openersCounter;
+    private ItemStack activeFuel = ItemStack.EMPTY;
     private AbstractForgeRecipe currentRecipe = null;
-
     private final ItemStackHandler itemHandler = new ItemStackHandler(11) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -61,9 +58,6 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             }
         }
     };
-
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    private final RecipeManager.CachedCheck<Container, AbstractForgeRecipe> quickCheck = RecipeManager.createCheck(ModRecipes.FORGING_TYPE.get());
 
     public ForgeBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.FORGE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -79,10 +73,16 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             }
 
             public void set(int index, int value) {
-                switch(index) {
-                    case 0: ForgeBlockEntity.this.progress = value; break;
-                    case 1: ForgeBlockEntity.this.maxProgress = value; break;
-                    case 2: ForgeBlockEntity.this.litTime = value; break;
+                switch (index) {
+                    case 0:
+                        ForgeBlockEntity.this.progress = value;
+                        break;
+                    case 1:
+                        ForgeBlockEntity.this.maxProgress = value;
+                        break;
+                    case 2:
+                        ForgeBlockEntity.this.litTime = value;
+                        break;
                 }
             }
 
@@ -92,85 +92,12 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         };
     }
 
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.modestmining.forge");
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new ForgeMenu(pContainerId, pInventory, this, this.data);
-    }
-
-    LazyOptional<? extends IItemHandler>[] handlers =
-            SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        if (side == null && cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast();
-        }
-        if (!this.remove && side != null && cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP)
-                return handlers[0].cast();
-            else if (side == Direction.DOWN)
-                return handlers[1].cast();
-            else
-                return handlers[2].cast();
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-    }
-
-    @Override
-    public void invalidateCaps()  {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag tag) {
-        tag.put("inventory", itemHandler.serializeNBT());
-        tag.putInt("forge.progress", progress);
-        tag.putInt("forge.lit_time", litTime);
-        tag.putInt("forge.max_progress", maxProgress);
-        tag.putInt("forge.fuel_amount", fuelAmount);
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-        progress = nbt.getInt("forge.progress");
-        litTime = nbt.getInt("forge.lit_time");
-        maxProgress = nbt.getInt("forge.max_progress");
-        fuelAmount = nbt.getInt("forge.fuel_amount");
-    }
-
-    public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-
-        Containers.dropContents(this.level, this.worldPosition, inventory);
-    }
-
-
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, ForgeBlockEntity pBlockEntity) {
-
-
         if (isFueled(pBlockEntity, pPos, pLevel)) {
             pBlockEntity.litTime--;
+            if (pBlockEntity.litTime <= 0) {
+                pBlockEntity.activeFuel = ItemStack.EMPTY;
+            }
         } else {
             pBlockEntity.litTime = 0;
         }
@@ -186,53 +113,42 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         }
     }
 
-    private void setChanged(Level pLevel, BlockPos pPos, BlockState pState, boolean b) {
-        pLevel.setBlock(pPos, pState.setValue(LIT, b), 3);
-        super.setChanged();
-    }
-
     private static boolean hasRecipe(ForgeBlockEntity entity) {
         Level level = entity.level;
         BlockPos pos = entity.getBlockPos();
 
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-
-        Optional<AbstractForgeRecipe> recipeMatch = entity.quickCheck.getRecipeFor(inventory, level);
+        SingleRecipeInputContainer input = new SingleRecipeInputContainer(entity.itemHandler);
+        Optional<RecipeHolder<AbstractForgeRecipe>> recipeMatch = entity.quickCheck.getRecipeFor(input, level);
 
         if (recipeMatch.isPresent()) {
-            ItemStack result = recipeMatch.get().getResultItem();
-            if (canInsertAmountIntoOutputSlot(inventory, result)) {
-                entity.currentRecipe = recipeMatch.get();
-                return startCraftIfFueled(entity, pos, level, recipeMatch.get().getCookTime());
+            AbstractForgeRecipe recipe = recipeMatch.get().value();
+            ItemStack result = recipe.getResultItem(level.registryAccess());
+            if (canInsertAmountIntoOutputSlot(entity.itemHandler, result)) {
+                entity.currentRecipe = recipe;
+                return startCraftIfFueled(entity, pos, level, recipe);
             }
         }
 
         return false;
     }
 
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory, ItemStack output) {
-        ItemStack currentOutput = inventory.getItem(10);
-
+    private static boolean canInsertAmountIntoOutputSlot(ItemStackHandler handler, ItemStack output) {
+        ItemStack currentOutput = handler.getStackInSlot(10);
         if (currentOutput.isEmpty()) {
             return true;
         }
-
-        if (!currentOutput.is(output.getItem())) {
+        if (!ItemStack.isSameItemSameComponents(currentOutput, output)) {
             return false;
         }
-
         return currentOutput.getCount() + output.getCount() <= currentOutput.getMaxStackSize();
     }
 
-    static boolean startCraftIfFueled(ForgeBlockEntity entity, BlockPos pos, Level level, int progress) {
-        if (!isFueled(entity, pos, level)) {
-            if (!entity.burnFuel())
+    static boolean startCraftIfFueled(ForgeBlockEntity entity, BlockPos pos, Level level, AbstractForgeRecipe recipe) {
+        if (!isFueled(entity, pos, level) || !recipe.fuelMatches(entity.activeFuel)) {
+            if (!entity.burnFuel(recipe))
                 return false;
         }
-        entity.maxProgress = progress;
+        entity.maxProgress = recipe.getCookTime();
         return true;
     }
 
@@ -241,21 +157,111 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         if (entity.litTime > 0) {
             entity.setChanged(level, pos, entity.getBlockState(), true);
             return true;
-        }
-        else {
+        } else {
             entity.setChanged(level, pos, entity.getBlockState(), false);
             return false;
         }
     }
 
-    private boolean burnFuel() {
+    private static void craftItem(ForgeBlockEntity entity) {
+        var currentRecipe = entity.currentRecipe;
+        if (currentRecipe != null) {
+            for (int i = 0; i < 9; ++i) {
+                ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
+                if (slotStack.hasCraftingRemainingItem()) {
+                    Direction direction = entity.getBlockState().getValue(ForgeBlock.FACING).getCounterClockWise();
+                    double x = (double) entity.worldPosition.getX() + 0.5 + (double) direction.getStepX() * 0.25;
+                    double y = (double) entity.worldPosition.getY() + 0.7;
+                    double z = (double) entity.worldPosition.getZ() + 0.5 + (double) direction.getStepZ() * 0.25;
+                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (float) direction.getStepX() * 0.08F, 0.25, (float) direction.getStepZ() * 0.08F);
+                }
+            }
+
+            for (int i = 0; i < 9; ++i) {
+                entity.itemHandler.extractItem(i, 1, false);
+            }
+
+            ItemStack resultStack = currentRecipe.getResultItem(entity.level.registryAccess());
+            ItemStack currentOutput = entity.itemHandler.getStackInSlot(10);
+            if (currentOutput.isEmpty()) {
+                entity.itemHandler.setStackInSlot(10, resultStack.copy());
+            } else {
+                currentOutput.grow(resultStack.getCount());
+            }
+
+            entity.resetProgress();
+        }
+    }
+
+    public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
+        ItemEntity entity = new ItemEntity(level, x, y, z, stack);
+        entity.setDeltaMovement(xMotion, yMotion, zMotion);
+        level.addFreshEntity(entity);
+    }
+
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.modestmining.forge");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+        return new ForgeMenu(pContainerId, pInventory, this, this.data);
+    }
+
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.Provider registries) {
+        tag.put("inventory", itemHandler.serializeNBT(registries));
+        tag.putInt("forge.progress", progress);
+        tag.putInt("forge.lit_time", litTime);
+        tag.putInt("forge.max_progress", maxProgress);
+        tag.putInt("forge.fuel_amount", fuelAmount);
+        tag.put("forge.active_fuel", activeFuel.saveOptional(registries));
+        super.saveAdditional(tag, registries);
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
+        if (nbt.contains("inventory")) {
+            itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
+        }
+        progress = nbt.getInt("forge.progress");
+        litTime = nbt.getInt("forge.lit_time");
+        maxProgress = nbt.getInt("forge.max_progress");
+        fuelAmount = nbt.getInt("forge.fuel_amount");
+        activeFuel = ItemStack.parseOptional(registries, nbt.getCompound("forge.active_fuel"));
+    }
+
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
+    private void setChanged(Level pLevel, BlockPos pPos, BlockState pState, boolean b) {
+        pLevel.setBlock(pPos, pState.setValue(LIT, b), 3);
+        super.setChanged();
+    }
+
+    private boolean burnFuel(AbstractForgeRecipe recipe) {
         if (!this.level.isClientSide) {
             var fuel = this.itemHandler.getStackInSlot(9).copy();
-            if (AbstractFurnaceBlockEntity.isFuel(fuel) && this.litTime == 0) {
-                this.fuelAmount = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING);
-                this.litTime = ForgeHooks.getBurnTime(fuel, RecipeType.BLASTING);
+            int burnTime = fuel.getBurnTime(RecipeType.BLASTING);
+            if (burnTime > 0 && recipe.fuelMatches(fuel)) {
+                this.fuelAmount = burnTime;
+                this.litTime = burnTime;
+                this.activeFuel = fuel.copyWithCount(1);
                 if (fuel.getCount() > 1) {
-                    fuel.setCount(fuel.getCount()-1);
+                    fuel.setCount(fuel.getCount() - 1);
                     this.itemHandler.setStackInSlot(9, fuel);
                 } else {
                     this.itemHandler.setStackInSlot(9, fuel.getCraftingRemainingItem());
@@ -264,48 +270,6 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             }
         }
         return false;
-    }
-
-    private static void craftItem(ForgeBlockEntity entity) {
-
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
-        }
-
-        var currentRecipe = entity.currentRecipe;
-        if (currentRecipe != null) {
-            for(int i = 0; i < 9; ++i) {
-                ItemStack slotStack = entity.itemHandler.getStackInSlot(i);
-                if (slotStack.hasCraftingRemainingItem()) {
-                    Direction direction = entity.getBlockState().getValue(ForgeBlock.FACING).getCounterClockWise();
-                    double x = (double)entity.worldPosition.getX() + 0.5 + (double)direction.getStepX() * 0.25;
-                    double y = (double)entity.worldPosition.getY() + 0.7;
-                    double z = (double)entity.worldPosition.getZ() + 0.5 + (double)direction.getStepZ() * 0.25;
-                    spawnItemEntity(entity.level, entity.itemHandler.getStackInSlot(i).getCraftingRemainingItem(), x, y, z, (float)direction.getStepX() * 0.08F, 0.25, (float)direction.getStepZ() * 0.08F);
-                }
-            }
-
-            for (int i = 0; i < 9; ++i) {
-                entity.itemHandler.extractItem(i, 1, false);
-            }
-            inventory.getItem(10).is(currentRecipe.getResultItem().getItem());
-
-            entity.itemHandler.setStackInSlot(10, new ItemStack(currentRecipe.getResultItem().getItem(),
-                    entity.itemHandler.getStackInSlot(10).getCount() + entity.getTheCount(currentRecipe.getResultItem())));
-
-            entity.resetProgress();
-
-        }
-    }
-    public static void spawnItemEntity(Level level, ItemStack stack, double x, double y, double z, double xMotion, double yMotion, double zMotion) {
-        ItemEntity entity = new ItemEntity(level, x, y, z, stack);
-        entity.setDeltaMovement(xMotion, yMotion, zMotion);
-        level.addFreshEntity(entity);
-    }
-
-    private int getTheCount (ItemStack itemIn) {
-        return itemIn.getCount();
     }
 
     private void resetProgress() {
@@ -327,7 +291,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         if (slot == 10) {
             return false;
         } else if (slot == 9) {
-            return ForgeHooks.getBurnTime(itemStack, RecipeType.BLASTING) > 0;
+            return itemStack.getBurnTime(RecipeType.BLASTING) > 0;
         } else {
             return true;
         }
@@ -350,9 +314,8 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
 
     @Override
     public boolean isEmpty() {
-        for(int i = 0; i < this.itemHandler.getSlots(); ++i) {
-            ItemStack itemStack = this.itemHandler.getStackInSlot(i);
-            if (!itemStack.isEmpty()) {
+        for (int i = 0; i < this.itemHandler.getSlots(); ++i) {
+            if (!this.itemHandler.getStackInSlot(i).isEmpty()) {
                 return false;
             }
         }
@@ -384,7 +347,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return player.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
+            return player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -398,8 +361,25 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
     @Override
     public void fillStackedContents(StackedContents pHelper) {
         for (int i = 0; i < this.getContainerSize(); i++) {
-            ItemStack stack = this.getItem(i);
-            pHelper.accountStack(stack);
+            pHelper.accountStack(this.getItem(i));
+        }
+    }
+
+    public static class SingleRecipeInputContainer implements RecipeInput {
+        private final ItemStackHandler handler;
+
+        public SingleRecipeInputContainer(ItemStackHandler handler) {
+            this.handler = handler;
+        }
+
+        @Override
+        public ItemStack getItem(int index) {
+            return handler.getStackInSlot(index);
+        }
+
+        @Override
+        public int size() {
+            return handler.getSlots();
         }
     }
 }

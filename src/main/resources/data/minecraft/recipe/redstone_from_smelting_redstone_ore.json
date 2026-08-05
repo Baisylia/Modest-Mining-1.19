@@ -1,0 +1,27 @@
+{
+  "type": "modestmining:milling",
+  "category": "ores",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone_ore"
+    }
+  ],
+  "results": [
+    {
+      "count": 6,
+      "chance": 1.0,
+      "id": "minecraft:redstone"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:redstone"
+    },
+    {
+      "count": 1,
+      "chance": 0.25,
+      "id": "minecraft:redstone"
+    }
+  ],
+  "cooktime": 200
+}

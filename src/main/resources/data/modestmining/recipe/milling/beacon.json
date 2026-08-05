@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "blocks",
+  "ingredients": [
+    {
+      "item": "minecraft:beacon"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:nether_star"
+    },
+    {
+      "count": 3,
+      "chance": 1.0,
+      "id": "minecraft:obsidian"
+    }
+  ],
+  "cooktime": 400
+}

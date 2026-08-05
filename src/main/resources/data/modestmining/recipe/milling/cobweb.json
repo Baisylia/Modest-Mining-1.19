@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:cobweb"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:string"
+    }
+  ],
+  "cooktime": 200
+}

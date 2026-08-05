@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:flint"
+    }
+  ],
+  "cooktime": 200
+}

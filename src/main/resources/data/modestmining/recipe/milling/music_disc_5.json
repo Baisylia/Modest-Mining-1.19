@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:music_disc_5"
+    }
+  ],
+  "results": [
+    {
+      "count": 9,
+      "chance": 1.0,
+      "id": "minecraft:disc_fragment_5"
+    }
+  ],
+  "cooktime": 200
+}

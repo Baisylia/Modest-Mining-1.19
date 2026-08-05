@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:raw_materials/aluminium",
+    "#c:raw_materials/lead",
+    "#c:raw_materials/silver"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "modestmining:coke_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "modestmining:coke"
+  }
+}

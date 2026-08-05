@@ -14,23 +14,23 @@ public class ModTags {
         public static final TagKey<Block> NEEDS_FLINT_TOOL = tag("needs_flint_tool");
 
         private static TagKey<Block> tag(String name) {
-            return BlockTags.create(new ResourceLocation(ModestMining.MOD_ID, name));
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, name));
         }
 
-        private static TagKey<Block> forgeTag(String name) {
-            return BlockTags.create(new ResourceLocation("forge", name));
+        private static TagKey<Block> cTag(String name) {
+            return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
         }
     }
 
     public static class Items {
-        public static final TagKey<Item> FIBER_PLANTS = forgeTag("fiber_plants");
+        public static final TagKey<Item> FIBER_PLANTS = cTag("fiber_plants");
 
         private static TagKey<Item> tag(String name) {
-            return ItemTags.create(new ResourceLocation(ModestMining.MOD_ID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, name));
         }
 
-        private static TagKey<Item> forgeTag(String name) {
-            return ItemTags.create(new ResourceLocation("forge", name));
+        private static TagKey<Item> cTag(String name) {
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
         }
     }
 }

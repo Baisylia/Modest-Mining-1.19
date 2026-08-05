@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "modestmining:raw_lead"
-  },
-  "result": "modestmining:lead_ingot",
-  "experience": 0.7,
-  "cookingtime": 200
-}

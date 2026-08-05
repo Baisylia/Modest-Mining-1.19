@@ -9,6 +9,7 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +21,7 @@ import java.util.List;
 public class MillingEmiRecipe implements EmiRecipe {
 
     private static final ResourceLocation MILLSTONE_GUI =
-            new ResourceLocation(ModestMining.MOD_ID, "textures/gui/millstone_gui.png");
+            ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "textures/gui/millstone_gui.png");
     private static final EmiTexture LIT_POWER =
             new EmiTexture(MILLSTONE_GUI, 201, 14, 24, 17, 24, 17, 256, 256);
 
@@ -29,9 +30,9 @@ public class MillingEmiRecipe implements EmiRecipe {
     protected final List<EmiStack> outputs;
     protected final int cookTime;
 
-    public MillingEmiRecipe(AbstractMillstoneRecipe recipe) {
-        this.id = recipe.getId();
-        this.input = EmiIngredient.of(recipe.getIngredients().get(0));
+    public MillingEmiRecipe(ResourceLocation id, AbstractMillstoneRecipe recipe) {
+        this.id = id;
+        this.input = EmiIngredient.of(recipe.getIngredients().getFirst());
         this.cookTime = recipe.getCookTime();
 
         List<EmiStack> outs = new ArrayList<>();
@@ -45,7 +46,7 @@ public class MillingEmiRecipe implements EmiRecipe {
                 outs.add(stack);
             }
         } else {
-            outs.add(EmiStack.of(recipe.getResultItem()));
+            outs.add(EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess())));
         }
         this.outputs = outs;
     }
