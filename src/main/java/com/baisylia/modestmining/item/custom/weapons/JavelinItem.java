@@ -2,6 +2,7 @@ package com.baisylia.modestmining.item.custom.weapons;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +21,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 public class JavelinItem extends Item {
     private final Tier tier;
@@ -31,6 +34,14 @@ public class JavelinItem extends Item {
         this.throwDamage = attackDamage + tier.getAttackDamageBonus();
     }
 
+    private static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed, float reach) {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "javelin_damage"), attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "javelin_speed"), attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "javelin_reach"), reach, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .build();
+    }
+
     public Tier getTier() {
         return this.tier;
     }
@@ -38,14 +49,6 @@ public class JavelinItem extends Item {
     @Override
     public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
         return this.tier.getRepairIngredient().test(repairCandidate) || super.isValidRepairItem(stack, repairCandidate);
-    }
-
-    private static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed, float reach) {
-        return ItemAttributeModifiers.builder()
-                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "javelin_damage"), attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.ATTACK_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "javelin_speed"), attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "javelin_reach"), reach, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .build();
     }
 
     @Override
@@ -102,5 +105,24 @@ public class JavelinItem extends Item {
                 player.awardStat(Stats.ITEM_USED.get(this));
             }
         }
+    }
+
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        if (enchantment.is(Enchantments.LOYALTY)) {
+            return true;
+        }
+        if (enchantment.is(Enchantments.IMPALING) || enchantment.is(Enchantments.CHANNELING) || enchantment.is(Enchantments.RIPTIDE)) {
+            return false;
+        }
+        return super.supportsEnchantment(stack, enchantment);
+    }
+
+    @Override
+    public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
+        if (enchantment.is(Enchantments.LOYALTY)) {
+            return true;
+        }
+        return super.isPrimaryItemFor(stack, enchantment);
     }
 }
