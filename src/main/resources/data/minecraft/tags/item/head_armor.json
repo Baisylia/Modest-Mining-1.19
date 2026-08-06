@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:bronze_helmet",
+    "modestmining:steel_helmet",
+    "modestmining:prismarite_helmet",
+    "modestmining:valkyrium_helmet"
+  ]
+}

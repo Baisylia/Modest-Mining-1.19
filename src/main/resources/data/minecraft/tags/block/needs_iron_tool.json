@@ -6,6 +6,8 @@
     "modestmining:steel_block",
     "modestmining:rosegold_block",
     "modestmining:electrum_block",
+    "modestmining:silver_block",
+    "modestmining:raw_silver_block",
     "modestmining:silver_ore",
     "modestmining:deepslate_silver_ore"
   ]

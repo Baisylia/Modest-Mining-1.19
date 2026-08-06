@@ -26,9 +26,18 @@ public class JavelinItem extends Item {
     private final float throwDamage;
 
     public JavelinItem(Tier tier, float attackDamage, float attackSpeed, float reach, Properties properties) {
-        super(properties.attributes(createAttributes(tier, attackDamage, attackSpeed, reach)));
+        super(properties.durability(tier.getUses()).attributes(createAttributes(tier, attackDamage, attackSpeed, reach)));
         this.tier = tier;
         this.throwDamage = attackDamage + tier.getAttackDamageBonus();
+    }
+
+    public Tier getTier() {
+        return this.tier;
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack stack, ItemStack repairCandidate) {
+        return this.tier.getRepairIngredient().test(repairCandidate) || super.isValidRepairItem(stack, repairCandidate);
     }
 
     private static ItemAttributeModifiers createAttributes(Tier tier, float attackDamage, float attackSpeed, float reach) {

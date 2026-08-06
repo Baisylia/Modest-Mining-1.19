@@ -2,9 +2,13 @@
   "replace": false,
   "values": [
     "modestmining:bronze_block",
+    "modestmining:lead_block",
+    "modestmining:raw_lead_block",
     "modestmining:lead_ore",
     "modestmining:deepslate_lead_ore",
     "modestmining:nether_lead_ore",
+    "modestmining:aluminium_block",
+    "modestmining:raw_aluminium_block",
     "modestmining:aluminium_ore",
     "modestmining:deepslate_aluminium_ore"
   ]

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:flint_mattock",
+    "modestmining:bronze_pickaxe",
+    "modestmining:steel_pickaxe",
+    "modestmining:prismarite_pickaxe",
+    "modestmining:valkyrium_pickaxe",
+    "modestmining:wooden_hammer",
+    "modestmining:stone_hammer",
+    "modestmining:iron_hammer",
+    "modestmining:golden_hammer",
+    "modestmining:diamond_hammer",
+    "modestmining:netherite_hammer",
+    "modestmining:prismarite_hammer",
+    "modestmining:valkyrium_hammer"
+  ]
+}

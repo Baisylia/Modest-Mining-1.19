@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:swords",
+    "#minecraft:axes",
+    "modestmining:wooden_hammer",
+    "modestmining:stone_hammer",
+    "modestmining:iron_hammer",
+    "modestmining:golden_hammer",
+    "modestmining:diamond_hammer",
+    "modestmining:netherite_hammer",
+    "modestmining:prismarite_hammer",
+    "modestmining:valkyrium_hammer",
+    "modestmining:wooden_javelin",
+    "modestmining:stone_javelin",
+    "modestmining:golden_javelin",
+    "modestmining:iron_javelin",
+    "modestmining:diamond_javelin",
+    "modestmining:netherite_javelin",
+    "modestmining:prismarite_javelin",
+    "modestmining:valkyrium_javelin"
+  ]
+}

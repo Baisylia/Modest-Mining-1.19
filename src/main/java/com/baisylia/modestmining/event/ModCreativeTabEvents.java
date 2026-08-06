@@ -84,8 +84,6 @@ public class ModCreativeTabEvents {
                     ModItems.SILVER_DUST,
                     ModItems.DEBRIS_DUST,
                     ModItems.DIAMOND_SHARD,
-                    ModItems.DIAMOND_PIECE,
-                    ModItems.DIAMOND_PLATING,
                     ModItems.AMETHYST,
                     ModItems.PEARL,
                     ModItems.FLESH,

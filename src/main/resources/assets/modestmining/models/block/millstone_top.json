@@ -4,7 +4,7 @@
 	"textures": {
 		"0": "modestmining:block/millstone",
 		"3": "modestmining:block/millstone_top",
-		"4": "entity/banner_base",
+		"4": "modestmining:block/millstone",
 		"particle": "modestmining:block/millstone"
 	},
 	"elements": [
@@ -33,7 +33,7 @@
 				"south": {"uv": [11.5, 3.75, 12, 5], "texture": "#4"},
 				"west": {"uv": [11.5, 1.75, 12, 2.75], "texture": "#4"},
 				"up": {"uv": [5.5, 11, 6, 11.5], "texture": "#4"},
-				"down": {"uv": [0, 1, 2, 3], "texture": "#missing"}
+				"down": {"uv": [0, 1, 2, 3], "texture": "#4"}
 			}
 		}
 	],

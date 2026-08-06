@@ -73,8 +73,6 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> PEARL = ITEMS.register("pearl", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLESH = ITEMS.register("flesh", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> AMETHYST = ITEMS.register("amethyst", () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DIAMOND_PLATING = ITEMS.register("diamond_plating", () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DIAMOND_PIECE = ITEMS.register("diamond_piece", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> COPPER_DUST = ITEMS.register("copper_dust", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> GOLD_DUST = ITEMS.register("gold_dust", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> IRON_DUST = ITEMS.register("iron_dust", () -> new Item(new Item.Properties()));

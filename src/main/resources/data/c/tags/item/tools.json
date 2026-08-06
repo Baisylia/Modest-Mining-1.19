@@ -5,6 +5,9 @@
     "#c:tools/axes",
     "#c:tools/pickaxes",
     "#c:tools/shovels",
-    "#c:tools/hoes"
+    "#c:tools/hoes",
+    "#c:tools/hammers",
+    "#c:tools/javelins",
+    "#c:tools/chisels"
   ]
 }

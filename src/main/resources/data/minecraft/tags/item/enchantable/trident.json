@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:wooden_javelin",
+    "modestmining:stone_javelin",
+    "modestmining:golden_javelin",
+    "modestmining:iron_javelin",
+    "modestmining:diamond_javelin",
+    "modestmining:netherite_javelin",
+    "modestmining:prismarite_javelin",
+    "modestmining:valkyrium_javelin"
+  ]
+}

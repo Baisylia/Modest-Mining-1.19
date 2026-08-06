@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:bronze_boots",
+    "modestmining:steel_boots",
+    "modestmining:prismarite_boots",
+    "modestmining:valkyrium_boots"
+  ]
+}
