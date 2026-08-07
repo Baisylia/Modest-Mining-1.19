@@ -1,7 +1,5 @@
 package com.baisylia.modestmining.item.custom.weapons;
 
-import com.baisylia.modestmining.ModestMining;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,22 +11,16 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class HammerItem extends TieredItem {
-    private final float attackDamage;
 
-    public HammerItem(Tier material, int damage, float speedIn, Properties properties) {
+    public HammerItem(Tier material, float damage, float speedIn, Properties properties) {
         super(material, properties.attributes(createAttributes(material, damage, speedIn)));
-        this.attackDamage = (float) damage + material.getAttackDamageBonus();
     }
 
-    private static ItemAttributeModifiers createAttributes(Tier material, int attackDamage, float attackSpeed) {
+    public static ItemAttributeModifiers createAttributes(Tier material, float attackDamage, float attackSpeed) {
         return ItemAttributeModifiers.builder()
-                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "hammer_damage"), (double) ((float) attackDamage + material.getAttackDamageBonus()), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                .add(Attributes.ATTACK_SPEED, new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "hammer_speed"), (double) attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, (double) (attackDamage + material.getAttackDamageBonus()), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, (double) attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
-    }
-
-    public float getDamage() {
-        return this.attackDamage;
     }
 
     @Override

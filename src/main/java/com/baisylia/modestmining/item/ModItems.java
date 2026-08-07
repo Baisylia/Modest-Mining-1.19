@@ -79,22 +79,22 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> DEBRIS_DUST = ITEMS.register("debris_dust", () -> new Item(new Item.Properties()));
 
     // TOOLS
-    public static final DeferredHolder<Item, Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, 0f, ModTiers.COPPER,
+    public static final DeferredHolder<Item, Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, -2.8f, ModTiers.COPPER,
             new Item.Properties().durability(450)));
 
     // Flint
-    public static final DeferredHolder<Item, Item> FLINT_BLADE = ITEMS.register("flint_blade", () -> new SwordItem(ModTiers.FLINT, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLINT_HATCHET = ITEMS.register("flint_hatchet", () -> new AxeItem(ModTiers.FLINT, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLINT_MATTOCK = ITEMS.register("flint_mattock", () -> new PickaxeItem(ModTiers.FLINT, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLINT_SPADE = ITEMS.register("flint_spade", () -> new ShovelItem(ModTiers.FLINT, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLINT_HOE = ITEMS.register("flint_hoe", () -> new HoeItem(ModTiers.FLINT, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLINT_BLADE = ITEMS.register("flint_blade", () -> new SwordItem(ModTiers.FLINT, new Item.Properties().attributes(SwordItem.createAttributes(ModTiers.FLINT, 3, -2.4f))));
+    public static final DeferredHolder<Item, Item> FLINT_HATCHET = ITEMS.register("flint_hatchet", () -> new AxeItem(ModTiers.FLINT, new Item.Properties().attributes(AxeItem.createAttributes(ModTiers.FLINT, 6.0f, -3.2f))));
+    public static final DeferredHolder<Item, Item> FLINT_MATTOCK = ITEMS.register("flint_mattock", () -> new PickaxeItem(ModTiers.FLINT, new Item.Properties().attributes(PickaxeItem.createAttributes(ModTiers.FLINT, 1.0f, -2.8f))));
+    public static final DeferredHolder<Item, Item> FLINT_SPADE = ITEMS.register("flint_spade", () -> new ShovelItem(ModTiers.FLINT, new Item.Properties().attributes(ShovelItem.createAttributes(ModTiers.FLINT, 1.5f, -3.0f))));
+    public static final DeferredHolder<Item, Item> FLINT_HOE = ITEMS.register("flint_hoe", () -> new HoeItem(ModTiers.FLINT, new Item.Properties().attributes(HoeItem.createAttributes(ModTiers.FLINT, 0.0f, -3.0f))));
 
     // Bronze
-    public static final DeferredHolder<Item, Item> BRONZE_SWORD = ITEMS.register("bronze_sword", () -> new SwordItem(ModTiers.BRONZE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> BRONZE_AXE = ITEMS.register("bronze_axe", () -> new AxeItem(ModTiers.BRONZE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> BRONZE_PICKAXE = ITEMS.register("bronze_pickaxe", () -> new PickaxeItem(ModTiers.BRONZE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> BRONZE_SHOVEL = ITEMS.register("bronze_shovel", () -> new ShovelItem(ModTiers.BRONZE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> BRONZE_HOE = ITEMS.register("bronze_hoe", () -> new HoeItem(ModTiers.BRONZE, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> BRONZE_SWORD = ITEMS.register("bronze_sword", () -> new SwordItem(ModTiers.BRONZE, new Item.Properties().attributes(SwordItem.createAttributes(ModTiers.BRONZE, 3, -2.4f))));
+    public static final DeferredHolder<Item, Item> BRONZE_AXE = ITEMS.register("bronze_axe", () -> new AxeItem(ModTiers.BRONZE, new Item.Properties().attributes(AxeItem.createAttributes(ModTiers.BRONZE, 6.0f, -3.1f))));
+    public static final DeferredHolder<Item, Item> BRONZE_PICKAXE = ITEMS.register("bronze_pickaxe", () -> new PickaxeItem(ModTiers.BRONZE, new Item.Properties().attributes(PickaxeItem.createAttributes(ModTiers.BRONZE, 1.0f, -2.8f))));
+    public static final DeferredHolder<Item, Item> BRONZE_SHOVEL = ITEMS.register("bronze_shovel", () -> new ShovelItem(ModTiers.BRONZE, new Item.Properties().attributes(ShovelItem.createAttributes(ModTiers.BRONZE, 1.5f, -3.0f))));
+    public static final DeferredHolder<Item, Item> BRONZE_HOE = ITEMS.register("bronze_hoe", () -> new HoeItem(ModTiers.BRONZE, new Item.Properties().attributes(HoeItem.createAttributes(ModTiers.BRONZE, -1.5f, -1.5f))));
 
     public static final DeferredHolder<Item, Item> BRONZE_HELMET = ITEMS.register("bronze_helmet", () -> new ArmorItem(ModArmourMaterials.BRONZE, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> BRONZE_CHESTPLATE = ITEMS.register("bronze_chestplate", () -> new ArmorItem(ModArmourMaterials.BRONZE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -102,11 +102,11 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> BRONZE_BOOTS = ITEMS.register("bronze_boots", () -> new ArmorItem(ModArmourMaterials.BRONZE, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     // Steel
-    public static final DeferredHolder<Item, Item> STEEL_SWORD = ITEMS.register("steel_sword", () -> new SwordItem(ModTiers.STEEL, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STEEL_AXE = ITEMS.register("steel_axe", () -> new AxeItem(ModTiers.STEEL, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ModTiers.STEEL, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STEEL_SHOVEL = ITEMS.register("steel_shovel", () -> new ShovelItem(ModTiers.STEEL, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STEEL_HOE = ITEMS.register("steel_hoe", () -> new HoeItem(ModTiers.STEEL, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STEEL_SWORD = ITEMS.register("steel_sword", () -> new SwordItem(ModTiers.STEEL, new Item.Properties().attributes(SwordItem.createAttributes(ModTiers.STEEL, 3, -2.4f))));
+    public static final DeferredHolder<Item, Item> STEEL_AXE = ITEMS.register("steel_axe", () -> new AxeItem(ModTiers.STEEL, new Item.Properties().attributes(AxeItem.createAttributes(ModTiers.STEEL, 6.0f, -3.1f))));
+    public static final DeferredHolder<Item, Item> STEEL_PICKAXE = ITEMS.register("steel_pickaxe", () -> new PickaxeItem(ModTiers.STEEL, new Item.Properties().attributes(PickaxeItem.createAttributes(ModTiers.STEEL, 1.0f, -2.8f))));
+    public static final DeferredHolder<Item, Item> STEEL_SHOVEL = ITEMS.register("steel_shovel", () -> new ShovelItem(ModTiers.STEEL, new Item.Properties().attributes(ShovelItem.createAttributes(ModTiers.STEEL, 1.5f, -3.0f))));
+    public static final DeferredHolder<Item, Item> STEEL_HOE = ITEMS.register("steel_hoe", () -> new HoeItem(ModTiers.STEEL, new Item.Properties().attributes(HoeItem.createAttributes(ModTiers.STEEL, -2.5f, -0.5f))));
 
     public static final DeferredHolder<Item, Item> STEEL_HELMET = ITEMS.register("steel_helmet", () -> new ArmorItem(ModArmourMaterials.STEEL, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> STEEL_CHESTPLATE = ITEMS.register("steel_chestplate", () -> new ArmorItem(ModArmourMaterials.STEEL, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -114,11 +114,11 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> STEEL_BOOTS = ITEMS.register("steel_boots", () -> new ArmorItem(ModArmourMaterials.STEEL, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     // Prismarite
-    public static final DeferredHolder<Item, Item> PRISMARITE_SWORD = ITEMS.register("prismarite_sword", () -> new SwordItem(ModTiers.PRISMARITE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PRISMARITE_AXE = ITEMS.register("prismarite_axe", () -> new AxeItem(ModTiers.PRISMARITE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PRISMARITE_PICKAXE = ITEMS.register("prismarite_pickaxe", () -> new PickaxeItem(ModTiers.PRISMARITE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PRISMARITE_SHOVEL = ITEMS.register("prismarite_shovel", () -> new ShovelItem(ModTiers.PRISMARITE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PRISMARITE_HOE = ITEMS.register("prismarite_hoe", () -> new HoeItem(ModTiers.PRISMARITE, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PRISMARITE_SWORD = ITEMS.register("prismarite_sword", () -> new SwordItem(ModTiers.PRISMARITE, new Item.Properties().attributes(SwordItem.createAttributes(ModTiers.PRISMARITE, 3, -2.4f))));
+    public static final DeferredHolder<Item, Item> PRISMARITE_AXE = ITEMS.register("prismarite_axe", () -> new AxeItem(ModTiers.PRISMARITE, new Item.Properties().attributes(AxeItem.createAttributes(ModTiers.PRISMARITE, 5.0f, -3.0f))));
+    public static final DeferredHolder<Item, Item> PRISMARITE_PICKAXE = ITEMS.register("prismarite_pickaxe", () -> new PickaxeItem(ModTiers.PRISMARITE, new Item.Properties().attributes(PickaxeItem.createAttributes(ModTiers.PRISMARITE, 1.0f, -2.8f))));
+    public static final DeferredHolder<Item, Item> PRISMARITE_SHOVEL = ITEMS.register("prismarite_shovel", () -> new ShovelItem(ModTiers.PRISMARITE, new Item.Properties().attributes(ShovelItem.createAttributes(ModTiers.PRISMARITE, 1.5f, -3.0f))));
+    public static final DeferredHolder<Item, Item> PRISMARITE_HOE = ITEMS.register("prismarite_hoe", () -> new HoeItem(ModTiers.PRISMARITE, new Item.Properties().attributes(HoeItem.createAttributes(ModTiers.PRISMARITE, -4.0f, 0.0f))));
 
     public static final DeferredHolder<Item, Item> PRISMARITE_HELMET = ITEMS.register("prismarite_helmet", () -> new ModArmorItem(ModArmourMaterials.PRISMARITE, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> PRISMARITE_CHESTPLATE = ITEMS.register("prismarite_chestplate", () -> new ModArmorItem(ModArmourMaterials.PRISMARITE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
@@ -126,25 +126,25 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> PRISMARITE_BOOTS = ITEMS.register("prismarite_boots", () -> new ModArmorItem(ModArmourMaterials.PRISMARITE, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     // Valkyrium
-    public static final DeferredHolder<Item, Item> VALKYRIUM_SWORD = ITEMS.register("valkyrium_sword", () -> new SwordItem(ModTiers.VALKYRIUM, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VALKYRIUM_AXE = ITEMS.register("valkyrium_axe", () -> new AxeItem(ModTiers.VALKYRIUM, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VALKYRIUM_PICKAXE = ITEMS.register("valkyrium_pickaxe", () -> new PickaxeItem(ModTiers.VALKYRIUM, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VALKYRIUM_SHOVEL = ITEMS.register("valkyrium_shovel", () -> new ShovelItem(ModTiers.VALKYRIUM, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VALKYRIUM_HOE = ITEMS.register("valkyrium_hoe", () -> new HoeItem(ModTiers.VALKYRIUM, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_SWORD = ITEMS.register("valkyrium_sword", () -> new SwordItem(ModTiers.VALKYRIUM, new Item.Properties().attributes(SwordItem.createAttributes(ModTiers.VALKYRIUM, 3, -2.4f))));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_AXE = ITEMS.register("valkyrium_axe", () -> new AxeItem(ModTiers.VALKYRIUM, new Item.Properties().attributes(AxeItem.createAttributes(ModTiers.VALKYRIUM, 5.0f, -3.0f))));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_PICKAXE = ITEMS.register("valkyrium_pickaxe", () -> new PickaxeItem(ModTiers.VALKYRIUM, new Item.Properties().attributes(PickaxeItem.createAttributes(ModTiers.VALKYRIUM, 1.0f, -2.8f))));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_SHOVEL = ITEMS.register("valkyrium_shovel", () -> new ShovelItem(ModTiers.VALKYRIUM, new Item.Properties().attributes(ShovelItem.createAttributes(ModTiers.VALKYRIUM, 1.5f, -3.0f))));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_HOE = ITEMS.register("valkyrium_hoe", () -> new HoeItem(ModTiers.VALKYRIUM, new Item.Properties().attributes(HoeItem.createAttributes(ModTiers.VALKYRIUM, -4.0f, 0.0f))));
     public static final DeferredHolder<Item, Item> VALKYRIUM_HELMET = ITEMS.register("valkyrium_helmet", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> VALKYRIUM_CHESTPLATE = ITEMS.register("valkyrium_chestplate", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final DeferredHolder<Item, Item> VALKYRIUM_LEGGINGS = ITEMS.register("valkyrium_leggings", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final DeferredHolder<Item, Item> VALKYRIUM_BOOTS = ITEMS.register("valkyrium_boots", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     // Hammers
-    public static final DeferredHolder<Item, Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer", () -> new HammerItem(Tiers.WOOD, 7, -3.4f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STONE_HAMMER = ITEMS.register("stone_hammer", () -> new HammerItem(Tiers.STONE, 7, -3.4f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> IRON_HAMMER = ITEMS.register("iron_hammer", () -> new HammerItem(Tiers.IRON, 7, -3.4f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> GOLDEN_HAMMER = ITEMS.register("golden_hammer", () -> new HammerItem(Tiers.GOLD, 7, -3.3f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer", () -> new HammerItem(Tiers.DIAMOND, 7, -3.2f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer", () -> new HammerItem(Tiers.NETHERITE, 7, -3.2f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PRISMARITE_HAMMER = ITEMS.register("prismarite_hammer", () -> new HammerItem(ModTiers.PRISMARITE, 7, -3.2f, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VALKYRIUM_HAMMER = ITEMS.register("valkyrium_hammer", () -> new HammerItem(ModTiers.VALKYRIUM, 7, -3.2f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer", () -> new HammerItem(Tiers.WOOD, 6.0f, -3.4f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STONE_HAMMER = ITEMS.register("stone_hammer", () -> new HammerItem(Tiers.STONE, 7.0f, -3.4f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> IRON_HAMMER = ITEMS.register("iron_hammer", () -> new HammerItem(Tiers.IRON, 6.0f, -3.3f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> GOLDEN_HAMMER = ITEMS.register("golden_hammer", () -> new HammerItem(Tiers.GOLD, 6.0f, -3.2f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DIAMOND_HAMMER = ITEMS.register("diamond_hammer", () -> new HammerItem(Tiers.DIAMOND, 5.0f, -3.2f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> NETHERITE_HAMMER = ITEMS.register("netherite_hammer", () -> new HammerItem(Tiers.NETHERITE, 5.0f, -3.2f, new Item.Properties().fireResistant()));
+    public static final DeferredHolder<Item, Item> PRISMARITE_HAMMER = ITEMS.register("prismarite_hammer", () -> new HammerItem(ModTiers.PRISMARITE, 5.0f, -3.2f, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_HAMMER = ITEMS.register("valkyrium_hammer", () -> new HammerItem(ModTiers.VALKYRIUM, 5.0f, -3.2f, new Item.Properties()));
 
     // Javelins
     public static final DeferredHolder<Item, Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 3.0F, new Item.Properties()));

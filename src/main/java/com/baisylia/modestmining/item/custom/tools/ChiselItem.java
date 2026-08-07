@@ -6,6 +6,6 @@ import net.minecraft.world.item.Tier;
 
 public class ChiselItem extends DiggerItem {
     public ChiselItem(float attackDamage, float attackSpeed, Tier material, Properties properties) {
-        super(material, BlockTags.MINEABLE_WITH_PICKAXE, properties);
+        super(material, BlockTags.MINEABLE_WITH_PICKAXE, properties.attributes(createAttributes(material, attackDamage, attackSpeed)));
     }
 }

@@ -19,6 +19,8 @@ public class ModPackEvents {
     @SubscribeEvent
     public static void addPackFinders(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+            registerPack(event, "modestmining_materials", "Modest Mining Materials Textures", () -> true, false);
+
             registerPack(event, "copper_tripwire_hook_textures", "Copper Tripwire Hook Textures", ModConfig.TRIPWIRE_HOOK_USES_COPPER);
             registerPack(event, "copper_repeater_textures", "Copper Repeater Textures", ModConfig.REPEATER_USES_COPPER);
             registerPack(event, "copper_bow_textures", "Copper Bow Textures", ModConfig.BOW_USES_COPPER);
@@ -39,7 +41,6 @@ public class ModPackEvents {
             registerPack(event, "gold_detector_rail_textures", "Gold Detector Rail Textures", ModConfig.DETECTOR_RAIL_USES_GOLD);
             registerPack(event, "lead_hopper_textures", "Lead Hopper Textures", ModConfig.HOPPER_USES_LEAD);
             registerPack(event, "lead_minecart_textures", "Lead Minecart Textures", ModConfig.MINECART_USES_LEAD);
-            registerPack(event, "modestmining_materials", "Modest Mining Materials Textures", () -> true);
             registerPack(event, "rose_gold_daylight_detector_textures", "Rose Gold Daylight Detector Textures", ModConfig.DAYLIGHT_DETECTOR_USES_ROSE_GOLD);
             registerPack(event, "rose_gold_observer_textures", "Rose Gold Observer Textures", ModConfig.OBSERVER_USES_ROSE_GOLD);
             registerPack(event, "silver_activator_rail_textures", "Silver Activator Rail Textures", ModConfig.ACTIVATOR_RAIL_USES_SILVER);
@@ -53,8 +54,12 @@ public class ModPackEvents {
     }
 
     private static void registerPack(AddPackFindersEvent event, String packId, String title, Supplier<Boolean> enabledSupplier) {
+        registerPack(event, packId, title, enabledSupplier, true);
+    }
+
+    private static void registerPack(AddPackFindersEvent event, String packId, String title, Supplier<Boolean> enabledSupplier, boolean alwaysActive) {
         if (enabledSupplier.get()) {
-            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "resourcepacks/" + packId), event.getPackType(), Component.literal(title), PackSource.BUILT_IN, true, Pack.Position.TOP);
+            event.addPackFinders(ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "resourcepacks/" + packId), event.getPackType(), Component.literal(title), PackSource.BUILT_IN, alwaysActive, Pack.Position.TOP);
         }
     }
 }
