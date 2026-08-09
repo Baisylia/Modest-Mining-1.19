@@ -3,17 +3,17 @@
   "category": "tools",
   "ingredients": [
     {
-      "item": "modestmining:prismarite_hammer"
+      "item": "modestmining:bronze_axe"
     }
   ],
   "results": [
     {
-      "item": "minecraft:diamond",
+      "item": "modestmining:bronze_ingot",
       "count": 2,
       "chance": 1.0
     },
     {
-      "item": "modestmining:diamond_shard",
+      "item": "modestmining:bronze_nugget",
       "count": 4,
       "chance": 1.0
     }

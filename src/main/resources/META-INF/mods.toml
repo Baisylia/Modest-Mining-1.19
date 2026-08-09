@@ -85,3 +85,10 @@ mandatory = false
 versionRange = "[1.0,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.modestmining]]
+modId = "farmersdelight"
+mandatory = false
+versionRange = "[1.19.2-1.2.0,)"
+ordering = "AFTER"
+side = "BOTH"

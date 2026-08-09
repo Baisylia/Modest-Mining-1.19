@@ -1,9 +1,15 @@
 {
   "type": "modestmining:milling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
   "category": "tools",
   "ingredients": [
     {
-      "item": "modestmining:prismarite_hammer"
+      "item": "modestmining:prismarite_knife"
     }
   ],
   "results": [

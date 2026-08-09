@@ -6,6 +6,7 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.config.ModConditions;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightCompat;
 import com.baisylia.modestmining.item.ModItems;
 import com.baisylia.modestmining.recipe.ModRecipeCategories;
 import com.baisylia.modestmining.recipe.ModRecipes;
@@ -70,6 +71,7 @@ public class ModestMining {
 
         ModAttributes.register(eventBus);
         ModItems.register(eventBus);
+        FarmersDelightCompat.register(eventBus);
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
         ModConfiguredFeatures.register(eventBus);

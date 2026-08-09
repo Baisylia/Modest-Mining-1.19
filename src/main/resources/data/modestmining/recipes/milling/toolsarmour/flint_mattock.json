@@ -3,18 +3,13 @@
   "category": "tools",
   "ingredients": [
     {
-      "item": "modestmining:prismarite_hammer"
+      "item": "modestmining:flint_mattock"
     }
   ],
   "results": [
     {
-      "item": "minecraft:diamond",
+      "item": "minecraft:flint",
       "count": 2,
-      "chance": 1.0
-    },
-    {
-      "item": "modestmining:diamond_shard",
-      "count": 4,
       "chance": 1.0
     }
   ],

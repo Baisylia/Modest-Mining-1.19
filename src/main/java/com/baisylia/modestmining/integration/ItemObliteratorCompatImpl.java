@@ -46,6 +46,10 @@ public class ItemObliteratorCompatImpl {
             "modestmining:iron_javelin"
     );
 
+    private static final List<String> FARMERSDELIGHT_IRON_TOOLS = Arrays.asList(
+            "farmersdelight:iron_knife"
+    );
+
     public static void apply() {
         if (ItemObliterator.Config == null) {
             ModestMining.LOGGER.warn("Item Obliterator configuration was null. Skipping integration.");
@@ -73,6 +77,7 @@ public class ItemObliteratorCompatImpl {
         if (ModConfig.STEEL_REPLACES_IRON.get()) {
             boolean changed = addIfAbsent(blacklist, IRON_TOOLS);
             changed |= addIfAbsent(blacklist, MODESTMINING_IRON_TOOLS);
+            changed |= addIfAbsent(blacklist, FARMERSDELIGHT_IRON_TOOLS);
             if (changed)
                 ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted iron tools and armour.");
             modified |= changed;
