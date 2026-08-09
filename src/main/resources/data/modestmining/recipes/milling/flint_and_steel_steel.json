@@ -2,22 +2,17 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bucket_uses_aluminium"
+      "feature": "flint_and_steel_uses_steel"
     }
   ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:bucket" }
+    { "item": "minecraft:flint_and_steel" }
   ],
   "results": [
     {
-      "item": "minecraft:iron_ingot",
-      "count": 1,
-      "chance": 1.0
-    },
-    {
-      "item": "minecraft:iron_nugget",
+      "item": "modestmining:steel_nugget",
       "count": 4,
       "chance": 1.0
     }

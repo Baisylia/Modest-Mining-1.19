@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_spyglass_uses_gold"
+    }
+  ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [

@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_shield_uses_bronze"
+    }
+  ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [

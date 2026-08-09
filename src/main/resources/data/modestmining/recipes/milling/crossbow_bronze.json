@@ -2,23 +2,28 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bucket_uses_aluminium"
+      "feature": "crossbow_uses_bronze"
     }
   ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:bucket" }
+    { "item": "minecraft:crossbow" }
   ],
   "results": [
     {
-      "item": "minecraft:iron_ingot",
+      "item": "minecraft:stick",
+      "count": 3,
+      "chance": 1.0
+    },
+    {
+      "item": "minecraft:string",
       "count": 1,
       "chance": 1.0
     },
     {
-      "item": "minecraft:iron_nugget",
-      "count": 4,
+      "item": "modestmining:bronze_ingot",
+      "count": 1,
       "chance": 1.0
     }
   ],

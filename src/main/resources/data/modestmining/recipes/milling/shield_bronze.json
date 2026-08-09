@@ -2,22 +2,22 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bucket_uses_aluminium"
+      "feature": "shield_uses_bronze"
     }
   ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:bucket" }
+    { "item": "minecraft:shield" }
   ],
   "results": [
     {
-      "item": "minecraft:iron_ingot",
-      "count": 1,
+      "item": "minecraft:stick",
+      "count": 6,
       "chance": 1.0
     },
     {
-      "item": "minecraft:iron_nugget",
+      "item": "modestmining:bronze_nugget",
       "count": 4,
       "chance": 1.0
     }

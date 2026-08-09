@@ -2,22 +2,22 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bucket_uses_aluminium"
+      "feature": "spyglass_uses_gold"
     }
   ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:bucket" }
+    { "item": "minecraft:spyglass" }
   ],
   "results": [
     {
-      "item": "minecraft:iron_ingot",
+      "item": "minecraft:gold_ingot",
       "count": 1,
       "chance": 1.0
     },
     {
-      "item": "minecraft:iron_nugget",
+      "item": "minecraft:amethyst_shard",
       "count": 4,
       "chance": 1.0
     }

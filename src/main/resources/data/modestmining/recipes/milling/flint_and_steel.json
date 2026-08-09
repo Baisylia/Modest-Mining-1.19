@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_flint_and_steel_uses_steel"
+    }
+  ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [

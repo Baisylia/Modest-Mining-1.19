@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bucket_uses_aluminium"
+      "feature": "bucket_uses_aluminium"
     }
   ],
   "type": "modestmining:milling",
@@ -12,12 +12,12 @@
   ],
   "results": [
     {
-      "item": "minecraft:iron_ingot",
+      "item": "modestmining:aluminium_ingot",
       "count": 1,
       "chance": 1.0
     },
     {
-      "item": "minecraft:iron_nugget",
+      "item": "modestmining:aluminium_nugget",
       "count": 4,
       "chance": 1.0
     }

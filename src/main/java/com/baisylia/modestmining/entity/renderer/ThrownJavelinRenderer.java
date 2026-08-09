@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 
 public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
 
@@ -31,16 +32,18 @@ public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
         poseStack.pushPose();
 
         poseStack.mulPose(
-                Vector3f.YP.rotationDegrees(entity.getYRot() + 90.0F)
+                Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F)
         );
 
         poseStack.mulPose(
-                Vector3f.ZP.rotationDegrees(entity.getXRot() + 135.0F)
+                Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot()) - 60.0F)
         );
+
+        poseStack.translate(-0.5D, 0.0D, 0.0D);
 
         Minecraft.getInstance().getItemRenderer().renderStatic(
                 entity.getPickupItem(),
-                ItemTransforms.TransformType.FIXED,
+                ItemTransforms.TransformType.NONE,
                 packedLight,
                 OverlayTexture.NO_OVERLAY,
                 poseStack,

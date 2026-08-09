@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_bow_uses_copper"
+    }
+  ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [

@@ -2,22 +2,27 @@
   "conditions": [
     {
       "type": "modestmining:config_enabled",
-      "feature": "not_bucket_uses_aluminium"
+      "feature": "fishing_rod_uses_aluminium"
     }
   ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:bucket" }
+    { "item": "minecraft:fishing_rod" }
   ],
   "results": [
     {
-      "item": "minecraft:iron_ingot",
+      "item": "minecraft:stick",
       "count": 1,
       "chance": 1.0
     },
     {
-      "item": "minecraft:iron_nugget",
+      "item": "minecraft:string",
+      "count": 1,
+      "chance": 1.0
+    },
+    {
+      "item": "modestmining:aluminium_nugget",
       "count": 4,
       "chance": 1.0
     }
