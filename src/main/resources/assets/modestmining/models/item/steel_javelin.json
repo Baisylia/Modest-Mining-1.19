@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "textures": {
+    "layer0": "modestmining:item/overrides/steel_javelin"
+  },
+  "base": {
+    "parent": "modestmining:item/steel_javelin_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "modestmining:item/steel_javelin_gui"
+    },
+    "fixed": {
+      "parent": "modestmining:item/steel_javelin_gui"
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "throwing": 1
+      },
+      "model": "modestmining:item/steel_javelin_throwing"
+    }
+  ]
+}

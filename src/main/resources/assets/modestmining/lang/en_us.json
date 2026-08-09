@@ -137,6 +137,7 @@
   "item.modestmining.flint_mallet": "Flint Mallet",
   "item.modestmining.wooden_hammer": "Wooden Hammer",
   "item.modestmining.stone_hammer": "Stone Hammer",
+  "item.modestmining.bronze_hammer": "Bronze Hammer",
   "item.modestmining.golden_hammer": "Golden Hammer",
   "item.modestmining.rosegold_hammer": "Rosegold Hammer",
   "item.modestmining.iron_hammer": "Iron Hammer",
@@ -183,8 +184,10 @@
 
   "item.modestmining.wooden_javelin": "Wooden Javelin",
   "item.modestmining.stone_javelin": "Stone Javelin",
+  "item.modestmining.bronze_javelin": "Bronze Javelin",
   "item.modestmining.golden_javelin": "Golden Javelin",
   "item.modestmining.iron_javelin": "Iron Javelin",
+  "item.modestmining.steel_javelin": "Steel Javelin",
   "item.modestmining.diamond_javelin": "Diamond Javelin",
   "item.modestmining.netherite_javelin": "Netherite Javelin",
   "item.modestmining.prismarite_javelin": "Prismarite Javelin",

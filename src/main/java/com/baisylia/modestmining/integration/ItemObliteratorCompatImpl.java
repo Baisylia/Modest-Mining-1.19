@@ -36,6 +36,16 @@ public class ItemObliteratorCompatImpl {
             "minecraft:iron_boots"
     );
 
+    private static final List<String> MODESTMINING_STONE_TOOLS = Arrays.asList(
+            "modestmining:stone_hammer",
+            "modestmining:stone_javelin"
+    );
+
+    private static final List<String> MODESTMINING_IRON_TOOLS = Arrays.asList(
+            "modestmining:iron_hammer",
+            "modestmining:iron_javelin"
+    );
+
     public static void apply() {
         if (ItemObliterator.Config == null) {
             ModestMining.LOGGER.warn("Item Obliterator configuration was null. Skipping integration.");
@@ -52,17 +62,19 @@ public class ItemObliteratorCompatImpl {
 
         if (ModConfig.FLINT_REPLACES_WOOD.get()) {
             modified |= addIfAbsent(blacklist, WOOD_TOOLS);
-            if (modified) ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted vanilla wooden tools.");
+            if (modified) ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted wooden tools.");
         }
         if (ModConfig.BRONZE_REPLACES_STONE.get()) {
             boolean changed = addIfAbsent(blacklist, STONE_TOOLS);
-            if (changed) ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted vanilla stone tools.");
+            changed |= addIfAbsent(blacklist, MODESTMINING_STONE_TOOLS);
+            if (changed) ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted stone tools.");
             modified |= changed;
         }
         if (ModConfig.STEEL_REPLACES_IRON.get()) {
             boolean changed = addIfAbsent(blacklist, IRON_TOOLS);
+            changed |= addIfAbsent(blacklist, MODESTMINING_IRON_TOOLS);
             if (changed)
-                ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted vanilla iron tools and armour.");
+                ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted iron tools and armour.");
             modified |= changed;
         }
 
