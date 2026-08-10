@@ -1,0 +1,28 @@
+{
+  "type": "modestmining:milling",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:steel_knife"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "modestmining:steel_ingot"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "modestmining:steel_nugget"
+    }
+  ],
+  "cooktime": 200
+}

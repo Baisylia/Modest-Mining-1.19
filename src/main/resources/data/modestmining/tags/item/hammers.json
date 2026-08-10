@@ -7,6 +7,8 @@
     "modestmining:iron_hammer",
     "modestmining:diamond_hammer",
     "modestmining:netherite_hammer",
-    "modestmining:prismarite_hammer"
+    "modestmining:prismarite_hammer",
+    "modestmining:bronze_hammer",
+    "modestmining:steel_hammer"
   ]
 }

@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_fishing_rod_uses_aluminium"
+    }
+  ],
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [

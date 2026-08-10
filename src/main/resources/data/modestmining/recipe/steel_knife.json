@@ -1,0 +1,29 @@
+{
+  "type": "modestmining:forging_shaped",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "category": "equipment",
+  "cooktime": 144,
+  "key": {
+    "X": {
+      "item": "minecraft:stick"
+    },
+    "#": {
+      "item": "modestmining:steel_ingot"
+    }
+  },
+  "pattern": [
+    "#",
+    "X"
+  ],
+  "fuel": {
+    "item": "modestmining:coke"
+  },
+  "result": {
+    "id": "modestmining:steel_knife"
+  }
+}

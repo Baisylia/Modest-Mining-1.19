@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "modestmining:bronze_knife", "required": false },
+    { "id": "modestmining:steel_knife", "required": false },
+    { "id": "modestmining:prismarite_knife", "required": false },
+    { "id": "modestmining:valkyrium_knife", "required": false }
+  ]
+}

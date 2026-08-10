@@ -18,7 +18,7 @@
   "overrides": [
     {
       "predicate": {
-        "throwing": 1
+        "modestmining:throwing": 1
       },
       "model": "modestmining:item/stone_javelin_throwing"
     }

@@ -2,6 +2,8 @@ package com.baisylia.modestmining.event;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
+import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightCompat;
+import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightItems;
 import com.baisylia.modestmining.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.ItemLike;
@@ -128,7 +130,9 @@ public class ModCreativeTabEvents {
             add(event,
                     ModItems.WOODEN_JAVELIN,
                     ModItems.STONE_JAVELIN,
+                    ModItems.BRONZE_JAVELIN,
                     ModItems.IRON_JAVELIN,
+                    ModItems.STEEL_JAVELIN,
                     ModItems.GOLDEN_JAVELIN,
                     ModItems.DIAMOND_JAVELIN,
                     ModItems.NETHERITE_JAVELIN,
@@ -150,6 +154,12 @@ public class ModCreativeTabEvents {
                     ModItems.VALKYRIUM_CHESTPLATE,
                     ModItems.VALKYRIUM_LEGGINGS,
                     ModItems.VALKYRIUM_BOOTS);
+        } else if (FarmersDelightCompat.isLoaded() && event.getTabKey() == FarmersDelightCompat.TAB_KEY) {
+            add(event,
+                    FarmersDelightItems.BRONZE_KNIFE,
+                    FarmersDelightItems.STEEL_KNIFE,
+                    FarmersDelightItems.PRISMARITE_KNIFE,
+                    FarmersDelightItems.VALKYRIUM_KNIFE);
         }
     }
 
@@ -157,7 +167,9 @@ public class ModCreativeTabEvents {
         add(event,
                 ModItems.WOODEN_HAMMER,
                 ModItems.STONE_HAMMER,
+                ModItems.BRONZE_HAMMER,
                 ModItems.IRON_HAMMER,
+                ModItems.STEEL_HAMMER,
                 ModItems.GOLDEN_HAMMER,
                 ModItems.DIAMOND_HAMMER,
                 ModItems.NETHERITE_HAMMER,

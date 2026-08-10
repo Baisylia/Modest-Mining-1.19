@@ -124,6 +124,10 @@ dependencies {
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
     runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+
+    // Farmer's Delight
+    compileOnly "maven.modrinth:farmers-delight:${farmers_delight_version}"
+    runtimeOnly "maven.modrinth:farmers-delight:${farmers_delight_version}"
 }
 
 tasks.withType(JavaCompile).configureEach {

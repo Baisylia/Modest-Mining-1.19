@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "shield_uses_bronze"
+    }
+  ],
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:shield"
+    }
+  ],
+  "results": [
+    {
+      "count": 6,
+      "chance": 1.0,
+      "id": "minecraft:stick"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "modestmining:bronze_nugget"
+    }
+  ],
+  "cooktime": 200
+}

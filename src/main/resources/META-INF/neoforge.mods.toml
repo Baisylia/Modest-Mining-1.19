@@ -50,3 +50,10 @@ modId = "yet_another_config_lib_v3"
 type = "optional"
 ordering = "AFTER"
 side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "farmersdelight"
+type = "optional"
+versionRange = "[1.2.11,)"
+ordering = "AFTER"
+side = "BOTH"

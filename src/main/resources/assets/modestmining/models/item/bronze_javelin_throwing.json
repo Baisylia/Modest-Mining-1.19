@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "modestmining:item/overrides/bronze_javelin_gui"
+  },
+  "loader": "neoforge:separate_transforms",
+  "base": {
+    "parent": "modestmining:item/bronze_javelin_handheld_throwing"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "modestmining:item/bronze_javelin_gui"
+    },
+    "fixed": {
+      "parent": "modestmining:item/bronze_javelin_gui"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "modestmining:milling",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:valkyrium_knife"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "modestmining:valkyrium_ingot"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "modestmining:valkyrium_nugget"
+    }
+  ],
+  "cooktime": 200
+}

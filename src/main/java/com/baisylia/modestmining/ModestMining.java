@@ -7,6 +7,7 @@ import com.baisylia.modestmining.client.ClientConfigSetup;
 import com.baisylia.modestmining.config.ModConditions;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightCompat;
 import com.baisylia.modestmining.item.ModArmourMaterials;
 import com.baisylia.modestmining.item.ModItems;
 import com.baisylia.modestmining.recipe.ModRecipeCategories;
@@ -56,6 +57,7 @@ public class ModestMining {
         ModAttributes.register(modEventBus);
         ModArmourMaterials.register(modEventBus);
         ModItems.register(modEventBus);
+        FarmersDelightCompat.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModPlacementModifiers.register(modEventBus);
@@ -95,8 +97,8 @@ public class ModestMining {
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
                 List<DeferredHolder<Item, Item>> javelins = List.of(
-                        ModItems.WOODEN_JAVELIN, ModItems.STONE_JAVELIN, ModItems.GOLDEN_JAVELIN,
-                        ModItems.IRON_JAVELIN, ModItems.DIAMOND_JAVELIN, ModItems.NETHERITE_JAVELIN,
+                        ModItems.WOODEN_JAVELIN, ModItems.STONE_JAVELIN, ModItems.BRONZE_JAVELIN, ModItems.GOLDEN_JAVELIN,
+                        ModItems.IRON_JAVELIN, ModItems.STEEL_JAVELIN, ModItems.DIAMOND_JAVELIN, ModItems.NETHERITE_JAVELIN,
                         ModItems.PRISMARITE_JAVELIN, ModItems.VALKYRIUM_JAVELIN
                 );
 

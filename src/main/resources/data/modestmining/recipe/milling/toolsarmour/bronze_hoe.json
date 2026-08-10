@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:bronze_hoe"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "modestmining:bronze_ingot"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "modestmining:bronze_nugget"
+    }
+  ],
+  "cooktime": 200
+}

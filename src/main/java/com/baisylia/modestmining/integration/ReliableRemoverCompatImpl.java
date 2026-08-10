@@ -35,6 +35,20 @@ public class ReliableRemoverCompatImpl {
             "minecraft:iron_boots"
     );
 
+    private static final List<String> MODESTMINING_STONE_TOOLS = List.of(
+            "modestmining:stone_hammer",
+            "modestmining:stone_javelin"
+    );
+
+    private static final List<String> MODESTMINING_IRON_TOOLS = List.of(
+            "modestmining:iron_hammer",
+            "modestmining:iron_javelin"
+    );
+
+    private static final List<String> FARMERSDELIGHT_IRON_TOOLS = List.of(
+            "farmersdelight:iron_knife"
+    );
+
     public static void apply() {
         com.evandev.reliable_remover.config.ModConfig removerConfig = com.evandev.reliable_remover.config.ModConfig.get();
         if (removerConfig == null || removerConfig.blacklistedItems == null) {
@@ -51,12 +65,16 @@ public class ReliableRemoverCompatImpl {
         }
         if (ModConfig.BRONZE_REPLACES_STONE.get()) {
             boolean changed = addIfAbsent(blacklist, STONE_TOOLS);
-            if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted vanilla stone tools.");
+            changed |= addIfAbsent(blacklist, MODESTMINING_STONE_TOOLS);
+            if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted stone tools.");
             modified |= changed;
         }
         if (ModConfig.STEEL_REPLACES_IRON.get()) {
             boolean changed = addIfAbsent(blacklist, IRON_TOOLS);
-            if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted vanilla iron tools and armour.");
+            changed |= addIfAbsent(blacklist, MODESTMINING_IRON_TOOLS);
+            changed |= addIfAbsent(blacklist, FARMERSDELIGHT_IRON_TOOLS);
+            if (changed)
+                ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted iron tools and armour.");
             modified |= changed;
         }
 

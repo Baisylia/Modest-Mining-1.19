@@ -1,0 +1,22 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:steel_boots"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "chance": 1.0,
+      "id": "modestmining:steel_ingot"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "modestmining:steel_nugget"
+    }
+  ],
+  "cooktime": 200
+}

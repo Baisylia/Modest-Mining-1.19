@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "spyglass_uses_gold"
+    }
+  ],
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "minecraft:spyglass"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 1.0,
+      "id": "minecraft:gold_ingot"
+    },
+    {
+      "count": 4,
+      "chance": 1.0,
+      "id": "minecraft:amethyst_shard"
+    }
+  ],
+  "cooktime": 200
+}
