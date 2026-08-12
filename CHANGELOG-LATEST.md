@@ -1,7 +1,3 @@
-### Added
+### Fixed
 
-- Added attribute tooltips.
-
-### Changed
-
-- Rebalanced Valkyrium recipes.
+- Fixed attribute tooltips.
