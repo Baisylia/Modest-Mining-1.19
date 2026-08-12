@@ -120,11 +120,11 @@ dependencies {
 
     // JEI
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    //runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    //runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
     // Farmer's Delight
     compileOnly "maven.modrinth:farmers-delight:${farmers_delight_version}"
@@ -166,7 +166,7 @@ publishMods {
 
     curseforge {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        projectId = ""
+        projectId = "533775"
         minecraftVersions.add("${minecraft_version}")
         client = true
         server = true
@@ -177,7 +177,7 @@ publishMods {
 
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        projectId = ""
+        projectId = "5QcDoykP"
         minecraftVersions.add("${minecraft_version}")
 
         optional("reliable-remover")

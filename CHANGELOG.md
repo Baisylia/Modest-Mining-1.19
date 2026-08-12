@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Removed recipe book category (wasn't working properly anyway).
+- Removed accidental dust smelting recipes (dust can only be blasted).
 
 ## [1.0.0] - 2026-08-11
 

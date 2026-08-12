@@ -16,3 +16,4 @@
 ### Removed
 
 - Removed recipe book category (wasn't working properly anyway).
+- Removed accidental dust smelting recipes (dust can only be blasted).
