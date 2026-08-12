@@ -38,7 +38,7 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
     public MillingRecipeCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TEXTURE, 0, 0, 120, 60);
+        this.background = helper.createBlankDrawable(120, 60);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.MILLSTONE.get()));
         this.cachedArrows = CacheBuilder.newBuilder()
                 .maximumSize(25)
@@ -100,7 +100,9 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AbstractMillstoneRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 3, 21).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 3, 21)
+                .setStandardSlotBackground()
+                .addIngredients(recipe.getIngredients().get(0));
 
         List<ItemStack> results = new ArrayList<>();
         if (recipe instanceof MillstoneRecipe millstoneRecipe) {
@@ -112,7 +114,8 @@ public class MillingRecipeCategory implements IRecipeCategory<AbstractMillstoneR
         for (int i = 0; i < 9; i++) {
             int col = i % 3;
             int row = i / 3;
-            var slot = builder.addSlot(RecipeIngredientRole.OUTPUT, 50 + col * 18, 3 + row * 18);
+            var slot = builder.addSlot(RecipeIngredientRole.OUTPUT, 50 + col * 18, 3 + row * 18)
+                    .setStandardSlotBackground();
             if (i < results.size()) {
                 slot.addItemStack(results.get(i));
             }

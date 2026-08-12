@@ -5,12 +5,16 @@ import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
 import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
 import com.baisylia.modestmining.recipe.ModRecipes;
+import com.baisylia.modestmining.screen.ForgeMenu;
+import com.baisylia.modestmining.screen.MillstoneMenu;
+import com.baisylia.modestmining.screen.ModMenuTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -58,5 +62,11 @@ public class JEIModestMiningPlugin implements IModPlugin {
         registration.addRecipeCatalyst(stack, FORGING_TYPE);
         var stack_M = ModBlocks.MILLSTONE.get().asItem().getDefaultInstance();
         registration.addRecipeCatalyst(stack_M, MILLING_TYPE);
+    }
+
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(ForgeMenu.class, ModMenuTypes.FORGE_MENU.get(), FORGING_TYPE, 0, 9, 11, 36);
+        registration.addRecipeTransferHandler(MillstoneMenu.class, ModMenuTypes.MILLSTONE_MENU.get(), MILLING_TYPE, 0, 1, 10, 36);
     }
 }

@@ -3,6 +3,7 @@ package com.baisylia.modestmining.integration.jei;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -21,9 +22,15 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecipe> {
     public final static ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(ModestMining.MOD_ID, "forging");
@@ -50,6 +57,29 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
                 });
         staticFlame = helper.createDrawable(ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "textures/gui/gui_vanilla.png"), 82, 114, 14, 14);
         animatedFlame = helper.createAnimatedDrawable(staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
+    }
+
+    private static List<Ingredient> padIngredients(AbstractForgeRecipe recipe) {
+        List<Ingredient> result = new ArrayList<>(Collections.nCopies(9, Ingredient.EMPTY));
+        if (recipe instanceof ForgeShapedRecipe shapedRecipe) {
+            int width = shapedRecipe.getWidth();
+            int height = shapedRecipe.getHeight();
+            NonNullList<Ingredient> ingredients = recipe.getIngredients();
+            for (int y = 0; y < height && y < 3; y++) {
+                for (int x = 0; x < width && x < 3; x++) {
+                    int index = x + y * width;
+                    if (index < ingredients.size()) {
+                        result.set(x + y * 3, ingredients.get(index));
+                    }
+                }
+            }
+        } else {
+            List<Ingredient> ingredients = recipe.getIngredients();
+            for (int i = 0; i < ingredients.size() && i < 9; i++) {
+                result.set(i, ingredients.get(i));
+            }
+        }
+        return result;
     }
 
     @Override
@@ -104,30 +134,13 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, AbstractForgeRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 3, 5).addIngredients(recipe.getIngredients().get(0));
-        if (recipe.getIngredients().size() > 1) {
-            builder.addSlot(RecipeIngredientRole.INPUT, 21, 5).addIngredients(recipe.getIngredients().get(1));
-            if (recipe.getIngredients().size() > 2) {
-                builder.addSlot(RecipeIngredientRole.INPUT, 39, 5).addIngredients(recipe.getIngredients().get(2));
-                if (recipe.getIngredients().size() > 3) {
-                    builder.addSlot(RecipeIngredientRole.INPUT, 3, 23).addIngredients(recipe.getIngredients().get(3));
-                    if (recipe.getIngredients().size() > 4) {
-                        builder.addSlot(RecipeIngredientRole.INPUT, 21, 23).addIngredients(recipe.getIngredients().get(4));
-                        if (recipe.getIngredients().size() > 5) {
-                            builder.addSlot(RecipeIngredientRole.INPUT, 39, 23).addIngredients(recipe.getIngredients().get(5));
-                            if (recipe.getIngredients().size() > 6) {
-                                builder.addSlot(RecipeIngredientRole.INPUT, 3, 41).addIngredients(recipe.getIngredients().get(6));
-                                if (recipe.getIngredients().size() > 7) {
-                                    builder.addSlot(RecipeIngredientRole.INPUT, 21, 41).addIngredients(recipe.getIngredients().get(7));
-                                    if (recipe.getIngredients().size() > 8) {
-                                        builder.addSlot(RecipeIngredientRole.INPUT, 39, 41).addIngredients(recipe.getIngredients().get(8));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        List<Ingredient> gridIngredients = padIngredients(recipe);
+        for (int i = 0; i < 9; i++) {
+            Ingredient ingredient = gridIngredients.get(i);
+            if (ingredient.isEmpty()) continue;
+            int col = i % 3;
+            int row = i / 3;
+            builder.addSlot(RecipeIngredientRole.INPUT, 3 + col * 18, 5 + row * 18).addIngredients(ingredient);
         }
         recipe.getFuel().ifPresent(fuel -> builder.addSlot(RecipeIngredientRole.CATALYST, 65, 23)
                 .setStandardSlotBackground()

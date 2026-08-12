@@ -2,23 +2,20 @@ package com.baisylia.modestmining.screen;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
-import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
 import com.baisylia.modestmining.block.entity.custom.MillstoneBlockEntity;
-import com.baisylia.modestmining.recipe.AbstractMillstoneRecipe;
 import com.baisylia.modestmining.screen.slot.ModResultSlot;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class MillstoneMenu extends RecipeBookMenu<ForgeBlockEntity.SingleRecipeInputContainer, com.baisylia.modestmining.recipe.AbstractMillstoneRecipe> {
+public class MillstoneMenu extends AbstractContainerMenu {
 
     private final MillstoneBlockEntity blockEntity;
     private final Level level;
@@ -121,53 +118,5 @@ public class MillstoneMenu extends RecipeBookMenu<ForgeBlockEntity.SingleRecipeI
     public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
                 pPlayer, ModBlocks.MILLSTONE.get());
-    }
-
-    @Override
-    public void fillCraftSlotsStackedContents(net.minecraft.world.entity.player.StackedContents helper) {
-
-    }
-
-    @Override
-    public void clearCraftingContent() {
-        this.getSlot(0).set(ItemStack.EMPTY);
-        for (int i = 1; i <= 9; ++i) {
-            this.getSlot(i).set(ItemStack.EMPTY);
-        }
-    }
-
-    @Override
-    public boolean recipeMatches(RecipeHolder<AbstractMillstoneRecipe> recipe) {
-        return recipe.value().matches(new ForgeBlockEntity.SingleRecipeInputContainer(blockEntity.getItemHandler()), this.level);
-    }
-
-    @Override
-    public int getResultSlotIndex() {
-        return 1;
-    }
-
-    @Override
-    public int getGridWidth() {
-        return 1;
-    }
-
-    @Override
-    public int getGridHeight() {
-        return 1;
-    }
-
-    @Override
-    public int getSize() {
-        return 10;
-    }
-
-    @Override
-    public RecipeBookType getRecipeBookType() {
-        return ModestMining.MILLING_RECIPE_BOOK_TYPE;
-    }
-
-    @Override
-    public boolean shouldMoveToInventory(int index) {
-        return index >= 1 && index <= 9;
     }
 }

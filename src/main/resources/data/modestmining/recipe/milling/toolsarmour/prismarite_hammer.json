@@ -8,14 +8,9 @@
   ],
   "results": [
     {
-      "count": 2,
+      "count": 5,
       "chance": 1.0,
-      "id": "minecraft:diamond"
-    },
-    {
-      "count": 4,
-      "chance": 1.0,
-      "id": "modestmining:diamond_shard"
+      "id": "modestmining:prismarite_ingot"
     }
   ],
   "cooktime": 200

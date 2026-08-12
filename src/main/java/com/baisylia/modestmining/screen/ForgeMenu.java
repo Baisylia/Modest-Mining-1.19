@@ -1,9 +1,7 @@
 package com.baisylia.modestmining.screen;
 
-import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
-import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
 import com.baisylia.modestmining.screen.slot.ModFuelSlot;
 import com.baisylia.modestmining.screen.slot.ModResultSlot;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,7 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class ForgeMenu extends RecipeBookMenu<ForgeBlockEntity.SingleRecipeInputContainer, com.baisylia.modestmining.recipe.AbstractForgeRecipe> {
+public class ForgeMenu extends AbstractContainerMenu {
 
     private final ForgeBlockEntity blockEntity;
     private final Level level;
@@ -125,49 +122,4 @@ public class ForgeMenu extends RecipeBookMenu<ForgeBlockEntity.SingleRecipeInput
                 pPlayer, ModBlocks.FORGE.get());
     }
 
-    @Override
-    public void fillCraftSlotsStackedContents(net.minecraft.world.entity.player.StackedContents helper) {
-
-    }
-
-    @Override
-    public void clearCraftingContent() {
-        for (int i = 0; i < 9; ++i) this.getSlot(i).set(ItemStack.EMPTY);
-        this.getSlot(10).set(ItemStack.EMPTY);
-    }
-
-    @Override
-    public boolean recipeMatches(RecipeHolder<AbstractForgeRecipe> recipe) {
-        return recipe.value().matches(new ForgeBlockEntity.SingleRecipeInputContainer(blockEntity.getItemHandler()), this.level);
-    }
-
-    @Override
-    public int getResultSlotIndex() {
-        return 10;
-    }
-
-    @Override
-    public int getGridWidth() {
-        return 3;
-    }
-
-    @Override
-    public int getGridHeight() {
-        return 3;
-    }
-
-    @Override
-    public int getSize() {
-        return 11;
-    }
-
-    @Override
-    public RecipeBookType getRecipeBookType() {
-        return ModestMining.FORGING_RECIPE_BOOK_TYPE;
-    }
-
-    @Override
-    public boolean shouldMoveToInventory(int index) {
-        return index == 10 || index < (getGridWidth() * getGridHeight());
-    }
 }

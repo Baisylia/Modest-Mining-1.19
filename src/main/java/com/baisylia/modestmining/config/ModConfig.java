@@ -57,6 +57,8 @@ public class ModConfig {
     public static final ModConfigSpec.BooleanValue GENERATE_SILVER_ORE;
     public static final ModConfigSpec.BooleanValue GENERATE_CLAMS;
 
+    public static final ModConfigSpec.BooleanValue GENERATE_COPPER_SCREW_LOOT;
+
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
     static {
@@ -68,6 +70,10 @@ public class ModConfig {
         GENERATE_NETHER_LEAD_ORE = BUILDER.comment("Generate Lead Ore in the Nether.").define("generate_nether_lead_ore", true);
         GENERATE_SILVER_ORE = BUILDER.comment("Generate Silver Ore in the Overworld.").define("generate_silver_ore", true);
         GENERATE_CLAMS = BUILDER.comment("Generate Clams on Cold Ocean Floors.").define("generate_clams", true);
+        BUILDER.pop();
+
+        BUILDER.push("loot");
+        GENERATE_COPPER_SCREW_LOOT = BUILDER.comment("Add a chance for Copper Screws to be found in archaeology loot.").define("generate_copper_screw_loot", true);
         BUILDER.pop();
 
         BUILDER.push("replacements");
@@ -151,6 +157,8 @@ public class ModConfig {
         registerCondition("generate_nether_lead_ore", GENERATE_NETHER_LEAD_ORE);
         registerCondition("generate_silver_ore", GENERATE_SILVER_ORE);
         registerCondition("generate_clams", GENERATE_CLAMS);
+
+        registerCondition("generate_copper_screw_loot", GENERATE_COPPER_SCREW_LOOT);
     }
 
     private static void registerCondition(String featureName, ModConfigSpec.BooleanValue configValue) {

@@ -8,12 +8,12 @@
   ],
   "results": [
     {
-      "count": 2,
+      "count": 1,
       "chance": 1.0,
       "id": "modestmining:steel_ingot"
     },
     {
-      "count": 4,
+      "count": 6,
       "chance": 1.0,
       "id": "modestmining:steel_nugget"
     }

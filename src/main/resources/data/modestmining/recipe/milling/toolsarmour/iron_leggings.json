@@ -8,12 +8,12 @@
   ],
   "results": [
     {
-      "count": 2,
+      "count": 3,
       "chance": 1.0,
       "id": "minecraft:iron_ingot"
     },
     {
-      "count": 4,
+      "count": 8,
       "chance": 1.0,
       "id": "minecraft:iron_nugget"
     }

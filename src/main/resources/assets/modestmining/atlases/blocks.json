@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "entity/banner_base"
+    },
+    {
+      "type": "single",
+      "resource": "entity/banner/base"
+    }
+  ]
+}

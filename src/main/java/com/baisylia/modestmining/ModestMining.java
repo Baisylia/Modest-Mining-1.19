@@ -10,7 +10,7 @@ import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightCompat;
 import com.baisylia.modestmining.item.ModArmourMaterials;
 import com.baisylia.modestmining.item.ModItems;
-import com.baisylia.modestmining.recipe.ModRecipeCategories;
+import com.baisylia.modestmining.loot.ModLootModifiers;
 import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeScreen;
 import com.baisylia.modestmining.screen.MillstoneScreen;
@@ -21,7 +21,6 @@ import com.baisylia.modestmining.world.feature.ModPlacementModifiers;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -33,7 +32,6 @@ import net.neoforged.fml.config.ModConfig.Type;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterRecipeBookCategoriesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -45,10 +43,6 @@ import java.util.List;
 public class ModestMining {
     public static final String MOD_ID = "modestmining";
     public static final Logger LOGGER = LogUtils.getLogger();
-
-    // TODO: make custom recipe book types here?
-    public static final RecipeBookType FORGING_RECIPE_BOOK_TYPE = RecipeBookType.FURNACE;
-    public static final RecipeBookType MILLING_RECIPE_BOOK_TYPE = RecipeBookType.BLAST_FURNACE;
 
     public ModestMining(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(Type.COMMON, ModConfig.SPEC, "modestmining-common.toml");
@@ -66,6 +60,7 @@ public class ModestMining {
         ModRecipes.register(modEventBus);
         ModEntityTypes.register(modEventBus);
         ModSounds.SOUND_EVENTS.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
 
         if (FMLEnvironment.dist.isClient()) {
             ClientConfigSetup.register(modContainer);
@@ -82,11 +77,6 @@ public class ModestMining {
 
     @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onRegisterRecipeBookCategories(RegisterRecipeBookCategoriesEvent event) {
-            ModRecipeCategories.init(event);
-        }
-
         @SubscribeEvent
         public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.FORGE_MENU.get(), ForgeScreen::new);

@@ -13,9 +13,14 @@
       "id": "minecraft:diamond"
     },
     {
-      "count": 4,
+      "count": 2,
       "chance": 1.0,
       "id": "modestmining:diamond_shard"
+    },
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:netherite_scrap"
     }
   ],
   "cooktime": 200

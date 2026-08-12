@@ -8,14 +8,9 @@
   ],
   "results": [
     {
-      "count": 2,
+      "count": 5,
       "chance": 1.0,
       "id": "minecraft:iron_ingot"
-    },
-    {
-      "count": 4,
-      "chance": 1.0,
-      "id": "minecraft:iron_nugget"
     }
   ],
   "cooktime": 200

@@ -406,8 +406,6 @@
   "tooltip.modestmining.millstone.not_powered": "Not Powered",
 
   "modestmining.subtitles.forge.crackle": "Forge crackles",
-  "gui.recipe_book.toggle_recipes.forgeable": "Toggle Forgeable",
-  "gui.recipe_book.toggle_recipes.millable": "Toggle Millable",
 
   "config.modestmining.title": "Modest Mining Configuration",
   "config.modestmining.category.replacements": "Tool & Item Replacements",

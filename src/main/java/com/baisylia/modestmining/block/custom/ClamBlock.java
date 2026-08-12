@@ -169,8 +169,18 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        BlockPos below = pos.below();
-        return level.getBlockState(below).isFaceSturdy(level, below, Direction.UP);
+        ClamPart part = state.getValue(PART);
+        Direction facing = state.getValue(FACING);
+        BlockPos mainPos = getMainPos(pos, part, facing);
+
+        for (ClamPart p : ClamPart.values()) {
+            BlockPos partPos = getPosForPart(mainPos, p, facing);
+            BlockPos belowPos = partPos.below();
+            if (level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -178,9 +188,24 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
+
         if (!state.canSurvive(level, currentPos)) {
             return state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
         }
+
+        ClamPart part = state.getValue(PART);
+        Direction facing = state.getValue(FACING);
+        BlockPos mainPos = getMainPos(currentPos, part, facing);
+
+        for (ClamPart p : ClamPart.values()) {
+            if (p == part) continue;
+            BlockPos targetPos = getPosForPart(mainPos, p, facing);
+            BlockState targetState = level.getBlockState(targetPos);
+            if (!targetState.is(this) || targetState.getValue(FACING) != facing || targetState.getValue(PART) != p) {
+                return state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+            }
+        }
+
         return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 
