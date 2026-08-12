@@ -1,3 +1,7 @@
-### Fixed
+### Added
 
-- Fixed log spam.
+- Added attribute tooltips.
+
+### Changed
+
+- Rebalanced Valkyrium recipes.

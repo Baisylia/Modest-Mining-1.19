@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": [],
+  "base": {
+    "item": "minecraft:diamond_chestplate"
+  },
+  "addition": {
+    "item": "modestmining:valkyrium_ingot"
+  },
+  "result": {
+    "id": "modestmining:valkyrium_chestplate"
+  }
+}

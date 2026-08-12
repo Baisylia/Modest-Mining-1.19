@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": [],
+  "base": {
+    "item": "modestmining:diamond_hammer"
+  },
+  "addition": {
+    "item": "modestmining:valkyrium_ingot"
+  },
+  "result": {
+    "id": "modestmining:valkyrium_hammer"
+  }
+}

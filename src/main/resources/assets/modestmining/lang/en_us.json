@@ -404,6 +404,9 @@
 
   "tooltip.modestmining.millstone.powered": "Powered",
   "tooltip.modestmining.millstone.not_powered": "Not Powered",
+  "tooltip.modestmining.valkyrium_speed": "+30% Speed",
+  "tooltip.modestmining.prismarite_swim_speed": "+60% Swim Speed",
+  "tooltip.modestmining.prismarite_magic_resistance": "+25% Magic Resistance",
 
   "modestmining.subtitles.forge.crackle": "Forge crackles",
 
