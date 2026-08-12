@@ -40,7 +40,7 @@ public class ForgeMenu extends AbstractContainerMenu {
                 this.addSlot(new SlotItemHandler(handler, index++, 30 + y * 18, 17 + x * 18));
             }
         }
-        this.addSlot(new ModFuelSlot(handler, index++, 93, 53));
+        this.addSlot(new ModFuelSlot(handler, level, index++, 93, 53));
         this.addSlot(new ModResultSlot(handler, index, 124, 19));
 
         for (int x = 0; x < 3; ++x) {
@@ -98,7 +98,7 @@ public class ForgeMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            boolean isFuel = AbstractFurnaceBlockEntity.isFuel(sourceStack);
+            boolean isFuel = ForgeBlockEntity.isForgeFuel(this.level, sourceStack);
             if (isFuel && !moveItemStackTo(sourceStack, 9, 10, false)) {
                 if (!moveItemStackTo(sourceStack, 0, 9, false)) {
                     return ItemStack.EMPTY;

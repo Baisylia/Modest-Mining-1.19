@@ -1,13 +1,14 @@
 {
   "replace": false,
   "values": [
-    "#c:tools/swords",
-    "#c:tools/axes",
-    "#c:tools/pickaxes",
-    "#c:tools/shovels",
-    "#c:tools/hoes",
+    "#minecraft:axes",
+    "#minecraft:hoes",
+    "#minecraft:pickaxes",
+    "#minecraft:shovels",
+    "#minecraft:swords",
     "#c:tools/hammers",
     "#c:tools/javelins",
-    "#c:tools/chisels"
+    "#c:tools/chisels",
+    "#c:tools/knife"
   ]
 }

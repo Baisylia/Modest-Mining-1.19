@@ -47,10 +47,12 @@ public class ForgeRecipe extends AbstractForgeRecipe {
             return false;
         }
 
+        boolean[] used = new boolean[9];
         for (Ingredient ingredient : recipeItems) {
             boolean matched = false;
             for (int j = 0; j < 9; ++j) {
-                if (ingredient.test(input.getItem(j))) {
+                if (!used[j] && ingredient.test(input.getItem(j))) {
+                    used[j] = true;
                     matched = true;
                     break;
                 }

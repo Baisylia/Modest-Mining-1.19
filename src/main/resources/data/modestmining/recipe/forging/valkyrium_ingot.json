@@ -1,0 +1,36 @@
+{
+  "type": "modestmining:forging",
+  "cooktime": 144,
+  "ingredients": [
+    {
+      "item": "modestmining:amethyst"
+    },
+    {
+      "item": "modestmining:amethyst"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "tag": "c:ingots/silver"
+    },
+    {
+      "tag": "c:ingots/silver"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
+    }
+  ],
+  "fuel": {
+    "item": "minecraft:blaze_powder"
+  },
+  "result": {
+    "id": "modestmining:valkyrium_ingot"
+  }
+}

@@ -37,8 +37,8 @@ public class ForgingEmiRecipe implements EmiRecipe {
     }
 
     private static List<EmiIngredient> padIngredients(AbstractForgeRecipe recipe) {
+        List<EmiIngredient> result = new ArrayList<>();
         if (recipe instanceof ForgeShapedRecipe shapedRecipe) {
-            List<EmiIngredient> result = new ArrayList<>();
             int index = 0;
             for (int y = 0; y < 3; y++) {
                 for (int x = 0; x < 3; x++) {
@@ -49,9 +49,17 @@ public class ForgingEmiRecipe implements EmiRecipe {
                     }
                 }
             }
-            return result;
+        } else {
+            var ingredients = recipe.getIngredients();
+            for (int i = 0; i < 9; i++) {
+                if (i < ingredients.size()) {
+                    result.add(EmiIngredient.of(ingredients.get(i)));
+                } else {
+                    result.add(EmiStack.EMPTY);
+                }
+            }
         }
-        return recipe.getIngredients().stream().map(EmiIngredient::of).toList();
+        return result;
     }
 
     @Override
@@ -66,9 +74,6 @@ public class ForgingEmiRecipe implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        if (this.fuel.isEmpty()) {
-            return this.input;
-        }
         List<EmiIngredient> inputs = new ArrayList<>(this.input);
         inputs.add(this.fuel);
         return inputs;

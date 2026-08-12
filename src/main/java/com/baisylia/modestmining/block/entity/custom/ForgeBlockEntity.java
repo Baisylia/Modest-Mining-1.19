@@ -22,11 +22,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -252,11 +254,36 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         super.setChanged();
     }
 
+    public static boolean isForgeFuel(Level level, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+        if (stack.getBurnTime(RecipeType.BLASTING) > 0 || AbstractFurnaceBlockEntity.isFuel(stack)) {
+            return true;
+        }
+        if (level != null) {
+            RecipeManager recipeManager = level.getRecipeManager();
+            for (RecipeHolder<AbstractForgeRecipe> holder : recipeManager.getAllRecipesFor(ModRecipes.FORGING_TYPE.get())) {
+                Optional<Ingredient> fuelOpt = holder.value().getFuel();
+                if (fuelOpt.isPresent() && fuelOpt.get().test(stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private boolean burnFuel(AbstractForgeRecipe recipe) {
         if (!this.level.isClientSide) {
             var fuel = this.itemHandler.getStackInSlot(9).copy();
-            int burnTime = fuel.getBurnTime(RecipeType.BLASTING);
-            if (burnTime > 0 && recipe.fuelMatches(fuel)) {
+            if (recipe.fuelMatches(fuel)) {
+                int burnTime = fuel.getBurnTime(RecipeType.BLASTING);
+                if (burnTime <= 0) {
+                    burnTime = fuel.getBurnTime(RecipeType.SMELTING);
+                }
+                if (burnTime <= 0) {
+                    burnTime = 200;
+                }
                 this.fuelAmount = burnTime;
                 this.litTime = burnTime;
                 this.activeFuel = fuel.copyWithCount(1);
@@ -291,7 +318,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         if (slot == 10) {
             return false;
         } else if (slot == 9) {
-            return itemStack.getBurnTime(RecipeType.BLASTING) > 0;
+            return isForgeFuel(this.level, itemStack);
         } else {
             return true;
         }

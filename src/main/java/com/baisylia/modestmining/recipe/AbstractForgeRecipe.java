@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import java.util.Optional;
 
@@ -51,11 +52,18 @@ public abstract class AbstractForgeRecipe implements Recipe<ForgeBlockEntity.Sin
         return this.fuel;
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
     public boolean fuelMatches(ItemStack stack) {
-        if (stack.isEmpty() || stack.getBurnTime(RecipeType.BLASTING) <= 0) {
+        if (stack.isEmpty()) {
             return false;
         }
-        return this.fuel.map(ingredient -> ingredient.test(stack)).orElse(true);
+        return this.fuel.map(ingredient ->
+                ingredient.test(stack)).orElseGet(() ->
+                stack.getBurnTime(RecipeType.BLASTING) > 0 || AbstractFurnaceBlockEntity.isFuel(stack));
     }
 
     @Override

@@ -66,7 +66,7 @@ public class JEIModestMiningPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(ForgeMenu.class, ModMenuTypes.FORGE_MENU.get(), FORGING_TYPE, 0, 9, 11, 36);
+        registration.addRecipeTransferHandler(ForgeMenu.class, ModMenuTypes.FORGE_MENU.get(), FORGING_TYPE, 0, 10, 11, 36);
         registration.addRecipeTransferHandler(MillstoneMenu.class, ModMenuTypes.MILLSTONE_MENU.get(), MILLING_TYPE, 0, 1, 10, 36);
     }
 }

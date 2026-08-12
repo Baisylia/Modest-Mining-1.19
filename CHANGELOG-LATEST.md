@@ -1,19 +1,13 @@
 ### Added
 
-- Added copper screws to archeology loot.
-- Added a config option to disable copper screws in loot.
+- Added Manual Labour support for hammers.
+- Added missing hammers to the `c:hammers` tag.
+- Added Valkyrium recipe.
 
 ### Fixed
 
-- Fixed millstone texture.
-- Fixed recipe duplication bugs.
-- Fixed bronze and steel sword recipes.
-- Fixed bronze and steel armor being stackable.
-- Fixed clam model.
-- Fixed clam duplication.
-- Fixed issues with the JEI plugin.
-
-### Removed
-
-- Removed recipe book category (wasn't working properly anyway).
-- Removed accidental dust smelting recipes (dust can only be blasted).
+- Fixed issues with Forging fuels.
+- Cleaned up redundant tags.
+- Improved EMI recipe autofill.
+- Fixed lit Aluminium Forge textures.
+- Fixed Smoker and Blast Furnace textures with the optional resource pack enabled.

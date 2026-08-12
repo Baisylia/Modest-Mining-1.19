@@ -142,7 +142,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
             int row = i / 3;
             builder.addSlot(RecipeIngredientRole.INPUT, 3 + col * 18, 5 + row * 18).addIngredients(ingredient);
         }
-        recipe.getFuel().ifPresent(fuel -> builder.addSlot(RecipeIngredientRole.CATALYST, 65, 23)
+        recipe.getFuel().ifPresent(fuel -> builder.addSlot(RecipeIngredientRole.INPUT, 65, 23)
                 .setStandardSlotBackground()
                 .addIngredients(fuel));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 6).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
