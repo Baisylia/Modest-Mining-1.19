@@ -58,7 +58,6 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue GENERATE_CLAMS;
     public static final ForgeConfigSpec.BooleanValue GENERATE_METEORITES;
 
-
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
     static {

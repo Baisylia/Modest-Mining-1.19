@@ -13,6 +13,9 @@
     },
     "fixed": {
       "parent": "modestmining:item/bronze_javelin_gui"
+    },
+    "ground": {
+      "parent": "modestmining:item/bronze_javelin_gui"
     }
   },
   "overrides": [

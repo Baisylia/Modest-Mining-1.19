@@ -36,10 +36,12 @@ public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
         );
 
         poseStack.mulPose(
-                Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot()) - 60.0F)
+                Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot()) - 45.0F)
         );
 
-        poseStack.translate(-0.5D, 0.0D, 0.0D);
+        poseStack.scale(2.0F, 2.0F, 2.0F);
+
+        poseStack.translate(-0.25D, -0.25D, 0.0D);
 
         Minecraft.getInstance().getItemRenderer().renderStatic(
                 entity.getPickupItem(),

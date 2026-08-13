@@ -207,25 +207,25 @@ public class ModItems {
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     // Javelins
-    public static final RegistryObject<Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 3.0F,
+    public static final RegistryObject<Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 1.5F,
             new Item.Properties().durability(Tiers.WOOD.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> STONE_JAVELIN = ITEMS.register("stone_javelin", () -> new JavelinItem(Tiers.STONE, 2.0F, -2.9F, 3.0F,
+    public static final RegistryObject<Item> STONE_JAVELIN = ITEMS.register("stone_javelin", () -> new JavelinItem(Tiers.STONE, 2.0F, -2.9F, 1.5F,
             new Item.Properties().durability(Tiers.STONE.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> BRONZE_JAVELIN = ITEMS.register("bronze_javelin", () -> new JavelinItem(ModTiers.BRONZE, 2.0F, -2.9F, 3.0F,
+    public static final RegistryObject<Item> BRONZE_JAVELIN = ITEMS.register("bronze_javelin", () -> new JavelinItem(ModTiers.BRONZE, 2.0F, -2.9F, 1.5F,
             new Item.Properties().durability(ModTiers.BRONZE.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> GOLDEN_JAVELIN = ITEMS.register("golden_javelin", () -> new JavelinItem(Tiers.GOLD, 2.0F, -2.9F, 3.0F,
+    public static final RegistryObject<Item> GOLDEN_JAVELIN = ITEMS.register("golden_javelin", () -> new JavelinItem(Tiers.GOLD, 2.0F, -2.9F, 1.5F,
             new Item.Properties().durability(Tiers.GOLD.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> IRON_JAVELIN = ITEMS.register("iron_javelin", () -> new JavelinItem(Tiers.IRON, 2.0F, -2.8F, 3.0F,
+    public static final RegistryObject<Item> IRON_JAVELIN = ITEMS.register("iron_javelin", () -> new JavelinItem(Tiers.IRON, 2.0F, -2.8F, 1.5F,
             new Item.Properties().durability(Tiers.IRON.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> STEEL_JAVELIN = ITEMS.register("steel_javelin", () -> new JavelinItem(ModTiers.STEEL, 2.0F, -2.8F, 3.0F,
+    public static final RegistryObject<Item> STEEL_JAVELIN = ITEMS.register("steel_javelin", () -> new JavelinItem(ModTiers.STEEL, 2.0F, -2.8F, 1.5F,
             new Item.Properties().durability(ModTiers.STEEL.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> DIAMOND_JAVELIN = ITEMS.register("diamond_javelin", () -> new JavelinItem(Tiers.DIAMOND, 2.0F, -2.7F, 3.0F,
+    public static final RegistryObject<Item> DIAMOND_JAVELIN = ITEMS.register("diamond_javelin", () -> new JavelinItem(Tiers.DIAMOND, 2.0F, -2.7F, 1.5F,
             new Item.Properties().durability(Tiers.DIAMOND.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> NETHERITE_JAVELIN = ITEMS.register("netherite_javelin", () -> new JavelinItem(Tiers.NETHERITE, 2.0F, -2.7F, 3.0F,
+    public static final RegistryObject<Item> NETHERITE_JAVELIN = ITEMS.register("netherite_javelin", () -> new JavelinItem(Tiers.NETHERITE, 2.0F, -2.7F, 1.5F,
             new Item.Properties().durability(Tiers.NETHERITE.getUses()).fireResistant().tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> PRISMARITE_JAVELIN = ITEMS.register("prismarite_javelin", () -> new JavelinItem(ModTiers.PRISMARITE, 2.0F, -2.7F, 3.0F,
+    public static final RegistryObject<Item> PRISMARITE_JAVELIN = ITEMS.register("prismarite_javelin", () -> new JavelinItem(ModTiers.PRISMARITE, 2.0F, -2.7F, 1.5F,
             new Item.Properties().durability(ModTiers.PRISMARITE.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
-    public static final RegistryObject<Item> VALKYRIUM_JAVELIN = ITEMS.register("valkyrium_javelin", () -> new JavelinItem(ModTiers.VALKYRIUM, 2.0F, -2.7F, 3.0F,
+    public static final RegistryObject<Item> VALKYRIUM_JAVELIN = ITEMS.register("valkyrium_javelin", () -> new JavelinItem(ModTiers.VALKYRIUM, 2.0F, -2.7F, 1.5F,
             new Item.Properties().durability(ModTiers.VALKYRIUM.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
 
     public static void register(IEventBus eventBus) {

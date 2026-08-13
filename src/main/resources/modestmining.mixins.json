@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.baisylia.modestmining.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "modestmining.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "client.DrownedModelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
