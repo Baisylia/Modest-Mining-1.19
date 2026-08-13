@@ -55,18 +55,21 @@ public class MeteoriteFeature extends Feature<NoneFeatureConfiguration> {
                 || groundBelow.is(Blocks.SAND)
                 || groundBelow.is(Blocks.SANDSTONE);
 
-        double radius = 3.5 + random.nextDouble();
-        int depth = 2;
+        double centerX = cx - 0.5;
+        double centerZ = cz - 0.5;
 
-        int minX = (int) Math.floor(cx - radius - 1);
-        int maxX = (int) Math.ceil(cx + radius + 1);
-        int minZ = (int) Math.floor(cz - radius - 1);
-        int maxZ = (int) Math.ceil(cz + radius + 1);
+        double radius = 5.5 + random.nextDouble() * 0.5;
+        int depth = 3;
+
+        int minX = (int) Math.floor(centerX - radius - 1);
+        int maxX = (int) Math.ceil(centerX + radius + 1);
+        int minZ = (int) Math.floor(centerZ - radius - 1);
+        int maxZ = (int) Math.ceil(centerZ + radius + 1);
 
         for (int x = minX; x <= maxX; x++) {
             for (int z = minZ; z <= maxZ; z++) {
-                double dx = x - cx;
-                double dz = z - cz;
+                double dx = x - centerX;
+                double dz = z - centerZ;
                 double distSq = dx * dx + dz * dz;
 
                 if (distSq <= radius * radius) {
@@ -88,7 +91,7 @@ public class MeteoriteFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        int baseY = cy - depth;
+        int baseY = cy - depth - 1;
         for (int dx = 0; dx <= 1; dx++) {
             for (int dy = 0; dy <= 1; dy++) {
                 for (int dz = 0; dz <= 1; dz++) {
