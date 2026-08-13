@@ -25,6 +25,7 @@
     "modestmining:rosegold_block",
     "modestmining:electrum_block",
     "modestmining:valkyrium_block",
-    "modestmining:millstone"
+    "modestmining:millstone",
+    "modestmining:meteorite"
   ]
 }

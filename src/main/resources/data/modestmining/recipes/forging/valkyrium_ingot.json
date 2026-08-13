@@ -1,0 +1,36 @@
+{
+  "type": "modestmining:forging",
+  "cooktime": 144,
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "modestmining:silver_ingot"
+    },
+    {
+      "item": "modestmining:silver_ingot"
+    },
+    {
+      "item": "modestmining:meteoric_scrap"
+    },
+    {
+      "item": "modestmining:meteoric_scrap"
+    },
+    {
+      "item": "modestmining:meteoric_scrap"
+    },
+    {
+      "item": "modestmining:meteoric_scrap"
+    }
+  ],
+  "fuel": {
+    "item": "minecraft:blaze_powder"
+  },
+  "result": {
+    "item": "modestmining:valkyrium_ingot"
+  }
+}

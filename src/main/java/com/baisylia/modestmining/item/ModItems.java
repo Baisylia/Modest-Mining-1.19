@@ -82,6 +82,8 @@ public class ModItems {
     public static final RegistryObject<Item> GOLD_DUST = ITEMS.register("gold_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> IRON_DUST = ITEMS.register("iron_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> DEBRIS_DUST = ITEMS.register("debris_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> METEORIC_DUST = ITEMS.register("meteoric_dust", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> METEORIC_SCRAP = ITEMS.register("meteoric_scrap", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     // TOOLS
     public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, 0f, ModTiers.COPPER,

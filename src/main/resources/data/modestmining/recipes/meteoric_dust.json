@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "item": "modestmining:meteorite"
+    },
+    {
+      "tag": "modestmining:hammers"
+    }
+  ],
+  "result": {
+    "item": "modestmining:meteoric_dust",
+    "count": 9
+  }
+}
