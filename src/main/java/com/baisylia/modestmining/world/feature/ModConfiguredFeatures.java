@@ -32,6 +32,9 @@ public class ModConfiguredFeatures {
     public static final RegistryObject<ConfiguredFeature<?, ?>> CLAM = CONFIGURED_FEATURES.register("clam",
             () -> new ConfiguredFeature<>(ModFeatures.CLAM_FEATURE.get(), FeatureConfiguration.NONE));
 
+    public static final RegistryObject<ConfiguredFeature<?, ?>> METEORITE = CONFIGURED_FEATURES.register("meteorite",
+            () -> new ConfiguredFeature<>(ModFeatures.METEORITE_FEATURE.get(), FeatureConfiguration.NONE));
+
     public static final Supplier<List<OreConfiguration.TargetBlockState>> ALUMINIUM_ORES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.ALUMINIUM_ORE.get().defaultBlockState()),
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_ALUMINIUM_ORE.get().defaultBlockState())));

@@ -2,6 +2,7 @@ package com.baisylia.modestmining.world.feature;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.world.feature.custom.ClamFeature;
+import com.baisylia.modestmining.world.feature.custom.MeteoriteFeature;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -15,6 +16,9 @@ public class ModFeatures {
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> CLAM_FEATURE = FEATURES.register("clam",
             () -> new ClamFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> METEORITE_FEATURE = FEATURES.register("meteorite",
+            () -> new MeteoriteFeature(NoneFeatureConfiguration.CODEC));
 
     public static void register(IEventBus eventBus) {
         FEATURES.register(eventBus);

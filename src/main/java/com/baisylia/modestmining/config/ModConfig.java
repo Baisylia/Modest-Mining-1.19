@@ -56,6 +56,7 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue GENERATE_NETHER_LEAD_ORE;
     public static final ForgeConfigSpec.BooleanValue GENERATE_SILVER_ORE;
     public static final ForgeConfigSpec.BooleanValue GENERATE_CLAMS;
+    public static final ForgeConfigSpec.BooleanValue GENERATE_METEORITES;
 
 
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
@@ -69,6 +70,7 @@ public class ModConfig {
         GENERATE_NETHER_LEAD_ORE = BUILDER.comment("Generate Lead Ore in the Nether.").define("generate_nether_lead_ore", true);
         GENERATE_SILVER_ORE = BUILDER.comment("Generate Silver Ore in the Overworld.").define("generate_silver_ore", true);
         GENERATE_CLAMS = BUILDER.comment("Generate Clams on Cold Ocean Floors.").define("generate_clams", true);
+        GENERATE_METEORITES = BUILDER.comment("Generate Meteorites in the Overworld.").define("generate_meteorites", true);
         BUILDER.pop();
 
         BUILDER.push("replacements");
@@ -153,6 +155,7 @@ public class ModConfig {
         registerCondition("generate_nether_lead_ore", GENERATE_NETHER_LEAD_ORE);
         registerCondition("generate_silver_ore", GENERATE_SILVER_ORE);
         registerCondition("generate_clams", GENERATE_CLAMS);
+        registerCondition("generate_meteorites", GENERATE_METEORITES);
     }
 
     private static void registerCondition(String featureName, ForgeConfigSpec.BooleanValue configValue) {

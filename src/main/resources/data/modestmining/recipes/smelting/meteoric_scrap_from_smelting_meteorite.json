@@ -1,11 +1,11 @@
 {
-  "type": "minecraft:blasting",
+  "type": "minecraft:smelting",
   "ingredient": [
     {
-      "item": "modestmining:meteoric_dust"
+      "item": "modestmining:meteorite"
     }
   ],
   "result": "modestmining:meteoric_scrap",
   "experience": 2.0,
-  "cookingtime": 100
+  "cookingtime": 200
 }
