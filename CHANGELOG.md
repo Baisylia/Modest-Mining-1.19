@@ -9,9 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Added
+
 - Added Meteorites!
     - Meteorites rarely generate in the overworld and can be mined for Meteoric Scrap, which is now used to craft
       Valkyrium.
+- Added additional config options for Copper Screw loot.
+
+### Changed
+
+- Reworked Copper Screw archeology loot injection.
 
 ## [1.1.4] - 2026-08-12
 
