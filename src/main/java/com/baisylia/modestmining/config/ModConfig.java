@@ -56,8 +56,10 @@ public class ModConfig {
     public static final ModConfigSpec.BooleanValue GENERATE_NETHER_LEAD_ORE;
     public static final ModConfigSpec.BooleanValue GENERATE_SILVER_ORE;
     public static final ModConfigSpec.BooleanValue GENERATE_CLAMS;
+    public static final ModConfigSpec.BooleanValue GENERATE_METEORITE;
 
     public static final ModConfigSpec.BooleanValue GENERATE_COPPER_SCREW_LOOT;
+    public static final ModConfigSpec.DoubleValue COPPER_SCREW_LOOT_CHANCE;
 
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
@@ -70,10 +72,12 @@ public class ModConfig {
         GENERATE_NETHER_LEAD_ORE = BUILDER.comment("Generate Lead Ore in the Nether.").define("generate_nether_lead_ore", true);
         GENERATE_SILVER_ORE = BUILDER.comment("Generate Silver Ore in the Overworld.").define("generate_silver_ore", true);
         GENERATE_CLAMS = BUILDER.comment("Generate Clams on Cold Ocean Floors.").define("generate_clams", true);
+        GENERATE_METEORITE = BUILDER.comment("Generate Meteorites in the Overworld.").define("generate_meteorite", true);
         BUILDER.pop();
 
         BUILDER.push("loot");
         GENERATE_COPPER_SCREW_LOOT = BUILDER.comment("Add a chance for Copper Screws to be found in archaeology loot.").define("generate_copper_screw_loot", true);
+        COPPER_SCREW_LOOT_CHANCE = BUILDER.comment("Chance for Copper Screws to be found in archaeology loot (0.0 to 1.0).").defineInRange("copper_screw_loot_chance", 0.07, 0.0, 1.0);
         BUILDER.pop();
 
         BUILDER.push("replacements");
@@ -157,6 +161,7 @@ public class ModConfig {
         registerCondition("generate_nether_lead_ore", GENERATE_NETHER_LEAD_ORE);
         registerCondition("generate_silver_ore", GENERATE_SILVER_ORE);
         registerCondition("generate_clams", GENERATE_CLAMS);
+        registerCondition("generate_meteorite", GENERATE_METEORITE);
 
         registerCondition("generate_copper_screw_loot", GENERATE_COPPER_SCREW_LOOT);
     }

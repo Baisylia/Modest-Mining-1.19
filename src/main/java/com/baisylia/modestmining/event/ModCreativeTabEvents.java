@@ -44,6 +44,7 @@ public class ModCreativeTabEvents {
                     ModBlocks.RAW_ALUMINIUM_BLOCK,
                     ModBlocks.RAW_LEAD_BLOCK,
                     ModBlocks.RAW_SILVER_BLOCK,
+                    ModBlocks.METEORITE,
                     ModBlocks.CLAM,
                     ModBlocks.SHELL);
         } else if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
@@ -85,6 +86,8 @@ public class ModCreativeTabEvents {
                     ModItems.LEAD_DUST,
                     ModItems.SILVER_DUST,
                     ModItems.DEBRIS_DUST,
+                    ModItems.METEORIC_SCRAP,
+                    ModItems.METEORIC_DUST,
                     ModItems.DIAMOND_SHARD,
                     ModItems.AMETHYST,
                     ModItems.PEARL,

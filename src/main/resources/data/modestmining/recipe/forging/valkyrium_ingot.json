@@ -3,28 +3,28 @@
   "cooktime": 144,
   "ingredients": [
     {
-      "item": "modestmining:amethyst"
+      "item": "minecraft:gold_ingot"
     },
     {
-      "item": "modestmining:amethyst"
+      "item": "minecraft:gold_ingot"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "modestmining:silver_ingot"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "modestmining:silver_ingot"
     },
     {
-      "tag": "c:ingots/silver"
+      "item": "modestmining:meteoric_scrap"
     },
     {
-      "tag": "c:ingots/silver"
+      "item": "modestmining:meteoric_scrap"
     },
     {
-      "tag": "c:ingots/gold"
+      "item": "modestmining:meteoric_scrap"
     },
     {
-      "tag": "c:ingots/gold"
+      "item": "modestmining:meteoric_scrap"
     }
   ],
   "fuel": {

@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#modestmining:has_meteorite",
+  "features": "modestmining:meteorite_placed",
+  "step": "surface_structures"
+}

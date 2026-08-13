@@ -61,12 +61,9 @@
   "item.modestmining.iron_dust": "Iron Dust",
   "item.modestmining.gold_dust": "Gold Dust",
   "item.modestmining.debris_dust": "Ancient Dust",
+  "item.modestmining.meteoric_scrap": "Meteoric Scrap",
+  "item.modestmining.meteoric_dust": "Meteoric Dust",
   "item.modestmining.remaining_dust": "Oceanic Dust",
-
-
-  "item.modestmining.rosegold_apple": "Rosegold Apple",
-  "item.modestmining.rosegold_carrot": "Rosegold Carrot",
-  "item.modestmining.enchanted_rosegold_apple": "Enchanted Rosegold Apple",
 
   "item.modestmining.chisel": "Chisel",
 
@@ -231,6 +228,7 @@
   "block.modestmining.electrum_block": "Block of Electrum",
   "block.modestmining.prismarite_block": "Block of Prismarite",
   "block.modestmining.valkyrium_block": "Block of Valkyrium",
+  "block.modestmining.meteorite": "Meteorite",
   "block.modestmining.compact_amethyst_block": "Block of Amethyst",
   "block.modestmining.diamond_shard_block": "Diamond Block",
   "block.modestmining.oceanic_remains": "Oceanic Remains",
@@ -291,7 +289,7 @@
   "block.modestmining.carved_mangrove_planks": "Carved Mangrove Planks",
   "block.modestmining.chiseled_mangrove_planks": "Chiseled Mangrove Planks",
   "block.modestmining.mangrove_pillar": "Mangrove Pillar",
-  
+
   "block.modestmining.acacia_board_stairs": "Acacia Panel Stairs",
   "block.modestmining.acacia_tile_stairs": "Acacia Tile Stairs",
   "block.modestmining.acacia_carved_plank_stairs": "Carved Acacia Plank Stairs",
@@ -319,7 +317,7 @@
   "block.modestmining.mangrove_board_stairs": "Mangrove Panel Stairs",
   "block.modestmining.mangrove_tile_stairs": "Mangrove Tile Stairs",
   "block.modestmining.mangrove_carved_plank_stairs": "Carved Mangrove Plank Stairs",
-  
+
   "block.modestmining.acacia_board_slab": "Acacia Panel Slab",
   "block.modestmining.acacia_tile_slab": "Acacia Tile Slab",
   "block.modestmining.acacia_carved_plank_slab": "Carved Acacia Plank Slab",
@@ -347,7 +345,7 @@
   "block.modestmining.mangrove_board_slab": "Mangrove Panel Slab",
   "block.modestmining.mangrove_tile_slab": "Mangrove Tile Slab",
   "block.modestmining.mangrove_carved_plank_slab": "Carved Mangrove Plank Slab",
-  
+
   "block.modestmining.acacia_board_wall": "Acacia Panel Wall",
   "block.modestmining.acacia_tile_wall": "Acacia Tile Wall",
   "block.modestmining.acacia_carved_plank_wall": "Carved Acacia Plank Wall",
@@ -408,9 +406,8 @@
   "modestmining.subtitles.forge.crackle": "Forge crackles",
 
   "config.modestmining.title": "Modest Mining Configuration",
-  "config.modestmining.category.replacements": "Tool & Item Replacements",
-  "config.modestmining.category.ore_generation": "Ore & World Generation",
 
+  "config.modestmining.category.replacements": "Tool & Item Replacements",
   "config.modestmining.option.flint_replaces_wood": "Flint Replaces Wood",
   "config.modestmining.option.flint_replaces_wood.tooltip": "Replaces vanilla wooden tools with flint tools in progression.",
   "config.modestmining.option.bronze_replaces_stone": "Bronze Replaces Stone",
@@ -478,6 +475,7 @@
   "config.modestmining.option.jukebox_uses_electrum": "Jukebox Uses Electrum",
   "config.modestmining.option.jukebox_uses_electrum.tooltip": "Jukebox recipe uses electrum.",
 
+  "config.modestmining.category.ore_generation": "Ore & World Generation",
   "config.modestmining.option.generate_aluminium_ore": "Generate Aluminium Ore",
   "config.modestmining.option.generate_aluminium_ore.tooltip": "Generates Aluminium Ore in Overworld.",
   "config.modestmining.option.generate_lead_ore": "Generate Lead Ore",
@@ -488,5 +486,14 @@
   "config.modestmining.option.generate_silver_ore.tooltip": "Generates Silver Ore in Overworld.",
   "config.modestmining.option.generate_clams": "Generate Clams",
   "config.modestmining.option.generate_clams.tooltip": "Generates Clams on Ocean Floors.",
+  "config.modestmining.option.generate_meteorite": "Generate Meteorites",
+  "config.modestmining.option.generate_meteorite.tooltip": "Generates Meteorites in the Overworld.",
+
+  "config.modestmining.category.loot": "Loot Generation",
+  "config.modestmining.option.generate_copper_screw_loot": "Generate Copper Screw Loot",
+  "config.modestmining.option.generate_copper_screw_loot.tooltip": "Adds a chance for Copper Screws to be found in archaeology loot (requires reload).",
+  "config.modestmining.option.copper_screw_loot_chance": "Copper Screw Loot Chance",
+  "config.modestmining.option.copper_screw_loot_chance.tooltip": "Chance for Copper Screws to be found in archaeology loot (0.0 to 1.0).",
+
   "recipe.modestmining.shapeless_forging": "Shapeless Forging"
 }

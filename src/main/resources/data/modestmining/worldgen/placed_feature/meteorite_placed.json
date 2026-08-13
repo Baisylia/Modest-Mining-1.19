@@ -1,0 +1,23 @@
+{
+  "feature": "modestmining:meteorite",
+  "placement": [
+    {
+      "type": "modestmining:config_filter",
+      "config_key": "generate_meteorite"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 280
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

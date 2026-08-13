@@ -77,6 +77,8 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> GOLD_DUST = ITEMS.register("gold_dust", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> IRON_DUST = ITEMS.register("iron_dust", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> DEBRIS_DUST = ITEMS.register("debris_dust", () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> METEORIC_SCRAP = ITEMS.register("meteoric_scrap", () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> METEORIC_DUST = ITEMS.register("meteoric_dust", () -> new Item(new Item.Properties()));
 
     // TOOLS
     public static final DeferredHolder<Item, Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, -2.8f, ModTiers.COPPER,

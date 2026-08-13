@@ -69,6 +69,8 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK)), false, 0);
     public static final DeferredHolder<Block, Block> VALKYRIUM_BLOCK = registerBlock("valkyrium_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.NETHERITE_BLOCK)), false, 0);
+    public static final DeferredHolder<Block, Block> METEORITE = registerBlock("meteorite",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ANCIENT_DEBRIS)), false, 0);
 
     public static final DeferredHolder<Block, Block> FORGE = registerBlock("forge",
             () -> new ForgeBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).lightLevel((blockState) -> {
