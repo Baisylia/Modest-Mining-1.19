@@ -17,14 +17,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ZombieVillagerModelMixin<T extends Zombie> {
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/monster/Zombie;FFFFF)V", at = @At("TAIL"))
-    private void modestmining$setupZombieVillagerAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
+    private void modestmining$setupZombieVillagerAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo ci) {
         @SuppressWarnings("unchecked")
         ZombieVillagerModel<T> model = (ZombieVillagerModel<T>) (Object) this;
 
-        ItemStack mainHand = entity.getMainHandItem();
+        ItemStack mainHand = pEntity.getMainHandItem();
         boolean isThrowingWeapon = mainHand.getItem() instanceof JavelinItem || mainHand.is(Items.TRIDENT) || mainHand.getItem() instanceof TridentItem;
-        if (isThrowingWeapon && (entity.isAggressive() || model.leftArmPose == HumanoidModel.ArmPose.THROW_SPEAR || model.rightArmPose == HumanoidModel.ArmPose.THROW_SPEAR)) {
-            if (entity.getMainArm() == HumanoidArm.RIGHT) {
+        if (isThrowingWeapon && (pEntity.isAggressive() || model.leftArmPose == HumanoidModel.ArmPose.THROW_SPEAR || model.rightArmPose == HumanoidModel.ArmPose.THROW_SPEAR)) {
+            if (pEntity.getMainArm() == HumanoidArm.RIGHT) {
                 model.rightArm.xRot = model.rightArm.xRot * 0.5F - (float) Math.PI;
                 model.rightArm.yRot = 0.0F;
             } else {

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ThrownTrident.class)
 public class ThrownTridentMixin {
 
-    @ModifyVariable(method = "onHitEntity", at = @At(value = "STORE", ordinal = 0), name = "f")
+    @ModifyVariable(method = "onHitEntity", at = @At(value = "STORE", ordinal = 0), ordinal = 0)
     private float modestmining$applyTridentCritDamage(float f) {
         if (!ModConfig.SPEC.isLoaded() || ModConfig.ENHANCED_TRIDENTS.get()) {
             ThrownTrident self = (ThrownTrident) (Object) this;
