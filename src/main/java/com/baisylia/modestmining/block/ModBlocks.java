@@ -58,7 +58,7 @@ public class ModBlocks {
 
     public static final DeferredHolder<Block, Block> STEEL_BLOCK = registerBlock("steel_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)), false, 0);
-    public static final DeferredHolder<Block, Block> ROSEGOLD_BLOCK = registerBlock("rosegold_block",
+    public static final DeferredHolder<Block, Block> ROSE_GOLD_BLOCK = registerBlock("rose_gold_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_BLOCK)), false, 0);
     public static final DeferredHolder<Block, Block> BRONZE_BLOCK = registerBlock("bronze_block",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK)), false, 0);

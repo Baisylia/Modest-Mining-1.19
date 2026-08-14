@@ -72,8 +72,12 @@ public class ClientConfigScreen {
         ConfigCategory.Builder weapons = ConfigCategory.createBuilder()
                 .name(Component.translatable("config.modestmining.category.weapons"))
                 .option(createBoolOption("drowned_spawn_with_javelins", true, ModConfig.DROWNED_SPAWN_WITH_JAVELINS, ModConfig.DROWNED_SPAWN_WITH_JAVELINS::set))
+                .option(createBoolOption("zombies_spawn_with_javelins", true, ModConfig.ZOMBIES_SPAWN_WITH_JAVELINS, ModConfig.ZOMBIES_SPAWN_WITH_JAVELINS::set))
+                .option(createBoolOption("zombies_throw_javelins", true, ModConfig.ZOMBIES_THROW_JAVELINS, ModConfig.ZOMBIES_THROW_JAVELINS::set))
+                .option(createBoolOption("zombies_throw_tridents", true, ModConfig.ZOMBIES_THROW_TRIDENTS, ModConfig.ZOMBIES_THROW_TRIDENTS::set))
                 .option(createBoolOption("remove_javelin_slowdown", true, ModConfig.REMOVE_JAVELIN_SLOWDOWN, ModConfig.REMOVE_JAVELIN_SLOWDOWN::set))
-                .option(createBoolOption("enhanced_tridents", false, ModConfig.ENHANCED_TRIDENTS, ModConfig.ENHANCED_TRIDENTS::set));
+                .option(createBoolOption("enhanced_tridents", false, ModConfig.ENHANCED_TRIDENTS, ModConfig.ENHANCED_TRIDENTS::set))
+                .option(createDoubleOption("javelin_ranged_damage_multiplier", 1.0, 0.0, 10.0, 0.1, ModConfig.JAVELIN_RANGED_DAMAGE_MULTIPLIER, ModConfig.JAVELIN_RANGED_DAMAGE_MULTIPLIER::set));
 
         return builder.category(replacements.build()).category(oreGen.build()).category(loot.build()).category(weapons.build()).build().generateScreen(parent);
     }

@@ -21,7 +21,7 @@
     "X"
   ],
   "fuel": {
-    "item": "modestmining:coke"
+    "tag": "modestmining:forge_fuels_tier_1"
   },
   "result": {
     "id": "modestmining:steel_knife"

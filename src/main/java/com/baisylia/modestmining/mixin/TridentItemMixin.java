@@ -17,14 +17,13 @@ public class TridentItemMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
-            ),
-            remap = false
+            )
     )
     private Entity modestmining$applyTridentCrit(Entity entity) {
         if (entity instanceof ThrownTrident thrownTrident) {
-            if (ModConfig.SPEC.isLoaded() && ModConfig.ENHANCED_TRIDENTS.get()) {
+            if (!ModConfig.SPEC.isLoaded() || ModConfig.ENHANCED_TRIDENTS.get()) {
                 if (thrownTrident.getOwner() instanceof Player player) {
-                    if (player.fallDistance > 1.0F || player.isSprinting()) {
+                    if ((player.fallDistance > 0.0F && !player.onGround()) || player.isSprinting()) {
                         thrownTrident.setCritArrow(true);
                     }
                 }

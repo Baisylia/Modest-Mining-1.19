@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -23,7 +22,7 @@ public class ForgeMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ForgeMenu(int pContainerId, Inventory inv, RegistryFriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
     public ForgeMenu(int pContainerId, Inventory pPlayerInventory, BlockEntity entity, ContainerData data) {
@@ -78,6 +77,10 @@ public class ForgeMenu extends AbstractContainerMenu {
         float percentage = (float) litTime / fuel;
         percentage = percentage * 17;
         return (int) percentage;
+    }
+
+    public int getFuelTier() {
+        return this.data.get(4);
     }
 
     @Override

@@ -21,9 +21,6 @@
       "item": "minecraft:bone_meal"
     }
   ],
-  "fuel": {
-    "item": "minecraft:coal"
-  },
   "result": {
     "count": 1,
     "id": "modestmasonry:chalk_bricks"

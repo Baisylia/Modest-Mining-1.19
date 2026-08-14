@@ -22,8 +22,8 @@ public class ForgeRecipe extends AbstractForgeRecipe {
     private final NonNullList<Ingredient> recipeItems;
     private final int cookTime;
 
-    public ForgeRecipe(String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, Optional<Ingredient> fuel, int cookTime) {
-        super(group, category, output, recipeItems, fuel, cookTime);
+    public ForgeRecipe(String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, Optional<Ingredient> fuel, int cookTime, int fuelTier) {
+        super(group, category, output, recipeItems, fuel, cookTime, fuelTier);
         this.output = output;
         this.recipeItems = recipeItems;
         this.cookTime = cookTime;
@@ -86,9 +86,10 @@ public class ForgeRecipe extends AbstractForgeRecipe {
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
                 Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(recipe -> recipe.recipeItems),
                 Ingredient.CODEC_NONEMPTY.optionalFieldOf("fuel").forGetter(ForgeRecipe::getFuel),
-                Codec.INT.optionalFieldOf("cooktime", 200).forGetter(ForgeRecipe::getCookTime)
-        ).apply(instance, (group, category, result, ingredients, fuel, cookTime) ->
-                new ForgeRecipe(group, category, result, NonNullList.copyOf(ingredients), fuel, cookTime)));
+                Codec.INT.optionalFieldOf("cooktime", 200).forGetter(ForgeRecipe::getCookTime),
+                Codec.INT.optionalFieldOf("fuel_tier", 0).forGetter(ForgeRecipe::getFuelTier)
+        ).apply(instance, (group, category, result, ingredients, fuel, cookTime, fuelTier) ->
+                new ForgeRecipe(group, category, result, NonNullList.copyOf(ingredients), fuel, cookTime, fuelTier)));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, ForgeRecipe> STREAM_CODEC = StreamCodec.of(
                 (buf, recipe) -> {
@@ -101,6 +102,7 @@ public class ForgeRecipe extends AbstractForgeRecipe {
                     }
                     FUEL_STREAM_CODEC.encode(buf, recipe.getFuel());
                     buf.writeVarInt(recipe.cookTime);
+                    buf.writeVarInt(recipe.getFuelTier());
                 },
                 buf -> {
                     String group = buf.readUtf();
@@ -113,7 +115,8 @@ public class ForgeRecipe extends AbstractForgeRecipe {
                     }
                     Optional<Ingredient> fuel = FUEL_STREAM_CODEC.decode(buf);
                     int cookTime = buf.readVarInt();
-                    return new ForgeRecipe(group, category, output, ingredients, fuel, cookTime);
+                    int fuelTier = buf.readVarInt();
+                    return new ForgeRecipe(group, category, output, ingredients, fuel, cookTime, fuelTier);
                 }
         );
 

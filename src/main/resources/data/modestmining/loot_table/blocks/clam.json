@@ -24,14 +24,16 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
+                    "predicates": {
+                      "minecraft:enchantments": [
+                        {
+                          "enchantments": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 }
               ]
@@ -43,7 +45,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "tag": "modestmining:tools/chisels"
+                    "items": "#c:tools/chisels"
                   }
                 }
               ]
@@ -68,14 +70,16 @@
           "term": {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "enchantments": [
-                {
-                  "enchantment": "minecraft:silk_touch",
-                  "levels": {
-                    "min": 1
+              "predicates": {
+                "minecraft:enchantments": [
+                  {
+                    "enchantments": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
                   }
-                }
-              ]
+                ]
+              }
             }
           }
         }
@@ -97,5 +101,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "modestmining:blocks/clam"
 }

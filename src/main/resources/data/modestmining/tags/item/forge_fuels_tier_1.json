@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "modestmining:coke",
+    "modestmining:coke_chunk",
+    "modestmining:coke_block",
+    "minecraft:blaze_powder"
+  ]
+}

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(LocalPlayer.class)
 public class LocalPlayerMixin {
 
-    @Redirect(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z"), remap = false)
+    @Redirect(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z"))
     private boolean modestmining$isUsingItemAiStep(LocalPlayer player) {
         if (player.isUsingItem()) {
             Item item = player.getUseItem().getItem();

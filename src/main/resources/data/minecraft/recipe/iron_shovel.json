@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_steel_replaces_iron"
+    }
+  ],
   "type": "modestmining:forging_shaped",
   "category": "equipment",
   "cooktime": 144,
@@ -15,9 +21,6 @@
     "X",
     "X"
   ],
-  "fuel": {
-    "item": "modestmining:coke"
-  },
   "result": {
     "id": "minecraft:iron_shovel"
   }

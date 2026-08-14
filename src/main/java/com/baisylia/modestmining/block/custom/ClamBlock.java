@@ -29,6 +29,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
+
 import javax.annotation.Nullable;
 
 public class ClamBlock extends Block implements SimpleWaterloggedBlock {
@@ -136,30 +138,43 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
             Direction facing = state.getValue(FACING);
             BlockPos mainPos = getMainPos(pos, part, facing);
 
-            for (ClamPart p : ClamPart.values()) {
-                BlockPos partPos = getPosForPart(mainPos, p, facing);
-                if (!partPos.equals(pos) && !partPos.equals(mainPos)) {
-                    BlockState targetState = level.getBlockState(partPos);
-                    if (targetState.is(this)) {
-                        boolean isWater = targetState.getValue(WATERLOGGED);
-                        level.setBlock(partPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+            if (player.isCreative()) {
+                for (ClamPart p : ClamPart.values()) {
+                    BlockPos partPos = getPosForPart(mainPos, p, facing);
+                    if (!partPos.equals(pos)) {
+                        BlockState targetState = level.getBlockState(partPos);
+                        if (targetState.is(this)) {
+                            boolean isWater = targetState.getValue(WATERLOGGED);
+                            level.setBlock(partPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                            level.levelEvent(player, 2001, partPos, Block.getId(targetState));
+                        }
                     }
                 }
-            }
-
-            if (!pos.equals(mainPos)) {
+            } else {
                 BlockState mainState = level.getBlockState(mainPos);
-                if (mainState.is(this)) {
-                    if (!player.isCreative()) {
-                        level.destroyBlock(mainPos, true, player);
-                    } else {
-                        boolean isWater = mainState.getValue(WATERLOGGED);
-                        level.setBlock(mainPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                if (!mainState.is(this)) {
+                    mainState = state.setValue(PART, ClamPart.TOP_LEFT);
+                }
+                dropResources(mainState, level, mainPos, null, player, player.getMainHandItem());
+
+                for (ClamPart p : ClamPart.values()) {
+                    BlockPos partPos = getPosForPart(mainPos, p, facing);
+                    if (!partPos.equals(pos)) {
+                        BlockState targetState = level.getBlockState(partPos);
+                        if (targetState.is(this)) {
+                            boolean isWater = targetState.getValue(WATERLOGGED);
+                            level.setBlock(partPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                        }
                     }
                 }
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
     }
 
     @Override

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "modestmining:rose_gold_ingot"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "modestmining:rose_gold_block"
+  }
+}

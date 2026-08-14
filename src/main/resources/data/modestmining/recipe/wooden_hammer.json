@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_flint_replaces_wood"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "FXF",

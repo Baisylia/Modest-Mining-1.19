@@ -3,6 +3,7 @@ package com.baisylia.modestmining.integration.jei;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -84,7 +85,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
 
     @Override
     public void draw(AbstractForgeRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        if (recipe.getFuel().isEmpty()) {
+        if (recipe.getFuel().isEmpty() && recipe.getFuelTier() <= 0) {
             animatedFlame.draw(guiGraphics, 66, 23);
         }
         IDrawableAnimated arrow = getArrow(recipe);
@@ -146,5 +147,13 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
                 .setStandardSlotBackground()
                 .addIngredients(fuel));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 6).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        if (recipe.getFuelTier() > 0) {
+            List<ItemStack> fuels = ForgeFuelManager.getFuelsForTier(recipe.getFuelTier());
+            if (!fuels.isEmpty()) {
+                builder.addSlot(RecipeIngredientRole.CATALYST, 65, 23)
+                        .setStandardSlotBackground()
+                        .addItemStacks(fuels);
+            }
+        }
     }
 }

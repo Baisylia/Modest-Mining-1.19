@@ -1,6 +1,7 @@
 package com.baisylia.modestmining.integration.emi;
 
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -25,12 +26,20 @@ public class ForgingEmiRecipe implements EmiRecipe {
     protected final EmiIngredient fuel;
     protected final EmiStack output;
     protected final int cookTime;
+    protected final int fuelTier;
     protected final boolean shapeless;
 
     public ForgingEmiRecipe(ResourceLocation id, AbstractForgeRecipe recipe) {
         this.id = id;
         this.input = padIngredients(recipe);
-        this.fuel = recipe.getFuel().<EmiIngredient>map(EmiIngredient::of).orElse(EmiStack.EMPTY);
+        this.fuelTier = recipe.getFuelTier();
+        if (this.fuelTier > 0) {
+            List<ItemStack> fuels = ForgeFuelManager.getFuelsForTier(this.fuelTier);
+            List<EmiStack> fuelStacks = fuels.stream().map(EmiStack::of).toList();
+            this.fuel = fuelStacks.isEmpty() ? EmiStack.EMPTY : EmiIngredient.of(fuelStacks);
+        } else {
+            this.fuel = recipe.getFuel().map(EmiIngredient::of).orElse(EmiStack.EMPTY);
+        }
         this.output = EmiStack.of(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
         this.cookTime = recipe.getCookTime();
         this.shapeless = !(recipe instanceof ForgeShapedRecipe);
@@ -128,11 +137,17 @@ public class ForgingEmiRecipe implements EmiRecipe {
         if (this.fuel.isEmpty()) {
             widgets.addTexture(EmiTexture.EMPTY_FLAME, 64, 39);
             widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 64, 39, 6000, false, true, true);
+        } else if (this.fuelTier > 0) {
+            widgets.addSlot(this.fuel, 63, 36).appendTooltip(getFuelTooltip());
         } else {
             widgets.addSlot(this.fuel, 63, 36);
         }
 
         widgets.addSlot(this.output, 92, 14).large(true).recipeContext(this);
+    }
+
+    private Component getFuelTooltip() {
+        return Component.translatable("emi.modestmining.fuel.tier", this.fuelTier);
     }
 
     public boolean canFit(int width, int height) {

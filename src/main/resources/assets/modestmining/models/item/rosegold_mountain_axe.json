@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "modestmining:item/rosegold_mountain_axe"
-  }
-}

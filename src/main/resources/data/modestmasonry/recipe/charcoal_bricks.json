@@ -21,9 +21,6 @@
       "item": "minecraft:charcoal"
     }
   ],
-  "fuel": {
-    "item": "minecraft:coal"
-  },
   "result": {
     "count": 1,
     "id": "modestmasonry:charcoal_bricks"

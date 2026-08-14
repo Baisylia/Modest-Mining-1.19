@@ -129,9 +129,6 @@ dependencies {
     // Farmer's Delight
     compileOnly "maven.modrinth:farmers-delight:${farmers_delight_version}"
     runtimeOnly "maven.modrinth:farmers-delight:${farmers_delight_version}"
-
-    compileOnly "org.spongepowered:mixin:${mixin_version}"
-    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 }
 
 tasks.withType(JavaCompile).configureEach {

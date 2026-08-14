@@ -18,9 +18,6 @@
     "X",
     "B"
   ],
-  "fuel": {
-    "item": "modestmining:coke"
-  },
   "result": {
     "id": "modestmining:chisel"
   }

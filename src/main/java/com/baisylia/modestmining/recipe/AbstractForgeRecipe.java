@@ -25,14 +25,16 @@ public abstract class AbstractForgeRecipe implements Recipe<ForgeBlockEntity.Sin
     private final NonNullList<Ingredient> recipeItems;
     private final Optional<Ingredient> fuel;
     private final int cookTime;
+    private final int fuelTier;
 
-    public AbstractForgeRecipe(String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, Optional<Ingredient> fuel, int cookTime) {
+    public AbstractForgeRecipe(String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, Optional<Ingredient> fuel, int cookTime, int fuelTier) {
         this.group = group;
         this.category = category;
         this.output = output;
         this.recipeItems = recipeItems;
         this.fuel = fuel;
         this.cookTime = cookTime;
+        this.fuelTier = Math.max(0, fuelTier);
     }
 
     @Override
@@ -50,6 +52,10 @@ public abstract class AbstractForgeRecipe implements Recipe<ForgeBlockEntity.Sin
 
     public Optional<Ingredient> getFuel() {
         return this.fuel;
+    }
+
+    public int getFuelTier() {
+        return this.fuelTier;
     }
 
     @Override

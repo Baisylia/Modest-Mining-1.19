@@ -3,6 +3,7 @@ package com.baisylia.modestmining.block.entity.custom;
 import com.baisylia.modestmining.block.custom.ForgeBlock;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeMenu;
 import net.minecraft.core.BlockPos;
@@ -22,11 +23,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,6 +46,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
     private int maxProgress = 72;
     private int litTime = 0;
     private int fuelAmount = 0;
+    private int currentFuelTier = 0;
     private ItemStack activeFuel = ItemStack.EMPTY;
     private AbstractForgeRecipe currentRecipe = null;
     private final ItemStackHandler itemHandler = new ItemStackHandler(11) {
@@ -70,6 +68,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
                     case 1 -> ForgeBlockEntity.this.maxProgress;
                     case 2 -> ForgeBlockEntity.this.litTime;
                     case 3 -> ForgeBlockEntity.this.fuelAmount;
+                    case 4 -> ForgeBlockEntity.this.currentFuelTier;
                     default -> 0;
                 };
             }
@@ -85,11 +84,17 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
                     case 2:
                         ForgeBlockEntity.this.litTime = value;
                         break;
+                    case 3:
+                        ForgeBlockEntity.this.fuelAmount = value;
+                        break;
+                    case 4:
+                        ForgeBlockEntity.this.currentFuelTier = value;
+                        break;
                 }
             }
 
             public int getCount() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -99,6 +104,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
             pBlockEntity.litTime--;
             if (pBlockEntity.litTime <= 0) {
                 pBlockEntity.activeFuel = ItemStack.EMPTY;
+                pBlockEntity.currentFuelTier = 0;
             }
         } else {
             pBlockEntity.litTime = 0;
@@ -146,7 +152,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
     }
 
     static boolean startCraftIfFueled(ForgeBlockEntity entity, BlockPos pos, Level level, AbstractForgeRecipe recipe) {
-        if (!isFueled(entity, pos, level) || !recipe.fuelMatches(entity.activeFuel)) {
+        if (!isFueled(entity, pos, level) || !recipe.fuelMatches(entity.activeFuel) || entity.currentFuelTier < recipe.getFuelTier()) {
             if (!entity.burnFuel(recipe))
                 return false;
         }
@@ -201,6 +207,25 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         level.addFreshEntity(entity);
     }
 
+    public static boolean isForgeFuel(Level level, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+        if (stack.getBurnTime(RecipeType.BLASTING) > 0 || AbstractFurnaceBlockEntity.isFuel(stack) || ForgeFuelManager.isFuel(stack)) {
+            return true;
+        }
+        if (level != null) {
+            RecipeManager recipeManager = level.getRecipeManager();
+            for (RecipeHolder<AbstractForgeRecipe> holder : recipeManager.getAllRecipesFor(ModRecipes.FORGING_TYPE.get())) {
+                Optional<Ingredient> fuelOpt = holder.value().getFuel();
+                if (fuelOpt.isPresent() && fuelOpt.get().test(stack)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public ItemStackHandler getItemHandler() {
         return itemHandler;
     }
@@ -223,6 +248,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         tag.putInt("forge.lit_time", litTime);
         tag.putInt("forge.max_progress", maxProgress);
         tag.putInt("forge.fuel_amount", fuelAmount);
+        tag.putInt("forge.fuel_tier", currentFuelTier);
         tag.put("forge.active_fuel", activeFuel.saveOptional(registries));
         super.saveAdditional(tag, registries);
     }
@@ -237,6 +263,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         litTime = nbt.getInt("forge.lit_time");
         maxProgress = nbt.getInt("forge.max_progress");
         fuelAmount = nbt.getInt("forge.fuel_amount");
+        currentFuelTier = nbt.getInt("forge.fuel_tier");
         activeFuel = ItemStack.parseOptional(registries, nbt.getCompound("forge.active_fuel"));
     }
 
@@ -254,30 +281,20 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         super.setChanged();
     }
 
-    public static boolean isForgeFuel(Level level, ItemStack stack) {
-        if (stack.isEmpty()) {
-            return false;
-        }
-        if (stack.getBurnTime(RecipeType.BLASTING) > 0 || AbstractFurnaceBlockEntity.isFuel(stack)) {
-            return true;
-        }
-        if (level != null) {
-            RecipeManager recipeManager = level.getRecipeManager();
-            for (RecipeHolder<AbstractForgeRecipe> holder : recipeManager.getAllRecipesFor(ModRecipes.FORGING_TYPE.get())) {
-                Optional<Ingredient> fuelOpt = holder.value().getFuel();
-                if (fuelOpt.isPresent() && fuelOpt.get().test(stack)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     private boolean burnFuel(AbstractForgeRecipe recipe) {
         if (!this.level.isClientSide) {
             var fuel = this.itemHandler.getStackInSlot(9).copy();
             if (recipe.fuelMatches(fuel)) {
-                int burnTime = fuel.getBurnTime(RecipeType.BLASTING);
+                ForgeFuelManager.FuelInfo info = ForgeFuelManager.getFuelInfo(fuel);
+                int tier = info != null ? info.tier() : 0;
+                if (tier < recipe.getFuelTier()) {
+                    return false;
+                }
+
+                int burnTime = info != null && info.burnTime() > 0 ? info.burnTime() : 0;
+                if (burnTime <= 0) {
+                    burnTime = fuel.getBurnTime(RecipeType.BLASTING);
+                }
                 if (burnTime <= 0) {
                     burnTime = fuel.getBurnTime(RecipeType.SMELTING);
                 }
@@ -286,6 +303,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
                 }
                 this.fuelAmount = burnTime;
                 this.litTime = burnTime;
+                this.currentFuelTier = tier;
                 this.activeFuel = fuel.copyWithCount(1);
                 if (fuel.getCount() > 1) {
                     fuel.setCount(fuel.getCount() - 1);

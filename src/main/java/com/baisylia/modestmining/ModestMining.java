@@ -11,6 +11,7 @@ import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightCompat
 import com.baisylia.modestmining.item.ModArmourMaterials;
 import com.baisylia.modestmining.item.ModItems;
 import com.baisylia.modestmining.loot.ModLootModifiers;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.baisylia.modestmining.recipe.ModRecipes;
 import com.baisylia.modestmining.screen.ForgeScreen;
 import com.baisylia.modestmining.screen.MillstoneScreen;
@@ -33,6 +34,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
@@ -73,6 +75,11 @@ public class ModestMining {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
+    }
+
+    @SubscribeEvent
+    public void onAddReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(ForgeFuelManager.INSTANCE);
     }
 
     @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)

@@ -4,12 +4,17 @@
   "package": "com.baisylia.modestmining.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DrownedMixin",
     "ThrownTridentMixin",
-    "TridentItemMixin"
+    "TridentItemMixin",
+    "ZombieMixin"
   ],
   "client": [
+    "client.AbstractZombieModelMixin",
     "client.DrownedModelMixin",
-    "client.LocalPlayerMixin"
+    "client.ItemInHandRendererMixin",
+    "client.LocalPlayerMixin",
+    "client.ZombieVillagerModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

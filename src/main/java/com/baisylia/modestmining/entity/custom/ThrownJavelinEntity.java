@@ -1,6 +1,9 @@
 package com.baisylia.modestmining.entity.custom;
 
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -11,10 +14,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -55,6 +61,17 @@ public class ThrownJavelinEntity extends AbstractArrow {
 
     public boolean isFoil() {
         return this.entityData.get(DATA_FOIL);
+    }
+
+    public boolean isChanneling() {
+        ItemStack stack = this.getPickupItem();
+        if (stack.isEmpty()) {
+            return false;
+        }
+        Holder<Enchantment> channeling = this.level().registryAccess()
+                .lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(Enchantments.CHANNELING);
+        return stack.getEnchantments().getLevel(channeling) > 0;
     }
 
     @Override
@@ -137,7 +154,22 @@ public class ThrownJavelinEntity extends AbstractArrow {
         }
 
         this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01D, -0.1D, -0.01D));
-        this.playSound(soundevent, 1.0F, 1.0F);
+        float soundVolume = 1.0F;
+        if (this.level().isThundering() && this.isChanneling()) {
+            BlockPos blockpos = entity.blockPosition();
+            if (this.level().canSeeSky(blockpos)) {
+                LightningBolt lightningbolt = EntityType.LIGHTNING_BOLT.create(this.level());
+                if (lightningbolt != null) {
+                    lightningbolt.moveTo(Vec3.atBottomCenterOf(blockpos));
+                    lightningbolt.setCause(owner instanceof ServerPlayer serverPlayer ? serverPlayer : null);
+                    this.level().addFreshEntity(lightningbolt);
+                    this.playSound(SoundEvents.TRIDENT_THUNDER.value(), 5.0F, 1.0F);
+                    return;
+                }
+            }
+        }
+
+        this.playSound(soundevent, soundVolume, 1.0F);
     }
 
     @Override

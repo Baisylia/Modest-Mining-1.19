@@ -22,8 +22,8 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
     private final ItemStack output;
     private final int cookTime;
 
-    public ForgeShapedRecipe(String group, ForgingBookCategory category, ShapedRecipePattern pattern, ItemStack output, Optional<Ingredient> fuel, int cookTime) {
-        super(group, category, output, pattern.ingredients(), fuel, cookTime);
+    public ForgeShapedRecipe(String group, ForgingBookCategory category, ShapedRecipePattern pattern, ItemStack output, Optional<Ingredient> fuel, int cookTime, int fuelTier) {
+        super(group, category, output, pattern.ingredients(), fuel, cookTime, fuelTier);
         this.pattern = pattern;
         this.output = output;
         this.cookTime = cookTime;
@@ -99,7 +99,8 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
                 ShapedRecipePattern.MAP_CODEC.forGetter(ForgeShapedRecipe::getPattern),
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
                 Ingredient.CODEC_NONEMPTY.optionalFieldOf("fuel").forGetter(ForgeShapedRecipe::getFuel),
-                Codec.INT.optionalFieldOf("cooktime", 200).forGetter(ForgeShapedRecipe::getCookTime)
+                Codec.INT.optionalFieldOf("cooktime", 200).forGetter(ForgeShapedRecipe::getCookTime),
+                Codec.INT.optionalFieldOf("fuel_tier", 0).forGetter(ForgeShapedRecipe::getFuelTier)
         ).apply(instance, ForgeShapedRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, ForgeShapedRecipe> STREAM_CODEC = StreamCodec.of(
@@ -110,6 +111,7 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
                     ItemStack.STREAM_CODEC.encode(buf, recipe.output);
                     FUEL_STREAM_CODEC.encode(buf, recipe.getFuel());
                     buf.writeVarInt(recipe.cookTime);
+                    buf.writeVarInt(recipe.getFuelTier());
                 },
                 buf -> {
                     String group = buf.readUtf();
@@ -118,7 +120,8 @@ public class ForgeShapedRecipe extends AbstractForgeRecipe {
                     ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
                     Optional<Ingredient> fuel = FUEL_STREAM_CODEC.decode(buf);
                     int cookTime = buf.readVarInt();
-                    return new ForgeShapedRecipe(group, category, pattern, output, fuel, cookTime);
+                    int fuelTier = buf.readVarInt();
+                    return new ForgeShapedRecipe(group, category, pattern, output, fuel, cookTime, fuelTier);
                 }
         );
 

@@ -15,20 +15,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DrownedModel.class)
 public class DrownedModelMixin<T extends Zombie> {
 
-    @Inject(method = "prepareMobModel(Lnet/minecraft/world/entity/monster/Zombie;FFF)V", at = @At("TAIL"), remap = false)
+    @Inject(method = "prepareMobModel(Lnet/minecraft/world/entity/monster/Zombie;FFF)V", at = @At("TAIL"))
     private void modestmining$injectJavelinPose(T entity, float limbSwing, float limbSwingAmount, float partialTick, CallbackInfo ci) {
         @SuppressWarnings("unchecked")
         DrownedModel<T> model = (DrownedModel<T>) (Object) this;
 
-        if (model.rightArmPose == HumanoidModel.ArmPose.EMPTY && model.leftArmPose == HumanoidModel.ArmPose.EMPTY) {
-            ItemStack itemstack = entity.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack itemstack = entity.getItemInHand(InteractionHand.MAIN_HAND);
 
-            if (itemstack.getItem() instanceof JavelinItem && entity.isAggressive()) {
-                if (entity.getMainArm() == HumanoidArm.RIGHT) {
-                    model.rightArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
-                } else {
-                    model.leftArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
-                }
+        if (itemstack.getItem() instanceof JavelinItem && entity.isAggressive()) {
+            if (entity.getMainArm() == HumanoidArm.RIGHT) {
+                model.rightArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
+            } else {
+                model.leftArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
             }
         }
     }

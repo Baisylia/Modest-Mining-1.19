@@ -13,7 +13,7 @@
     "# #"
   ],
   "fuel": {
-    "item": "modestmining:coke"
+    "tag": "modestmining:forge_fuels_tier_1"
   },
   "result": {
     "id": "minecraft:diamond_leggings"

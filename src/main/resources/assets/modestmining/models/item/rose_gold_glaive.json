@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "neoforge:separate_transforms",
+  "textures": {
+    "layer0": "modestmining:item/rose_gold_glaive"
+  },
+  "base": {
+    "parent": "modestmining:item/rose_gold_glaive_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "modestmining:item/rose_gold_glaive_gui"
+    },
+    "fixed": {
+      "parent": "modestmining:item/rose_gold_glaive_gui"
+    }
+  }
+}

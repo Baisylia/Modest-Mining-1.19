@@ -12,9 +12,6 @@
     "###",
     "###"
   ],
-  "fuel": {
-    "item": "modestmining:coke"
-  },
   "result": {
     "id": "minecraft:golden_chestplate"
   }

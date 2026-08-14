@@ -38,7 +38,7 @@ public class ThrownJavelinRenderer extends EntityRenderer<ThrownJavelinEntity> {
                 Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot()) - 45.0F)
         );
 
-        poseStack.scale(2.0F, 2.0F, 2.0F);
+        poseStack.scale(2.0F, 2.0F, 1.0F);
 
         poseStack.translate(-0.25D, -0.25D, 0.0D);
 
