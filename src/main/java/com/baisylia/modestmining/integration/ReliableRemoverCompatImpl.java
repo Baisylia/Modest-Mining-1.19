@@ -60,21 +60,40 @@ public class ReliableRemoverCompatImpl {
         boolean modified = false;
 
         if (ModConfig.FLINT_REPLACES_WOOD.get()) {
-            modified |= addIfAbsent(blacklist, WOOD_TOOLS);
-            if (modified) ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted vanilla wooden tools.");
+            boolean changed = addIfAbsent(blacklist, WOOD_TOOLS);
+            if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted vanilla wooden tools.");
+            modified |= changed;
+        } else {
+            boolean changed = removeIfPresent(blacklist, WOOD_TOOLS);
+            if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: un-blacklisted vanilla wooden tools.");
+            modified |= changed;
         }
+
         if (ModConfig.BRONZE_REPLACES_STONE.get()) {
             boolean changed = addIfAbsent(blacklist, STONE_TOOLS);
             changed |= addIfAbsent(blacklist, MODESTMINING_STONE_TOOLS);
             if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted stone tools.");
             modified |= changed;
+        } else {
+            boolean changed = removeIfPresent(blacklist, STONE_TOOLS);
+            changed |= removeIfPresent(blacklist, MODESTMINING_STONE_TOOLS);
+            if (changed) ModestMining.LOGGER.info("Reliable Remover Integration: un-blacklisted stone tools.");
+            modified |= changed;
         }
+
         if (ModConfig.STEEL_REPLACES_IRON.get()) {
             boolean changed = addIfAbsent(blacklist, IRON_TOOLS);
             changed |= addIfAbsent(blacklist, MODESTMINING_IRON_TOOLS);
             changed |= addIfAbsent(blacklist, FARMERSDELIGHT_IRON_TOOLS);
             if (changed)
                 ModestMining.LOGGER.info("Reliable Remover Integration: blacklisted iron tools and armour.");
+            modified |= changed;
+        } else {
+            boolean changed = removeIfPresent(blacklist, IRON_TOOLS);
+            changed |= removeIfPresent(blacklist, MODESTMINING_IRON_TOOLS);
+            changed |= removeIfPresent(blacklist, FARMERSDELIGHT_IRON_TOOLS);
+            if (changed)
+                ModestMining.LOGGER.info("Reliable Remover Integration: un-blacklisted iron tools and armour.");
             modified |= changed;
         }
 
@@ -94,5 +113,9 @@ public class ReliableRemoverCompatImpl {
             }
         }
         return changed;
+    }
+
+    private static boolean removeIfPresent(List<String> list, List<String> toRemove) {
+        return list.removeAll(toRemove);
     }
 }
