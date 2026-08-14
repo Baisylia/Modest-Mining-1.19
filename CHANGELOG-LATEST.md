@@ -1,3 +1,3 @@
 ### Fixed
 
-- Fixed spyglass recipe condition.
+- Reworked enchantment logic to be more mod compatible.
