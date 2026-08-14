@@ -1,8 +1,10 @@
 package com.baisylia.modestmining.item.custom.weapons;
 
+import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -10,7 +12,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -35,23 +36,28 @@ public class JavelinItem extends Item implements Vanishable {
 
     private final Tier tier;
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    private final float throwDamage;
+    private final float attackDamage;
 
     public JavelinItem(Tier tier, float attackDamage, float attackSpeed, float reach, Properties properties) {
         super(properties);
         this.tier = tier;
-        this.throwDamage = (attackDamage + tier.getAttackDamageBonus()) * 1.5F;
+        this.attackDamage = attackDamage + tier.getAttackDamageBonus();
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
         builder.put(ForgeMod.ATTACK_RANGE.get(), new AttributeModifier(ATTACK_RANGE_MODIFIER, "Weapon modifier", reach, AttributeModifier.Operation.ADDITION));
 
         this.defaultModifiers = builder.build();
     }
 
+    public float getAttackDamage() {
+        return 1.0F + this.attackDamage;
+    }
+
     public float getThrowDamage() {
-        return this.throwDamage;
+        double multiplier = ModConfig.SPEC.isLoaded() ? ModConfig.JAVELIN_RANGED_DAMAGE_MULTIPLIER.get() : 1.0D;
+        return (float) (this.getAttackDamage() * multiplier);
     }
 
     @Override
@@ -68,11 +74,13 @@ public class JavelinItem extends Item implements Vanishable {
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             @Override
-            public boolean applyForgeHandTransform(com.mojang.blaze3d.vertex.PoseStack poseStack, net.minecraft.client.player.LocalPlayer player,
-                                                   HumanoidArm arm, ItemStack itemInHand, float partialTicks, float equippedProgress, float swingProgress) {
-                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-                poseStack.translate(i * 0.56F, -0.52F + equippedProgress * -0.6F, -0.72F);
-                return true;
+            public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+                if (!itemStack.isEmpty()) {
+                    if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
+                        return HumanoidModel.ArmPose.THROW_SPEAR;
+                    }
+                }
+                return HumanoidModel.ArmPose.EMPTY;
             }
         });
     }
@@ -131,8 +139,8 @@ public class JavelinItem extends Item implements Vanishable {
                         p_43388_.broadcastBreakEvent(pEntityLiving.getUsedItemHand());
                     });
                     ThrownJavelinEntity javelin = new ThrownJavelinEntity(pLevel, player, pStack);
-                    javelin.setBaseDamage(this.throwDamage);
-                    if (player.fallDistance > 1.0F || player.isSprinting()) {
+                    javelin.setBaseDamage(this.getThrowDamage());
+                    if ((player.fallDistance > 0.0F && !player.isOnGround()) || player.isSprinting()) {
                         javelin.setCritArrow(true);
                     }
                     javelin.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);

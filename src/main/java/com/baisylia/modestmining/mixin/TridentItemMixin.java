@@ -21,9 +21,9 @@ public class TridentItemMixin {
     )
     private Entity modestmining$applyTridentCrit(Entity entity) {
         if (entity instanceof ThrownTrident thrownTrident) {
-            if (ModConfig.SPEC.isLoaded() && ModConfig.ENHANCED_TRIDENTS.get()) {
+            if (!ModConfig.SPEC.isLoaded() || ModConfig.ENHANCED_TRIDENTS.get()) {
                 if (thrownTrident.getOwner() instanceof Player player) {
-                    if (player.fallDistance > 1.0F || player.isSprinting()) {
+                    if ((player.fallDistance > 0.0F && !player.isOnGround()) || player.isSprinting()) {
                         thrownTrident.setCritArrow(true);
                     }
                 }

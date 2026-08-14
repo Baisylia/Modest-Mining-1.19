@@ -20,15 +20,13 @@ public class DrownedModelMixin<T extends Zombie> {
         @SuppressWarnings("unchecked")
         DrownedModel<T> model = (DrownedModel<T>) (Object) this;
 
-        if (model.rightArmPose == HumanoidModel.ArmPose.EMPTY && model.leftArmPose == HumanoidModel.ArmPose.EMPTY) {
-            ItemStack itemstack = entity.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack itemstack = entity.getItemInHand(InteractionHand.MAIN_HAND);
 
-            if (itemstack.getItem() instanceof JavelinItem && entity.isAggressive()) {
-                if (entity.getMainArm() == HumanoidArm.RIGHT) {
-                    model.rightArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
-                } else {
-                    model.leftArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
-                }
+        if (itemstack.getItem() instanceof JavelinItem && entity.isAggressive()) {
+            if (entity.getMainArm() == HumanoidArm.RIGHT) {
+                model.rightArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
+            } else {
+                model.leftArmPose = HumanoidModel.ArmPose.THROW_SPEAR;
             }
         }
     }
