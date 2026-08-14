@@ -1,6 +1,9 @@
 package com.baisylia.modestmining.entity.custom;
 
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import com.baisylia.modestmining.item.ModTiers;
+import com.baisylia.modestmining.item.custom.weapons.JavelinItem;
+import com.baisylia.modestmining.sounds.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,6 +20,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -94,7 +99,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
                 double d0 = 0.05D * (double) loyaltyLevel;
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.95D).add(vec3.normalize().scale(d0)));
                 if (this.clientSideReturnTridentTickCount == 0) {
-                    this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
+                    this.playSound(ModSounds.JAVELIN_RETURN.get(), 10.0F, 1.0F);
                 }
 
                 ++this.clientSideReturnTridentTickCount;
@@ -133,7 +138,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
         Entity owner = this.getOwner();
         DamageSource damagesource = DamageSource.trident(this, owner == null ? this : owner);
         this.dealtDamage = true;
-        SoundEvent soundevent = SoundEvents.TRIDENT_HIT;
+        SoundEvent soundevent = this.isCritArrow() ? ModSounds.CRITICAL_PIERCE.get() : ModSounds.JAVELIN_HIT.get();
         if (entity.hurt(damagesource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
@@ -173,9 +178,21 @@ public class ThrownJavelinEntity extends AbstractArrow {
         return super.tryPickup(pPlayer) || (this.isNoPhysics() && this.ownedBy(pPlayer) && pPlayer.getInventory().add(this.getPickupItem()));
     }
 
+    public boolean isCrude() {
+        ItemStack stack = this.getPickupItem();
+        if (!stack.isEmpty() && stack.getItem() instanceof JavelinItem javelin) {
+            Tier tier = javelin.getTier();
+            return tier == Tiers.WOOD || tier == Tiers.STONE;
+        }
+        return false;
+    }
+
     @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return SoundEvents.TRIDENT_HIT_GROUND;
+        if (this.isCrude()) {
+            return ModSounds.JAVELIN_HIT_GROUND_CRUDE.get();
+        }
+        return ModSounds.JAVELIN_HIT_GROUND.get();
     }
 
     @Override
@@ -210,5 +227,14 @@ public class ThrownJavelinEntity extends AbstractArrow {
             this.entityData.set(DATA_FOIL, this.javelinStack.hasFoil());
         }
         this.dealtDamage = tag.getBoolean("DealtDamage");
+    }
+
+    @Override
+    protected float getWaterInertia() {
+        ItemStack stack = this.getPickupItem();
+        if (!stack.isEmpty() && stack.getItem() instanceof JavelinItem javelin && javelin.getTier() == ModTiers.PRISMARITE) {
+            return 0.99F;
+        }
+        return super.getWaterInertia();
     }
 }

@@ -3,6 +3,7 @@ package com.baisylia.modestmining.item.custom.weapons;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
 import com.baisylia.modestmining.item.ModTiers;
+import com.baisylia.modestmining.sounds.ModSounds;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.HumanoidModel;
@@ -55,6 +56,10 @@ public class JavelinItem extends Item implements Vanishable {
         builder.put(ForgeMod.ATTACK_RANGE.get(), new AttributeModifier(ATTACK_RANGE_MODIFIER, "Weapon modifier", reach, AttributeModifier.Operation.ADDITION));
 
         this.defaultModifiers = builder.build();
+    }
+
+    public Tier getTier() {
+        return this.tier;
     }
 
     public float getAttackDamage() {
@@ -161,7 +166,10 @@ public class JavelinItem extends Item implements Vanishable {
                                 javelin.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                             }
                             pLevel.addFreshEntity(javelin);
-                            pLevel.playSound(null, javelin, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+                            SoundEvent throwSound = (this.tier == Tiers.WOOD || this.tier == Tiers.STONE)
+                                    ? ModSounds.JAVELIN_THROW_CRUDE.get()
+                                    : ModSounds.JAVELIN_THROW.get();
+                            pLevel.playSound(null, javelin, throwSound, SoundSource.PLAYERS, 1.0F, 1.0F);
                             if (!player.getAbilities().instabuild) {
                                 player.getInventory().removeItem(pStack);
                             }

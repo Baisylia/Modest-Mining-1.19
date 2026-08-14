@@ -3,6 +3,8 @@ package com.baisylia.modestmining.entity.ai;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
 import com.baisylia.modestmining.item.custom.weapons.JavelinItem;
+import com.baisylia.modestmining.sounds.ModSounds;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +15,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TridentItem;
 
 import javax.annotation.Nullable;
@@ -138,7 +141,10 @@ public class JavelinAttackGoal extends Goal {
             double dz = target.getZ() - this.mob.getZ();
             double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
             javelin.shoot(dx, dy + horizontalDistance * (double) 0.2F, dz, 1.6F, (float) (14 - this.mob.getLevel().getDifficulty().getId() * 4));
-            this.mob.playSound(SoundEvents.TRIDENT_THROW, 1.0F, 1.0F / (this.mob.getRandom().nextFloat() * 0.4F + 0.8F));
+            SoundEvent throwSound = (javelinItem.getTier() == Tiers.WOOD || javelinItem.getTier() == Tiers.STONE)
+                    ? ModSounds.JAVELIN_THROW_CRUDE.get()
+                    : ModSounds.JAVELIN_THROW.get();
+            this.mob.playSound(throwSound, 1.0F, 1.0F / (this.mob.getRandom().nextFloat() * 0.4F + 0.8F));
             this.mob.getLevel().addFreshEntity(javelin);
         } else if (heldStack.is(Items.TRIDENT) || heldStack.getItem() instanceof TridentItem) {
             if (ModConfig.SPEC.isLoaded() && !ModConfig.ZOMBIES_THROW_TRIDENTS.get()) {

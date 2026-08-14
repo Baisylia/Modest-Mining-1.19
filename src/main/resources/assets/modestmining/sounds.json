@@ -7,5 +7,65 @@
         "type": "event"
       }
     ]
+  },
+  "item.javelin.throw": {
+    "subtitle": "modestmining.subtitles.item.javelin.throw",
+    "sounds": [
+      {
+        "name": "item.trident.throw",
+        "type": "event"
+      }
+    ]
+  },
+  "item.javelin.throw_crude": {
+    "subtitle": "modestmining.subtitles.item.javelin.throw",
+    "sounds": [
+      "modestmining:crude_throw1",
+      "modestmining:crude_throw2"
+    ]
+  },
+  "item.javelin.hit_ground": {
+    "subtitle": "modestmining.subtitles.item.javelin.hit_ground",
+    "sounds": [
+      {
+        "name": "item.trident.hit_ground",
+        "type": "event"
+      }
+    ]
+  },
+  "item.javelin.hit_ground_crude": {
+    "subtitle": "modestmining.subtitles.item.javelin.hit_ground",
+    "sounds": [
+      "modestmining:crude_impact1",
+      "modestmining:crude_impact2",
+      "modestmining:crude_impact3",
+      "modestmining:crude_impact4"
+    ]
+  },
+  "item.javelin.hit": {
+    "subtitle": "modestmining.subtitles.item.javelin.hit",
+    "sounds": [
+      {
+        "name": "item.trident.hit",
+        "type": "event"
+      }
+    ]
+  },
+  "item.javelin.return": {
+    "subtitle": "modestmining.subtitles.item.javelin.return",
+    "sounds": [
+      {
+        "name": "item.trident.return",
+        "type": "event"
+      }
+    ]
+  },
+  "item.critical_pierce": {
+    "subtitle": "modestmining.subtitles.item.critical_pierce",
+    "sounds": [
+      "modestmining:critical_pierce1",
+      "modestmining:critical_pierce2",
+      "modestmining:critical_pierce3"
+    ]
   }
 }

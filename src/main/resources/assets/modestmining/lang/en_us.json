@@ -411,6 +411,11 @@
   "tooltip.modestmining.millstone.powered": "Powered",
   "tooltip.modestmining.millstone.not_powered": "Not Powered",
   "modestmining.subtitles.forge.crackle": "Forge crackles",
+  "modestmining.subtitles.item.javelin.throw": "Javelin shoots",
+  "modestmining.subtitles.item.javelin.hit_ground": "Javelin sticks",
+  "modestmining.subtitles.item.javelin.hit": "Javelin stabs",
+  "modestmining.subtitles.item.javelin.return": "Javelin returns",
+  "modestmining.subtitles.item.critical_pierce": "Critical pierce",
   "gui.recipe_book.toggle_recipes.forgeable": "Toggle Forgeable",
   "gui.recipe_book.toggle_recipes.millable": "Toggle Millable",
 
