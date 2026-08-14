@@ -6,11 +6,21 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ThrownTrident.class)
 public class ThrownTridentMixin {
+
+    @ModifyConstant(method = "onHitEntity", constant = @Constant(floatValue = 8.0F))
+    private float modestmining$setThrownTridentBaseDamage(float original) {
+        if (ModConfig.SPEC.isLoaded()) {
+            return ModConfig.THROWN_TRIDENT_BASE_DAMAGE.get().floatValue();
+        }
+        return original;
+    }
 
     @ModifyVariable(method = "onHitEntity", at = @At(value = "STORE", ordinal = 0), ordinal = 0)
     private float modestmining$applyTridentCritDamage(float f) {

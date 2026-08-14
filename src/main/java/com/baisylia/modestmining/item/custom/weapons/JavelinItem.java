@@ -34,6 +34,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.Collection;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -66,9 +67,34 @@ public class JavelinItem extends Item implements Vanishable {
         return 1.0F + this.attackDamage;
     }
 
-    public float getThrowDamage() {
+    public float getAttackDamage(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return this.getAttackDamage();
+        }
+        Multimap<Attribute, AttributeModifier> modifiers = stack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+        Collection<AttributeModifier> damageModifiers = modifiers.get(Attributes.ATTACK_DAMAGE);
+        if (damageModifiers.isEmpty()) {
+            return this.getAttackDamage();
+        }
+        double base = 1.0D;
+        double addValue = 0.0D;
+        double multBase = 0.0D;
+        double multTotal = 1.0D;
+
+        for (AttributeModifier modifier : damageModifiers) {
+            switch (modifier.getOperation()) {
+                case ADDITION -> addValue += modifier.getAmount();
+                case MULTIPLY_BASE -> multBase += modifier.getAmount();
+                case MULTIPLY_TOTAL -> multTotal *= (1.0D + modifier.getAmount());
+            }
+        }
+        double total = (base + addValue) * (1.0D + multBase) * multTotal;
+        return (float) total;
+    }
+
+    public float getThrowDamage(ItemStack stack) {
         double multiplier = ModConfig.SPEC.isLoaded() ? ModConfig.JAVELIN_RANGED_DAMAGE_MULTIPLIER.get() : 1.0D;
-        return (float) (this.getAttackDamage() * multiplier);
+        return (float) (this.getAttackDamage(stack) * multiplier);
     }
 
     @Override
@@ -157,7 +183,7 @@ public class JavelinItem extends Item implements Vanishable {
                         });
                         if (riptideLevel == 0) {
                             ThrownJavelinEntity javelin = new ThrownJavelinEntity(pLevel, player, pStack);
-                            javelin.setBaseDamage(this.getThrowDamage());
+                            javelin.setBaseDamage(this.getThrowDamage(pStack));
                             if ((player.fallDistance > 0.0F && !player.isOnGround()) || player.isSprinting()) {
                                 javelin.setCritArrow(true);
                             }

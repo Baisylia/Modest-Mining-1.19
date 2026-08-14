@@ -65,6 +65,7 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue REMOVE_JAVELIN_SLOWDOWN;
     public static final ForgeConfigSpec.BooleanValue ENHANCED_TRIDENTS;
     public static final ForgeConfigSpec.DoubleValue JAVELIN_RANGED_DAMAGE_MULTIPLIER;
+    public static final ForgeConfigSpec.DoubleValue THROWN_TRIDENT_BASE_DAMAGE;
 
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
@@ -125,6 +126,7 @@ public class ModConfig {
         REMOVE_JAVELIN_SLOWDOWN = BUILDER.comment("Remove the charging movement slowdown and allow sprinting while aiming a javelin.").define("remove_javelin_slowdown", true);
         ENHANCED_TRIDENTS = BUILDER.comment("Remove the charging movement slowdown and allow tridents to deal critical damage when sprint-thrown or thrown while falling (matching javelins).").define("enhanced_tridents", false);
         JAVELIN_RANGED_DAMAGE_MULTIPLIER = BUILDER.comment("Multiplier applied to javelin melee attack damage to determine ranged throw damage (1.0 = equal to melee damage).").defineInRange("javelin_ranged_damage_multiplier", 1.0D, 0.0D, 10.0D);
+        THROWN_TRIDENT_BASE_DAMAGE = BUILDER.comment("Base damage dealt by thrown tridents (vanilla default is 8.0).").defineInRange("thrown_trident_base_damage", 8.0D, 0.0D, 100.0D);
         BUILDER.pop();
 
         SPEC = BUILDER.build();

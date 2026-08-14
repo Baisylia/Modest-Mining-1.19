@@ -135,7 +135,7 @@ public class JavelinAttackGoal extends Goal {
                 return;
             }
             ThrownJavelinEntity javelin = new ThrownJavelinEntity(this.mob.getLevel(), this.mob, heldStack.copy());
-            javelin.setBaseDamage(javelinItem.getThrowDamage());
+            javelin.setBaseDamage(javelinItem.getThrowDamage(heldStack));
             double dx = target.getX() - this.mob.getX();
             double dy = target.getY(0.3333333333333333D) - javelin.getY();
             double dz = target.getZ() - this.mob.getZ();
