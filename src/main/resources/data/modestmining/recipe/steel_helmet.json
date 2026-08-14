@@ -1,14 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SSS",
-    "S S",
-    "   "
-  ],
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
   "key": {
-    "S": {
+    "#": {
       "item": "modestmining:steel_ingot"
     }
+  },
+  "pattern": [
+    "###",
+    "# #"
+  ],
+  "fuel": {
+    "tag": "modestmining:forge_fuels_tier_1"
   },
   "result": {
     "id": "modestmining:steel_helmet"

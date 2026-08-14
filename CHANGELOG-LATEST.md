@@ -1,3 +1,3 @@
-### Fixed
+### Changed
 
-- Reworked enchantment logic to be more mod compatible.
+- Reworked steel/bronze equipment recipes.

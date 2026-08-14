@@ -1,17 +1,22 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "SS",
-    "S#",
-    " #"
-  ],
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
   "key": {
-    "#": {
+    "X": {
       "item": "minecraft:stick"
     },
-    "S": {
+    "#": {
       "item": "modestmining:steel_ingot"
     }
+  },
+  "pattern": [
+    "##",
+    "#X",
+    " X"
+  ],
+  "fuel": {
+    "tag": "modestmining:forge_fuels_tier_1"
   },
   "result": {
     "id": "modestmining:steel_axe"
