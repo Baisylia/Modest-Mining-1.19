@@ -69,7 +69,13 @@ public class ClientConfigScreen {
                 .option(createBoolOption("generate_copper_screw_loot", true, ModConfig.GENERATE_COPPER_SCREW_LOOT, ModConfig.GENERATE_COPPER_SCREW_LOOT::set))
                 .option(createDoubleOption("copper_screw_loot_chance", 0.07, 0.0, 1.0, 0.01, ModConfig.COPPER_SCREW_LOOT_CHANCE, ModConfig.COPPER_SCREW_LOOT_CHANCE::set));
 
-        return builder.category(replacements.build()).category(oreGen.build()).category(loot.build()).build().generateScreen(parent);
+        ConfigCategory.Builder weapons = ConfigCategory.createBuilder()
+                .name(Component.translatable("config.modestmining.category.weapons"))
+                .option(createBoolOption("drowned_spawn_with_javelins", true, ModConfig.DROWNED_SPAWN_WITH_JAVELINS, ModConfig.DROWNED_SPAWN_WITH_JAVELINS::set))
+                .option(createBoolOption("remove_javelin_slowdown", true, ModConfig.REMOVE_JAVELIN_SLOWDOWN, ModConfig.REMOVE_JAVELIN_SLOWDOWN::set))
+                .option(createBoolOption("enhanced_tridents", false, ModConfig.ENHANCED_TRIDENTS, ModConfig.ENHANCED_TRIDENTS::set));
+
+        return builder.category(replacements.build()).category(oreGen.build()).category(loot.build()).category(weapons.build()).build().generateScreen(parent);
     }
 
     private static Option<Boolean> createBoolOption(String name, boolean defaultValue, Supplier<Boolean> getter, Consumer<Boolean> setter) {

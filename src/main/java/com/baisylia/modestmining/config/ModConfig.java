@@ -61,6 +61,10 @@ public class ModConfig {
     public static final ModConfigSpec.BooleanValue GENERATE_COPPER_SCREW_LOOT;
     public static final ModConfigSpec.DoubleValue COPPER_SCREW_LOOT_CHANCE;
 
+    public static final ModConfigSpec.BooleanValue DROWNED_SPAWN_WITH_JAVELINS;
+    public static final ModConfigSpec.BooleanValue REMOVE_JAVELIN_SLOWDOWN;
+    public static final ModConfigSpec.BooleanValue ENHANCED_TRIDENTS;
+
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
     static {
@@ -119,6 +123,12 @@ public class ModConfig {
 
         BUILDER.pop();
 
+        BUILDER.push("weapons");
+        DROWNED_SPAWN_WITH_JAVELINS = BUILDER.comment("Allow drowned to spawn holding javelins.").define("drowned_spawn_with_javelins", true);
+        REMOVE_JAVELIN_SLOWDOWN = BUILDER.comment("Remove the charging movement slowdown and allow sprinting while aiming a javelin.").define("remove_javelin_slowdown", true);
+        ENHANCED_TRIDENTS = BUILDER.comment("Remove the charging movement slowdown and allow tridents to deal critical damage when sprint-thrown or thrown while falling (matching javelins).").define("enhanced_tridents", false);
+        BUILDER.pop();
+
         SPEC = BUILDER.build();
 
         registerCondition("flint_replaces_wood", FLINT_REPLACES_WOOD);
@@ -164,6 +174,10 @@ public class ModConfig {
         registerCondition("generate_meteorite", GENERATE_METEORITE);
 
         registerCondition("generate_copper_screw_loot", GENERATE_COPPER_SCREW_LOOT);
+
+        registerCondition("drowned_spawn_with_javelins", DROWNED_SPAWN_WITH_JAVELINS);
+        registerCondition("remove_javelin_slowdown", REMOVE_JAVELIN_SLOWDOWN);
+        registerCondition("enhanced_tridents", ENHANCED_TRIDENTS);
     }
 
     private static void registerCondition(String featureName, ModConfigSpec.BooleanValue configValue) {

@@ -495,5 +495,13 @@
   "config.modestmining.option.copper_screw_loot_chance": "Copper Screw Loot Chance",
   "config.modestmining.option.copper_screw_loot_chance.tooltip": "Chance for Copper Screws to be found in archaeology loot (0.0 to 1.0).",
 
+  "config.modestmining.category.weapons": "Weapons",
+  "config.modestmining.option.drowned_spawn_with_javelins": "Drowned Spawn With Javelins",
+  "config.modestmining.option.drowned_spawn_with_javelins.tooltip": "Allows drowned to spawn holding javelins.",
+  "config.modestmining.option.remove_javelin_slowdown": "Remove Javelin Slowdown",
+  "config.modestmining.option.remove_javelin_slowdown.tooltip": "Removes the charging movement slowdown and allows sprinting while aiming a javelin.",
+  "config.modestmining.option.enhanced_tridents": "Enhanced Tridents",
+  "config.modestmining.option.enhanced_tridents.tooltip": "Removes the charging movement slowdown and allows tridents to deal critical damage when sprint-thrown (matching javelins).",
+
   "recipe.modestmining.shapeless_forging": "Shapeless Forging"
 }

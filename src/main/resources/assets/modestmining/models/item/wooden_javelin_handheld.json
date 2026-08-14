@@ -1,4 +1,5 @@
 {
+  "format_version": "1.9.0",
   "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "modestmining:item/wooden_javelin_handheld"
@@ -12,8 +13,25 @@
       ],
       "translation": [
         0,
-        12.0,
-        -1
+        7.5,
+        -0.5
+      ],
+      "scale": [
+        2,
+        2,
+        0.85
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -55
+      ],
+      "translation": [
+        0,
+        7.5,
+        -0.5
       ],
       "scale": [
         2,
@@ -38,23 +56,6 @@
         0.68
       ]
     },
-    "thirdperson_lefthand": {
-      "rotation": [
-        0,
-        90,
-        -55
-      ],
-      "translation": [
-        0,
-        12.0,
-        -1
-      ],
-      "scale": [
-        2,
-        2,
-        0.85
-      ]
-    },
     "firstperson_lefthand": {
       "rotation": [
         0,
@@ -73,11 +74,6 @@
       ]
     },
     "ground": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
       "translation": [
         0,
         8,

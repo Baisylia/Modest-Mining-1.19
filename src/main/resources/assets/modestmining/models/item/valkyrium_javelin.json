@@ -13,6 +13,9 @@
     },
     "fixed": {
       "parent": "modestmining:item/valkyrium_javelin_gui"
+    },
+    "ground": {
+      "parent": "modestmining:item/valkyrium_javelin_gui"
     }
   },
   "overrides": [

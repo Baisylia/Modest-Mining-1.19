@@ -119,6 +119,9 @@ public class ThrownJavelinEntity extends AbstractArrow {
     protected void onHitEntity(EntityHitResult pResult) {
         Entity entity = pResult.getEntity();
         float f = (float) this.getBaseDamage();
+        if (this.isCritArrow()) {
+            f *= 1.5F;
+        }
         Entity owner = this.getOwner();
         DamageSource damagesource = this.damageSources().trident(this, owner == null ? this : owner);
         this.dealtDamage = true;

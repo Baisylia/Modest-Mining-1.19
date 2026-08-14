@@ -2,6 +2,9 @@ modLoader = "javafml"
 loaderVersion = "[4,)"
 license = "${license}"
 
+[[mixins]]
+config = "modestmining.mixins.json"
+
 [[mods]]
 modId = "${mod_id}"
 version = "${version}"
@@ -11,47 +14,47 @@ authors = "${mod_author}"
 credits = "${credits}"
 description = '''${description}'''
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "neoforge"
 type = "required"
 versionRange = "[${neoforge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21.1, 1.21.2)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "modestmasonry"
 type = "optional"
 versionRange = "[0.1.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "modestmagic"
 type = "optional"
 versionRange = "[0.3.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "reliable_remover"
 type = "optional"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "yet_another_config_lib_v3"
 type = "optional"
 ordering = "AFTER"
 side = "CLIENT"
 
-[[dependencies.${mod_id}]]
+[[dependencies.${ mod_id }]]
 modId = "farmersdelight"
 type = "optional"
 versionRange = "[1.2.11,)"
