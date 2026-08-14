@@ -4,6 +4,7 @@ import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
 import com.baisylia.modestmining.item.ModTiers;
+import com.baisylia.modestmining.sounds.ModSounds;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -111,8 +113,15 @@ public class JavelinItem extends Item {
             if (i >= 10) {
                 float riptideStrength = EnchantmentHelper.getTridentSpinAttackStrength(stack, player);
                 if (!(riptideStrength > 0.0F) || player.isInWaterOrRain()) {
-                    Holder<SoundEvent> soundHolder = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND)
-                            .orElse(SoundEvents.TRIDENT_THROW);
+                    Holder<SoundEvent> soundHolder;
+                    if (riptideStrength > 0.0F) {
+                        soundHolder = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND)
+                                .orElse(SoundEvents.TRIDENT_RIPTIDE_1);
+                    } else if (this.tier == Tiers.WOOD || this.tier == Tiers.STONE) {
+                        soundHolder = ModSounds.JAVELIN_THROW_CRUDE;
+                    } else {
+                        soundHolder = ModSounds.JAVELIN_THROW;
+                    }
                     if (!level.isClientSide()) {
                         stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                         if (riptideStrength == 0.0F) {
@@ -179,6 +188,15 @@ public class JavelinItem extends Item {
     public boolean isPrimaryItemFor(ItemStack stack, Holder<Enchantment> enchantment) {
         if (enchantment.is(Enchantments.LOYALTY)) {
             return true;
+        }
+        if (enchantment.is(Enchantments.RIPTIDE) && this.tier == ModTiers.PRISMARITE) {
+            return true;
+        }
+        if (enchantment.is(Enchantments.CHANNELING) && this.tier == ModTiers.VALKYRIUM) {
+            return true;
+        }
+        if (enchantment.is(Enchantments.IMPALING) || enchantment.is(Enchantments.CHANNELING) || enchantment.is(Enchantments.RIPTIDE)) {
+            return false;
         }
         return super.isPrimaryItemFor(stack, enchantment);
     }

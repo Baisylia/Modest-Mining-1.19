@@ -1,6 +1,9 @@
 package com.baisylia.modestmining.entity.custom;
 
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import com.baisylia.modestmining.item.ModTiers;
+import com.baisylia.modestmining.item.custom.weapons.JavelinItem;
+import com.baisylia.modestmining.sounds.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -8,9 +11,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -19,7 +24,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -47,6 +54,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
         super(ModEntityTypes.THROWN_JAVELIN.get(), shooter, level, stack, null);
         this.javelinStack = stack.copy();
         this.entityData.set(DATA_JAVELIN_STACK, stack.copy());
+        this.entityData.set(DATA_LOYALTY, this.getLoyaltyFromItem(stack));
         this.entityData.set(DATA_FOIL, stack.hasFoil());
     }
 
@@ -107,7 +115,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
                 double d0 = 0.05D * (double) loyaltyLevel;
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.95D).add(vec3.normalize().scale(d0)));
                 if (this.clientSideReturnTridentTickCount == 0) {
-                    this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
+                    this.playSound(ModSounds.JAVELIN_RETURN.value(), 10.0F, 1.0F);
                 }
 
                 ++this.clientSideReturnTridentTickCount;
@@ -142,7 +150,13 @@ public class ThrownJavelinEntity extends AbstractArrow {
         Entity owner = this.getOwner();
         DamageSource damagesource = this.damageSources().trident(this, owner == null ? this : owner);
         this.dealtDamage = true;
-        SoundEvent soundevent = SoundEvents.TRIDENT_HIT;
+        SoundEvent soundevent;
+        if (this.isCritArrow()) {
+            soundevent = ModSounds.CRITICAL_PIERCE.value();
+        } else {
+            soundevent = ModSounds.JAVELIN_HIT.value();
+        }
+
         if (entity.hurt(damagesource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
@@ -177,9 +191,20 @@ public class ThrownJavelinEntity extends AbstractArrow {
         return super.tryPickup(pPlayer) || (this.isNoPhysics() && this.ownedBy(pPlayer) && pPlayer.getInventory().add(this.getPickupItem()));
     }
 
+    public boolean isCrude() {
+        ItemStack stack = this.getPickupItem();
+        if (!stack.isEmpty() && stack.getItem() instanceof JavelinItem javelin) {
+            return javelin.getTier() == Tiers.WOOD || javelin.getTier() == Tiers.STONE;
+        }
+        return false;
+    }
+
     @Override
     protected SoundEvent getDefaultHitGroundSoundEvent() {
-        return SoundEvents.TRIDENT_HIT_GROUND;
+        if (this.isCrude()) {
+            return ModSounds.JAVELIN_HIT_GROUND_CRUDE.value();
+        }
+        return ModSounds.JAVELIN_HIT_GROUND.value();
     }
 
     @Override
@@ -213,7 +238,23 @@ public class ThrownJavelinEntity extends AbstractArrow {
             this.javelinStack = ItemStack.parseOptional(this.registryAccess(), tag.getCompound("Javelin"));
             this.entityData.set(DATA_JAVELIN_STACK, this.javelinStack.copy());
             this.entityData.set(DATA_FOIL, this.javelinStack.hasFoil());
+            this.entityData.set(DATA_LOYALTY, this.getLoyaltyFromItem(this.javelinStack));
         }
         this.dealtDamage = tag.getBoolean("DealtDamage");
+    }
+
+    private byte getLoyaltyFromItem(ItemStack stack) {
+        return this.level() instanceof ServerLevel serverlevel
+                ? (byte) Mth.clamp(EnchantmentHelper.getTridentReturnToOwnerAcceleration(serverlevel, stack, this), 0, 127)
+                : 0;
+    }
+
+    @Override
+    protected float getWaterInertia() {
+        ItemStack stack = this.getPickupItem();
+        if (!stack.isEmpty() && stack.getItem() instanceof JavelinItem javelin && javelin.getTier() == ModTiers.PRISMARITE) {
+            return 0.99F;
+        }
+        return super.getWaterInertia();
     }
 }

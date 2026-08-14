@@ -5,12 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2026-08-14
+
+### Added
+
+- Added new sounds for stone/wooden javelins.
+- Added new sounds for critical javelin hits.
+
+### Changed
+
+- Prismarite javelins are no longer slowed in water.
+- Cleaned up tag definitions.
+
+### Fixed
+
+- Fixed steel/bronze javelin textures.
+- Fixed issues with javelin enchantments.
+- Fixed javelin subtitles saying trident.
+- Fixed not being able to start sprinting while holding a javelin.
+
 ## [1.3.0] - 2026-08-14
 
 ### Added
 
 - Drowned can now spawn holding javelins and will throw them at targets (configurable).
-- Zombies (and their variants) can now spawn holding javelins and will throw them at targets, same as drowned (configurable).
+- Zombies (and their variants) can now spawn holding javelins and will throw them at targets, same as drowned
+  (configurable).
 - Zombies can now throw tridents they're holding, same as javelins (configurable).
 - Added a "Weapons" config category:
     - Toggle drowned/zombies spawning with javelins.

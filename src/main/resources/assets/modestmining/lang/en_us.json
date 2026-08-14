@@ -404,6 +404,11 @@
   "tooltip.modestmining.millstone.not_powered": "Not Powered",
 
   "modestmining.subtitles.forge.crackle": "Forge crackles",
+  "modestmining.subtitles.item.javelin.throw": "Javelin shoots",
+  "modestmining.subtitles.item.javelin.hit_ground": "Javelin sticks",
+  "modestmining.subtitles.item.javelin.hit": "Javelin stabs",
+  "modestmining.subtitles.item.javelin.return": "Javelin returns",
+  "modestmining.subtitles.item.critical_pierce": "Critical pierce",
 
   "config.modestmining.title": "Modest Mining Configuration",
 

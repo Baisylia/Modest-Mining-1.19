@@ -1,18 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:pickaxes",
-    "#minecraft:axes",
-    "#minecraft:shovels",
-    "#minecraft:hoes",
-    "modestmining:wooden_hammer",
-    "modestmining:stone_hammer",
-    "modestmining:iron_hammer",
-    "modestmining:golden_hammer",
-    "modestmining:diamond_hammer",
-    "modestmining:netherite_hammer",
-    "modestmining:prismarite_hammer",
-    "modestmining:valkyrium_hammer",
+    "#modestmining:hammers",
     "modestmining:chisel"
   ]
 }
