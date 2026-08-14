@@ -117,6 +117,9 @@ public class ThrownJavelinEntity extends AbstractArrow {
     protected void onHitEntity(EntityHitResult pResult) {
         Entity entity = pResult.getEntity();
         float f = (float) this.getBaseDamage();
+        if (this.isCritArrow()) {
+            f *= 1.5F;
+        }
         if (entity instanceof LivingEntity livingentity) {
             f += EnchantmentHelper.getDamageBonus(this.getPickupItem(), livingentity.getMobType());
         }

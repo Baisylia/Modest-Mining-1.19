@@ -1,6 +1,7 @@
 package com.baisylia.modestmining.event;
 
 import com.baisylia.modestmining.ModestMining;
+import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.ai.JavelinAttackGoal;
 import com.baisylia.modestmining.item.ModItems;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -34,7 +35,9 @@ public class DrownedJavelinEvents {
         if (event.getEntity() instanceof Drowned drowned) {
             addJavelinGoalIfMissing(drowned);
 
-            if (drowned.getMainHandItem().isEmpty() && drowned.getRandom().nextFloat() < JAVELIN_SPAWN_CHANCE) {
+            if (ModConfig.DROWNED_SPAWN_WITH_JAVELINS.get()
+                    && drowned.getMainHandItem().isEmpty()
+                    && drowned.getRandom().nextFloat() < JAVELIN_SPAWN_CHANCE) {
                 Item javelin = SPAWN_JAVELINS.get(drowned.getRandom().nextInt(SPAWN_JAVELINS.size())).get();
                 drowned.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(javelin));
             }

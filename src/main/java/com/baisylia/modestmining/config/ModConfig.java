@@ -58,6 +58,10 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue GENERATE_CLAMS;
     public static final ForgeConfigSpec.BooleanValue GENERATE_METEORITES;
 
+    public static final ForgeConfigSpec.BooleanValue DROWNED_SPAWN_WITH_JAVELINS;
+    public static final ForgeConfigSpec.BooleanValue REMOVE_JAVELIN_SLOWDOWN;
+    public static final ForgeConfigSpec.BooleanValue ENHANCED_TRIDENTS;
+
     private static final Map<String, Supplier<Boolean>> CONDITION_MAP = new HashMap<>();
 
     static {
@@ -73,7 +77,6 @@ public class ModConfig {
         BUILDER.pop();
 
         BUILDER.push("replacements");
-
         FLINT_REPLACES_WOOD = BUILDER.comment("Vanilla wooden tools replaced by flint.").define("flint_replaces_wood", false);
         BRONZE_REPLACES_STONE = BUILDER.comment("Vanilla stone tools replaced by bronze.").define("bronze_replaces_stone", false);
         STEEL_REPLACES_IRON = BUILDER.comment("Vanilla iron tools/armour replaced by steel.").define("steel_replaces_iron", false);
@@ -108,8 +111,12 @@ public class ModConfig {
         DISPENSER_USES_ELECTRUM = BUILDER.comment("Dispenser uses steel instead of electrum.").define("dispenser_uses_electrum", false);
         LAMP_USES_ELECTRUM = BUILDER.comment("Lamp uses steel instead of electrum.").define("lamp_uses_electrum", false);
         JUKEBOX_USES_ELECTRUM = BUILDER.comment("Jukebox uses steel instead of electrum.").define("jukebox_uses_electrum", false);
+        BUILDER.pop();
 
-
+        BUILDER.push("weapons");
+        DROWNED_SPAWN_WITH_JAVELINS = BUILDER.comment("Allow drowned to spawn holding javelins.").define("drowned_spawn_with_javelins", true);
+        REMOVE_JAVELIN_SLOWDOWN = BUILDER.comment("Remove the charging movement slowdown and allow sprinting while aiming a javelin.").define("remove_javelin_slowdown", true);
+        ENHANCED_TRIDENTS = BUILDER.comment("Remove the charging movement slowdown and allow tridents to deal critical damage when sprint-thrown or thrown while falling (matching javelins).").define("enhanced_tridents", false);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
@@ -155,6 +162,10 @@ public class ModConfig {
         registerCondition("generate_silver_ore", GENERATE_SILVER_ORE);
         registerCondition("generate_clams", GENERATE_CLAMS);
         registerCondition("generate_meteorites", GENERATE_METEORITES);
+
+        registerCondition("drowned_spawn_with_javelins", DROWNED_SPAWN_WITH_JAVELINS);
+        registerCondition("remove_javelin_slowdown", REMOVE_JAVELIN_SLOWDOWN);
+        registerCondition("enhanced_tridents", ENHANCED_TRIDENTS);
     }
 
     private static void registerCondition(String featureName, ForgeConfigSpec.BooleanValue configValue) {

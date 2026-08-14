@@ -40,7 +40,7 @@ public class JavelinItem extends Item implements Vanishable {
     public JavelinItem(Tier tier, float attackDamage, float attackSpeed, float reach, Properties properties) {
         super(properties);
         this.tier = tier;
-        this.throwDamage = attackDamage + tier.getAttackDamageBonus() + 1.0F;
+        this.throwDamage = (attackDamage + tier.getAttackDamageBonus()) * 1.5F;
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackDamage + tier.getAttackDamageBonus(), AttributeModifier.Operation.ADDITION));
@@ -132,6 +132,9 @@ public class JavelinItem extends Item implements Vanishable {
                     });
                     ThrownJavelinEntity javelin = new ThrownJavelinEntity(pLevel, player, pStack);
                     javelin.setBaseDamage(this.throwDamage);
+                    if (player.fallDistance > 1.0F || player.isSprinting()) {
+                        javelin.setCritArrow(true);
+                    }
                     javelin.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
                     if (player.getAbilities().instabuild) {
                         javelin.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
