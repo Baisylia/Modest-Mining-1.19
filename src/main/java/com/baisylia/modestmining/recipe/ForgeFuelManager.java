@@ -26,11 +26,11 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ForgeFuelManager extends SimpleJsonResourceReloadListener {
-    public static final ForgeFuelManager INSTANCE = new ForgeFuelManager();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private static final List<FuelEntry> REGISTERED_FUELS = new ArrayList<>();
     private static final Map<Item, FuelInfo> ITEM_CACHE = new ConcurrentHashMap<>();
     private static final Map<Integer, List<ItemStack>> TIER_FUEL_CACHE = new ConcurrentHashMap<>();
+    public static final ForgeFuelManager INSTANCE = new ForgeFuelManager();
 
     public ForgeFuelManager() {
         super(GSON, "forge_fuels");
