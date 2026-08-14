@@ -9,21 +9,22 @@ import net.minecraft.world.item.crafting.Recipe;
 
 public abstract class AbstractForgeRecipe implements Recipe<Container> {
 
-    private final ResourceLocation id;
     protected final String group;
     protected final ForgingBookCategory category;
-
+    private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
     private final int cookTime;
+    private final int fuelTier;
 
-    public AbstractForgeRecipe(ResourceLocation id, String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime) {
+    public AbstractForgeRecipe(ResourceLocation id, String group, ForgingBookCategory category, ItemStack output, NonNullList<Ingredient> recipeItems, int cookTime, int fuelTier) {
         this.id = id;
         this.group = group;
         this.category = category;
         this.output = output;
         this.recipeItems = recipeItems;
         this.cookTime = cookTime;
+        this.fuelTier = Math.max(0, fuelTier);
     }
 
     @Override
@@ -42,6 +43,10 @@ public abstract class AbstractForgeRecipe implements Recipe<Container> {
 
     public int getCookTime() {
         return this.cookTime;
+    }
+
+    public int getFuelTier() {
+        return this.fuelTier;
     }
 
     @Override

@@ -9,9 +9,6 @@
       "tag": "forge:ingots/silver"
     }
   ],
-  "fuel": {
-    "item": "minecraft:coal"
-  },
   "result": {
     "item": "modestmining:electrum_ingot",
     "count": 2

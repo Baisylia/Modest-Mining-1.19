@@ -21,9 +21,6 @@
     "X",
     "X"
   ],
-  "fuel": {
-    "item": "modestmining:coke"
-  },
   "result": {
     "item": "minecraft:spyglass"
   }

@@ -3,6 +3,7 @@ package com.baisylia.modestmining.screen;
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.block.entity.custom.ForgeBlockEntity;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.baisylia.modestmining.screen.slot.ModFuelSlot;
 import com.baisylia.modestmining.screen.slot.ModResultSlot;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,7 +15,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -27,7 +27,7 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
     private final ContainerData data;
 
     public ForgeMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
     public ForgeMenu(int pContainerId, Inventory pPlayerInventory, BlockEntity entity, ContainerData data) {
@@ -71,8 +71,8 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
 
     public int getScaledProgress() {
         int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
+        int maxProgress = this.data.get(1);
+        int progressArrowSize = 26;
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
@@ -103,7 +103,7 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
                 return ItemStack.EMPTY;
             }
         } else {
-            boolean isFuel = AbstractFurnaceBlockEntity.isFuel(sourceStack);
+            boolean isFuel = ForgeFuelManager.isFuel(sourceStack);
             if (isFuel && !moveItemStackTo(sourceStack, 9, 10, false)) {
                 if (!moveItemStackTo(sourceStack, 0, 9, false)) {
                     return ItemStack.EMPTY;
@@ -140,7 +140,6 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
 
     @Override
     public boolean recipeMatches(Recipe<? super Container> recipe) {
-//        return false;
         return recipe.matches(this.blockEntity, this.level);
     }
 
@@ -173,5 +172,4 @@ public class ForgeMenu extends RecipeBookMenu<Container> {
     public boolean shouldMoveToInventory(int index) {
         return index == 10 || index < (getGridWidth() * getGridHeight());
     }
-
 }

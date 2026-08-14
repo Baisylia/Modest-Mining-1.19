@@ -27,9 +27,6 @@
       "item": "minecraft:netherrack"
     }
   ],
-  "fuel": {
-    "item": "minecraft:coal"
-  },
   "result": {
     "item": "modestmining:coke",
     "count": 2

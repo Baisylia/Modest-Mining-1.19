@@ -28,7 +28,7 @@
     }
   ],
   "fuel": {
-    "item": "minecraft:blaze_powder"
+    "tag": "modestmining:forge_fuels_tier_1"
   },
   "result": {
     "item": "modestmining:valkyrium_ingot"

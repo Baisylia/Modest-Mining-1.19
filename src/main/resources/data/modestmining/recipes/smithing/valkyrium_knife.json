@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:smithing",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ],
+  "base": {
+    "item": "farmersdelight:diamond_knife"
+  },
+  "addition": {
+    "item": "modestmining:valkyrium_ingot"
+  },
+  "result": {
+    "item": "modestmining:valkyrium_knife"
+  }
+}

@@ -9,9 +9,6 @@
       "tag": "forge:ingots/copper"
     }
   ],
-  "fuel": {
-    "item": "minecraft:coal"
-  },
   "result": {
     "item": "modestmining:rosegold_ingot",
     "count": 2

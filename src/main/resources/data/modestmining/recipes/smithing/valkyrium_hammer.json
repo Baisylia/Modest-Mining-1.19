@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "modestmining:diamond_hammer"
+  },
+  "addition": {
+    "item": "modestmining:valkyrium_ingot"
+  },
+  "result": {
+    "item": "modestmining:valkyrium_hammer"
+  }
+}

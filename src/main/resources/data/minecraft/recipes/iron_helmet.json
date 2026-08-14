@@ -11,9 +11,6 @@
     "###",
     "# #"
   ],
-  "fuel": {
-    "item": "modestmining:coke"
-  },
   "result": {
     "item": "minecraft:iron_helmet"
   }

@@ -15,9 +15,6 @@
       "tag": "forge:ingots/aluminium"
     }
   ],
-  "fuel": {
-    "item": "minecraft:coal"
-  },
   "result": {
     "item": "modestmining:bronze_ingot",
     "count": 4

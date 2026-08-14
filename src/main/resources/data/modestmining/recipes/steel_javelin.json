@@ -15,6 +15,9 @@
     " X#",
     "X  "
   ],
+  "fuel": {
+    "tag": "modestmining:forge_fuels_tier_1"
+  },
   "result": {
     "item": "modestmining:steel_javelin"
   }

@@ -1,7 +1,7 @@
 package com.baisylia.modestmining.screen.slot;
 
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -14,6 +14,6 @@ public class ModFuelSlot extends SlotItemHandler {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return AbstractFurnaceBlockEntity.isFuel(stack)  || isBucket(stack);
+        return ForgeFuelManager.isFuel(stack) || isBucket(stack);
     }
 }

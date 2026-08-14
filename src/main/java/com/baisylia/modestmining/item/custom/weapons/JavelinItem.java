@@ -99,7 +99,9 @@ public class JavelinItem extends Item implements Vanishable {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
+        if (pPlayer.isAutoSpinAttack()) {
+            return InteractionResultHolder.pass(itemstack);
+        } else if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
             return InteractionResultHolder.fail(itemstack);
         } else if (EnchantmentHelper.getRiptide(itemstack) > 0 && !pPlayer.isInWaterOrRain()) {
             return InteractionResultHolder.fail(itemstack);
@@ -169,11 +171,11 @@ public class JavelinItem extends Item implements Vanishable {
                     if (riptideLevel > 0) {
                         float f7 = player.getYRot();
                         float f = player.getXRot();
-                        float f1 = -Mth.sin(f7 * ((float)Math.PI / 180F)) * Mth.cos(f * ((float)Math.PI / 180F));
-                        float f2 = -Mth.sin(f * ((float)Math.PI / 180F));
-                        float f3 = Mth.cos(f7 * ((float)Math.PI / 180F)) * Mth.cos(f * ((float)Math.PI / 180F));
+                        float f1 = -Mth.sin(f7 * ((float) Math.PI / 180F)) * Mth.cos(f * ((float) Math.PI / 180F));
+                        float f2 = -Mth.sin(f * ((float) Math.PI / 180F));
+                        float f3 = Mth.cos(f7 * ((float) Math.PI / 180F)) * Mth.cos(f * ((float) Math.PI / 180F));
                         float f4 = Mth.sqrt(f1 * f1 + f2 * f2 + f3 * f3);
-                        float f5 = 3.0F * ((1.0F + (float)riptideLevel) / 4.0F);
+                        float f5 = 3.0F * ((1.0F + (float) riptideLevel) / 4.0F);
                         f1 *= f5 / f4;
                         f2 *= f5 / f4;
                         f3 *= f5 / f4;

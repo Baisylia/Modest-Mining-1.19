@@ -1,13 +1,13 @@
 package com.baisylia.modestmining.integration.jei;
 
+import com.baisylia.modestmining.ModestMining;
+import com.baisylia.modestmining.block.ModBlocks;
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.baisylia.modestmining.ModestMining;
-import com.baisylia.modestmining.block.ModBlocks;
-import com.baisylia.modestmining.recipe.ForgeRecipe;
 import mezz.jei.api.constants.ModIds;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -26,17 +26,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(ModestMining.MOD_ID, "forging");
     public final static ResourceLocation TEXTURE =
             new ResourceLocation(ModestMining.MOD_ID, "textures/gui/forge_gui_jei.png");
-
-    private final IDrawable background;
-    private final IDrawable icon;
-    private final int regularCookTime = 400;
-    private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
     protected final IDrawableStatic staticFlame;
     protected final IDrawableAnimated animatedFlame;
+    private final IDrawable background;
+    private final IDrawable icon;
+    private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
 
     public ForgingRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 120, 60);
@@ -77,7 +77,7 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
     protected IDrawableAnimated getArrow(AbstractForgeRecipe recipe) {
         int cookTime = recipe.getCookTime();
         if (cookTime <= 0) {
-            cookTime = regularCookTime;
+            cookTime = 400;
         }
         return this.cachedArrows.getUnchecked(cookTime);
     }
@@ -121,7 +121,20 @@ public class ForgingRecipeCategory implements IRecipeCategory<AbstractForgeRecip
                                     builder.addSlot(RecipeIngredientRole.INPUT, 21, 41).addIngredients(recipe.getIngredients().get(7));
                                     if (recipe.getIngredients().size() > 8) {
                                         builder.addSlot(RecipeIngredientRole.INPUT, 39, 41).addIngredients(recipe.getIngredients().get(8));
-        }}}}}}}}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         builder.addSlot(RecipeIngredientRole.OUTPUT, 97, 6).addItemStack(recipe.getResultItem());
+        if (recipe.getFuelTier() > 0) {
+            List<ItemStack> fuels = ForgeFuelManager.getFuelsForTier(recipe.getFuelTier());
+            if (!fuels.isEmpty()) {
+                builder.addSlot(RecipeIngredientRole.CATALYST, 64, 40).addItemStacks(fuels);
+            }
+        }
     }
 }

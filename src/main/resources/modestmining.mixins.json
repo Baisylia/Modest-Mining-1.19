@@ -13,6 +13,7 @@
   "client": [
     "client.AbstractZombieModelMixin",
     "client.DrownedModelMixin",
+    "client.ItemInHandRendererMixin",
     "client.LocalPlayerMixin",
     "client.ZombieVillagerModelMixin"
   ],

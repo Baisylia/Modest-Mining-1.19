@@ -1,20 +1,19 @@
 package com.baisylia.modestmining.integration.emi;
 
 import com.baisylia.modestmining.recipe.AbstractForgeRecipe;
+import com.baisylia.modestmining.recipe.ForgeFuelManager;
 import com.baisylia.modestmining.recipe.ForgeShapedRecipe;
-import com.google.common.collect.Lists;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -27,6 +26,8 @@ public class ForgingEmiRecipe implements EmiRecipe {
     protected final List<EmiIngredient> input;
     protected final EmiStack output;
     protected final int cookTime;
+    protected final int fuelTier;
+    protected final EmiIngredient fuel;
     protected final boolean shapeless;
 
     public ForgingEmiRecipe(AbstractForgeRecipe recipe) {
@@ -34,6 +35,14 @@ public class ForgingEmiRecipe implements EmiRecipe {
         this.input = padIngredients(recipe);
         this.output = EmiStack.of(recipe.getResultItem());
         this.cookTime = recipe.getCookTime();
+        this.fuelTier = recipe.getFuelTier();
+        if (this.fuelTier > 0) {
+            List<ItemStack> fuels = ForgeFuelManager.getFuelsForTier(this.fuelTier);
+            List<EmiStack> fuelStacks = fuels.stream().map(EmiStack::of).toList();
+            this.fuel = fuelStacks.isEmpty() ? EmiStack.EMPTY : EmiIngredient.of(fuelStacks);
+        } else {
+            this.fuel = EmiStack.EMPTY;
+        }
         this.shapeless = !(recipe instanceof IShapedRecipe);
     }
 
@@ -68,6 +77,11 @@ public class ForgingEmiRecipe implements EmiRecipe {
     @Override
     public List<EmiIngredient> getInputs() {
         return this.input;
+    }
+
+    @Override
+    public List<EmiIngredient> getCatalysts() {
+        return (this.fuelTier > 0 && !this.fuel.isEmpty()) ? List.of(this.fuel) : List.of();
     }
 
     @Override
@@ -116,10 +130,19 @@ public class ForgingEmiRecipe implements EmiRecipe {
         Component timeString = Component.translatable("emi.cooking.time", this.cookTime / 20);
         widgets.addFillingArrow(60, 18, this.cookTime * 100).tooltipText(Collections.singletonList(timeString));
 
-        widgets.addTexture(EmiTexture.EMPTY_FLAME, 64, 39);
-        widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 64, 39, 6000, false, true, true);
+        if (this.fuelTier > 0) {
+            Component fuelTooltip = getFuelTooltip();
+            widgets.addSlot(this.fuel, 63, 36).appendTooltip(fuelTooltip);
+        } else {
+            widgets.addTexture(EmiTexture.EMPTY_FLAME, 64, 39);
+            widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 64, 39, 4000, false, true, true);
+        }
 
         widgets.addSlot(this.output, 92, 14).large(true).recipeContext(this);
+    }
+
+    private @NotNull Component getFuelTooltip() {
+        return Component.translatable("emi.modestmining.fuel.tier", this.fuelTier);
     }
 
     public boolean canFit(int width, int height) {
