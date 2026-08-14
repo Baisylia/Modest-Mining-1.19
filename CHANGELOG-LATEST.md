@@ -26,6 +26,7 @@
   fuel item now require a Forge fuel tier tag instead, so any tier-appropriate fuel can be used.
 - Renamed "rosegold" to "rose gold".
 - Reworked Reliable Remover integration to be more generally compatible.
+- Adjusted creative tab positions.
 
 ### Fixed
 
