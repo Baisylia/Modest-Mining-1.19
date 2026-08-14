@@ -59,6 +59,9 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue GENERATE_METEORITES;
 
     public static final ForgeConfigSpec.BooleanValue DROWNED_SPAWN_WITH_JAVELINS;
+    public static final ForgeConfigSpec.BooleanValue ZOMBIES_SPAWN_WITH_JAVELINS;
+    public static final ForgeConfigSpec.BooleanValue ZOMBIES_THROW_JAVELINS;
+    public static final ForgeConfigSpec.BooleanValue ZOMBIES_THROW_TRIDENTS;
     public static final ForgeConfigSpec.BooleanValue REMOVE_JAVELIN_SLOWDOWN;
     public static final ForgeConfigSpec.BooleanValue ENHANCED_TRIDENTS;
     public static final ForgeConfigSpec.DoubleValue JAVELIN_RANGED_DAMAGE_MULTIPLIER;
@@ -116,6 +119,9 @@ public class ModConfig {
 
         BUILDER.push("weapons");
         DROWNED_SPAWN_WITH_JAVELINS = BUILDER.comment("Allow drowned to spawn holding javelins.").define("drowned_spawn_with_javelins", true);
+        ZOMBIES_SPAWN_WITH_JAVELINS = BUILDER.comment("Allow regular zombies, husks, and zombie villagers to naturally spawn holding iron javelins.").define("zombies_spawn_with_javelins", true);
+        ZOMBIES_THROW_JAVELINS = BUILDER.comment("Allow all zombie-type mobs (Zombies, Husks, Drowned, Zombie Villagers, Zombified Piglins) to throw javelins when held.").define("zombies_throw_javelins", true);
+        ZOMBIES_THROW_TRIDENTS = BUILDER.comment("Allow all zombie-type mobs to throw tridents when held.").define("zombies_throw_tridents", true);
         REMOVE_JAVELIN_SLOWDOWN = BUILDER.comment("Remove the charging movement slowdown and allow sprinting while aiming a javelin.").define("remove_javelin_slowdown", true);
         ENHANCED_TRIDENTS = BUILDER.comment("Remove the charging movement slowdown and allow tridents to deal critical damage when sprint-thrown or thrown while falling (matching javelins).").define("enhanced_tridents", false);
         JAVELIN_RANGED_DAMAGE_MULTIPLIER = BUILDER.comment("Multiplier applied to javelin melee attack damage to determine ranged throw damage (1.0 = equal to melee damage).").defineInRange("javelin_ranged_damage_multiplier", 1.0D, 0.0D, 10.0D);
@@ -166,6 +172,9 @@ public class ModConfig {
         registerCondition("generate_meteorites", GENERATE_METEORITES);
 
         registerCondition("drowned_spawn_with_javelins", DROWNED_SPAWN_WITH_JAVELINS);
+        registerCondition("zombies_spawn_with_javelins", ZOMBIES_SPAWN_WITH_JAVELINS);
+        registerCondition("zombies_throw_javelins", ZOMBIES_THROW_JAVELINS);
+        registerCondition("zombies_throw_tridents", ZOMBIES_THROW_TRIDENTS);
         registerCondition("remove_javelin_slowdown", REMOVE_JAVELIN_SLOWDOWN);
         registerCondition("enhanced_tridents", ENHANCED_TRIDENTS);
     }

@@ -1,6 +1,7 @@
 package com.baisylia.modestmining.entity.custom;
 
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -11,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -53,6 +55,10 @@ public class ThrownJavelinEntity extends AbstractArrow {
 
     public boolean isFoil() {
         return this.entityData.get(DATA_FOIL);
+    }
+
+    public boolean isChanneling() {
+        return EnchantmentHelper.hasChanneling(this.getPickupItem());
     }
 
     @Override
@@ -144,7 +150,22 @@ public class ThrownJavelinEntity extends AbstractArrow {
         }
 
         this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01D, -0.1D, -0.01D));
-        this.playSound(soundevent, 1.0F, 1.0F);
+        float soundVolume = 1.0F;
+        if (this.level.isThundering() && this.isChanneling()) {
+            BlockPos blockpos = entity.blockPosition();
+            if (this.level.canSeeSky(blockpos)) {
+                LightningBolt lightningbolt = EntityType.LIGHTNING_BOLT.create(this.level);
+                if (lightningbolt != null) {
+                    lightningbolt.moveTo(Vec3.atBottomCenterOf(blockpos));
+                    lightningbolt.setCause(owner instanceof ServerPlayer serverPlayer ? serverPlayer : null);
+                    this.level.addFreshEntity(lightningbolt);
+                    soundevent = SoundEvents.TRIDENT_THUNDER;
+                    soundVolume = 5.0F;
+                }
+            }
+        }
+
+        this.playSound(soundevent, soundVolume, 1.0F);
     }
 
     @Override

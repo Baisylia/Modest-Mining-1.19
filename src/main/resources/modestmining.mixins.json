@@ -5,12 +5,16 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "modestmining.refmap.json",
   "mixins": [
+    "DrownedMixin",
     "ThrownTridentMixin",
-    "TridentItemMixin"
+    "TridentItemMixin",
+    "ZombieMixin"
   ],
   "client": [
+    "client.AbstractZombieModelMixin",
     "client.DrownedModelMixin",
-    "client.LocalPlayerMixin"
+    "client.LocalPlayerMixin",
+    "client.ZombieVillagerModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

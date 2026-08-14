@@ -1,5 +1,6 @@
 package com.baisylia.modestmining.entity.ai;
 
+import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
 import com.baisylia.modestmining.item.custom.weapons.JavelinItem;
 import net.minecraft.sounds.SoundEvents;
@@ -8,7 +9,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TridentItem;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -36,14 +41,24 @@ public class JavelinAttackGoal extends Goal {
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
-    private boolean isHoldingJavelin() {
-        return this.mob.getMainHandItem().getItem() instanceof JavelinItem;
+    private boolean isHoldingThrowableWeapon() {
+        ItemStack heldStack = this.mob.getMainHandItem();
+        if (heldStack.isEmpty()) {
+            return false;
+        }
+        if (heldStack.getItem() instanceof JavelinItem) {
+            return !ModConfig.SPEC.isLoaded() || ModConfig.ZOMBIES_THROW_JAVELINS.get();
+        }
+        if (heldStack.is(Items.TRIDENT) || heldStack.getItem() instanceof TridentItem) {
+            return !ModConfig.SPEC.isLoaded() || ModConfig.ZOMBIES_THROW_TRIDENTS.get();
+        }
+        return false;
     }
 
     @Override
     public boolean canUse() {
         LivingEntity livingentity = this.mob.getTarget();
-        if (livingentity != null && livingentity.isAlive() && this.isHoldingJavelin()) {
+        if (livingentity != null && livingentity.isAlive() && this.isHoldingThrowableWeapon()) {
             this.target = livingentity;
             return true;
         }
@@ -52,7 +67,7 @@ public class JavelinAttackGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.isHoldingJavelin() && (this.canUse() || (this.target != null && this.target.isAlive() && !this.mob.getNavigation().isDone()));
+        return this.isHoldingThrowableWeapon() && (this.canUse() || (this.target != null && this.target.isAlive() && !this.mob.getNavigation().isDone()));
     }
 
     @Override
@@ -103,27 +118,41 @@ public class JavelinAttackGoal extends Goal {
 
             float distanceFactor = (float) Math.sqrt(distanceSqr) / this.attackRadius;
             float clampedFactor = Mth.clamp(distanceFactor, 0.1F, 1.0F);
-            this.throwJavelin(this.target, clampedFactor);
+            this.throwWeapon(this.target, clampedFactor);
             this.attackTime = Mth.floor(distanceFactor * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
         } else if (this.attackTime < 0) {
             this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(distanceSqr) / (double) this.attackRadius, (double) this.attackIntervalMin, (double) this.attackIntervalMax));
         }
     }
 
-    private void throwJavelin(LivingEntity target, float distanceFactor) {
+    private void throwWeapon(LivingEntity target, float distanceFactor) {
         ItemStack heldStack = this.mob.getMainHandItem();
-        if (!(heldStack.getItem() instanceof JavelinItem javelinItem)) {
-            return;
+        if (heldStack.getItem() instanceof JavelinItem javelinItem) {
+            if (ModConfig.SPEC.isLoaded() && !ModConfig.ZOMBIES_THROW_JAVELINS.get()) {
+                return;
+            }
+            ThrownJavelinEntity javelin = new ThrownJavelinEntity(this.mob.getLevel(), this.mob, heldStack.copy());
+            javelin.setBaseDamage(javelinItem.getThrowDamage());
+            double dx = target.getX() - this.mob.getX();
+            double dy = target.getY(0.3333333333333333D) - javelin.getY();
+            double dz = target.getZ() - this.mob.getZ();
+            double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
+            javelin.shoot(dx, dy + horizontalDistance * (double) 0.2F, dz, 1.6F, (float) (14 - this.mob.getLevel().getDifficulty().getId() * 4));
+            this.mob.playSound(SoundEvents.TRIDENT_THROW, 1.0F, 1.0F / (this.mob.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.mob.getLevel().addFreshEntity(javelin);
+        } else if (heldStack.is(Items.TRIDENT) || heldStack.getItem() instanceof TridentItem) {
+            if (ModConfig.SPEC.isLoaded() && !ModConfig.ZOMBIES_THROW_TRIDENTS.get()) {
+                return;
+            }
+            ThrownTrident trident = new ThrownTrident(this.mob.getLevel(), this.mob, heldStack.copy());
+            trident.pickup = AbstractArrow.Pickup.DISALLOWED;
+            double dx = target.getX() - this.mob.getX();
+            double dy = target.getY(0.3333333333333333D) - trident.getY();
+            double dz = target.getZ() - this.mob.getZ();
+            double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
+            trident.shoot(dx, dy + horizontalDistance * (double) 0.2F, dz, 1.6F, (float) (14 - this.mob.getLevel().getDifficulty().getId() * 4));
+            this.mob.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.mob.getRandom().nextFloat() * 0.4F + 0.8F));
+            this.mob.getLevel().addFreshEntity(trident);
         }
-
-        ThrownJavelinEntity javelin = new ThrownJavelinEntity(this.mob.getLevel(), this.mob, heldStack.copy());
-        javelin.setBaseDamage(javelinItem.getThrowDamage());
-        double dx = target.getX() - this.mob.getX();
-        double dy = target.getY(0.3333333333333333D) - javelin.getY();
-        double dz = target.getZ() - this.mob.getZ();
-        double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
-        javelin.shoot(dx, dy + horizontalDistance * (double) 0.2F, dz, 1.6F, (float) (14 - this.mob.getLevel().getDifficulty().getId() * 4));
-        this.mob.playSound(SoundEvents.TRIDENT_THROW, 1.0F, 1.0F / (this.mob.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.mob.getLevel().addFreshEntity(javelin);
     }
 }
