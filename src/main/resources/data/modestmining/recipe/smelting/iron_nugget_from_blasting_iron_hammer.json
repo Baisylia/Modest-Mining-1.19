@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "modestmining:iron_hammer"
+  },
+  "result": {
+    "id": "minecraft:iron_nugget"
+  }
+}
