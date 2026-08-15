@@ -1,3 +1,3 @@
 ### Fixed
 
-- Reworked Reliable Remover integration.
+- Fix creative tab crash.

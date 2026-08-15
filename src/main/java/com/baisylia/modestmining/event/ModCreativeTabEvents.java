@@ -268,8 +268,13 @@ public class ModCreativeTabEvents {
         ItemLike prev = target;
         for (Supplier<? extends ItemLike> entry : newEntries) {
             ItemLike item = entry.get();
-            event.insertAfter(new ItemStack(prev), new ItemStack(item), vis);
-            prev = item;
+            try {
+                event.insertAfter(new ItemStack(prev), new ItemStack(item), vis);
+                prev = item;
+            } catch (IllegalArgumentException e) {
+                event.accept(new ItemStack(item), vis);
+                prev = item;
+            }
         }
     }
 
