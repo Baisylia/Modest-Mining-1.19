@@ -1,3 +1,3 @@
-### Changed
+### Fixed
 
-- Reworked steel/bronze equipment recipes.
+- Reworked Reliable Remover integration.

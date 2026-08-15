@@ -4,16 +4,18 @@ import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.attribute.ModAttributes;
 import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.block.renderer.MillstoneRenderer;
+import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
-import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.integration.ReliableRemoverCompat;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 
 @EventBusSubscriber(modid = ModestMining.MOD_ID)
@@ -47,5 +49,13 @@ public class ModEvents {
     @SubscribeEvent
     public static void entityAttributeModificationEvent(EntityAttributeModificationEvent event) {
         event.add(EntityType.PLAYER, ModAttributes.MAGIC_RESISTANCE);
+    }
+
+    @EventBusSubscriber(modid = ModestMining.MOD_ID)
+    public static class GameEvents {
+        @SubscribeEvent
+        public static void onAddReloadListener(AddReloadListenerEvent event) {
+            event.addListener((ResourceManagerReloadListener) resourceManager -> ReliableRemoverCompat.applyBlacklist());
+        }
     }
 }

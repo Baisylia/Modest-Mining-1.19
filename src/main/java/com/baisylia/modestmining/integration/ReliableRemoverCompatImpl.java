@@ -2,11 +2,7 @@ package com.baisylia.modestmining.integration;
 
 import com.baisylia.modestmining.ModestMining;
 import com.baisylia.modestmining.config.ModConfig;
-import com.evandev.reliable_remover.config.RuleManager;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.evandev.reliable_remover.api.ReliableRemoverAPI;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.nio.file.Files;
@@ -15,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ReliableRemoverCompatImpl {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final String PROVIDER_ID = "modestmining";
 
     private static final Map<String, String> WOOD_TO_FLINT = Map.of(
             "minecraft:wooden_sword", "modestmining:flint_blade",
@@ -51,21 +47,10 @@ public class ReliableRemoverCompatImpl {
     );
 
     public static void apply() {
-        com.evandev.reliable_remover.config.ModConfig removerConfig = com.evandev.reliable_remover.config.ModConfig.get();
-        if (removerConfig == null) {
-            ModestMining.LOGGER.warn("Reliable Remover configuration was null. Skipping integration.");
-            return;
-        }
-
-        boolean blacklistModified = false;
-        if (removerConfig.blacklistedItems != null) {
-            blacklistModified |= removerConfig.blacklistedItems.removeAll(WOOD_TO_FLINT.keySet());
-            blacklistModified |= removerConfig.blacklistedItems.removeAll(STONE_TO_BRONZE.keySet());
-            blacklistModified |= removerConfig.blacklistedItems.removeAll(IRON_TO_STEEL.keySet());
-            if (blacklistModified) {
-                com.evandev.reliable_remover.config.ModConfig.save();
-                ModestMining.LOGGER.info("Reliable Remover Integration: cleaned up legacy blacklisted items.");
-            }
+        try {
+            Path legacyRulesFilePath = FMLPaths.CONFIGDIR.get().resolve("reliable_remover").resolve("modestmining.json");
+            Files.deleteIfExists(legacyRulesFilePath);
+        } catch (Exception ignored) {
         }
 
         Map<String, String> activeReplacements = new LinkedHashMap<>();
@@ -82,30 +67,16 @@ public class ReliableRemoverCompatImpl {
             ModestMining.LOGGER.info("Reliable Remover Integration: enabled iron -> steel replacement rules.");
         }
 
-        Path configDir = FMLPaths.CONFIGDIR.get().resolve("reliable_remover");
-        Path rulesFilePath = configDir.resolve("modestmining.json");
-
         try {
             if (!activeReplacements.isEmpty()) {
-                Files.createDirectories(configDir);
-                JsonArray rulesArray = new JsonArray();
-                for (Map.Entry<String, String> entry : activeReplacements.entrySet()) {
-                    JsonObject ruleObj = new JsonObject();
-                    ruleObj.addProperty("action", "remove");
-                    JsonArray itemsArray = new JsonArray();
-                    itemsArray.add(entry.getKey());
-                    ruleObj.add("items", itemsArray);
-                    ruleObj.addProperty("replace_with", entry.getValue());
-                    rulesArray.add(ruleObj);
-                }
-                Files.writeString(rulesFilePath, GSON.toJson(rulesArray));
+                ReliableRemoverAPI.registerDynamicReplacements(PROVIDER_ID, activeReplacements);
+                ModestMining.LOGGER.info("Reliable Remover Integration: registered {} dynamic replacement rules.", activeReplacements.size());
             } else {
-                Files.deleteIfExists(rulesFilePath);
+                ReliableRemoverAPI.unregisterDynamicRules(PROVIDER_ID);
+                ModestMining.LOGGER.info("Reliable Remover Integration: cleared dynamic replacement rules.");
             }
-            RuleManager.load();
-            ModestMining.LOGGER.info("Reliable Remover Integration: successfully synced replacement rules.");
-        } catch (Exception e) {
-            ModestMining.LOGGER.error("Reliable Remover Integration: failed to write replacement rules", e);
+        } catch (Throwable t) {
+            ModestMining.LOGGER.error("Reliable Remover Integration: failed to sync dynamic replacement rules", t);
         }
     }
 }
