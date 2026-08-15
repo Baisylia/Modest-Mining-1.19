@@ -1,3 +1,3 @@
-### Fixed
+### Added
 
-- Fix creative tab crash.
+- Added translation for the thrown javelin entity.
