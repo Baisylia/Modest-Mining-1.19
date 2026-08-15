@@ -403,6 +403,8 @@
   "tooltip.modestmining.millstone.powered": "Powered",
   "tooltip.modestmining.millstone.not_powered": "Not Powered",
 
+  "entity.modestmining.thrown_javelin": "Thrown Javelin",
+
   "modestmining.subtitles.forge.crackle": "Forge crackles",
   "modestmining.subtitles.item.javelin.throw": "Javelin shoots",
   "modestmining.subtitles.item.javelin.hit_ground": "Javelin sticks",
