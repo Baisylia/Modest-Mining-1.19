@@ -39,12 +39,12 @@ public class ModBlockEntities {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 FORGE_BLOCK_ENTITY.get(),
-                (be, side) -> be.getItemHandler()
+                ForgeBlockEntity::getItemHandler
         );
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 MILLSTONE_BLOCK_ENTITY.get(),
-                (be, side) -> be.getItemHandler()
+                MillstoneBlockEntity::getItemHandler
         );
     }
 }

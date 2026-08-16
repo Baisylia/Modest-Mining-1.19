@@ -1,4 +1,4 @@
-### Added
+### Fixed
 
-- Added translation for the thrown javelin entity.
-- Added missing smelting recipes for hammers.
+- Fixed crude Javelin landing sounds being missing.
+- Fixed hoppers extracting input items from millstones.

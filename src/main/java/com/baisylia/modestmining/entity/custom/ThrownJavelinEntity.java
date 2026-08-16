@@ -56,6 +56,15 @@ public class ThrownJavelinEntity extends AbstractArrow {
         this.entityData.set(DATA_JAVELIN_STACK, stack.copy());
         this.entityData.set(DATA_LOYALTY, this.getLoyaltyFromItem(stack));
         this.entityData.set(DATA_FOIL, stack.hasFoil());
+        this.setSoundEvent(this.getDefaultHitGroundSoundEvent());
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (DATA_JAVELIN_STACK.equals(key)) {
+            this.setSoundEvent(this.getDefaultHitGroundSoundEvent());
+        }
     }
 
     @Override
@@ -239,6 +248,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
             this.entityData.set(DATA_JAVELIN_STACK, this.javelinStack.copy());
             this.entityData.set(DATA_FOIL, this.javelinStack.hasFoil());
             this.entityData.set(DATA_LOYALTY, this.getLoyaltyFromItem(this.javelinStack));
+            this.setSoundEvent(this.getDefaultHitGroundSoundEvent());
         }
         this.dealtDamage = tag.getBoolean("DealtDamage");
     }

@@ -27,7 +27,10 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +41,14 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     protected final ContainerData data;
     private final RecipeManager.CachedCheck<ForgeBlockEntity.SingleRecipeInputContainer, AbstractMillstoneRecipe> quickCheck =
             RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
+    private final IItemHandlerModifiable[] sidedHandlers = new IItemHandlerModifiable[]{
+            new SidedInvWrapper(this, Direction.DOWN),
+            new SidedInvWrapper(this, Direction.UP),
+            new SidedInvWrapper(this, Direction.NORTH),
+            new SidedInvWrapper(this, Direction.SOUTH),
+            new SidedInvWrapper(this, Direction.WEST),
+            new SidedInvWrapper(this, Direction.EAST)
+    };
     private int progress = 0;
     private int maxProgress = 72;
     private AbstractMillstoneRecipe currentRecipe = null;
@@ -166,6 +177,13 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         return itemHandler;
     }
 
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null) {
+            return this.itemHandler;
+        }
+        return sidedHandlers[side.get3DDataValue()];
+    }
+
     @Override
     public Component getDisplayName() {
         return Component.translatable("block.modestmining.millstone");
@@ -229,7 +247,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
-        return true;
+        return slot != 0;
     }
 
     @Override

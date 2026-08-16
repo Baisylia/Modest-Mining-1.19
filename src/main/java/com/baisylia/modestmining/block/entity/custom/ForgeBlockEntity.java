@@ -28,7 +28,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,6 +60,14 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
                 resetProgress();
             }
         }
+    };
+    private final IItemHandlerModifiable[] sidedHandlers = new IItemHandlerModifiable[]{
+            new SidedInvWrapper(this, Direction.DOWN),
+            new SidedInvWrapper(this, Direction.UP),
+            new SidedInvWrapper(this, Direction.NORTH),
+            new SidedInvWrapper(this, Direction.SOUTH),
+            new SidedInvWrapper(this, Direction.WEST),
+            new SidedInvWrapper(this, Direction.EAST)
     };
 
     public ForgeBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
@@ -230,6 +241,13 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
         return itemHandler;
     }
 
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null) {
+            return this.itemHandler;
+        }
+        return sidedHandlers[side.get3DDataValue()];
+    }
+
     @Override
     public Component getDisplayName() {
         return Component.translatable("block.modestmining.forge");
@@ -349,7 +367,13 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
-        return true;
+        if (direction == Direction.DOWN && slot == 10) {
+            return true;
+        }
+        if (direction != Direction.UP && slot == 9 && !isForgeFuel(this.level, itemStack)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
