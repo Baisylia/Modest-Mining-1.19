@@ -203,7 +203,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
     public boolean isCrude() {
         ItemStack stack = this.getPickupItem();
         if (!stack.isEmpty() && stack.getItem() instanceof JavelinItem javelin) {
-            return javelin.getTier() == Tiers.WOOD || javelin.getTier() == Tiers.STONE;
+            return javelin.getTier() == Tiers.WOOD || javelin.getTier() == Tiers.STONE || javelin.getTier() == ModTiers.FLINT;
         }
         return false;
     }

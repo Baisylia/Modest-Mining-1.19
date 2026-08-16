@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "modestmining:flint_javelin",
     "modestmining:wooden_javelin",
     "modestmining:stone_javelin",
     "modestmining:golden_javelin",

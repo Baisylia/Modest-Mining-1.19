@@ -2,6 +2,7 @@ package com.baisylia.modestmining.entity.ai;
 
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.custom.ThrownJavelinEntity;
+import com.baisylia.modestmining.item.ModTiers;
 import com.baisylia.modestmining.item.custom.weapons.JavelinItem;
 import com.baisylia.modestmining.sounds.ModSounds;
 import net.minecraft.core.Holder;
@@ -142,7 +143,7 @@ public class JavelinAttackGoal extends Goal {
             double dz = target.getZ() - this.mob.getZ();
             double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
             javelin.shoot(dx, dy + horizontalDistance * (double) 0.2F, dz, 1.6F, (float) (14 - this.mob.level().getDifficulty().getId() * 4));
-            Holder<SoundEvent> soundHolder = (javelinItem.getTier() == Tiers.WOOD || javelinItem.getTier() == Tiers.STONE)
+            Holder<SoundEvent> soundHolder = (javelinItem.getTier() == Tiers.WOOD || javelinItem.getTier() == Tiers.STONE || javelinItem.getTier() == ModTiers.FLINT)
                     ? ModSounds.JAVELIN_THROW_CRUDE
                     : ModSounds.JAVELIN_THROW;
             this.mob.playSound(soundHolder.value(), 1.0F, 1.0F / (this.mob.getRandom().nextFloat() * 0.4F + 0.8F));

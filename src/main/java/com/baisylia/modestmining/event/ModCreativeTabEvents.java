@@ -172,6 +172,7 @@ public class ModCreativeTabEvents {
                     ModItems.VALKYRIUM_PICKAXE,
                     ModItems.VALKYRIUM_AXE,
                     ModItems.VALKYRIUM_HOE,
+                    ModItems.FLINT_HAMMER,
                     ModItems.WOODEN_HAMMER,
                     ModItems.STONE_HAMMER,
                     ModItems.BRONZE_HAMMER,
@@ -210,6 +211,7 @@ public class ModCreativeTabEvents {
                     ModItems.VALKYRIUM_AXE);
 
             insertAfter(event, Items.TRIDENT,
+                    ModItems.FLINT_JAVELIN,
                     ModItems.WOODEN_JAVELIN,
                     ModItems.STONE_JAVELIN,
                     ModItems.BRONZE_JAVELIN,
@@ -222,6 +224,7 @@ public class ModCreativeTabEvents {
                     ModItems.VALKYRIUM_JAVELIN);
 
             insertAfter(event, Items.MACE,
+                    ModItems.FLINT_HAMMER,
                     ModItems.WOODEN_HAMMER,
                     ModItems.STONE_HAMMER,
                     ModItems.BRONZE_HAMMER,

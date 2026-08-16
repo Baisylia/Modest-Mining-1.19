@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:flint_javelin"
+    }
+  ],
+  "results": [
+    {
+      "count": 1,
+      "chance": 0.5,
+      "id": "minecraft:flint"
+    }
+  ],
+  "cooktime": 200
+}

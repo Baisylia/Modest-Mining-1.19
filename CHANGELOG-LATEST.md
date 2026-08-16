@@ -1,4 +1,11 @@
+### Added
+
+- Added Flint Javelins and Hammers (why did I forget these, am I stupid).
+
+### Changed
+
+- Nerfed Javelin reach distance.
+
 ### Fixed
 
-- Fixed crude Javelin landing sounds being missing.
-- Fixed hoppers extracting input items from millstones.
+- Fixed Wooden/Stone Hammers and Javelins not being removed by Reliable Remover.

@@ -139,6 +139,7 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> VALKYRIUM_BOOTS = ITEMS.register("valkyrium_boots", () -> new ModArmorItem(ModArmourMaterials.VALKYRIUM, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(37))));
 
     // Hammers
+    public static final DeferredHolder<Item, Item> FLINT_HAMMER = ITEMS.register("flint_hammer", () -> new HammerItem(ModTiers.FLINT, 6.0f, -3.4f, new Item.Properties()));
     public static final DeferredHolder<Item, Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer", () -> new HammerItem(Tiers.WOOD, 6.0f, -3.4f, new Item.Properties()));
     public static final DeferredHolder<Item, Item> STONE_HAMMER = ITEMS.register("stone_hammer", () -> new HammerItem(Tiers.STONE, 7.0f, -3.4f, new Item.Properties()));
     public static final DeferredHolder<Item, Item> BRONZE_HAMMER = ITEMS.register("bronze_hammer", () -> new HammerItem(ModTiers.BRONZE, 7.0f, -3.4f, new Item.Properties()));
@@ -151,16 +152,17 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> VALKYRIUM_HAMMER = ITEMS.register("valkyrium_hammer", () -> new HammerItem(ModTiers.VALKYRIUM, 5.0f, -3.2f, new Item.Properties()));
 
     // Javelins
-    public static final DeferredHolder<Item, Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STONE_JAVELIN = ITEMS.register("stone_javelin", () -> new JavelinItem(Tiers.STONE, 2.0F, -2.9F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> BRONZE_JAVELIN = ITEMS.register("bronze_javelin", () -> new JavelinItem(ModTiers.BRONZE, 2.0F, -2.9F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> GOLDEN_JAVELIN = ITEMS.register("golden_javelin", () -> new JavelinItem(Tiers.GOLD, 2.0F, -2.9F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> IRON_JAVELIN = ITEMS.register("iron_javelin", () -> new JavelinItem(Tiers.IRON, 2.0F, -2.8F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STEEL_JAVELIN = ITEMS.register("steel_javelin", () -> new JavelinItem(ModTiers.STEEL, 2.0F, -2.8F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DIAMOND_JAVELIN = ITEMS.register("diamond_javelin", () -> new JavelinItem(Tiers.DIAMOND, 2.0F, -2.7F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> NETHERITE_JAVELIN = ITEMS.register("netherite_javelin", () -> new JavelinItem(Tiers.NETHERITE, 2.0F, -2.7F, 3.0F, new Item.Properties().fireResistant()));
-    public static final DeferredHolder<Item, Item> PRISMARITE_JAVELIN = ITEMS.register("prismarite_javelin", () -> new JavelinItem(ModTiers.PRISMARITE, 2.0F, -2.7F, 3.0F, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VALKYRIUM_JAVELIN = ITEMS.register("valkyrium_javelin", () -> new JavelinItem(ModTiers.VALKYRIUM, 2.0F, -2.7F, 3.0F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLINT_JAVELIN = ITEMS.register("flint_javelin", () -> new JavelinItem(ModTiers.FLINT, 2.0F, -2.9F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STONE_JAVELIN = ITEMS.register("stone_javelin", () -> new JavelinItem(Tiers.STONE, 2.0F, -2.9F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> BRONZE_JAVELIN = ITEMS.register("bronze_javelin", () -> new JavelinItem(ModTiers.BRONZE, 2.0F, -2.9F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> GOLDEN_JAVELIN = ITEMS.register("golden_javelin", () -> new JavelinItem(Tiers.GOLD, 2.0F, -2.9F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> IRON_JAVELIN = ITEMS.register("iron_javelin", () -> new JavelinItem(Tiers.IRON, 2.0F, -2.8F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STEEL_JAVELIN = ITEMS.register("steel_javelin", () -> new JavelinItem(ModTiers.STEEL, 2.0F, -2.8F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DIAMOND_JAVELIN = ITEMS.register("diamond_javelin", () -> new JavelinItem(Tiers.DIAMOND, 2.0F, -2.7F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> NETHERITE_JAVELIN = ITEMS.register("netherite_javelin", () -> new JavelinItem(Tiers.NETHERITE, 2.0F, -2.7F, 1.5F, new Item.Properties().fireResistant()));
+    public static final DeferredHolder<Item, Item> PRISMARITE_JAVELIN = ITEMS.register("prismarite_javelin", () -> new JavelinItem(ModTiers.PRISMARITE, 2.0F, -2.7F, 1.5F, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VALKYRIUM_JAVELIN = ITEMS.register("valkyrium_javelin", () -> new JavelinItem(ModTiers.VALKYRIUM, 2.0F, -2.7F, 1.5F, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -32,6 +32,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class JavelinItem extends Item {
@@ -81,7 +82,7 @@ public class JavelinItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(net.minecraft.world.level.Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (player.isAutoSpinAttack()) {
             return InteractionResultHolder.pass(itemstack);
@@ -107,7 +108,7 @@ public class JavelinItem extends Item {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, net.minecraft.world.level.Level level, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player player) {
             int i = this.getUseDuration(stack, entityLiving) - timeLeft;
             if (i >= 10) {
@@ -117,7 +118,7 @@ public class JavelinItem extends Item {
                     if (riptideStrength > 0.0F) {
                         soundHolder = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND)
                                 .orElse(SoundEvents.TRIDENT_RIPTIDE_1);
-                    } else if (this.tier == Tiers.WOOD || this.tier == Tiers.STONE) {
+                    } else if (this.tier == Tiers.WOOD || this.tier == Tiers.STONE || this.tier == ModTiers.FLINT) {
                         soundHolder = ModSounds.JAVELIN_THROW_CRUDE;
                     } else {
                         soundHolder = ModSounds.JAVELIN_THROW;

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "modestmining:flint_hammer",
     "modestmining:stone_hammer",
     "modestmining:wooden_hammer",
     "modestmining:golden_hammer",

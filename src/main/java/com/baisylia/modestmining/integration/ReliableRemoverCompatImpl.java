@@ -18,7 +18,9 @@ public class ReliableRemoverCompatImpl {
             "minecraft:wooden_axe", "modestmining:flint_hatchet",
             "minecraft:wooden_pickaxe", "modestmining:flint_mattock",
             "minecraft:wooden_shovel", "modestmining:flint_spade",
-            "minecraft:wooden_hoe", "modestmining:flint_hoe"
+            "minecraft:wooden_hoe", "modestmining:flint_hoe",
+            "modestmining:wooden_hammer", "modestmining:flint_hammer",
+            "modestmining:wooden_javelin", "modestmining:flint_javelin"
     );
 
     private static final Map<String, String> STONE_TO_BRONZE = Map.of(
