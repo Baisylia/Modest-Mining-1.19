@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "modestmining:flint_hammer",
     "modestmining:stone_hammer",
     "modestmining:wooden_hammer",
     "modestmining:golden_hammer",
@@ -8,6 +9,7 @@
     "modestmining:diamond_hammer",
     "modestmining:netherite_hammer",
     "modestmining:prismarite_hammer",
+    "modestmining:valkyrium_hammer",
     "modestmining:bronze_hammer",
     "modestmining:steel_hammer"
   ]

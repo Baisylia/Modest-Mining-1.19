@@ -1,23 +1,23 @@
 {
   "variants": {
-    "facing=north,part=top_left": { "model": "modestmining:block/clam" },
-    "facing=east,part=top_left": { "model": "modestmining:block/clam", "y": 90 },
-    "facing=south,part=top_left": { "model": "modestmining:block/clam", "y": 180 },
-    "facing=west,part=top_left": { "model": "modestmining:block/clam", "y": 270 },
+    "facing=north,part=top_left": { "model": "modestmining:block/clam_top_left" },
+    "facing=east,part=top_left": { "model": "modestmining:block/clam_top_left", "y": 90 },
+    "facing=south,part=top_left": { "model": "modestmining:block/clam_top_left", "y": 180 },
+    "facing=west,part=top_left": { "model": "modestmining:block/clam_top_left", "y": 270 },
 
-    "facing=north,part=top_right": { "model": "modestmining:block/clam_dummy" },
-    "facing=east,part=top_right": { "model": "modestmining:block/clam_dummy" },
-    "facing=south,part=top_right": { "model": "modestmining:block/clam_dummy" },
-    "facing=west,part=top_right": { "model": "modestmining:block/clam_dummy" },
+    "facing=north,part=top_right": { "model": "modestmining:block/clam_top_right" },
+    "facing=east,part=top_right": { "model": "modestmining:block/clam_top_right", "y": 90 },
+    "facing=south,part=top_right": { "model": "modestmining:block/clam_top_right", "y": 180 },
+    "facing=west,part=top_right": { "model": "modestmining:block/clam_top_right", "y": 270 },
 
-    "facing=north,part=bottom_left": { "model": "modestmining:block/clam_dummy" },
-    "facing=east,part=bottom_left": { "model": "modestmining:block/clam_dummy" },
-    "facing=south,part=bottom_left": { "model": "modestmining:block/clam_dummy" },
-    "facing=west,part=bottom_left": { "model": "modestmining:block/clam_dummy" },
+    "facing=north,part=bottom_left": { "model": "modestmining:block/clam_bottom_left" },
+    "facing=east,part=bottom_left": { "model": "modestmining:block/clam_bottom_left", "y": 90 },
+    "facing=south,part=bottom_left": { "model": "modestmining:block/clam_bottom_left", "y": 180 },
+    "facing=west,part=bottom_left": { "model": "modestmining:block/clam_bottom_left", "y": 270 },
 
-    "facing=north,part=bottom_right": { "model": "modestmining:block/clam_dummy" },
-    "facing=east,part=bottom_right": { "model": "modestmining:block/clam_dummy" },
-    "facing=south,part=bottom_right": { "model": "modestmining:block/clam_dummy" },
-    "facing=west,part=bottom_right": { "model": "modestmining:block/clam_dummy" }
+    "facing=north,part=bottom_right": { "model": "modestmining:block/clam_bottom_right" },
+    "facing=east,part=bottom_right": { "model": "modestmining:block/clam_bottom_right", "y": 90 },
+    "facing=south,part=bottom_right": { "model": "modestmining:block/clam_bottom_right", "y": 180 },
+    "facing=west,part=bottom_right": { "model": "modestmining:block/clam_bottom_right", "y": 270 }
   }
 }

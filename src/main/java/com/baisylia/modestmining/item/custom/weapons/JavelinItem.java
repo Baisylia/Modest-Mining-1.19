@@ -192,7 +192,7 @@ public class JavelinItem extends Item implements Vanishable {
                                 javelin.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                             }
                             pLevel.addFreshEntity(javelin);
-                            SoundEvent throwSound = (this.tier == Tiers.WOOD || this.tier == Tiers.STONE)
+                            SoundEvent throwSound = (this.tier == Tiers.WOOD || this.tier == Tiers.STONE || this.tier == ModTiers.FLINT)
                                     ? ModSounds.JAVELIN_THROW_CRUDE.get()
                                     : ModSounds.JAVELIN_THROW.get();
                             pLevel.playSound(null, javelin, throwSound, SoundSource.PLAYERS, 1.0F, 1.0F);

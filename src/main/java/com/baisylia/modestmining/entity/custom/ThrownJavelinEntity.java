@@ -51,6 +51,15 @@ public class ThrownJavelinEntity extends AbstractArrow {
         this.entityData.set(DATA_JAVELIN_STACK, stack.copy());
         this.entityData.set(DATA_LOYALTY, (byte) EnchantmentHelper.getLoyalty(stack));
         this.entityData.set(DATA_FOIL, stack.hasFoil());
+        this.setSoundEvent(this.getDefaultHitGroundSoundEvent());
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (DATA_JAVELIN_STACK.equals(key)) {
+            this.setSoundEvent(this.getDefaultHitGroundSoundEvent());
+        }
     }
 
     @Override
@@ -182,7 +191,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
         ItemStack stack = this.getPickupItem();
         if (!stack.isEmpty() && stack.getItem() instanceof JavelinItem javelin) {
             Tier tier = javelin.getTier();
-            return tier == Tiers.WOOD || tier == Tiers.STONE;
+            return tier == Tiers.WOOD || tier == Tiers.STONE || tier == ModTiers.FLINT;
         }
         return false;
     }
@@ -225,6 +234,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
             this.entityData.set(DATA_JAVELIN_STACK, this.javelinStack.copy());
             this.entityData.set(DATA_LOYALTY, (byte) EnchantmentHelper.getLoyalty(this.javelinStack));
             this.entityData.set(DATA_FOIL, this.javelinStack.hasFoil());
+            this.setSoundEvent(this.getDefaultHitGroundSoundEvent());
         }
         this.dealtDamage = tag.getBoolean("DealtDamage");
     }

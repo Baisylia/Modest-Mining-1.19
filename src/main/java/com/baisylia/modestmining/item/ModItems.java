@@ -185,6 +185,8 @@ public class ModItems {
             new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
 
     // Hammers
+    public static final RegistryObject<Item> FLINT_HAMMER = ITEMS.register("flint_hammer", () -> new HammerItem(ModTiers.FLINT, 7, -3.4f,
+            new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
     public static final RegistryObject<Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer", () -> new HammerItem(Tiers.WOOD, 7, -3.4f,
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
     public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("stone_hammer", () -> new HammerItem(Tiers.STONE, 7, -3.4f,
@@ -207,6 +209,8 @@ public class ModItems {
             new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 
     // Javelins
+    public static final RegistryObject<Item> FLINT_JAVELIN = ITEMS.register("flint_javelin", () -> new JavelinItem(ModTiers.FLINT, 2.0F, -2.9F, 1.5F,
+            new Item.Properties().durability(ModTiers.FLINT.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
     public static final RegistryObject<Item> WOODEN_JAVELIN = ITEMS.register("wooden_javelin", () -> new JavelinItem(Tiers.WOOD, 2.0F, -2.9F, 1.5F,
             new Item.Properties().durability(Tiers.WOOD.getUses()).tab(CreativeModeTab.TAB_COMBAT)));
     public static final RegistryObject<Item> STONE_JAVELIN = ITEMS.register("stone_javelin", () -> new JavelinItem(Tiers.STONE, 2.0F, -2.9F, 1.5F,

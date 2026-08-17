@@ -369,7 +369,10 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider, World
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack itemStack, Direction direction) {
-        return true;
+        if (direction == Direction.DOWN && slot == 10) {
+            return true;
+        }
+        return direction != Direction.UP && slot == 9 && !ForgeFuelManager.isFuel(itemStack);
     }
 
     @Override

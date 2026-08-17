@@ -1,0 +1,32 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Modest Mining",
+	"ambientocclusion": false,
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "modestmining:block/clam",
+		"particle": "modestmining:item/shell"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 2],
+			"to": [16, 3, 16],
+			"faces": {
+				"north": {"uv": [3, 6.375, 5, 6.75], "texture": "#0"},
+				"west": {"uv": [7, 6.375, 8.75, 6.75], "texture": "#0"},
+				"up": {"uv": [3, 3.375, 5, 5.125], "texture": "#0"},
+				"down": {"uv": [7, 3.375, 9, 5.125], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 3, 2],
+			"to": [16, 6, 16],
+			"faces": {
+				"north": {"uv": [3, 3, 5, 3.375], "texture": "#0"},
+				"west": {"uv": [7, 3, 8.75, 3.375], "texture": "#0"},
+				"up": {"uv": [3, 2.75, 5, 1.1458], "texture": "#0"},
+				"down": {"uv": [7, 0, 9, 1.75], "texture": "#0"}
+			}
+		}
+	]
+}

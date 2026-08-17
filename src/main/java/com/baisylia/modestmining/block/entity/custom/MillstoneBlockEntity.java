@@ -22,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -38,16 +37,15 @@ import java.util.Optional;
 
 public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, StackedContentsCompatible {
 
-    protected final ContainerData data;
-
-    private int progress = 0;
-    private int maxProgress = 72;
-
     private static final int[] INGREDIENT_SLOTS =
             new int[]{0};
-
+    protected final ContainerData data;
+    private final RecipeManager.CachedCheck<Container, AbstractMillstoneRecipe>
+            quickCheck = RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
+    LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+    private int progress = 0;
+    private int maxProgress = 72;
     private AbstractMillstoneRecipe currentRecipe = null;
-
     private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
 
         @Override
@@ -59,11 +57,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
             }
         }
     };
-
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-
-    private final RecipeManager.CachedCheck<Container, AbstractMillstoneRecipe>
-            quickCheck = RecipeManager.createCheck(ModRecipes.MILLING_TYPE.get());
 
     public MillstoneBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.MILLSTONE_BLOCK_ENTITY.get(),
@@ -93,84 +87,6 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
                 return 2;
             }
         };
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.modestmining.millstone");
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new MillstoneMenu(id, inventory, this, this.data);
-    }
-
-    LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (side == null && cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast();
-        }
-
-        if (!this.remove && side != null
-                && cap == ForgeCapabilities.ITEM_HANDLER) {
-
-            if (side == Direction.UP) {
-                return handlers[0].cast();
-            }
-            else if (side == Direction.DOWN) {
-                return handlers[1].cast();
-            }
-            else {
-                return handlers[2].cast();
-            }
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag tag) {
-        tag.put("inventory", itemHandler.serializeNBT());
-        tag.putInt("millstone.progress", progress);
-        tag.putInt("millstone.max_progress", maxProgress);
-
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-
-        progress = nbt.getInt("millstone.progress");
-        maxProgress = nbt.getInt("millstone.max_progress");
-    }
-
-    public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-
-        Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, MillstoneBlockEntity entity) {
@@ -287,6 +203,80 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
         level.addFreshEntity(entity);
     }
 
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.modestmining.millstone");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new MillstoneMenu(id, inventory, this, this.data);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (side == null && cap == ForgeCapabilities.ITEM_HANDLER) {
+            return lazyItemHandler.cast();
+        }
+
+        if (!this.remove && side != null
+                && cap == ForgeCapabilities.ITEM_HANDLER) {
+
+            if (side == Direction.UP) {
+                return handlers[0].cast();
+            } else if (side == Direction.DOWN) {
+                return handlers[1].cast();
+            } else {
+                return handlers[2].cast();
+            }
+        }
+
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyItemHandler.invalidate();
+    }
+
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag tag) {
+        tag.put("inventory", itemHandler.serializeNBT());
+        tag.putInt("millstone.progress", progress);
+        tag.putInt("millstone.max_progress", maxProgress);
+
+        super.saveAdditional(tag);
+    }
+
+    @Override
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
+
+        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+
+        progress = nbt.getInt("millstone.progress");
+        maxProgress = nbt.getInt("millstone.max_progress");
+    }
+
+    public void drops() {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
     private void resetProgress() {
         this.progress = 0;
         this.maxProgress = 72;
@@ -320,8 +310,7 @@ public class MillstoneBlockEntity extends BlockEntity implements MenuProvider, W
     public boolean canTakeItemThroughFace(int slot,
                                           ItemStack stack,
                                           Direction direction) {
-
-        return true;
+        return slot != 0;
     }
 
     @Override

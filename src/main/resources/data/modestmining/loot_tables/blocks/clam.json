@@ -4,6 +4,15 @@
     {
       "rolls": 1.0,
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "modestmining:clam",
+          "properties": {
+            "part": "top_left"
+          }
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -47,6 +56,13 @@
       "rolls": 1.0,
       "bonus_rolls": 0.0,
       "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "modestmining:clam",
+          "properties": {
+            "part": "top_left"
+          }
+        },
         {
           "condition": "minecraft:inverted",
           "term": {

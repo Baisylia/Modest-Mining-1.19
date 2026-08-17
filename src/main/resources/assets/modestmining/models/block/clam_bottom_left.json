@@ -1,0 +1,43 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Modest Mining",
+	"ambientocclusion": false,
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "modestmining:block/clam",
+		"particle": "modestmining:item/shell"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 3, 10],
+			"faces": {
+				"south": {"uv": [12, 6.375, 14, 6.75], "texture": "#0"},
+				"west": {"uv": [8.75, 6.375, 10, 6.75], "texture": "#0"},
+				"up": {"uv": [3, 5.125, 5, 6.375], "texture": "#0"},
+				"down": {"uv": [7, 5.125, 9, 6.375], "texture": "#0"}
+			}
+		},
+		{
+			"from": [8, 0, 10],
+			"to": [16, 6, 16],
+			"faces": {
+				"north": {"uv": [6.25, 7.5, 7.25, 8.25], "texture": "#0"},
+				"south": {"uv": [9.25, 6.75, 10.25, 7.375], "texture": "#0"},
+				"west": {"uv": [8.25, 7.125, 9, 7.875], "texture": "#0"},
+				"up": {"uv": [6.25, 7.5, 7.25, 6.75], "texture": "#0"},
+				"down": {"uv": [8.25, 6.75, 9.25, 7.375], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 3, 0],
+			"to": [16, 6, 10],
+			"faces": {
+				"south": {"uv": [12, 3, 14, 3.375], "texture": "#0"},
+				"west": {"uv": [8.75, 3, 10, 3.375], "texture": "#0"},
+				"up": {"uv": [3, 1.1458, 5, 0], "texture": "#0"},
+				"down": {"uv": [7, 1.75, 9, 3], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -141,30 +142,43 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
             Direction facing = state.getValue(FACING);
             BlockPos mainPos = getMainPos(pos, part, facing);
 
-            for (ClamPart p : ClamPart.values()) {
-                BlockPos partPos = getPosForPart(mainPos, p, facing);
-                if (!partPos.equals(pos) && !partPos.equals(mainPos)) {
-                    BlockState targetState = level.getBlockState(partPos);
-                    if (targetState.is(this)) {
-                        boolean isWater = targetState.getValue(WATERLOGGED);
-                        level.setBlock(partPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+            if (player.isCreative()) {
+                for (ClamPart p : ClamPart.values()) {
+                    BlockPos partPos = getPosForPart(mainPos, p, facing);
+                    if (!partPos.equals(pos)) {
+                        BlockState targetState = level.getBlockState(partPos);
+                        if (targetState.is(this)) {
+                            boolean isWater = targetState.getValue(WATERLOGGED);
+                            level.setBlock(partPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                            level.levelEvent(player, 2001, partPos, Block.getId(targetState));
+                        }
                     }
                 }
-            }
-
-            if (!pos.equals(mainPos)) {
+            } else {
                 BlockState mainState = level.getBlockState(mainPos);
-                if (mainState.is(this)) {
-                    if (!player.isCreative()) {
-                        level.destroyBlock(mainPos, true, player);
-                    } else {
-                        boolean isWater = mainState.getValue(WATERLOGGED);
-                        level.setBlock(mainPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                if (!mainState.is(this)) {
+                    mainState = state.setValue(PART, ClamPart.TOP_LEFT);
+                }
+                dropResources(mainState, level, mainPos, null, player, player.getMainHandItem());
+
+                for (ClamPart p : ClamPart.values()) {
+                    BlockPos partPos = getPosForPart(mainPos, p, facing);
+                    if (!partPos.equals(pos)) {
+                        BlockState targetState = level.getBlockState(partPos);
+                        if (targetState.is(this)) {
+                            boolean isWater = targetState.getValue(WATERLOGGED);
+                            level.setBlock(partPos, isWater ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState(), 35);
+                        }
                     }
                 }
             }
         }
         super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, tool);
     }
 
     @Override
@@ -174,8 +188,18 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        BlockPos below = pos.below();
-        return level.getBlockState(below).isFaceSturdy(level, below, Direction.UP);
+        ClamPart part = state.getValue(PART);
+        Direction facing = state.getValue(FACING);
+        BlockPos mainPos = getMainPos(pos, part, facing);
+
+        for (ClamPart p : ClamPart.values()) {
+            BlockPos partPos = getPosForPart(mainPos, p, facing);
+            BlockPos belowPos = partPos.below();
+            if (level.getBlockState(belowPos).isFaceSturdy(level, belowPos, Direction.UP)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -186,6 +210,20 @@ public class ClamBlock extends Block implements SimpleWaterloggedBlock {
         if (!state.canSurvive(level, currentPos)) {
             return state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
         }
+
+        ClamPart part = state.getValue(PART);
+        Direction facing = state.getValue(FACING);
+        BlockPos mainPos = getMainPos(currentPos, part, facing);
+
+        for (ClamPart p : ClamPart.values()) {
+            if (p == part) continue;
+            BlockPos targetPos = getPosForPart(mainPos, p, facing);
+            BlockState targetState = level.getBlockState(targetPos);
+            if (!targetState.is(this) || targetState.getValue(FACING) != facing || targetState.getValue(PART) != p) {
+                return state.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+            }
+        }
+
         return super.updateShape(state, direction, neighborState, level, currentPos, neighborPos);
     }
 

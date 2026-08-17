@@ -204,6 +204,7 @@ public class ModestMining {
             MenuScreens.register(ModMenuTypes.MILLSTONE_MENU.get(), MillstoneScreen::new);
             event.enqueueWork(() -> {
                 List<RegistryObject<Item>> javelins = List.of(
+                        ModItems.FLINT_JAVELIN,
                         ModItems.WOODEN_JAVELIN, ModItems.STONE_JAVELIN, ModItems.BRONZE_JAVELIN, ModItems.GOLDEN_JAVELIN,
                         ModItems.IRON_JAVELIN, ModItems.STEEL_JAVELIN, ModItems.DIAMOND_JAVELIN, ModItems.NETHERITE_JAVELIN,
                         ModItems.PRISMARITE_JAVELIN, ModItems.VALKYRIUM_JAVELIN

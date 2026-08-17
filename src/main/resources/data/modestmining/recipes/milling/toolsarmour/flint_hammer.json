@@ -1,0 +1,17 @@
+{
+  "type": "modestmining:milling",
+  "category": "tools",
+  "ingredients": [
+    {
+      "item": "modestmining:flint_hammer"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:flint",
+      "count": 1,
+      "chance": 0.5
+    }
+  ],
+  "cooktime": 200
+}

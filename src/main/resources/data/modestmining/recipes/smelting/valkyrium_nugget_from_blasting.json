@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": [
+    {
+      "item": "modestmining:valkyrium_pickaxe"
+    },
+    {
+      "item": "modestmining:valkyrium_shovel"
+    },
+    {
+      "item": "modestmining:valkyrium_axe"
+    },
+    {
+      "item": "modestmining:valkyrium_hoe"
+    },
+    {
+      "item": "modestmining:valkyrium_sword"
+    },
+    {
+      "item": "modestmining:valkyrium_helmet"
+    },
+    {
+      "item": "modestmining:valkyrium_chestplate"
+    },
+    {
+      "item": "modestmining:valkyrium_leggings"
+    },
+    {
+      "item": "modestmining:valkyrium_boots"
+    },
+    {
+      "item": "modestmining:valkyrium_hammer"
+    }
+  ],
+  "result": "modestmining:valkyrium_nugget",
+  "experience": 0.1,
+  "cookingtime": 100
+}

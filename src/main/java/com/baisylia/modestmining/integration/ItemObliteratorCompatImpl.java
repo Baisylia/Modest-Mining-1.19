@@ -36,6 +36,11 @@ public class ItemObliteratorCompatImpl {
             "minecraft:iron_boots"
     );
 
+    private static final List<String> MODESTMINING_WOOD_TOOLS = Arrays.asList(
+            "modestmining:wooden_hammer",
+            "modestmining:wooden_javelin"
+    );
+
     private static final List<String> MODESTMINING_STONE_TOOLS = Arrays.asList(
             "modestmining:stone_hammer",
             "modestmining:stone_javelin"
@@ -65,8 +70,10 @@ public class ItemObliteratorCompatImpl {
         boolean modified = false;
 
         if (ModConfig.FLINT_REPLACES_WOOD.get()) {
-            modified |= addIfAbsent(blacklist, WOOD_TOOLS);
-            if (modified) ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted wooden tools.");
+            boolean changed = addIfAbsent(blacklist, WOOD_TOOLS);
+            changed |= addIfAbsent(blacklist, MODESTMINING_WOOD_TOOLS);
+            if (changed) ModestMining.LOGGER.info("Item Obliterator Integration: blacklisted wooden tools.");
+            modified |= changed;
         }
         if (ModConfig.BRONZE_REPLACES_STONE.get()) {
             boolean changed = addIfAbsent(blacklist, STONE_TOOLS);

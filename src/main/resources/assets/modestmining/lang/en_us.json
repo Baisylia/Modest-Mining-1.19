@@ -138,6 +138,7 @@
   "item.modestmining.valkyrium_boots": "Valkyrium Boots",
 
   "item.modestmining.flint_mallet": "Flint Mallet",
+  "item.modestmining.flint_hammer": "Flint Hammer",
   "item.modestmining.wooden_hammer": "Wooden Hammer",
   "item.modestmining.stone_hammer": "Stone Hammer",
   "item.modestmining.bronze_hammer": "Bronze Hammer",
@@ -185,6 +186,7 @@
   "item.modestmining.prismarite_mace": "Prismarite Mace",
 
 
+  "item.modestmining.flint_javelin": "Flint Javelin",
   "item.modestmining.wooden_javelin": "Wooden Javelin",
   "item.modestmining.stone_javelin": "Stone Javelin",
   "item.modestmining.bronze_javelin": "Bronze Javelin",
@@ -410,6 +412,9 @@
 
   "tooltip.modestmining.millstone.powered": "Powered",
   "tooltip.modestmining.millstone.not_powered": "Not Powered",
+
+  "entity.modestmining.thrown_javelin": "Thrown Javelin",
+
   "modestmining.subtitles.forge.crackle": "Forge crackles",
   "modestmining.subtitles.item.javelin.throw": "Javelin shoots",
   "modestmining.subtitles.item.javelin.hit_ground": "Javelin sticks",

@@ -27,6 +27,9 @@
     },
     {
       "item": "modestmining:prismarite_boots"
+    },
+    {
+      "item": "modestmining:prismarite_hammer"
     }
   ],
   "result": "modestmining:prismarite_nugget",

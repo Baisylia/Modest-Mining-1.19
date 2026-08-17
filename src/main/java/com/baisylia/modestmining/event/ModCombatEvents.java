@@ -23,7 +23,9 @@ public class ModCombatEvents {
             return;
         }
 
-        float resistance = (float) magicResistance.getValue();
-        event.setAmount(event.getAmount() * (1.0F - resistance));
+        float resistance = (float) Math.min(magicResistance.getValue(), 1.0D);
+        if (resistance > 0.0F) {
+            event.setAmount(event.getAmount() * (1.0F - resistance));
+        }
     }
 }
