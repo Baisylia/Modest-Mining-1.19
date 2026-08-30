@@ -1,6 +1,5 @@
 package com.baisylia.modestmining.item;
 
-import com.baisylia.modestmining.util.ModTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
@@ -9,7 +8,7 @@ import net.neoforged.neoforge.common.SimpleTier;
 
 public class ModTiers {
 
-    public static final Tier FLINT = new SimpleTier(ModTags.Blocks.NEEDS_FLINT_TOOL, 45, 1.0f, 0.0f, 2,
+    public static final Tier FLINT = new SimpleTier(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 45, 1.0f, 0.0f, 2,
             () -> Ingredient.of(Items.FLINT));
 
     public static final Tier COPPER = new SimpleTier(BlockTags.INCORRECT_FOR_STONE_TOOL, 600, 4.0f, 1.0f, 10,

@@ -1,3 +1,3 @@
-### Fixed
+### Changed
 
-- Fixed Netherite Hammer model.
+- Nerfed blocks that the Flint tool tier can mine.
