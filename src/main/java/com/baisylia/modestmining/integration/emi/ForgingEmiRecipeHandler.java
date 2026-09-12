@@ -27,7 +27,7 @@ public class ForgingEmiRecipeHandler implements StandardRecipeHandler<ForgeMenu>
     @Override
     public List<Slot> getCraftingSlots(ForgeMenu handler) {
         List<Slot> list = Lists.newArrayList();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             list.add(handler.getSlot(i));
         }
         return list;

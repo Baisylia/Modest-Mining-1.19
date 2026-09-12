@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,6 +22,7 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.RecipeMatcher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ForgeRecipe extends AbstractForgeRecipe {
@@ -58,7 +58,7 @@ public class ForgeRecipe extends AbstractForgeRecipe {
             return false;
         }
         StackedContents stackedcontents = new StackedContents();
-        List<ItemStack> inputs = new java.util.ArrayList<>();
+        List<ItemStack> inputs = new ArrayList<>();
         int i = 0;
 
         for (int j = 0; j < 9; ++j) {

@@ -71,10 +71,10 @@ public class ReliableRemoverCompatImpl {
 
         try {
             if (!activeReplacements.isEmpty()) {
-//                ReliableRemoverAPI.registerDynamicReplacements(PROVIDER_ID, activeReplacements);
+                ReliableRemoverAPI.registerDynamicReplacements(PROVIDER_ID, activeReplacements);
                 ModestMining.LOGGER.info("Reliable Remover Integration: registered {} dynamic replacement rules.", activeReplacements.size());
             } else {
-//                ReliableRemoverAPI.unregisterDynamicRules(PROVIDER_ID);
+                ReliableRemoverAPI.unregisterDynamicRules(PROVIDER_ID);
                 ModestMining.LOGGER.info("Reliable Remover Integration: cleared dynamic replacement rules.");
             }
         } catch (Throwable t) {

@@ -8,8 +8,10 @@ import com.baisylia.modestmining.entity.ModEntityTypes;
 import com.baisylia.modestmining.entity.renderer.ThrownJavelinRenderer;
 import com.baisylia.modestmining.integration.ReliableRemoverCompat;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,6 +44,14 @@ public class ModEvents {
         @SubscribeEvent
         public static void entityAttributeModificationEvent(EntityAttributeModificationEvent event) {
             event.add(EntityType.PLAYER, ModAttributes.MAGIC_RESISTANCE.get());
+        }
+    }
+
+    @Mod.EventBusSubscriber(modid = ModestMining.MOD_ID)
+    public static class GameEvents {
+        @SubscribeEvent
+        public static void onAddReloadListener(AddReloadListenerEvent event) {
+            event.addListener((ResourceManagerReloadListener) resourceManager -> ReliableRemoverCompat.applyBlacklist());
         }
     }
 }

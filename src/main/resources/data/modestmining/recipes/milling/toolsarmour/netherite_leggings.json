@@ -2,18 +2,25 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:netherite_leggings" }
+    {
+      "item": "minecraft:netherite_leggings"
+    }
   ],
   "results": [
     {
-      "item": "minecraft:diamond",
-      "count": 2,
-      "chance": 1.0
+      "count": 3,
+      "chance": 1.0,
+      "item": "minecraft:diamond"
     },
     {
-      "item": "modestmining:diamond_shard",
-      "count": 4,
-      "chance": 1.0
+      "count": 8,
+      "chance": 1.0,
+      "item": "modestmining:diamond_shard"
+    },
+    {
+      "count": 1,
+      "chance": 1.0,
+      "item": "minecraft:netherite_scrap"
     }
   ],
   "cooktime": 200

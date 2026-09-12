@@ -145,7 +145,7 @@ public class ThrownJavelinEntity extends AbstractArrow {
         }
 
         Entity owner = this.getOwner();
-        DamageSource damagesource = owner.damageSources().trident(this, owner == null ? this : owner);
+        DamageSource damagesource = this.damageSources().trident(this, owner == null ? this : owner);
         this.dealtDamage = true;
         SoundEvent soundevent = this.isCritArrow() ? ModSounds.CRITICAL_PIERCE.get() : ModSounds.JAVELIN_HIT.get();
         if (entity.hurt(damagesource, f)) {

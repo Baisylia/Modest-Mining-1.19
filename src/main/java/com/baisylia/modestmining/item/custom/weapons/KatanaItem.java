@@ -19,26 +19,28 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 
 import java.util.UUID;
 
 public class KatanaItem extends TieredItem {
+    protected static final UUID ATTACK_RANGE_MODIFIER = UUID.fromString("63d316c1-7d6d-41be-81c3-41fc1a216c27");
     private final float attackDamage;
     private final float speed;
     private final float reach;
-
-    protected static final UUID ATTACK_RANGE_MODIFIER = UUID.fromString("63d316c1-7d6d-41be-81c3-41fc1a216c27");
-    private Supplier<Multimap<Attribute, AttributeModifier>> toolAttributes = Suppliers.memoize(this::createDefaultAttributes);
+    private final Supplier<Multimap<Attribute, AttributeModifier>> toolAttributes = Suppliers.memoize(this::createDefaultAttributes);
 
     public KatanaItem(Tier tier, int damage, float speedIn, float reachIn, Properties properties) {
         super(tier, properties);
-        this.attackDamage = (float)damage + tier.getAttackDamageBonus();
+        this.attackDamage = (float) damage + tier.getAttackDamageBonus();
         this.speed = speedIn;
         this.reach = reachIn;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", this.speed, AttributeModifier.Operation.ADDITION));
     }
+
     private Multimap<Attribute, AttributeModifier> createDefaultAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
@@ -46,6 +48,7 @@ public class KatanaItem extends TieredItem {
         builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(ATTACK_RANGE_MODIFIER, "Weapon modifier", this.reach, AttributeModifier.Operation.ADDITION));
         return builder.build();
     }
+
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
         return slot == EquipmentSlot.MAINHAND ? this.toolAttributes.get() : super.getAttributeModifiers(slot, stack);
@@ -93,7 +96,7 @@ public class KatanaItem extends TieredItem {
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+        return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 }

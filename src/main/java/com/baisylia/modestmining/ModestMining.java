@@ -45,6 +45,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -71,7 +72,7 @@ public class ModestMining {
         eventBus.addListener(this::addPackFinders);
         eventBus.addListener(ModCreativeTabEvents::buildCreativeTabContents);
 
-        ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, ModConfig.SPEC, "modestmining-common.toml");
+        ModLoadingContext.get().registerConfig(Type.COMMON, ModConfig.SPEC, "modestmining-common.toml");
         ModConditions.register(eventBus);
 
         ModAttributes.register(eventBus);

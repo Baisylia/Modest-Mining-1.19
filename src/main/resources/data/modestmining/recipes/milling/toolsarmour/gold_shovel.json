@@ -2,18 +2,15 @@
   "type": "modestmining:milling",
   "category": "tools",
   "ingredients": [
-    { "item": "minecraft:golden_shovel" }
+    {
+      "item": "minecraft:golden_shovel"
+    }
   ],
   "results": [
     {
-      "item": "minecraft:gold_ingot",
-      "count": 2,
-      "chance": 1.0
-    },
-    {
-      "item": "minecraft:gold_nugget",
-      "count": 4,
-      "chance": 1.0
+      "count": 5,
+      "chance": 1.0,
+      "item": "minecraft:gold_nugget"
     }
   ],
   "cooktime": 200

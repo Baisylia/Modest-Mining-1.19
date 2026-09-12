@@ -8,14 +8,14 @@
   ],
   "results": [
     {
-      "item": "modestmining:bronze_ingot",
       "count": 2,
-      "chance": 1.0
+      "chance": 1.0,
+      "item": "modestmining:bronze_ingot"
     },
     {
-      "item": "modestmining:bronze_nugget",
-      "count": 4,
-      "chance": 1.0
+      "count": 7,
+      "chance": 1.0,
+      "item": "modestmining:bronze_nugget"
     }
   ],
   "cooktime": 200

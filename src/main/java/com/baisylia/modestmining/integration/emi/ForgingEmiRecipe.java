@@ -9,7 +9,6 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -48,8 +47,8 @@ public class ForgingEmiRecipe implements EmiRecipe {
     }
 
     private static List<EmiIngredient> padIngredients(AbstractForgeRecipe recipe) {
+        List<EmiIngredient> result = new ArrayList<>();
         if (recipe instanceof ForgeShapedRecipe shapedRecipe) {
-            List<EmiIngredient> result = new ArrayList<>();
             int index = 0;
             for (int y = 0; y < 3; y++) {
                 for (int x = 0; x < 3; x++) {
@@ -60,9 +59,17 @@ public class ForgingEmiRecipe implements EmiRecipe {
                     }
                 }
             }
-            return result;
+        } else {
+            var ingredients = recipe.getIngredients();
+            for (int i = 0; i < 9; i++) {
+                if (i < ingredients.size()) {
+                    result.add(EmiIngredient.of(ingredients.get(i)));
+                } else {
+                    result.add(EmiStack.EMPTY);
+                }
+            }
         }
-        return recipe.getIngredients().stream().map(EmiIngredient::of).toList();
+        return result;
     }
 
     @Override
@@ -77,12 +84,9 @@ public class ForgingEmiRecipe implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return this.input;
-    }
-
-    @Override
-    public List<EmiIngredient> getCatalysts() {
-        return (this.fuelTier > 0 && !this.fuel.isEmpty()) ? List.of(this.fuel) : List.of();
+        List<EmiIngredient> inputs = new ArrayList<>(this.input);
+        inputs.add(this.fuel);
+        return inputs;
     }
 
     @Override
@@ -131,12 +135,13 @@ public class ForgingEmiRecipe implements EmiRecipe {
         Component timeString = Component.translatable("emi.cooking.time", this.cookTime / 20);
         widgets.addFillingArrow(60, 18, this.cookTime * 100).tooltipText(Collections.singletonList(timeString));
 
-        if (this.fuelTier > 0) {
-            Component fuelTooltip = getFuelTooltip();
-            widgets.addSlot(this.fuel, 63, 36).appendTooltip(fuelTooltip);
-        } else {
+        if (this.fuel.isEmpty()) {
             widgets.addTexture(EmiTexture.EMPTY_FLAME, 64, 39);
-            widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 64, 39, 4000, false, true, true);
+            widgets.addAnimatedTexture(EmiTexture.FULL_FLAME, 64, 39, 6000, false, true, true);
+        } else if (this.fuelTier > 0) {
+            widgets.addSlot(this.fuel, 63, 36).appendTooltip(getFuelTooltip());
+        } else {
+            widgets.addSlot(this.fuel, 63, 36);
         }
 
         widgets.addSlot(this.output, 92, 14).large(true).recipeContext(this);

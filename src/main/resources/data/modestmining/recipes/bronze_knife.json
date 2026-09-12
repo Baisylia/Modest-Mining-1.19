@@ -1,24 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "modestmining:forging_shaped",
+  "category": "equipment",
+  "cooktime": 144,
+  "key": {
+    "X": {
+      "item": "minecraft:stick"
+    },
+    "#": {
+      "item": "modestmining:bronze_ingot"
+    }
+  },
+  "pattern": [
+    "#",
+    "X"
+  ],
+  "result": {
+    "item": "modestmining:bronze_knife"
+  },
   "conditions": [
     {
       "type": "forge:mod_loaded",
       "modid": "farmersdelight"
     }
-  ],
-  "pattern": [
-    "B",
-    "#"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "B": {
-      "item": "modestmining:bronze_ingot"
-    }
-  },
-  "result": {
-    "item": "modestmining:bronze_knife"
-  }
+  ]
 }

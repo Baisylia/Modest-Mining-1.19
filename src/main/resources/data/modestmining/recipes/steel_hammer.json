@@ -19,10 +19,6 @@
     "tag": "modestmining:forge_fuels_tier_1"
   },
   "result": {
-<<<<<<<< HEAD:src/main/resources/data/minecraft/recipes/brush.json
-    "item": "minecraft:brush"
-========
     "item": "modestmining:steel_hammer"
->>>>>>>> main:src/main/resources/data/modestmining/recipes/steel_hammer.json
   }
 }

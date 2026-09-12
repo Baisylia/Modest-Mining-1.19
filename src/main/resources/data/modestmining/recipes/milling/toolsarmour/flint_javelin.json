@@ -8,9 +8,9 @@
   ],
   "results": [
     {
-      "item": "minecraft:flint",
       "count": 1,
-      "chance": 0.5
+      "chance": 0.5,
+      "item": "minecraft:flint"
     }
   ],
   "cooktime": 200

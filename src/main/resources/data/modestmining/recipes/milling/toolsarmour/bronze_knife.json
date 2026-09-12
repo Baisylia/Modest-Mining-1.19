@@ -1,11 +1,5 @@
 {
   "type": "modestmining:milling",
-  "conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "farmersdelight"
-    }
-  ],
   "category": "tools",
   "ingredients": [
     {
@@ -14,15 +8,16 @@
   ],
   "results": [
     {
-      "item": "modestmining:bronze_ingot",
-      "count": 2,
-      "chance": 1.0
-    },
-    {
-      "item": "modestmining:bronze_nugget",
-      "count": 4,
-      "chance": 1.0
+      "count": 5,
+      "chance": 1.0,
+      "item": "modestmining:bronze_nugget"
     }
   ],
-  "cooktime": 200
+  "cooktime": 200,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "farmersdelight"
+    }
+  ]
 }

@@ -8,14 +8,14 @@
   ],
   "results": [
     {
-      "item": "modestmining:steel_ingot",
-      "count": 2,
-      "chance": 1.0
+      "count": 3,
+      "chance": 1.0,
+      "item": "modestmining:steel_ingot"
     },
     {
-      "item": "modestmining:steel_nugget",
-      "count": 4,
-      "chance": 1.0
+      "count": 8,
+      "chance": 1.0,
+      "item": "modestmining:steel_nugget"
     }
   ],
   "cooktime": 200

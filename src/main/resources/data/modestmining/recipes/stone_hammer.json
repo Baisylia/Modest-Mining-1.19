@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "modestmining:config_enabled",
+      "feature": "not_bronze_replaces_stone"
+    }
+  ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "X",

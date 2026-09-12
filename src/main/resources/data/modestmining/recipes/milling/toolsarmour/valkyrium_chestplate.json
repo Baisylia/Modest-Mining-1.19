@@ -8,14 +8,14 @@
   ],
   "results": [
     {
-      "item": "modestmining:valkyrium_ingot",
-      "count": 2,
-      "chance": 1.0
+      "count": 4,
+      "chance": 1.0,
+      "item": "modestmining:valkyrium_ingot"
     },
     {
-      "item": "modestmining:valkyrium_nugget",
       "count": 4,
-      "chance": 1.0
+      "chance": 1.0,
+      "item": "modestmining:valkyrium_nugget"
     }
   ],
   "cooktime": 200
