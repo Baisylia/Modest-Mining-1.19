@@ -6,7 +6,9 @@ import com.baisylia.modestmining.block.entity.ModBlockEntities;
 import com.baisylia.modestmining.config.ModConditions;
 import com.baisylia.modestmining.config.ModConfig;
 import com.baisylia.modestmining.entity.ModEntityTypes;
+import com.baisylia.modestmining.client.ClientConfigSetup;
 import com.baisylia.modestmining.event.ModCreativeTabEvents;
+import com.baisylia.modestmining.loot.ModLootModifiers;
 import com.baisylia.modestmining.integration.farmersdelight.FarmersDelightCompat;
 import com.baisylia.modestmining.item.ModItems;
 import com.baisylia.modestmining.recipe.ForgeFuelManager;
@@ -49,6 +51,7 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.forgespi.locating.IModFile;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.resource.PathPackResources;
@@ -86,6 +89,11 @@ public class ModestMining {
         ModRecipes.register(eventBus);
         ModEntityTypes.register(eventBus);
         ModSounds.SOUND_EVENTS.register(eventBus);
+        ModLootModifiers.register(eventBus);
+
+        if (FMLEnvironment.dist.isClient()) {
+            ClientConfigSetup.register(ModLoadingContext.get().getActiveContainer());
+        }
 
         MinecraftForge.EVENT_BUS.register(this);
     }

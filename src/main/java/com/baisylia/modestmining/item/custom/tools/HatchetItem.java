@@ -10,13 +10,13 @@ public class HatchetItem extends AxeItem {
     }
 
     @Override
-    public boolean hasCraftingRemainingItem() {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return true;
     }
 
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-        ItemStack retval = new ItemStack(this);
+        ItemStack retval = itemStack.copy();
         retval.setDamageValue(itemStack.getDamageValue() + 1);
         if (retval.getDamageValue() >= retval.getMaxDamage()) {
             return ItemStack.EMPTY;

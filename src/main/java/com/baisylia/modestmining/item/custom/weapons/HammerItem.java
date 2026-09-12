@@ -18,10 +18,10 @@ public class HammerItem extends TieredItem implements Vanishable {
 
     public HammerItem(Tier p_43269_, int p_43270_, float p_43271_, Properties p_43272_) {
         super(p_43269_, p_43272_);
-        this.attackDamage = (float)p_43270_ + p_43269_.getAttackDamageBonus();
+        this.attackDamage = (float) p_43270_ + p_43269_.getAttackDamageBonus();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double)p_43271_, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", p_43271_, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
@@ -29,7 +29,7 @@ public class HammerItem extends TieredItem implements Vanishable {
         return this.attackDamage;
     }
 
-        public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
+    public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
         p_43278_.hurtAndBreak(1, p_43280_, (p_43296_) -> {
             p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
         });
@@ -41,13 +41,13 @@ public class HammerItem extends TieredItem implements Vanishable {
     }
 
     @Override
-    public boolean hasCraftingRemainingItem() {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return true;
     }
 
     @Override
     public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-        ItemStack retval = new ItemStack(this);
+        ItemStack retval = itemStack.copy();
         retval.setDamageValue(itemStack.getDamageValue() + 1);
         if (retval.getDamageValue() >= retval.getMaxDamage()) {
             return ItemStack.EMPTY;

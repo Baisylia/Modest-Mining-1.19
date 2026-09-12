@@ -58,6 +58,9 @@ public class ModConfig {
     public static final ForgeConfigSpec.BooleanValue GENERATE_CLAMS;
     public static final ForgeConfigSpec.BooleanValue GENERATE_METEORITES;
 
+    public static final ForgeConfigSpec.BooleanValue GENERATE_COPPER_SCREW_LOOT;
+    public static final ForgeConfigSpec.DoubleValue COPPER_SCREW_LOOT_CHANCE;
+
     public static final ForgeConfigSpec.BooleanValue DROWNED_SPAWN_WITH_JAVELINS;
     public static final ForgeConfigSpec.BooleanValue ZOMBIES_SPAWN_WITH_JAVELINS;
     public static final ForgeConfigSpec.BooleanValue ZOMBIES_THROW_JAVELINS;
@@ -79,6 +82,11 @@ public class ModConfig {
         GENERATE_SILVER_ORE = BUILDER.comment("Generate Silver Ore in the Overworld.").define("generate_silver_ore", true);
         GENERATE_CLAMS = BUILDER.comment("Generate Clams on Cold Ocean Floors.").define("generate_clams", true);
         GENERATE_METEORITES = BUILDER.comment("Generate Meteorites in the Overworld.").define("generate_meteorites", true);
+        BUILDER.pop();
+
+        BUILDER.push("loot");
+        GENERATE_COPPER_SCREW_LOOT = BUILDER.comment("Add a chance for Copper Screws to be found in archaeology loot.").define("generate_copper_screw_loot", true);
+        COPPER_SCREW_LOOT_CHANCE = BUILDER.comment("Chance for Copper Screws to be found in archaeology loot (0.0 to 1.0).").defineInRange("copper_screw_loot_chance", 0.07, 0.0, 1.0);
         BUILDER.pop();
 
         BUILDER.push("replacements");
@@ -172,6 +180,8 @@ public class ModConfig {
         registerCondition("generate_silver_ore", GENERATE_SILVER_ORE);
         registerCondition("generate_clams", GENERATE_CLAMS);
         registerCondition("generate_meteorites", GENERATE_METEORITES);
+
+        registerCondition("generate_copper_screw_loot", GENERATE_COPPER_SCREW_LOOT);
 
         registerCondition("drowned_spawn_with_javelins", DROWNED_SPAWN_WITH_JAVELINS);
         registerCondition("zombies_spawn_with_javelins", ZOMBIES_SPAWN_WITH_JAVELINS);
