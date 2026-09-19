@@ -3,17 +3,17 @@
   "category": "equipment",
   "cooktime": 144,
   "key": {
-    "X": {
+    "B": {
       "item": "minecraft:stick"
     },
-    "#": {
-      "item": "modestmining:steel_block"
+    "A": {
+      "item": "modestmining:steel_ingot"
     }
   },
   "pattern": [
-    "#",
-    "X",
-    "X"
+    "AAA",
+    "ABA",
+    " B "
   ],
   "fuel": {
     "tag": "modestmining:forge_fuels_tier_1"

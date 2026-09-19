@@ -7,18 +7,15 @@
   ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "FXF",
-    " # ",
-    " # "
+    "AAA",
+    "ABA",
+    " B "
   ],
   "key": {
-    "#": {
+    "B": {
       "item": "minecraft:stick"
     },
-    "X": {
-      "tag": "minecraft:logs"
-    },
-    "F": {
+    "A": {
       "tag": "minecraft:planks"
     }
   },

@@ -9,17 +9,17 @@
   "category": "equipment",
   "cooktime": 144,
   "key": {
-    "X": {
+    "B": {
       "item": "minecraft:stick"
     },
-    "#": {
-      "item": "minecraft:iron_block"
+    "A": {
+      "item": "minecraft:iron_ingot"
     }
   },
   "pattern": [
-    "#",
-    "X",
-    "X"
+    "AAA",
+    "ABA",
+    " B "
   ],
   "result": {
     "id": "modestmining:iron_hammer"

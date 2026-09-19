@@ -3,17 +3,17 @@
   "category": "equipment",
   "cooktime": 144,
   "key": {
-    "X": {
+    "B": {
       "item": "minecraft:stick"
     },
-    "#": {
-      "item": "minecraft:gold_block"
+    "A": {
+      "item": "minecraft:gold_ingot"
     }
   },
   "pattern": [
-    "#",
-    "X",
-    "X"
+    "AAA",
+    "ABA",
+    " B "
   ],
   "result": {
     "id": "modestmining:golden_hammer"

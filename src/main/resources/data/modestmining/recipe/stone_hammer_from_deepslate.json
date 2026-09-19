@@ -7,15 +7,15 @@
   ],
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "X",
-    "#",
-    "#"
+    "AAA",
+    "ABA",
+    " B "
   ],
   "key": {
-    "#": {
+    "B": {
       "item": "minecraft:stick"
     },
-    "X": {
+    "A": {
       "item": "minecraft:deepslate"
     }
   },
