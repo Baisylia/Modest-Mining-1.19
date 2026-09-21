@@ -15,7 +15,7 @@
       "item": "minecraft:string"
     },
     "C": {
-      "item": "minecraft:copper_ingot"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [

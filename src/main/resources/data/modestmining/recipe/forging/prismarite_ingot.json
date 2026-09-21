@@ -3,28 +3,28 @@
   "cooktime": 144,
   "ingredients": [
     {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     },
     {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     },
     {
-      "item": "minecraft:prismarine_crystals"
+      "tag": "c:gems/prismarine"
     },
     {
-      "item": "minecraft:prismarine_crystals"
-    },
-    {
-      "item": "modestmining:pearl"
+      "tag": "c:gems/prismarine"
     },
     {
       "item": "modestmining:pearl"
     },
     {
-      "item": "minecraft:gold_ingot"
+      "item": "modestmining:pearl"
     },
     {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
     }
   ],
   "fuel": {

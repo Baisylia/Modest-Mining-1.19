@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:raw_gold"
+      "tag": "c:raw_materials/gold"
     },
     {
-      "item": "minecraft:raw_gold"
+      "tag": "c:raw_materials/gold"
     },
     {
-      "item": "minecraft:raw_gold"
+      "tag": "c:raw_materials/gold"
     },
     {
       "tag": "modestmining:hammers"

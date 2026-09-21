@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:valkyrium_block"
+      "tag": "c:storage_blocks/valkyrium"
     }
   ],
   "result": {

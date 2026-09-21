@@ -3,7 +3,7 @@
   "category": "ores",
   "ingredients": [
     {
-      "item": "minecraft:raw_copper"
+      "tag": "c:raw_materials/copper"
     }
   ],
   "results": [

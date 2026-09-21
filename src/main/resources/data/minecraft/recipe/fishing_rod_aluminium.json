@@ -15,7 +15,7 @@
       "item": "minecraft:string"
     },
     "A": {
-      "item": "modestmining:aluminium_ingot"
+      "tag": "c:ingots/aluminium"
     }
   },
   "pattern": [

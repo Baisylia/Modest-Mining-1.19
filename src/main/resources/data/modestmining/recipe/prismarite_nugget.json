@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:prismarite_ingot"
+      "tag": "c:ingots/prismarite"
     }
   ],
   "result": {

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "modestmining:raw_aluminium"
+    "tag": "c:raw_materials/aluminium"
   },
   "result": {
     "id": "modestmining:aluminium_ingot"

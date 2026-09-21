@@ -15,7 +15,7 @@
       "item": "minecraft:tripwire_hook"
     },
     "&": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "~": {
       "item": "minecraft:string"

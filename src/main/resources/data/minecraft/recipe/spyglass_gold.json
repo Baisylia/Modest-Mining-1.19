@@ -10,7 +10,7 @@
   "cooktime": 144,
   "key": {
     "X": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     "#": {
       "item": "modestmining:amethyst"

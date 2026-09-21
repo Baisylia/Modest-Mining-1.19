@@ -9,7 +9,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "modestmining:lead_ingot"
+      "tag": "c:ingots/lead"
     }
   },
   "pattern": [

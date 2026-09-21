@@ -13,7 +13,7 @@
       "item": "minecraft:stick"
     },
     "#": {
-      "item": "modestmining:steel_ingot"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [

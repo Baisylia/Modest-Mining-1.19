@@ -15,7 +15,7 @@
       "item": "minecraft:stick"
     },
     "X": {
-      "item": "modestmining:silver_nugget"
+      "tag": "c:nuggets/silver"
     }
   },
   "pattern": [

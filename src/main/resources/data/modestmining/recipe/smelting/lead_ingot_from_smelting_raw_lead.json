@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "modestmining:raw_lead"
+    "tag": "c:raw_materials/lead"
   },
   "result": {
     "id": "modestmining:lead_ingot"

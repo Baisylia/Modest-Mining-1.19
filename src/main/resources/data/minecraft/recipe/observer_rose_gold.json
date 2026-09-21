@@ -12,13 +12,13 @@
       "item": "minecraft:cobblestone"
     },
     "Q": {
-      "item": "minecraft:quartz"
+      "tag": "c:gems/quartz"
     },
     "R": {
       "item": "minecraft:redstone"
     },
     "E": {
-      "item": "modestmining:rose_gold_ingot"
+      "tag": "c:ingots/rose_gold"
     }
   },
   "pattern": [

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:steel_block"
+      "tag": "c:storage_blocks/steel"
     }
   ],
   "result": {

@@ -9,7 +9,7 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     {
       "item": "minecraft:flint"

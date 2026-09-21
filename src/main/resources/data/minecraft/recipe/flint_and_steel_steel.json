@@ -9,7 +9,7 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "modestmining:steel_ingot"
+      "tag": "c:ingots/steel"
     },
     {
       "item": "minecraft:flint"

@@ -2,7 +2,7 @@
   "type": "minecraft:blasting",
   "ingredient": [
     {
-      "item": "modestmining:iron_dust"
+      "tag": "c:dusts/iron"
     }
   ],
   "result": {

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:valkyrium_ingot"
+      "tag": "c:ingots/valkyrium"
     }
   ],
   "result": {

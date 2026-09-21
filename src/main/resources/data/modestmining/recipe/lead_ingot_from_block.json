@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:lead_block"
+      "tag": "c:storage_blocks/lead"
     }
   ],
   "result": {

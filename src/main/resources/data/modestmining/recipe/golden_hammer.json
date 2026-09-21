@@ -7,7 +7,7 @@
       "item": "minecraft:stick"
     },
     "A": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [

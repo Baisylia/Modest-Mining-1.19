@@ -12,7 +12,7 @@
       "item": "minecraft:smooth_stone"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "X": {
       "item": "minecraft:furnace"

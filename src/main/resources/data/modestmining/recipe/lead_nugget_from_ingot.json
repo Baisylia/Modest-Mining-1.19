@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:lead_ingot"
+      "tag": "c:ingots/lead"
     }
   ],
   "result": {

@@ -3,7 +3,7 @@
   "category": "ores",
   "ingredients": [
     {
-      "item": "minecraft:lapis_lazuli"
+      "tag": "c:gems/lapis"
     }
   ],
   "results": [

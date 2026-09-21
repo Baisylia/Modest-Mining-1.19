@@ -10,7 +10,7 @@
   "cooktime": 144,
   "key": {
     "#": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     }
   },
   "pattern": [

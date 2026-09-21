@@ -2,7 +2,7 @@
   "type": "minecraft:blasting",
   "ingredient": [
     {
-      "item": "modestmining:debris_dust"
+      "tag": "c:dusts/netherite"
     }
   ],
   "result": {

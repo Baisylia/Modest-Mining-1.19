@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "modestmining:silver_dust"
+    "tag": "c:dusts/silver"
   },
   "result": {
     "id": "modestmining:silver_ingot"

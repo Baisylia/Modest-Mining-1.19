@@ -9,7 +9,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     "B": {
       "item": "minecraft:blaze_rod"

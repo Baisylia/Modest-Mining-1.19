@@ -3,7 +3,7 @@
   "category": "ores",
   "ingredients": [
     {
-      "item": "minecraft:raw_gold"
+      "tag": "c:raw_materials/gold"
     }
   ],
   "results": [

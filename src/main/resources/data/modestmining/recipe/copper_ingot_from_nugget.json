@@ -3,31 +3,31 @@
   "group": "copper_ingot",
   "ingredients": [
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     {
-      "item": "modestmining:copper_nugget"
+      "tag": "c:nuggets/copper"
     }
   ],
   "result": {

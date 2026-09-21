@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:rose_gold_block"
+      "tag": "c:storage_blocks/rose_gold"
     }
   ],
   "result": {

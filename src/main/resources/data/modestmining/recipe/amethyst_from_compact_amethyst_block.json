@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:compact_amethyst_block"
+      "tag": "c:storage_blocks/compact_amethyst"
     }
   ],
   "result": {

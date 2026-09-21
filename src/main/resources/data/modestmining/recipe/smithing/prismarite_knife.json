@@ -11,7 +11,7 @@
     "item": "farmersdelight:diamond_knife"
   },
   "addition": {
-    "item": "modestmining:prismarite_ingot"
+    "tag": "c:ingots/prismarite"
   },
   "result": {
     "id": "modestmining:prismarite_knife"

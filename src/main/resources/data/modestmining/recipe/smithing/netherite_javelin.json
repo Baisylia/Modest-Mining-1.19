@@ -7,7 +7,7 @@
     "item": "modestmining:diamond_javelin"
   },
   "addition": {
-    "item": "minecraft:netherite_ingot"
+    "tag": "c:ingots/netherite"
   },
   "result": {
     "id": "modestmining:netherite_javelin"

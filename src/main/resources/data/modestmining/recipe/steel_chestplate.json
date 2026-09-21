@@ -4,7 +4,7 @@
   "cooktime": 144,
   "key": {
     "#": {
-      "item": "modestmining:steel_ingot"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [

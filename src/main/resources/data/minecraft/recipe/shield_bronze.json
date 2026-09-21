@@ -12,7 +12,7 @@
       "tag": "minecraft:planks"
     },
     "o": {
-      "item": "modestmining:bronze_ingot"
+      "tag": "c:ingots/bronze"
     }
   },
   "pattern": [

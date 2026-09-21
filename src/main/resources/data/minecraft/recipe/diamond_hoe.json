@@ -7,7 +7,7 @@
       "item": "minecraft:stick"
     },
     "#": {
-      "item": "minecraft:diamond"
+      "tag": "c:gems/diamond"
     }
   },
   "pattern": [

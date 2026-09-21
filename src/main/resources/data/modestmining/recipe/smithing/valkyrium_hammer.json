@@ -5,7 +5,7 @@
     "item": "modestmining:diamond_hammer"
   },
   "addition": {
-    "item": "modestmining:valkyrium_ingot"
+    "tag": "c:ingots/valkyrium"
   },
   "result": {
     "id": "modestmining:valkyrium_hammer"

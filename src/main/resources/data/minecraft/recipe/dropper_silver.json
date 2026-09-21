@@ -15,7 +15,7 @@
       "item": "minecraft:redstone"
     },
     "E": {
-      "item": "modestmining:silver_ingot"
+      "tag": "c:ingots/silver"
     }
   },
   "pattern": [

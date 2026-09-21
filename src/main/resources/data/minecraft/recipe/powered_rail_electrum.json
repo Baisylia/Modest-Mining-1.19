@@ -15,7 +15,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "item": "modestmining:electrum_nugget"
+      "tag": "c:nuggets/electrum"
     }
   },
   "pattern": [

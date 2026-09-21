@@ -3,7 +3,7 @@
   "category": "ores",
   "ingredients": [
     {
-      "item": "minecraft:diamond_block"
+      "tag": "c:storage_blocks/diamond"
     }
   ],
   "results": [

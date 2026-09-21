@@ -11,7 +11,7 @@
     "item": "farmersdelight:diamond_knife"
   },
   "addition": {
-    "item": "modestmining:valkyrium_ingot"
+    "tag": "c:ingots/valkyrium"
   },
   "result": {
     "id": "modestmining:valkyrium_knife"

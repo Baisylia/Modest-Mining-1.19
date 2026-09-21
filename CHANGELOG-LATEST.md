@@ -1,3 +1,3 @@
 ### Changed
 
-- Changed Hammer recipes (thanks, @xaideer!).
+- All recipes now properly use convention tags.

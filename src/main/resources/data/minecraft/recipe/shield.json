@@ -12,7 +12,7 @@
       "tag": "minecraft:planks"
     },
     "o": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     }
   },
   "pattern": [

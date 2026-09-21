@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "modestmining:coke_block"
+      "tag": "c:storage_blocks/coke"
     }
   ],
   "result": {

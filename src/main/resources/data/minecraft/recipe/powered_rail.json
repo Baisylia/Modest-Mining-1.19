@@ -15,7 +15,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [

@@ -12,10 +12,10 @@
       "tag": "minecraft:planks"
     },
     "X": {
-      "item": "minecraft:diamond"
+      "tag": "c:gems/diamond"
     },
     "E": {
-      "item": "modestmining:electrum_ingot"
+      "tag": "c:ingots/electrum"
     }
   },
   "pattern": [

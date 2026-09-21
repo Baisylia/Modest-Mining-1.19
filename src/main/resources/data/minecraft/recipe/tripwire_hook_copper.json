@@ -12,7 +12,7 @@
       "tag": "minecraft:planks"
     },
     "I": {
-      "item": "minecraft:copper_ingot"
+      "tag": "c:ingots/copper"
     },
     "S": {
       "item": "minecraft:stick"

@@ -12,10 +12,10 @@
       "item": "minecraft:redstone_torch"
     },
     "I": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     "X": {
-      "item": "minecraft:quartz"
+      "tag": "c:gems/quartz"
     }
   },
   "pattern": [

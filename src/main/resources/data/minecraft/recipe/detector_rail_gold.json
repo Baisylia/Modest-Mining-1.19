@@ -15,7 +15,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "item": "minecraft:gold_nugget"
+      "tag": "c:nuggets/gold"
     }
   },
   "pattern": [

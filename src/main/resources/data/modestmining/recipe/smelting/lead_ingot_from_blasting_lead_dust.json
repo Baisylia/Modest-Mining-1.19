@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "modestmining:lead_dust"
+    "tag": "c:dusts/lead"
   },
   "result": {
     "id": "modestmining:lead_ingot"

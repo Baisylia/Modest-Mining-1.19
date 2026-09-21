@@ -18,7 +18,7 @@
       "item": "minecraft:bow"
     },
     "E": {
-      "item": "modestmining:electrum_ingot"
+      "tag": "c:ingots/electrum"
     }
   },
   "pattern": [

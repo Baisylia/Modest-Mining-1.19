@@ -12,7 +12,7 @@
       "item": "minecraft:smooth_stone"
     },
     "I": {
-      "item": "modestmining:steel_ingot"
+      "tag": "c:ingots/steel"
     },
     "X": {
       "item": "minecraft:furnace"

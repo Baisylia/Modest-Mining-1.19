@@ -7,7 +7,7 @@
       "item": "minecraft:stick"
     },
     "A": {
-      "item": "modestmining:bronze_ingot"
+      "tag": "c:ingots/bronze"
     }
   },
   "pattern": [

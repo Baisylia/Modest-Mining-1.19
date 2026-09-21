@@ -3,16 +3,16 @@
   "cooktime": 144,
   "ingredients": [
     {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     {
-      "item": "modestmining:silver_ingot"
+      "tag": "c:ingots/silver"
     },
     {
-      "item": "modestmining:silver_ingot"
+      "tag": "c:ingots/silver"
     },
     {
       "item": "modestmining:meteoric_scrap"

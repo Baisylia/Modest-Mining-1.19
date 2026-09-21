@@ -5,7 +5,7 @@
     "item": "modestmining:diamond_javelin"
   },
   "addition": {
-    "item": "modestmining:prismarite_ingot"
+    "tag": "c:ingots/prismarite"
   },
   "result": {
     "id": "modestmining:prismarite_javelin"

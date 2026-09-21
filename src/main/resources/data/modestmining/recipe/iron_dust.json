@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:raw_iron"
+      "tag": "c:raw_materials/iron"
     },
     {
-      "item": "minecraft:raw_iron"
+      "tag": "c:raw_materials/iron"
     },
     {
-      "item": "minecraft:raw_iron"
+      "tag": "c:raw_materials/iron"
     },
     {
       "tag": "modestmining:hammers"

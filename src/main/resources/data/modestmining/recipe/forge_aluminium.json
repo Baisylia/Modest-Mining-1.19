@@ -13,7 +13,7 @@
   ],
   "key": {
     "#": {
-      "item": "modestmining:aluminium_ingot"
+      "tag": "c:ingots/aluminium"
     },
     "X": {
       "item": "minecraft:furnace"
