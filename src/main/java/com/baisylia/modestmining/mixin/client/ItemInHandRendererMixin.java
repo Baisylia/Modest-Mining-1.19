@@ -6,7 +6,6 @@ import com.mojang.math.Axis;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,10 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemInHandRendererMixin {
 
     @Shadow
-    protected abstract void applyItemArmTransform(PoseStack pMatrixStack, HumanoidArm pHand, float pEquippedProg);
+    protected abstract void applyItemArmTransform(PoseStack poseStack, HumanoidArm hand, float equippedProg);
 
     @Shadow
-    public abstract void renderItem(LivingEntity pLivingEntity, ItemStack pItemStack, ItemDisplayContext pTransformType, boolean pLeftHand, PoseStack pPoseStack, MultiBufferSource pBuffer, int pCombinedLight);
+    public abstract void renderItem(LivingEntity entity, ItemStack itemStack, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource buffer, int seed);
 
     @Inject(
             method = "renderArmWithItem",
@@ -33,37 +32,37 @@ public abstract class ItemInHandRendererMixin {
             cancellable = true
     )
     private void modestmining$renderJavelinSpinAttack(
-            AbstractClientPlayer pPlayer, float pPartialTicks, float pPitch,
-            InteractionHand pHand, float pSwingProgress, ItemStack pStack,
-            float pEquippedProgress, PoseStack pMatrixStack,
-            MultiBufferSource pBuffer, int pCombinedLight,
+            AbstractClientPlayer player, float partialTicks, float pitch,
+            InteractionHand hand, float swingProgress, ItemStack stack,
+            float equippedProgress, PoseStack poseStack,
+            MultiBufferSource buffer, int combinedLight,
             CallbackInfo ci
     ) {
-        if (pPlayer.isAutoSpinAttack() && pStack.getItem() instanceof JavelinItem) {
-            if (!pPlayer.isScoping()) {
-                boolean isMainHand = pHand == InteractionHand.MAIN_HAND;
-                HumanoidArm humanoidarm = isMainHand ? pPlayer.getMainArm() : pPlayer.getMainArm().getOpposite();
+        if (player.isAutoSpinAttack() && stack.getItem() instanceof JavelinItem) {
+            if (!player.isScoping()) {
+                boolean isMainHand = hand == InteractionHand.MAIN_HAND;
+                HumanoidArm humanoidarm = isMainHand ? player.getMainArm() : player.getMainArm().getOpposite();
                 boolean isRightArm = humanoidarm == HumanoidArm.RIGHT;
                 int side = isRightArm ? 1 : -1;
 
-                pMatrixStack.pushPose();
-                this.applyItemArmTransform(pMatrixStack, humanoidarm, pEquippedProgress);
+                poseStack.pushPose();
+                this.applyItemArmTransform(poseStack, humanoidarm, equippedProgress);
 
-                pMatrixStack.translate(0.0F, 0.20F, -0.30F);
-                pMatrixStack.mulPose(Axis.XP.rotationDegrees(-140.0F));
-                pMatrixStack.mulPose(Axis.YP.rotationDegrees((float) side * -80.0F));
-                pMatrixStack.mulPose(Axis.ZP.rotationDegrees((float) side * -90.0F));
+                poseStack.translate(0.0F, 0.20F, -0.30F);
+                poseStack.mulPose(Axis.XP.rotationDegrees(-140.0F));
+                poseStack.mulPose(Axis.YP.rotationDegrees((float) side * -80.0F));
+                poseStack.mulPose(Axis.ZP.rotationDegrees((float) side * -90.0F));
 
                 this.renderItem(
-                        pPlayer,
-                        pStack,
+                        player,
+                        stack,
                         isRightArm ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND,
                         !isRightArm,
-                        pMatrixStack,
-                        pBuffer,
-                        pCombinedLight
+                        poseStack,
+                        buffer,
+                        combinedLight
                 );
-                pMatrixStack.popPose();
+                poseStack.popPose();
             }
             ci.cancel();
         }
