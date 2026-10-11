@@ -81,8 +81,7 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> METEORIC_DUST = ITEMS.register("meteoric_dust", () -> new Item(new Item.Properties()));
 
     // TOOLS
-    public static final DeferredHolder<Item, Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, -2.8f, ModTiers.COPPER,
-            new Item.Properties().durability(450)));
+    public static final DeferredHolder<Item, Item> CHISEL = ITEMS.register("chisel", () -> new ChiselItem(0f, -2.8f, ModTiers.COPPER, new Item.Properties()));
 
     // Flint
     public static final DeferredHolder<Item, Item> FLINT_BLADE = ITEMS.register("flint_blade", () -> new SwordItem(ModTiers.FLINT, new Item.Properties().attributes(SwordItem.createAttributes(ModTiers.FLINT, 3, -2.4f))));

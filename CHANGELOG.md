@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.6] - 2026-10-11
+
+### Added
+
+- Added Modest Mining tools and weapons to the `c:tools/melee_weapon`, `c:tools/ranged_weapon`, `c:tools/mining_tool`
+  and `c:tools/spear` tags.
+
+### Changed
+
+- Removed Hammers from the weapon enchantable tag, so they no longer accept Smite or Bane of Arthropods.
+
+### Fixed
+
+- Fixed the Valkyrium Hammer not accepting Unbreaking or Mending, and not working in recipes that use Hammers.
+- Fixed the Flint Javelin missing from the `c:tools/javelins` tag.
+- Fixed the Chisel having 600 durability instead of 450.
+
 ## [1.4.5] - 2026-09-20
 
 ### Changed

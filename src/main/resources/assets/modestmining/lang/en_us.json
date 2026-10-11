@@ -143,41 +143,6 @@
   "item.modestmining.prismarite_hammer": "Prismarite Hammer",
   "item.modestmining.valkyrium_hammer": "Valkyrium Hammer",
 
-  "item.modestmining.flint_poleaxe": "Flint Poleaxe",
-  "item.modestmining.wooden_glaive": "Wooden Glaive",
-  "item.modestmining.stone_glaive": "Stone Glaive",
-  "item.modestmining.golden_glaive": "Golden Glaive",
-  "item.modestmining.rose_gold_glaive": "Rose Gold Glaive",
-  "item.modestmining.iron_glaive": "Iron Glaive",
-  "item.modestmining.steel_glaive": "Steel Glaive",
-  "item.modestmining.diamond_glaive": "Diamond Glaive",
-  "item.modestmining.netherite_glaive": "Netherite Glaive",
-  "item.modestmining.prismarite_glaive": "Prismarite Glaive",
-
-  "item.modestmining.flint_tanto": "Flint Tanto",
-  "item.modestmining.wooden_katana": "Wooden Katana",
-  "item.modestmining.stone_katana": "Stone Katana",
-  "item.modestmining.golden_katana": "Golden Katana",
-  "item.modestmining.rose_gold_katana": "Rose Gold Katana",
-  "item.modestmining.iron_katana": "Iron Katana",
-  "item.modestmining.steel_katana": "Steel Katana",
-  "item.modestmining.diamond_katana": "Diamond Katana",
-  "item.modestmining.netherite_katana": "Netherite Katana",
-  "item.modestmining.prismarite_katana": "Prismarite Katana",
-
-
-  "item.modestmining.flint_bludgeon": "Flint Bludgeon",
-  "item.modestmining.wooden_mace": "Wooden Mace",
-  "item.modestmining.stone_mace": "Stone Mace",
-  "item.modestmining.golden_mace": "Golden Mace",
-  "item.modestmining.rose_gold_mace": "Rose Gold Mace",
-  "item.modestmining.iron_mace": "Iron Mace",
-  "item.modestmining.steel_mace": "Steel Mace",
-  "item.modestmining.diamond_mace": "Diamond Mace",
-  "item.modestmining.netherite_mace": "Netherite Mace",
-  "item.modestmining.prismarite_mace": "Prismarite Mace",
-
-
   "item.modestmining.flint_javelin": "Flint Javelin",
   "item.modestmining.wooden_javelin": "Wooden Javelin",
   "item.modestmining.stone_javelin": "Stone Javelin",
@@ -190,13 +155,10 @@
   "item.modestmining.prismarite_javelin": "Prismarite Javelin",
   "item.modestmining.valkyrium_javelin": "Valkyrium Javelin",
 
-
   "item.modestmining.bronze_knife": "Bronze Knife",
   "item.modestmining.steel_knife": "Steel Knife",
   "item.modestmining.prismarite_knife": "Prismarite Knife",
   "item.modestmining.valkyrium_knife": "Valkyrium Knife",
-
-
 
   "block.modestmining.coke_block": "Block of Coke",
   "block.modestmining.coal_powder_block": "Block of Coal Powder",

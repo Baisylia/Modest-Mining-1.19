@@ -11,7 +11,7 @@ public class ModTiers {
     public static final Tier FLINT = new SimpleTier(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 45, 1.0f, 0.0f, 2,
             () -> Ingredient.of(Items.FLINT));
 
-    public static final Tier COPPER = new SimpleTier(BlockTags.INCORRECT_FOR_STONE_TOOL, 600, 4.0f, 1.0f, 10,
+    public static final Tier COPPER = new SimpleTier(BlockTags.INCORRECT_FOR_STONE_TOOL, 450, 4.0f, 1.0f, 10,
             () -> Ingredient.of(Items.COPPER_INGOT));
 
     public static final Tier COPPER_TOOL = new SimpleTier(BlockTags.INCORRECT_FOR_STONE_TOOL, 300, 2.0f, 1.0f, 10,
