@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.7] - 2026-10-27
+
+### Added
+
+- Added the `modestmining:correct_for_flint_tool` block tag, for blocks that the Flint Mattock can mine above the wooden tier.
+
+### Changed
+
+- The Flint Mattock can now mine copper and aluminium ores, raw copper and aluminium blocks and copper blocks.
+
 ## [1.4.6] - 2026-10-11
 
 ### Added
